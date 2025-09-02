@@ -12,9 +12,9 @@ public enum StreetType
 public partial class GraphEdge : Node3D
 {
 
-	private GraphNode begin;
-	private GraphNode end;
-	private StreetType type;
+	private readonly GraphNode begin;
+	private readonly GraphNode end;
+	private readonly StreetType type;
 
 	/// <summary>
 	/// Member initialisieren

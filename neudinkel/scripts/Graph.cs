@@ -1,6 +1,28 @@
 using Godot;
 using System;
 
+public enum GraphSearchAlgorithm
+{
+	A_STAR,
+	DIJKSTRA,
+	DFS
+}
+
+/// <summary>
+/// Bildet den Zustand einer Wegfindung ab.
+/// </summary>
+public class GraphSearchState
+{
+	
+	private readonly GraphSearchAlgorithm algorithm;
+	
+	public GraphSearchState(GraphSearchAlgorithm algorithm)
+	{
+		
+	}
+	
+}
+
 public partial class Graph : Node3D
 {
 

@@ -10,8 +10,8 @@ public partial class GraphNode : Node3D
 	/// abgebildet. Jede zweite Zeile wird im world-space also
 	/// um 0.5*width verschoben.
 	/// </summary> 
-	private int tilePosX;
-	private int tilePosY;
+	private readonly int tilePosX;
+	private readonly int tilePosY;
 	
 	/// <summary>
 	/// Benachbarte Kanten.
