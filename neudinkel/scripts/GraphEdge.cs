@@ -21,14 +21,15 @@ public partial class GraphEdge : Node3D
 	/// </summary>
 	public GraphEdge(GraphNode begin, GraphNode end, StreetType type)
 	{
-		
+		// TODO(jbrause)
 	}
 	
 	/// <summary>
-	/// Berechnet die Traversierungskosten der Kante
+	/// Berechnet die Traversierungskosten der Kante anhand des Typs
 	/// </summary>
 	public float getCost()
 	{
+		// TODO(jbrause oder mkolb2)
 		return 0.0f;
 	}
 

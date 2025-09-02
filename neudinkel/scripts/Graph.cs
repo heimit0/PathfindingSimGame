@@ -15,10 +15,11 @@ public class GraphSearchState
 {
 	
 	private readonly GraphSearchAlgorithm algorithm;
+	private readonly Graph g;
 	
-	public GraphSearchState(GraphSearchAlgorithm algorithm)
+	public GraphSearchState(Graph g, GraphSearchAlgorithm algorithm)
 	{
-		
+		// TODO(jbrause)
 	}
 	
 }
@@ -29,10 +30,7 @@ public partial class Graph : Node3D
 	/// <summary>
 	/// Erstellt ein Graph-Objekt
 	/// </summary>
-	public Graph()
-	{
-		 
-	}
+	public Graph() { }
 	
 	/// <summary>
 	/// Iteriert durch alle Kindknoten und gibt
@@ -41,11 +39,7 @@ public partial class Graph : Node3D
 	/// <returns> Das angefragte Tile, oder null falls es das nicht gibt. </returns>
 	public GraphNode getTile(int tilePosX, int tilePosY)
 	{
-		return null;
-	}
-	
-	public GraphEdge[] getRoute(GraphNode from, GraphNode to)
-	{
+		// TODO(mkolb2)
 		return null;
 	}
 
