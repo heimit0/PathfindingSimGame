@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// Alle moeglichen Typen fuer eine Strasse
 /// </summary>
-enum StreetType
+public enum StreetType
 {
 	DEFAULT
 };
@@ -22,6 +22,14 @@ public partial class GraphEdge : Node3D
 	public GraphEdge(GraphNode begin, GraphNode end, StreetType type)
 	{
 		
+	}
+	
+	/// <summary>
+	/// Berechnet die Traversierungskosten der Kante
+	/// </summary>
+	public float getCost()
+	{
+		return 0.0f;
 	}
 
 }

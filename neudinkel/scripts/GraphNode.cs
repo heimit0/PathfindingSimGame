@@ -12,7 +12,14 @@ public partial class GraphNode : Node3D
 	/// </summary> 
 	private int tilePosX;
 	private int tilePosY;
-
+	
+	/// <summary>
+	/// Benachbarte Kanten.
+	/// Muss aktuell mit der Edge Liste synchron
+	/// gehalten werden.
+	/// </summary>
+	private GraphEdge[] neighbors;
+	
 	/// <summary>
 	/// Konstruktor.
 	/// Berechnet automatisch die Position
