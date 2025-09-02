@@ -13,20 +13,19 @@ public enum StreetType
 public partial class GraphEdge : Node3D
 {
 
-	private readonly GraphNode begin;
-	private readonly GraphNode end;
-	private readonly StreetType type;
+	private GraphNode begin;
+	private GraphNode end;
+	private StreetType type;
 
-	/// <summary>
-	/// Member initialisieren
-	/// </summary>
-	public GraphEdge(GraphNode begin, GraphNode end, StreetType type)
+	public override void _Ready()
 	{
-		// TODO(jbrause)
+		base._Ready();
 		// TODO(hsimosse): Beim Erstellen soll automatisch ein passendes Modell geladen
 		// und als Kindobjekt hinzugefuegt werden. Eventuell gleich updateModel nutzen?
 	}
-	
+
+	public override void _Process(double delta) { }
+
 	/// <summary>
 	/// Aktualisiert das gerenderte Modell je nach Status.
 	/// </summary> 
@@ -44,6 +43,8 @@ public partial class GraphEdge : Node3D
 		// TODO(jbrause oder mkolb2)
 		return 0.0f;
 	}
+
+	// TODO(mkolb2): Setter
 
 	public GraphNode getBeginNode()
 	{

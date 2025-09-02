@@ -10,8 +10,8 @@ public partial class GraphNode : Node3D
 	/// abgebildet. Jede zweite Zeile wird im world-space also
 	/// um 0.5*breite verschoben.
 	/// </summary>
-	private readonly int tilePosX;
-	private readonly int tilePosY;
+	private int tilePosX;
+	private int tilePosY;
 	
 	/// <summary>
 	/// Benachbarte Kanten.
@@ -20,19 +20,14 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	private GraphEdge[] neighbors;
 	
-	/// <summary>
-	/// Konstruktor.
-	/// Berechnet automatisch die Position
-	/// in der Welt aus der tilePos.
-	/// </summary>
-	public GraphNode(int tilePosX, int tilePosY)
+public override void _Ready()
 	{
-		this.tilePosX = tilePosX;
-		this.tilePosY = tilePosY;
-		// TODO(mkolb2): Berechnung Weltkoordinaten (siehe Kommentar an Variablen oben)
+		base._Ready();
 		// TODO(hsimosse): Beim Erstellen soll automatisch ein passendes Modell geladen
 		// und als Kindobjekt hinzugefuegt werden. Eventuell gleich updateModel nutzen?
 	}
+
+	public override void _Process(double delta) { }
 
 	/// <summary>
 	/// Aktualisiert das gerenderte Modell je nach Status.
@@ -61,8 +56,8 @@ public partial class GraphNode : Node3D
 	{
 		// TODO(jbrause)
 	}
-	
-	// TODO(jbrause): Weitere Getter implementieren, Setter nur wo sinnvoll
-	// (Tipp: Als readonly gesetzte Variablen koennen nicht nochmal gesetzt werden)
+
+	// TODO(jbrause): Weitere Getter und Setter implementieren
+	// TODO(mkolb2): Berechnung Weltkoordinaten im entspr. Setter (siehe Kommentar an Variablen oben)
 	
 }
