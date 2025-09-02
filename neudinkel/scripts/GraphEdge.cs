@@ -6,6 +6,7 @@ using System;
 /// </summary>
 public enum StreetType
 {
+	// TODO(mkolb2): Gibt es eine Moeglichkeit die Kosten im Enum zu speichern?
 	DEFAULT
 };
 
@@ -22,6 +23,17 @@ public partial class GraphEdge : Node3D
 	public GraphEdge(GraphNode begin, GraphNode end, StreetType type)
 	{
 		// TODO(jbrause)
+		// TODO(hsimosse): Beim Erstellen soll automatisch ein passendes Modell geladen
+		// und als Kindobjekt hinzugefuegt werden. Eventuell gleich updateModel nutzen?
+	}
+	
+	/// <summary>
+	/// Aktualisiert das gerenderte Modell je nach Status.
+	/// </summary> 
+	public void updateModel()
+	{
+		// TODO(hsimosse): Der GraphNode sollte als Kindobjekt nen Model haben.
+		// Wir ersetzen hier das Modell, je nach Zustand 
 	}
 	
 	/// <summary>
@@ -43,10 +55,6 @@ public partial class GraphEdge : Node3D
 		return this.end;
 	}
 	
-	public void setStreetType(StreetType streetType)
-	{
-		this.type = streetType;
-	}
 	public StreetType getStreetType()
 	{
 		return this.type;
