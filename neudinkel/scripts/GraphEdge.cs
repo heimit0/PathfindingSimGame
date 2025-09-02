@@ -43,10 +43,6 @@ public partial class GraphEdge : Node3D
 		return this.end;
 	}
 	
-	public void setStreetType(StreetType streetType)
-	{
-		this.type = streetType;
-	}
 	public StreetType getStreetType()
 	{
 		return this.type;
