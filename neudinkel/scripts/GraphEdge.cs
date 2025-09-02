@@ -49,7 +49,6 @@ public partial class GraphEdge : Node3D
 	public StreetType getStreetType()
 	{
 		return this.type;
->>>>>>> 398c964 (added setter and getter for GraphNode and GraphEdge)
 	}
 
 }
