@@ -32,4 +32,24 @@ public partial class GraphEdge : Node3D
 		return 0.0f;
 	}
 
+	public GraphNode getBeginNode()
+	{
+		return this.begin;
+	}
+	
+	public GraphNode getEndNode()
+	{
+		return this.end;
+	}
+	
+	public void setStreetType(StreetType streetType)
+	{
+		this.type = streetType;
+	}
+	public StreetType getStreetType()
+	{
+		return this.type;
+>>>>>>> 398c964 (added setter and getter for GraphNode and GraphEdge)
+	}
+
 }

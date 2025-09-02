@@ -30,5 +30,15 @@ public partial class GraphNode : Node3D
 		this.tilePosX = tilePosX;
 		this.tilePosY = tilePosY;
 	}
+	
+	public int getTilePosX()
+	{
+		return this.tilePosX;	
+	}
+	
+	public int getTilePosY()
+	{
+		return this.tilePosY;	
+	}
 
 }
