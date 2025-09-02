@@ -11,11 +11,13 @@ public enum GraphSearchAlgorithm
 public partial class Graph : Node3D
 {
 
-	/// <summary>
-	/// Erstellt ein Graph-Objekt
-	/// </summary>
-	public Graph() { }
+	public override void _Ready()
+	{
+		base._Ready();
+	}
 	
+	public override void _Process(double delta) { }
+
 	/// <summary>
 	/// Iteriert durch alle Kindknoten und gibt
 	/// die Tile mit der angegebenen TilePos zurück.
