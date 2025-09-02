@@ -9,7 +9,7 @@ public partial class GraphNode : Node3D
 	/// Dabei wird das hexagonale Grid auf ein rechteckiges
 	/// abgebildet. Jede zweite Zeile wird im world-space also
 	/// um 0.5*breite verschoben.
-	/// </summary> 
+	/// </summary>
 	private readonly int tilePosX;
 	private readonly int tilePosY;
 	
@@ -30,8 +30,19 @@ public partial class GraphNode : Node3D
 		this.tilePosX = tilePosX;
 		this.tilePosY = tilePosY;
 		// TODO(mkolb2): Berechnung Weltkoordinaten (siehe Kommentar an Variablen oben)
+		// TODO(hsimosse): Beim Erstellen soll automatisch ein passendes Modell geladen
+		// und als Kindobjekt hinzugefuegt werden. Eventuell gleich updateModel nutzen?
 	}
-	
+
+	/// <summary>
+	/// Aktualisiert das gerenderte Modell je nach Status.
+	/// </summary>
+	public void updateModel()
+	{
+		// TODO(hsimosse): Der GraphNode sollte als Kindobjekt nen Model haben.
+		// Wir ersetzen hier das Modell, je nach Zustand
+	}
+
 	public int getTilePosX()
 	{
 		return this.tilePosX;	
@@ -51,7 +62,7 @@ public partial class GraphNode : Node3D
 		// TODO(jbrause)
 	}
 	
-	// TODO(jbrause): Getter implementieren, Setter nur wo sinnvoll
-	// (Als readonly gesetzte Variablen koennen nicht nochmal gesetzt werden)
+	// TODO(jbrause): Weitere Getter implementieren, Setter nur wo sinnvoll
+	// (Tipp: Als readonly gesetzte Variablen koennen nicht nochmal gesetzt werden)
 	
 }
