@@ -6,15 +6,20 @@ using System;
 /// </summary>
 public enum StreetType
 {
-	// TODO(mkolb2): Gibt es eine Moeglichkeit die Kosten im Enum zu speichern?
-	DEFAULT
+	//enum weist jedem member nen integer zu (0,1,2,...) die kann man manuel setzen
+	//und mit Typecasts abrufen (int)type gibt den int oder falls nötig (StreetType)int
+	//den typ nach kosten 
+	//Probleme enstehen wenn man paare casted die nicht enthalten sind
+	AUTOBAHN = 10,
+	LANSTRASSE = 5,
+	FELDWEG = 1
 };
 
 public partial class GraphEdge : Node3D
 {
 
-	private GraphNode begin;
-	private GraphNode end;
+	private GraphNode beginNode;
+	private GraphNode endNode;
 	private StreetType type;
 
 	public override void _Ready()
@@ -40,22 +45,30 @@ public partial class GraphEdge : Node3D
 	/// </summary>
 	public float getCost()
 	{
-		// TODO(jbrause oder mkolb2)
-		return 0.0f;
+		return (float)this.type;
 	}
 
-	// TODO(mkolb2): Setter
+	public void setBeginNode(GraphNode beginNode)
+	{
+		this.beginNode = beginNode;
+	}
+	public void setEndNode(GraphNode endNode)
+	{
+		this.endNode = endNode;
+	}
+	public void setStreetType(StreetType type)
+	{
+		this.type = type;
+	}
 
 	public GraphNode getBeginNode()
 	{
-		return this.begin;
+		return this.beginNode;
 	}
-	
 	public GraphNode getEndNode()
 	{
-		return this.end;
+		return this.endNode;
 	}
-	
 	public StreetType getStreetType()
 	{
 		return this.type;
