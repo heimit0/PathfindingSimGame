@@ -25,7 +25,13 @@ public partial class Graph : Node3D
 	/// <returns> Das angefragte Tile, oder null falls es das nicht gibt. </returns>
 	public GraphNode getTile(int tilePosX, int tilePosY)
 	{
-		// TODO(mkolb2)
+		foreach (GraphNode node in this.GetChildren())
+		{
+			if(node.getTilePosX() == tilePosX && node.getTilePosY() == tilePosY)
+			{
+				return node;
+			}
+		}
 		return null;
 	}
 
