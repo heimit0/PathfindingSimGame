@@ -1,10 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://hvtom2atj5ak"]
+[gd_scene load_steps=3 format=3 uid="uid://hvtom2atj5ak"]
 
 [ext_resource type="Script" uid="uid://8spdwwolnis4" path="res://scripts/Graph.cs" id="1_7y2xs"]
+[ext_resource type="Script" uid="uid://5470ahawqy44" path="res://scripts/Camera.cs" id="1_r32pp"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 5, 0)
+script = ExtResource("1_r32pp")
 
 [node name="Node3D" type="Node3D" parent="."]
 script = ExtResource("1_7y2xs")
