@@ -9,8 +9,7 @@ using System.Net;
 public class GraphSearchState
 {
 
-	private readonly GraphSearchAlgorithm algorithm;
-	private readonly Graph g;
+	private readonly GraphSearchAlgorithm algorithm { get; set; };
 
 	private GraphNode startNode { get; set; }
 	private GraphNode goalNode { get; set; }
@@ -56,9 +55,12 @@ public class GraphSearchState
 	// Algorithmus: DFS
 	public Stack<GraphNode> nodesToProcess;
 
-	public GraphSearchState(Graph g, GraphSearchAlgorithm algorithm)
+	// TODO(gfriedr3): Diese Klasse sollte auch die "Zwischenschritte" der jeweiligen Algorithmen abbilden können.
+	// Dafür sollten sich Enums eigenen. Kann man den Zustand für alle Algos per Union in eine Variable packen?
+
+	public GraphSearchState(GraphSearchAlgorithm algorithm)
 	{
-		this.g = g;
 		this.algorithm = algorithm;
+		// TODO(gfriedr3, mkolb2 oder jbrause): Objektinstanzen anlegen
 	}
 }

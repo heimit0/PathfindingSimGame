@@ -3,6 +3,20 @@ using System;
 using System.Collections;
 using System.Data;
 
+/// <summary>
+/// Alle moeglichen Typen fuer eine Strasse
+/// </summary>
+public enum StreetType
+{
+	//enum weist jedem member nen integer zu (0,1,2,...) die kann man manuel setzen
+	//und mit Typecasts abrufen (int)type gibt den int oder falls nötig (StreetType)int
+	//den typ nach kosten 
+	//Probleme enstehen wenn man paare casted die nicht enthalten sind
+	AUTOBAHN = 10,
+	LANSTRASSE = 5,
+	FELDWEG = 1
+};
+
 public partial class GraphNode : Node3D
 {
 
@@ -16,17 +30,17 @@ public partial class GraphNode : Node3D
 	private int tilePosY;
 	
 	/// <summary>
-	/// Benachbarte Kanten.
-	/// Muss aktuell mit der Edge Liste synchron
-	/// gehalten werden.
+	/// Benachbarte Knoten.
+	/// Die Referenz ist hier eigentlich ueberfluessig, da aus dem
+	/// Verbindungspunkt ableitbar ist welcher Node angrenzt, aber naja.
 	/// </summary>
-	private GraphEdge[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
+	private GraphNode[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 	private Node3D tile;
 
 	public override void _Ready()
 	{
 		base._Ready();
-		neighbors = new GraphEdge[6];
+		neighbors = new GraphNode[6];
 		updateModel();
 	}
 
@@ -97,8 +111,7 @@ public partial class GraphNode : Node3D
 	}
 
 	/// <summary>
-	/// Fuegt eine Edge als Nachbar hinzu.
-	/// Erinnerung: Edge ebenfalls updaten!
+	/// Fuegt einen Node als Nachbar hinzu.
 	/// </summary>
 	public void addNeighbor(GraphNode a)
 	{
@@ -115,7 +128,7 @@ public partial class GraphNode : Node3D
 	{
 		Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
 		// Hier brauchen wir ein Offset wegen der Geometrie der Tiles
-		position.Y = tilePosY * 0.86f;
+		position.Z = tilePosY * 0.86f;
 		// Und hier weil es Hexagone sind und die Zeilen versetzt sein muessen
 		position.X = tilePosX;
 		if ( tilePosY % 2 == 0 )
