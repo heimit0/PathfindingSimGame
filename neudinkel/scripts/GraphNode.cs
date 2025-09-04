@@ -21,14 +21,14 @@ public partial class GraphNode : Node3D
 	/// gehalten werden.
 	/// </summary>
 	private GraphEdge[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
-    private Node3D tile;
+	private Node3D tile;
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 		base._Ready();
-        neighbors = new GraphEdge[6];
-        updateModel();
-    }
+		neighbors = new GraphEdge[6];
+		updateModel();
+	}
 
 	public override void _Process(double delta) { }
 
@@ -37,56 +37,56 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	public void updateModel()
 	{
-        // TODO(hsimosse): Der GraphNode sollte als Kindobjekt nen Model haben.
-        // Wir ersetzen hier das Modell, je nach Zustand
-        if (this.GetChildren().Contains(tile)){
-            this.RemoveChild(tile);
-        }
-        tile = new Node3D();
-        int nrconnections = 0;
-        ArrayList positionConnections = new ArrayList();
-        for (int n = 0; neighbors.Length > n; n++)
-        {
-            if (neighbors[n] != null)
-            {
-                nrconnections++;
-                positionConnections.Add(n);
-            }
-        }
-        if(nrconnections != 2)
+		// TODO(hsimosse): Der GraphNode sollte als Kindobjekt nen Model haben.
+		// Wir ersetzen hier das Modell, je nach Zustand
+		if (this.GetChildren().Contains(tile)){
+			this.RemoveChild(tile);
+		}
+		tile = new Node3D();
+		int nrconnections = 0;
+		ArrayList positionConnections = new ArrayList();
+		for (int n = 0; neighbors.Length > n; n++)
+		{
+			if (neighbors[n] != null)
 			{
-                nrconnections -= 3;
-                tile = getCityTile(nrconnections);
-                AddChild(tile);
-            }
+				nrconnections++;
+				positionConnections.Add(n);
+			}
+		}
+		if(nrconnections != 2)
+			{
+				nrconnections -= 3;
+				tile = getCityTile(nrconnections);
+				AddChild(tile);
+			}
 			else
 			{
-                tile = getStreetTile((int)positionConnections[0], (int)positionConnections[1]);
-                AddChild(tile);
-            }
+				tile = getStreetTile((int)positionConnections[0], (int)positionConnections[1]);
+				AddChild(tile);
+			}
 		}
-    
+	
 
 	private Node3D getStreetTile(int from, int too){
-        int diff = (too - from % 6);
+		int diff = (too - from % 6);
 		var scene = ResourceLoader.Load<PackedScene>("models/test_hexagon" + diff + ".fbx"); //TODO replace with actual street
-        var streetModell = scene.Instantiate();
-        Node3D street = new Node3D();
-        street.AddChild(streetModell);
-        street.RotateZ(Mathf.DegToRad(60*from));
-        return street;
-    }
+		var streetModell = scene.Instantiate();
+		Node3D street = new Node3D();
+		street.AddChild(streetModell);
+		street.RotateZ(Mathf.DegToRad(60*from));
+		return street;
+	}
 
-    private Node3D getCityTile(int size){
+	private Node3D getCityTile(int size){
 		var scene = ResourceLoader.Load<PackedScene>("models/test_hexagon" + size + ".fbx"); //TODO replace with actual city
-        Node3D citytile = new Node3D();
-        var instantiatedcity = scene.Instantiate();
-        citytile.AddChild(instantiatedcity);
-        return citytile;
-    }
+		Node3D citytile = new Node3D();
+		var instantiatedcity = scene.Instantiate();
+		citytile.AddChild(instantiatedcity);
+		return citytile;
+	}
 
 
-    public int getTilePosX()
+	public int getTilePosX()
 	{
 		return this.tilePosX;	
 	}
