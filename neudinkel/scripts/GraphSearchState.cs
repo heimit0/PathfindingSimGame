@@ -60,5 +60,6 @@ public class GraphSearchState
 	{
 		this.g = g;
 		this.algorithm = algorithm;
+		// TODO(gfriedr3, mkolb2 oder jbrause): Objektinstanzen anlegen
 	}
 }

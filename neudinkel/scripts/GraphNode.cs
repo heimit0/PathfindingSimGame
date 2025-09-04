@@ -128,7 +128,7 @@ public partial class GraphNode : Node3D
 	{
 		Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
 		// Hier brauchen wir ein Offset wegen der Geometrie der Tiles
-		position.Y = tilePosY * 0.86f;
+		position.Z = tilePosY * 0.86f;
 		// Und hier weil es Hexagone sind und die Zeilen versetzt sein muessen
 		position.X = tilePosX;
 		if ( tilePosY % 2 == 0 )

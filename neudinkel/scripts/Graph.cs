@@ -14,6 +14,16 @@ public partial class Graph : Node3D
 	public override void _Ready()
 	{
 		base._Ready();
+		// TODO: temp code
+		for (int i = -10; i < 10; i++)
+		{
+			for (int j = -10; j < 10; j++)
+			{
+				GraphNode n = new GraphNode();
+				n.setTilePos(i, j);
+				this.AddChild(n);
+			}
+		}
 	}
 	
 	public override void _Process(double delta) { }
