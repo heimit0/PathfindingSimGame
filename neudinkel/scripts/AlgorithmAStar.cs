@@ -2,6 +2,8 @@ using System;
 
 public class AlgorithmAStar : NeudinkelAlgorithm
 {
+	
+	// TODO(gfriedr3 oder hsimosse): Implementieren (Siehe Erklärungen NeudinkelAlgorithm.cs)
 	public AlgorithmAStar(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
 	{
 		this.state = state;
@@ -26,4 +28,5 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	{
 		return -1.0f;
 	}
+	
 }

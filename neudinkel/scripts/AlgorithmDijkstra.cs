@@ -2,6 +2,8 @@ using System;
 
 public class AlgorithmDijkstra : NeudinkelAlgorithm
 {
+	
+	// TODO(mkolb2): Implementieren (Siehe Erklärungen NeudinkelAlgorithm.cs)
 	public AlgorithmDijkstra(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
 	{
 		this.state = state;
@@ -20,4 +22,5 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		this.steps = new Func<GraphSearchState, Graph, int>[10]; // idk wie viele
 		// schritte funktionen zuordnen
 	}
+	
 }

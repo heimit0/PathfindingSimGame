@@ -2,6 +2,8 @@ using System;
 
 public class AlgorithmDFS : NeudinkelAlgorithm
 {
+	
+	// TODO(jbrause): Implementieren (Siehe Erklärungen NeudinkelAlgorithm.cs)
 	public AlgorithmDFS(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
 	{
 		this.state = state;
@@ -16,4 +18,5 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		this.steps = new Func<GraphSearchState, Graph, int>[10]; // idk wie viele
 		// schritte funktionen zuordnen
 	}
+	
 }
