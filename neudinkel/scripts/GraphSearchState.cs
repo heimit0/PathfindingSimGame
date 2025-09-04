@@ -9,11 +9,11 @@ using System.Net;
 public class GraphSearchState
 {
 
-	private readonly GraphSearchAlgorithm algorithm { get; set; };
+	public GraphSearchAlgorithm algorithm { get; set; }
 
-	private GraphNode startNode { get; set; }
-	private GraphNode goalNode { get; set; }
-	private GraphNode currentNode { get; set; }
+	public GraphNode startNode { get; set; }
+	public GraphNode goalNode { get; set; }
+	public GraphNode currentNode { get; set; }
 
 	/*
 		Algorithmus: A*
