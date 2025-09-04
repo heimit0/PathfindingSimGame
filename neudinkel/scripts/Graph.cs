@@ -11,19 +11,19 @@ public enum GraphSearchAlgorithm
 
 public partial class Graph : Node3D
 {
-    public override void _Ready()
+	public override void _Ready()
 	{
 		base._Ready();
 
-        // TODO: temp code
-        for (int i = -10; i < 10; i++)
+		// TODO: temp code
+		for (int i = -10; i < 10; i++)
 		{
 			for (int j = -10; j < 10; j++)
 			{
 				GraphNode n = new GraphNode();
 				n.setTilePos(i, j);
 
-                this.AddChild(n);
+				this.AddChild(n);
 			}
 		}
 	}
@@ -47,35 +47,9 @@ public partial class Graph : Node3D
 		return null;
 	}
 
-	/// <summary>
-	/// Fuehrt einen Suchschritt aus, und speichert dabei
-	/// den gesamten Zustand in state. Parameter liegen ebenfalls
-	/// in state.
-	/// </summary>
-	public void doSearchStep(GraphSearchState state)
-	{
-		switch (state.algorithm)
-		{
-			// Tipp: Die jeweiligen Algorithmen sollten für die Übersichtlichkeit
-			// in anderen Funktionen aufgeteilt werden, z.B. doSearchStepDijkstra().
-			case GraphSearchAlgorithm.A_STAR:
-				// TODO (gfriedr3): Implementieren
-				break;
-			case GraphSearchAlgorithm.DIJKSTRA:
-				// TODO (mkolb2): Implementieren
-				break;
-			case GraphSearchAlgorithm.DFS:
-				// TODO (jbrause): Implementieren
-				break;
-			default:
-				GD.Print("Unbekannter Suchalgorithmus? Wird übersprungen...");
-                break;
-        }
-	}
-
 	// TODO implement @jotto5
 	public GraphNode[] getNodes()
 	{
-        return null;
-    }
+		return null;
+	}
 }
