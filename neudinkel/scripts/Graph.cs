@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum GraphSearchAlgorithm
 {
@@ -32,24 +33,33 @@ public partial class Graph : Node3D
 
 	/// <summary>
 	/// Iteriert durch alle Kindknoten und gibt
-	/// die Tile mit der angegebenen TilePos zurück.
+	/// die Node mit der angegebenen TilePos zurück.
 	/// </summary>
-	/// <returns> Das angefragte Tile, oder null falls es das nicht gibt. </returns>
-	public GraphNode getTile(int tilePosX, int tilePosY)
+	/// <returns> Die angefragte Node, oder null falls es sie nicht gibt. </returns>
+	public GraphNode getNode(int tilePosX, int tilePosY)
 	{
-		foreach (GraphNode node in this.GetChildren())
+		foreach (object obj in this.GetChildren())
 		{
-			if(node.getTilePosX() == tilePosX && node.getTilePosY() == tilePosY)
+			if (obj.GetType() == typeof(GraphNode))
 			{
-				return node;
+				GraphNode node = (GraphNode)obj;
+				if (node.getTilePosX() == tilePosX && node.getTilePosY() == tilePosY)
+				{
+					return node;
+				}
 			}
 		}
 		return null;
 	}
 
-	// TODO implement @jotto5
 	public GraphNode[] getNodes()
 	{
-		return null;
+		List<GraphNode> result = new List<GraphNode>();
+		foreach (object node in this.GetChildren())
+		{
+			if (node.GetType() == typeof(GraphNode))
+				result.Add((GraphNode)node);
+		}
+		return result.ToArray();
 	}
 }
