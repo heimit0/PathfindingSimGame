@@ -41,24 +41,24 @@ public class GraphSearchState
 	*/
 
 	// noch nicht besuchte Nodes
-    public PriorityQueue<GraphNode, float> unvisitedNodes;
+	public PriorityQueue<GraphNode, float> unvisitedNodes;
 	// bereits besuchte Nodes
-    public HashSet<GraphNode> visitedNodes;
+	public HashSet<GraphNode> visitedNodes;
 	// jede Node zeigt auf ihren besten Nachbarn ("Elternteil"), um den besten Pfad zu rekonstruieren
-    public Dictionary<GraphNode, GraphNode> cameFrom;
+	public Dictionary<GraphNode, GraphNode> cameFrom;
 	// tatsächliche, bekannte Kosten pro Node zum Start
-    public Dictionary<GraphNode, float> distanceFromStart;
+	public Dictionary<GraphNode, float> distanceFromStart;
 
-    // Algorithmus: A*	
+	// Algorithmus: A*	
 	// f(n) = distanceFromStart + heuristic
-    public Dictionary<GraphNode, float> totalCost;
+	public Dictionary<GraphNode, float> totalCost;
 
-    // Algorithmus: DFS
-    public Stack<GraphNode> nodesToProcess;
+	// Algorithmus: DFS
+	public Stack<GraphNode> nodesToProcess;
 
-    public GraphSearchState(Graph g, GraphSearchAlgorithm algorithm)
+	public GraphSearchState(Graph g, GraphSearchAlgorithm algorithm)
 	{
-        this.g = g;
-        this.algorithm = algorithm;
-    }
+		this.g = g;
+		this.algorithm = algorithm;
+	}
 }
