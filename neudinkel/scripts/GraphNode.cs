@@ -58,6 +58,7 @@ public partial class GraphNode : Node3D
 		}
 		tile = new Node3D();
 		int nrconnections = 0;
+		// TODO: Rewrite using Generic.List<T>
 		ArrayList positionConnections = new ArrayList();
 		for (int n = 0; neighbors.Length > n; n++)
 		{
