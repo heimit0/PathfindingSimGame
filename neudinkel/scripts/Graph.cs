@@ -45,4 +45,28 @@ public partial class Graph : Node3D
 		return null;
 	}
 
+	/// <summary>
+	/// Fuehrt einen Suchschritt aus, und speichert dabei
+	/// den gesamten Zustand in state. Parameter liegen ebenfalls
+	/// in state.
+	/// </summary>
+	public void doSearchStep(GraphSearchState state) {
+		switch (state.algorithm)
+		{
+			// Tipp: Die jeweiligen Algorithmen sollten für die Übersichtlichkeit
+			// in anderen Funktionen aufgeteilt werden, z.B. doSearchStepDijkstra().
+			case GraphSearchAlgorithm.A_STAR:
+				// TODO (gfriedr3): Implementieren
+				break;
+			case GraphSearchAlgorithm.DIJKSTRA:
+				// TODO (mkolb2): Implementieren
+				break;
+			case GraphSearchAlgorithm.DFS:
+				// TODO (jbrause): Implementieren
+				break;
+			default:
+				GD.Print("Unbekannter Suchalgorithmus? Wird übersprungen...");
+		}
+	}
+
 }
