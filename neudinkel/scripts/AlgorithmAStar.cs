@@ -1,7 +1,9 @@
 using System;
 
-public class AlgorithmAStar : NeudinkelAlgorithm {
-    public AlgorithmAStar(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode) {
+public class AlgorithmAStar : NeudinkelAlgorithm
+{
+    public AlgorithmAStar(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
+    {
         this.state = state;
         this.graph = graph;
 
@@ -12,7 +14,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm {
 
         // alle nodes mit distanz = unendlich initialisieren
         // ist der F-score
-        foreach (GraphNode node in graph.nodes) {
+        foreach (GraphNode node in graph.getNodes()) {
             this.state.totalCost.Add(node, float.MaxValue);
         }
 
@@ -20,7 +22,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm {
         // schritte funktionen zuordnen
     }
 
-    public float heuristic(GraphNode startNode, GraphNode goalNode) {
+    public float heuristic(GraphNode startNode, GraphNode goalNode)
+    {
         return -1.0f;
     }
 }

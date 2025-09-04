@@ -11,13 +11,9 @@ public enum GraphSearchAlgorithm
 
 public partial class Graph : Node3D
 {
-    public ArrayList nodes { get; set; }
-
     public override void _Ready()
 	{
 		base._Ready();
-
-        nodes = new ArrayList();
 
         // TODO: temp code
         for (int i = -10; i < 10; i++)
@@ -27,7 +23,6 @@ public partial class Graph : Node3D
 				GraphNode n = new GraphNode();
 				n.setTilePos(i, j);
 
-                nodes.Add(n);
                 this.AddChild(n);
 			}
 		}
@@ -57,7 +52,8 @@ public partial class Graph : Node3D
 	/// den gesamten Zustand in state. Parameter liegen ebenfalls
 	/// in state.
 	/// </summary>
-	public void doSearchStep(GraphSearchState state) {
+	public void doSearchStep(GraphSearchState state)
+	{
 		switch (state.algorithm)
 		{
 			// Tipp: Die jeweiligen Algorithmen sollten für die Übersichtlichkeit
@@ -77,4 +73,9 @@ public partial class Graph : Node3D
         }
 	}
 
+	// TODO implement @jotto5
+	public GraphNode[] getNodes()
+	{
+        return null;
+    }
 }

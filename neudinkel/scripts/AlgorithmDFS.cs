@@ -1,7 +1,9 @@
 using System;
 
-public class AlgorithmDFS : NeudinkelAlgorithm {
-    public AlgorithmDFS(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode) {
+public class AlgorithmDFS : NeudinkelAlgorithm
+{
+    public AlgorithmDFS(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
+    {
         this.state = state;
         this.graph = graph;
 

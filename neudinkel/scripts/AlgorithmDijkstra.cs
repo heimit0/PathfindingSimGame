@@ -1,7 +1,9 @@
 using System;
 
-public class AlgorithmDijkstra : NeudinkelAlgorithm {
-    public AlgorithmDijkstra(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode) {
+public class AlgorithmDijkstra : NeudinkelAlgorithm
+{
+    public AlgorithmDijkstra(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
+    {
         this.state = state;
         this.graph = graph;
 
@@ -11,7 +13,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm {
         this.state.unvisitedNodes.Enqueue(startNode, 0);
 
         // alle nodes mit distanz = unendlich initialisieren
-        foreach (GraphNode node in graph.nodes) {
+        foreach (GraphNode node in graph.getNodes()) {
             this.state.distanceFromStart.Add(node, float.MaxValue);
         }
 
