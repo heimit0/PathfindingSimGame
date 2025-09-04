@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 
 public enum GraphSearchAlgorithm
 {
@@ -10,18 +11,24 @@ public enum GraphSearchAlgorithm
 
 public partial class Graph : Node3D
 {
+    public ArrayList nodes { get; set; }
 
-	public override void _Ready()
+    public override void _Ready()
 	{
 		base._Ready();
-		// TODO: temp code
-		for (int i = -10; i < 10; i++)
+
+        nodes = new ArrayList();
+
+        // TODO: temp code
+        for (int i = -10; i < 10; i++)
 		{
 			for (int j = -10; j < 10; j++)
 			{
 				GraphNode n = new GraphNode();
 				n.setTilePos(i, j);
-				this.AddChild(n);
+
+                nodes.Add(n);
+                this.AddChild(n);
 			}
 		}
 	}
@@ -66,7 +73,8 @@ public partial class Graph : Node3D
 				break;
 			default:
 				GD.Print("Unbekannter Suchalgorithmus? Wird übersprungen...");
-		}
+                break;
+        }
 	}
 
 }
