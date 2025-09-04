@@ -58,6 +58,23 @@ public override void _Ready()
 	}
 
 	// TODO(jbrause): Weitere Getter und Setter implementieren
-	// TODO(mkolb2): Berechnung Weltkoordinaten im entspr. Setter (siehe Kommentar an Variablen oben)
+	
+	/// <summary>
+	/// Setzt die TilePos-Variablen und updated dabei
+	/// die World-Position des Tiles.
+	/// </summary>
+	public void setTilePos(int tilePosX, int tilePosY)
+	{
+		Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
+		// Hier brauchen wir ein Offset wegen der Geometrie der Tiles
+		position.Y = tilePosY * 0.86f;
+		// Und hier weil es Hexagone sind und die Zeilen versetzt sein muessen
+		position.X = tilePosX;
+		if ( tilePosY % 2 == 0 )
+			position.X += 0.5f;
+		this.tilePosX = tilePosX;
+		this.tilePosY = tilePosY;
+		this.Position = position;
+	}
 	
 }
