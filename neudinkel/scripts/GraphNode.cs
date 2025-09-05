@@ -83,7 +83,7 @@ public partial class GraphNode : Node3D
 
 	private Node3D getStreetTile(int from, int too){
 		int diff = (too - from % 6);
-		var scene = ResourceLoader.Load<PackedScene>("models/test_hexagon" + diff + ".fbx"); //TODO replace with actual street
+		var scene = ResourceLoader.Load<PackedScene>("models/test_hexagon" + /**diff +**/ ".fbx"); //TODO replace with actual street
 		var streetModell = scene.Instantiate();
 		Node3D street = new Node3D();
 		street.AddChild(streetModell);
@@ -92,7 +92,7 @@ public partial class GraphNode : Node3D
 	}
 
 	private Node3D getCityTile(int size){
-		var scene = ResourceLoader.Load<PackedScene>("models/test_hexagon" + size + ".fbx"); //TODO replace with actual city
+		var scene = ResourceLoader.Load<PackedScene>("models/test_hexagon" + /**size +**/ ".fbx"); //TODO replace with actual city
 		Node3D citytile = new Node3D();
 		var instantiatedcity = scene.Instantiate();
 		citytile.AddChild(instantiatedcity);
