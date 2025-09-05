@@ -23,8 +23,8 @@ public partial class GraphNode : Node3D
 	/// <summary>
 	/// Position auf dem Grid in Tile-Koordinaten.
 	/// Dabei wird das hexagonale Grid auf ein rechteckiges
-	/// abgebildet. Jede zweite Zeile wird im world-space also
-	/// um 0.5*breite verschoben.
+	/// abgebildet. Jede Zeile ist also zur vorherigen
+	/// versetzt.
 	/// </summary>
 	private int tilePosX;
 	private int tilePosY;
@@ -120,10 +120,11 @@ public partial class GraphNode : Node3D
 
 	/// <summary>
 	/// Fuegt einen Node als Nachbar hinzu.
+	/// Position ist dabei ermittelbar aus den Koordinaten.
 	/// </summary>
 	public void addNeighbor(GraphNode a)
 	{
-		// TODO(jbrause)
+			
 	}
 
 	// TODO(jbrause): Weitere Getter und Setter implementieren
@@ -139,8 +140,7 @@ public partial class GraphNode : Node3D
 		position.Z = tilePosY * 0.86f;
 		// Und hier weil es Hexagone sind und die Zeilen versetzt sein muessen
 		position.X = tilePosX;
-		if ( tilePosY % 2 == 0 )
-			position.X += 0.5f;
+		position.X += 0.5f * position.Y;
 		this.tilePosX = tilePosX;
 		this.tilePosY = tilePosY;
 		this.Position = position;
