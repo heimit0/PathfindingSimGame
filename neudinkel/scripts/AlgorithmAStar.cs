@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 
 public class AlgorithmAStar : NeudinkelAlgorithm
@@ -22,11 +21,11 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		 - g(n) => distanceFromStart
 		 - f(n) => totalCost
 	*/
-    public AlgorithmAStar(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
+	public AlgorithmAStar(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
 	{
 		this.graph = graph;
 
-        this.state.startNode = startNode;
+		this.state.startNode = startNode;
 		this.state.currentNode = startNode;
 		this.state.goalNode = goalNode;
 		this.state.unvisitedNodes.Enqueue(startNode, heuristic(startNode, goalNode));
@@ -37,10 +36,10 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		this.currentNode = startNode;
 		this.goalNode = goalNode;
 
-        cameFrom = [];
-        totalCost = [];
+		cameFrom = [];
+		totalCost = [];
 
-        
+		
 
 		// alle nodes mit distanz = unendlich initialisieren
 		// ist der F-score
@@ -49,38 +48,38 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		}
 
 
-        totalCost[startNode] = 0;
-        this.unvisitedNodes.Enqueue(startNode, heuristic(startNode));
+		totalCost[startNode] = 0;
+		this.unvisitedNodes.Enqueue(startNode, heuristic(startNode));
 
 		this.steps = new Func<Graph, int>[10]; // idk wie viele
 		// schritte funktionen zuordnen
 
 		while(unvisitedNodes.Count>0)
 		{
-            GraphNode lastNode = currentNode;
-            currentNode = unvisitedNodes.Dequeue();
-            visitedNodes.Add(currentNode);
-            totalCost[currentNode] = totalCost[lastNode] + (int) lastNode.getStreetType();
-            cameFrom.Add(currentNode, lastNode);
-            if(currentNode == goalNode){
-                return;
-            }
+			GraphNode lastNode = currentNode;
+			currentNode = unvisitedNodes.Dequeue();
+			visitedNodes.Add(currentNode);
+			totalCost[currentNode] = totalCost[lastNode] + (int) lastNode.getStreetType();
+			cameFrom.Add(currentNode, lastNode);
+			if(currentNode == goalNode){
+				return;
+			}
 			else
 			{
 				foreach(GraphNode n in currentNode.getNeighbours())
 				{
 					if(!visitedNodes.Contains(n))
 					{
-                        unvisitedNodes.Enqueue(n, heuristic(n));
-                    }
+						unvisitedNodes.Enqueue(n, heuristic(n));
+					}
 				}
 			}
 
-        }
-        throw new ArgumentException("Es existiert kein Weg zum Ziel");
+		}
+		throw new ArgumentException("Es existiert kein Weg zum Ziel");
 
 
-    }
+	}
 
 
 
@@ -93,9 +92,9 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 /// <returns></returns>
 private float heuristic(GraphNode startNode)
 {
-    float cost = totalCost[startNode];
-    float straightLineDistance = getDistanceNodes(startNode, goalNode);
-    return cost + straightLineDistance;
+	float cost = totalCost[startNode];
+	float straightLineDistance = getDistanceNodes(startNode, goalNode);
+	return cost + straightLineDistance;
 }
 
 	/// <summary>
@@ -106,14 +105,13 @@ private float heuristic(GraphNode startNode)
 /// <returns>float Distance</returns>
 private float getDistanceNodes(GraphNode node1, GraphNode node2)
 {
-    float xDistance = node2.getTilePosX() - node1.getTilePosX();
-    float yDistance = node2.getTilePosY() - node1.getTilePosY();
-    float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
-    return distance;
+	float xDistance = node2.getTilePosX() - node1.getTilePosX();
+	float yDistance = node2.getTilePosY() - node1.getTilePosY();
+	float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
+	return distance;
 }
 
 
 
 
 	}
-
