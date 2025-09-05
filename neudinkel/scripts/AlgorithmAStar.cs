@@ -12,7 +12,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	
 	// TODO(gfriedr3 oder hsimosse): Implementieren (Siehe Erklärungen NeudinkelAlgorithm.cs)
 	public AlgorithmAStar(Graph graph, GraphNode startNode, GraphNode goalNode)
-
 	/*
 		Algorithmus: A*
 		 - openSet / openList => unvisitedNodes
@@ -21,14 +20,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		 - g(n) => distanceFromStart
 		 - f(n) => totalCost
 	*/
-	public AlgorithmAStar(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
-	{
-		this.graph = graph;
-
-		this.state.startNode = startNode;
-		this.state.currentNode = startNode;
-		this.state.goalNode = goalNode;
-		this.state.unvisitedNodes.Enqueue(startNode, heuristic(startNode, goalNode));
 	{
 		this.graph = graph;
 
