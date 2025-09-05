@@ -55,9 +55,6 @@ public class GraphSearchState
 	// Algorithmus: DFS
 	public Stack<GraphNode> nodesToProcess;
 
-	// TODO(gfriedr3): Diese Klasse sollte auch die "Zwischenschritte" der jeweiligen Algorithmen abbilden können.
-	// Dafür sollten sich Enums eigenen. Kann man den Zustand für alle Algos per Union in eine Variable packen?
-
 	public GraphSearchState(GraphSearchAlgorithm algorithm)
 	{
 		this.algorithm = algorithm;
