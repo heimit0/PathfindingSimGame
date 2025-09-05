@@ -1,7 +1,8 @@
 using Godot;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Numerics;
 
 /// <summary>
 /// Alle moeglichen Typen fuer eine Strasse
@@ -51,15 +52,12 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	public void updateModel()
 	{
-		// TODO(hsimosse): Der GraphNode sollte als Kindobjekt nen Model haben.
-		// Wir ersetzen hier das Modell, je nach Zustand
 		if (this.GetChildren().Contains(tile)){
 			this.RemoveChild(tile);
 		}
 		tile = new Node3D();
 		int nrconnections = 0;
-		// TODO: Rewrite using Generic.List<T>
-		ArrayList positionConnections = new ArrayList();
+		List<Int32> positionConnections = [];
 		for (int n = 0; neighbors.Length > n; n++)
 		{
 			if (neighbors[n] != null)
@@ -76,7 +74,7 @@ public partial class GraphNode : Node3D
 			}
 			else
 			{
-				tile = getStreetTile((int)positionConnections[0], (int)positionConnections[1]);
+				tile = getStreetTile(positionConnections[0], positionConnections[1]);
 				AddChild(tile);
 			}
 		}
