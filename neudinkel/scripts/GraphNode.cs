@@ -124,7 +124,14 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	public void addNeighbor(GraphNode a)
 	{
-			
+			if (a.getTilePosX() > this.tilePosX && a.getTilePosY() < this.tilePosY)
+			{
+				// Position 0
+			}
+			else if (a.getTilePosX() > this.tilePosX && a.getTilePosY() == this.tilePosY)
+			{
+				// Position 1
+			}
 	}
 
 	// TODO(jbrause): Weitere Getter und Setter implementieren
@@ -140,7 +147,7 @@ public partial class GraphNode : Node3D
 		position.Z = tilePosY * 0.86f;
 		// Und hier weil es Hexagone sind und die Zeilen versetzt sein muessen
 		position.X = tilePosX;
-		position.X += 0.5f * position.Y;
+		position.X += 0.5f * tilePosY;
 		this.tilePosX = tilePosX;
 		this.tilePosY = tilePosY;
 		this.Position = position;
