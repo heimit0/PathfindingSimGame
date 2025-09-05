@@ -29,6 +29,13 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		this.state.currentNode = startNode;
 		this.state.goalNode = goalNode;
 		this.state.unvisitedNodes.Enqueue(startNode, heuristic(startNode, goalNode));
+	{
+		this.graph = graph;
+
+		this.startNode = startNode;
+		this.currentNode = startNode;
+		this.goalNode = goalNode;
+		this.unvisitedNodes.Enqueue(startNode, heuristic(startNode, goalNode));
 
 		// alle nodes mit distanz = unendlich initialisieren
 		// ist der F-score
