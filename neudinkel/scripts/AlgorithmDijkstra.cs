@@ -1,25 +1,28 @@
 using System;
+using System.Collections.Generic;
 
 public class AlgorithmDijkstra : NeudinkelAlgorithm
 {
+
+	// jede Node zeigt auf ihren besten Nachbarn ("Elternteil"), um den besten Pfad zu rekonstruieren
+	public Dictionary<GraphNode, GraphNode> cameFrom;
 	
 	// TODO(mkolb2): Implementieren (Siehe Erklärungen NeudinkelAlgorithm.cs)
-	public AlgorithmDijkstra(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
+	public AlgorithmDijkstra(Graph graph, GraphNode startNode, GraphNode goalNode)
 	{
-		this.state = state;
 		this.graph = graph;
 
-		this.state.startNode = startNode;
-		this.state.currentNode = startNode;
-		this.state.goalNode = goalNode;
-		this.state.unvisitedNodes.Enqueue(startNode, 0);
+		this.startNode = startNode;
+		this.currentNode = startNode;
+		this.goalNode = goalNode;
+		this.unvisitedNodes.Enqueue(startNode, 0);
 
 		// alle nodes mit distanz = unendlich initialisieren
 		foreach (GraphNode node in graph.getNodes()) {
-			this.state.distanceFromStart.Add(node, float.MaxValue);
+			this.distanceFromStart.Add(node, float.MaxValue);
 		}
 
-		this.steps = new Func<GraphSearchState, Graph, int>[10]; // idk wie viele
+		this.steps = new Func<Graph, int>[10]; // idk wie viele
 		// schritte funktionen zuordnen
 	}
 	

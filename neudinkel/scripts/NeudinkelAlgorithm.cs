@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Elternklasse aller Suchalgorithmen.
@@ -6,10 +7,18 @@ using System;
 public abstract class NeudinkelAlgorithm
 {
 
-	// TODO: Eventuell in diese Klasse mergen?
-	public GraphSearchState state { get; set; }
 	public Graph graph { get; set; }
-	public Func<GraphSearchState, Graph, int>[] steps; // gibt den nächsten schritt zurück
+	public GraphNode startNode { get; set; }
+	public GraphNode goalNode { get; set; }
+	public GraphNode currentNode { get; set; }
+
+	// noch nicht besuchte Nodes
+	public PriorityQueue<GraphNode, float> unvisitedNodes;
+	// bereits besuchte Nodes
+	public HashSet<GraphNode> visitedNodes;
+	// tatsächliche, bekannte Kosten pro Node zum Start
+	public Dictionary<GraphNode, float> distanceFromStart;
+	public Func<Graph, int>[] steps; // gibt den nächsten schritt zurück
 	public int currentStep { get; set; }
 
 	/*
@@ -29,7 +38,7 @@ public abstract class NeudinkelAlgorithm
 	/// </summary>
 	public void doSearchStep()
 	{
-		currentStep = steps[currentStep](this.state, this.graph);
+		currentStep = steps[currentStep](this.graph);
 
 		// currentStep an signal für die UI senden
 	}

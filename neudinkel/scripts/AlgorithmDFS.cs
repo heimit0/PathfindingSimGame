@@ -1,21 +1,23 @@
 using System;
+using System.Collections.Generic;
 
 public class AlgorithmDFS : NeudinkelAlgorithm
 {
+
+	public Stack<GraphNode> nodesToProcess;
 	
 	// TODO(jbrause): Implementieren (Siehe Erklärungen NeudinkelAlgorithm.cs)
-	public AlgorithmDFS(GraphSearchState state, Graph graph, GraphNode startNode, GraphNode goalNode)
+	public AlgorithmDFS(Graph graph, GraphNode startNode, GraphNode goalNode)
 	{
-		this.state = state;
 		this.graph = graph;
 
-		this.state.startNode = startNode;
-		this.state.currentNode = startNode;
-		this.state.goalNode = goalNode;
+		this.startNode = startNode;
+		this.currentNode = startNode;
+		this.goalNode = goalNode;
 
-		this.state.nodesToProcess.Push(startNode);
+		this.nodesToProcess.Push(startNode);
 
-		this.steps = new Func<GraphSearchState, Graph, int>[10]; // idk wie viele
+		this.steps = new Func<Graph, int>[10]; // idk wie viele
 		// schritte funktionen zuordnen
 	}
 	
