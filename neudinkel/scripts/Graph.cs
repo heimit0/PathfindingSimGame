@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.Text.Json;
 using System.Collections;
+using System.Text.Json.Nodes;
 using System.Collections.Generic;
 
 public enum GraphSearchAlgorithm
@@ -15,18 +17,20 @@ public partial class Graph : Node3D
 	public override void _Ready()
 	{
 		base._Ready();
-
-		// TODO: temp code
-		for (int i = -10; i < 10; i++)
+		// TODO: Temp code
+		string json = """
 		{
-			for (int j = -10; j < 10; j++)
-			{
-				GraphNode n = new GraphNode();
-				n.setTilePos(i, j);
-
-				this.AddChild(n);
-			}
+			"name": "Testlevel",
+			"tiles": [
+				{ "posX": 0, "posY": 0 },
+				{ "posX": 0, "posY": 1 }
+			],
+			"edges": [
+				{ "from": 0, "to": 1, "bi": true, "type": 1  }
+			]
 		}
+		""";
+		this.fromJsonObject(JsonNode.Parse(json).AsObject());
 	}
 	
 	public override void _Process(double delta) { }
@@ -62,4 +66,41 @@ public partial class Graph : Node3D
 		}
 		return result.ToArray();
 	}
+	
+	/// <summary>
+	/// Deserialisiert einen JSON-Objekt in ein gueltiges
+	/// Graph-Element mit entsprechenden Kindknoten.
+	/// </summary>
+	/// <returns> false bei Erfolg, sonst true </returens>
+	// TODO: Sehr unsicher, wir prüfen viel zu wenig auf Struktur und bei Casts
+	public bool fromJsonObject(JsonObject json)
+	{
+		List<GraphNode> nodes = new List<GraphNode>();
+		
+		// Struktur des Root testen
+		if (!(json.ContainsKey("tiles") && json.ContainsKey("edges")))
+		{
+			GD.Print("Level-Objekt ist kaputt, es fehlen tiles und/oder edges :(");
+			return true;
+		}
+		
+		foreach (JsonObject n in json["tiles"].AsArray())
+		{
+			GraphNode node = new GraphNode();
+			// wild dass C# das einfach so erlaubt...
+			node.setTilePos((int) n["posX"], (int) n["posY"]);
+			nodes.Add(node);
+		}
+		
+		foreach (JsonObject e in json["edges"].AsArray())
+		{
+			// TODO: Edges lesen
+		}
+		
+		foreach (GraphNode n in nodes)
+			this.AddChild(n);
+		
+		return false;
+	}
+	
 }
