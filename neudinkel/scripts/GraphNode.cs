@@ -38,7 +38,9 @@ public partial class GraphNode : Node3D
 	private GraphNode[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 	private Node3D tile;
 
-	public override void _Ready()
+    private StreetType streetType;
+
+    public override void _Ready()
 	{
 		base._Ready();
 		neighbors = new GraphNode[6];
@@ -108,6 +110,14 @@ public partial class GraphNode : Node3D
 	{
 		return this.tilePosY;	
 	}
+
+	public StreetType getStreetType(){
+        return streetType;
+    }
+
+	public GraphNode[] getNeighbours(){
+        return neighbors;
+    }
 
 	/// <summary>
 	/// Fuegt einen Node als Nachbar hinzu.
