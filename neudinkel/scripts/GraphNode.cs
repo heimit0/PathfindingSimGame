@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Numerics;
 
 /// <summary>
 /// Alle moeglichen Typen fuer eine Strasse
@@ -38,9 +37,9 @@ public partial class GraphNode : Node3D
 	private GraphNode[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 	private Node3D tile;
 
-    private StreetType streetType;
+	private StreetType streetType;
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 		base._Ready();
 		neighbors = new GraphNode[6];
@@ -112,12 +111,12 @@ public partial class GraphNode : Node3D
 	}
 
 	public StreetType getStreetType(){
-        return streetType;
-    }
+		return streetType;
+	}
 
 	public GraphNode[] getNeighbours(){
-        return neighbors;
-    }
+		return neighbors;
+	}
 
 	/// <summary>
 	/// Fuegt einen Node als Nachbar hinzu.
