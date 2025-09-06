@@ -31,6 +31,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 			visitNextNode(this.graph);
 			if(this.currentNode.Equals(goalNode))
 			{
+				resultToString();
 				return;
 			}
 			foreach(GraphNode node in this.currentNode.getNeighbours())
@@ -48,8 +49,19 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	public int checkNeighbour(Graph g)
 	{
 		int cost = this.distanceFromStart[this.currentNode] + (int)currentNeighbour.getStreetType();
-		this.distanceFromStart.Add(currentNeighbour,cost);
-		this.unvisitedNodes.Enqueue(currentNeighbour, cost);
+		if(this.distanceFromStart.ContainsKey(currentNeighbour))
+		{
+			if(cost < this.distanceFromStart[currentNeighbour])
+			{
+				this.distanceFromStart[currentNeighbour] = cost;
+			}
+		}
+		else
+		{
+			this.distanceFromStart.Add(currentNeighbour,cost);
+			this.unvisitedNodes.Enqueue(currentNeighbour, cost);
+		}
+
 		return 0;
 	}
 	///<summary>
@@ -65,7 +77,17 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	///</summary>
 	public int chooseNextNode(Graph g)
 	{
+		GraphNode lastNode = this.currentNode;
+		this.cameFrom.Add(this.currentNode,lastNode);
 		this.currentNode = this.unvisitedNodes.Dequeue();
 		return 0;
+	}
+	///<summary>
+	///gibt den weg in nem String wieder
+	///</summary>
+	public String resultToString()
+	{
+		String result = "";
+		return result;
 	}
 }
