@@ -5,7 +5,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 {
 
 	private GraphNode currentNeighbour;
-
+	public Dictionary<GraphNode, GraphNode> cameFrom;
 	// TODO(mkolb2): Implementieren (Siehe Erklärungen NeudinkelAlgorithm.cs)
 	public AlgorithmDijkstra(Graph graph, GraphNode startNode, GraphNode goalNode)
 	{
@@ -25,21 +25,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		this.steps = new Func<Graph, int>[10]; // idk wie viele
 
 		// schritte funktionen zuordnen
-		while(this.unvisitedNodes.Count>0)
-		{
-			chooseNextNode(this.graph);
-			visitNextNode(this.graph);
-			if(this.currentNode.Equals(goalNode))
-			{
-				resultToString();
-				return;
-			}
-			foreach(GraphNode node in this.currentNode.getNeighbours())
-			{
-				currentNeighbour = node;
-				checkNeighbour(graph);
-			}
-		}
+		dijkstra(this.graph);
 	}
 	
 	///<summary>
@@ -48,7 +34,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	///</summary>
 	public int checkNeighbour(Graph g)
 	{
-		int cost = this.distanceFromStart[this.currentNode] + (int)currentNeighbour.getStreetType();
+		float cost = this.distanceFromStart[this.currentNode] + (float)currentNeighbour.getStreetType();
 		if(this.distanceFromStart.ContainsKey(currentNeighbour))
 		{
 			if(cost < this.distanceFromStart[currentNeighbour])
@@ -89,5 +75,24 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	{
 		String result = "";
 		return result;
+	}
+	public int dijkstra(Graph g)
+	{
+		while(this.unvisitedNodes.Count>0)
+		{
+			chooseNextNode(this.graph);
+			visitNextNode(this.graph);
+			if(this.currentNode.Equals(goalNode))
+			{
+				resultToString();
+				return 2;
+			}
+			foreach(GraphNode node in this.currentNode.getNeighbours())
+			{
+				currentNeighbour = node;
+				checkNeighbour(graph);
+			}
+		}
+		return 0;
 	}
 }
