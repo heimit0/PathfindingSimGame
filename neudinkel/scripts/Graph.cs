@@ -96,7 +96,7 @@ public partial class Graph : Node3D
 		{
 			GraphNode from = nodes[(int)e["from"]];
 			GraphNode to = nodes[(int)e["to"]];
-			if (from == null || to == null)
+			if (from is null || to is null)
 			{
 				GD.Print("fromJsonObject: Falsche Referenz in einer Kante");
 				return true;

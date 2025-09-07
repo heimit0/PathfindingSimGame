@@ -39,10 +39,14 @@ public partial class GraphNode : Node3D
 
 	private StreetType streetType;
 
+	public GraphNode() : base()
+	{
+		neighbors = new GraphNode[6];
+	}
+
 	public override void _Ready()
 	{
 		base._Ready();
-		neighbors = new GraphNode[6];
 		updateModel();
 	}
 
