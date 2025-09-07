@@ -1,4 +1,4 @@
-import random
+import random, json
 
 def get_unvisited_neighbors(size, visited, current):
 	result = []
@@ -21,17 +21,14 @@ def get_unvisited_neighbors(size, visited, current):
 		# Position 0
 		result.append((current[0]+1, current[0]+2))
 
-	# TODO: Das ist die vermutlich blödeste Art das zu lösen, aber hey
-	for pos in result:
-		if pos in visited:
-			result.remove(pos)
+	# BuT ItS ThE IdIoMaTiC WaY
+	result = list(set(result) - set(visited))
 
 	return result
 
 def walk(size: list, visited: list, edges: list, current: tuple): 
 	visited.append(current)
 	n = get_unvisited_neighbors(size, visited, current)
-	print("Wir sind bei Node " + str(current) + ", mit " + str(len(n)) + "Möglichkeiten.")
 	if len(n) == 0:
 		return visited, edges
 	else:
@@ -39,7 +36,17 @@ def walk(size: list, visited: list, edges: list, current: tuple):
 		edges.append((current, chosen))
 		return walk(size, visited, edges, chosen)
 
-size = [2, 2]
+size = [10, 10]
 _, edges = walk(size, [], [], (0, 0))
 
-print(edges)
+j = {"name": "Level", "tiles": [], "edges": []}
+for y in range(size[1]):
+	for x in range(size[0]):
+		j["tiles"].append({"posX": x, "posY": y})
+
+for edge in edges:
+	node_from = edge[0][0] + size[0] * edge[0][1]
+	node_to = edge[1][0] + size[0] * edge[1][1]
+	j["edges"].append({"from": node_from, "to": node_to, "bi": True})
+	
+print(json.dumps(j))
