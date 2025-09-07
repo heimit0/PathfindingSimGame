@@ -91,7 +91,7 @@ public partial class GraphNode : Node3D
 		var streetModell = scene.Instantiate();
 		Node3D street = new Node3D();
 		street.AddChild(streetModell);
-		street.RotateX(Mathf.DegToRad(60*from));
+		street.RotateY(Mathf.DegToRad(60*from));
 		return street;
 	}
 
