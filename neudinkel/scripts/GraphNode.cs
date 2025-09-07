@@ -142,15 +142,18 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	public void setTilePos(int tilePosX, int tilePosY)
 	{
-		Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
-		// Hier brauchen wir ein Offset wegen der Geometrie der Tiles
-		position.Z = tilePosY * 0.86f;
-		// Und hier weil es Hexagone sind und die Zeilen versetzt sein muessen
-		position.X = tilePosX;
-		position.X += 0.5f * tilePosY;
 		this.tilePosX = tilePosX;
 		this.tilePosY = tilePosY;
-		this.Position = position;
+		this.Position = convertTilePosToPos(tilePosX,tilePosY);
+	}
+	
+	///<summary>
+	///tilePosY 0.86 Offset wegen der Geometrie der Tiles
+	///tilePosX 0.5 mal tilePosY Offset weil es Hexagone sind und die Zeilen versetzt sein muessen
+	///</summary>
+	public static Vector3 convertTilePosToPos(int tilePosX, int tilePosY)
+	{
+		return new Vector3(tilePosX + 0.5f * tilePosY,0.0f,tilePosY * 0.86f);
 	}
 	
 }
