@@ -96,7 +96,6 @@ public partial class Graph : Node3D
 		{
 			GraphNode from = nodes[(int)e["from"]];
 			GraphNode to = nodes[(int)e["to"]];
-			// TODO: Warnung ausgeben wenn nicht direkt benachbart?
 			from.addNeighbor(to);
 			if ((bool)e["bi"] == true)
 				to.addNeighbor(from);

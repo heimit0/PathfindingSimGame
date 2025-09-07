@@ -120,18 +120,29 @@ public partial class GraphNode : Node3D
 
 	/// <summary>
 	/// Fuegt einen Node als Nachbar hinzu.
-	/// Position ist dabei ermittelbar aus den Koordinaten.
 	/// </summary>
 	public void addNeighbor(GraphNode a)
 	{
-			if (a.getTilePosX() > this.tilePosX && a.getTilePosY() < this.tilePosY)
-			{
-				// Position 0
-			}
-			else if (a.getTilePosX() > this.tilePosX && a.getTilePosY() == this.tilePosY)
-			{
-				// Position 1
-			}
+		if (a.getTilePosX() > this.tilePosX && a.getTilePosY() < this.tilePosY)
+			// Position 0
+			this.neighbors[0] = a;
+		else if (a.getTilePosX() > this.tilePosX && a.getTilePosY() == this.tilePosY)
+			// Position 1
+			this.neighbors[1] = a;
+		else if (a.getTilePosX() == this.tilePosX && a.getTilePosY() > this.tilePosY)
+			// Position 2
+			this.neighbors[2] = a;
+		else if (a.getTilePosX() < this.tilePosX && a.getTilePosY() > this.tilePosY)
+			// Position 3
+			this.neighbors[3] = a;
+		else if (a.getTilePosX() < this.tilePosX && a.getTilePosY() == this.tilePosY)
+			// Position 4
+			this.neighbors[4] = a;
+		else if (a.getTilePosX() == this.tilePosX && a.getTilePosY() < this.tilePosY)
+			// Position 5
+			this.neighbors[5] = a;
+		else
+			GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
 	}
 
 	// TODO(jbrause): Weitere Getter und Setter implementieren
