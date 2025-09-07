@@ -17,20 +17,10 @@ public partial class Graph : Node3D
 	public override void _Ready()
 	{
 		base._Ready();
+
 		// TODO: Temp code
-		string json = """
-		{
-			"name": "Testlevel",
-			"tiles": [
-				{ "posX": 0, "posY": 0 },
-				{ "posX": 0, "posY": 1 }
-			],
-			"edges": [
-				{ "from": 0, "to": 1, "bi": true, "type": 1  }
-			]
-		}
-		""";
-		this.fromJsonObject(JsonNode.Parse(json).AsObject());
+		using var file = FileAccess.Open("res:///levels/test.json", FileAccess.ModeFlags.Read);
+		this.fromJsonObject(JsonNode.Parse(file.GetAsText()).AsObject());
 	}
 	
 	public override void _Process(double delta) { }
