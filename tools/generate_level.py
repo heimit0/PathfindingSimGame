@@ -19,7 +19,7 @@ def get_unvisited_neighbors(size, visited, current):
 		result.append((current[0]-1, current[1]+1))
 	if (not current[1] == 0) and current[0] < size[0]-1:
 		# Position 0
-		result.append((current[0]+1, current[0]+2))
+		result.append((current[0]+1, current[0]+1))
 
 	# BuT ItS ThE IdIoMaTiC WaY
 	result = list(set(result) - set(visited))
@@ -29,12 +29,13 @@ def get_unvisited_neighbors(size, visited, current):
 def walk(size: list, visited: list, edges: list, current: tuple): 
 	visited.append(current)
 	n = get_unvisited_neighbors(size, visited, current)
-	if len(n) == 0:
-		return visited, edges
-	else:
+	while len(n) > 0:
 		chosen = random.choice(n)
+		print(chosen)
 		edges.append((current, chosen))
-		return walk(size, visited, edges, chosen)
+		visited, edges = walk(size, visited, edges, chosen)
+		n = get_unvisited_neighbors(size, visited, current)
+	return visited, edges
 
 size = [10, 10]
 _, edges = walk(size, [], [], (0, 0))
