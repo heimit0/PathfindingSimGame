@@ -80,7 +80,7 @@ public partial class Graph : Node3D
 		// Struktur des Root testen
 		if (!(json.ContainsKey("tiles") && json.ContainsKey("edges")))
 		{
-			GD.Print("Level-Objekt ist kaputt, es fehlen tiles und/oder edges :(");
+			GD.Print("fromJsonObject: Level-Objekt ist kaputt, es fehlen tiles und/oder edges :(");
 			return true;
 		}
 		
@@ -96,6 +96,11 @@ public partial class Graph : Node3D
 		{
 			GraphNode from = nodes[(int)e["from"]];
 			GraphNode to = nodes[(int)e["to"]];
+			if (from == null || to == null)
+			{
+				GD.Print("fromJsonObject: Falsche Referenz in einer Kante");
+				return true;
+			}
 			from.addNeighbor(to);
 			if ((bool)e["bi"] == true)
 				to.addNeighbor(from);
