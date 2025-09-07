@@ -71,7 +71,7 @@ public partial class Graph : Node3D
 	/// Deserialisiert einen JSON-Objekt in ein gueltiges
 	/// Graph-Element mit entsprechenden Kindknoten.
 	/// </summary>
-	/// <returns> false bei Erfolg, sonst true </returens>
+	/// <returns> false bei Erfolg, sonst true </returns>
 	// TODO: Sehr unsicher, wir prüfen viel zu wenig auf Struktur und bei Casts
 	public bool fromJsonObject(JsonObject json)
 	{
@@ -94,7 +94,12 @@ public partial class Graph : Node3D
 		
 		foreach (JsonObject e in json["edges"].AsArray())
 		{
-			// TODO: Edges lesen
+			GraphNode from = nodes[(int)e["from"]];
+			GraphNode to = nodes[(int)e["to"]];
+			// TODO: Warnung ausgeben wenn nicht direkt benachbart?
+			from.addNeighbor(to);
+			if ((bool)e["bi"] == true)
+				to.addNeighbor(from);
 		}
 		
 		foreach (GraphNode n in nodes)
