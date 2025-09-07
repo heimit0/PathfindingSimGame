@@ -1,26 +1,51 @@
 using Godot;
 using System;
-
 public partial class Camera : Camera3D
 {
-	
-	[Export]
-	public float speed;
-	
-	public override void _Ready() { }
-	
-	public override void _Process(double delta) {
-		Vector2 screenSize = GetViewport().GetVisibleRect().Size;
-		Vector2 mousePos = GetViewport().GetMousePosition() / screenSize;
+    [Export]
+    public float moveSpeed;
+    [Export]
+    public float scrollSpeed;
+    private bool isDragging = false;
+    private Vector3 originPos;
+    private Vector2 originMousePos;
+
+    public override void _Ready() { }
+
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionPressed("mouse_drag"))
+        {
+            if (!isDragging)
+            {
+                isDragging = true;
+                originPos = this.Position;
+                originMousePos = GetViewport().GetMousePosition();
+            }
+        }
+
+        if (Input.IsActionJustReleased("mouse_drag"))
+            isDragging = false;
+
+        if (isDragging)
+        {
+            Vector2 currentMousePos = GetViewport().GetMousePosition();
+            Vector2 mouseDiff = new Vector2(
+                originMousePos.X - currentMousePos.X,
+                originMousePos.Y - currentMousePos.Y
+            );
+
+            this.Position = originPos + new Vector3(mouseDiff.X * moveSpeed * 0.01f, 0, mouseDiff.Y * moveSpeed * 0.01f) * (float) delta * 60;
+        }
+
+        float scrollInput = 0.0f;
+
+        if (Input.IsActionJustPressed("mouse_scroll_up"))
+            scrollInput = -1.0f;
+
+		if (Input.IsActionJustPressed("mouse_scroll_down"))
+            scrollInput = 1.0f;
 		
-		if (mousePos.X > 0.9)
-			this.Position += new Vector3(speed * (float)delta, 0.0f, 0.0f);
-		if (mousePos.X < 0.1)
-			this.Position += new Vector3(-speed * (float)delta, 0.0f, 0.0f);
-		if (mousePos.Y > 0.9)
-			this.Position += new Vector3(0.0f, 0.0f, speed * (float)delta);
-		if (mousePos.Y < 0.1)
-			this.Position += new Vector3(0.0f, 0.0f, -speed * (float)delta);
-	}
-	
+		this.Position += Transform.Basis.Z * scrollInput * scrollSpeed * (float) delta * 60;
+    }
 }
