@@ -1,4 +1,9 @@
 import random, json
+import sys
+
+def usage():
+	print("Benutzung: " + sys.argv[0] + " breite hoehe")
+	exit(1)
 
 def get_unvisited_neighbors(size, visited, current):
 	result = []
@@ -37,7 +42,12 @@ def walk(size: list, visited: list, edges: list, current: tuple):
 		n = get_unvisited_neighbors(size, visited, current)
 	return visited, edges
 
-size = [10, 10]
+
+if len(sys.argv) != 3:
+	usage()
+
+size = [int(sys.argv[1]), int(sys.argv[2])]
+
 _, edges = walk(size, [], [], (0, 0))
 
 j = {"name": "Level", "tiles": [], "edges": []}
