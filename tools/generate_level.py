@@ -36,7 +36,6 @@ def walk(size: list, visited: list, edges: list, current: tuple):
 	n = get_unvisited_neighbors(size, visited, current)
 	while len(n) > 0:
 		chosen = random.choice(n)
-		print(chosen)
 		edges.append((current, chosen))
 		visited, edges = walk(size, visited, edges, chosen)
 		n = get_unvisited_neighbors(size, visited, current)
