@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcq4x7xuh2fd5"]
+
+[ext_resource type="PackedScene" uid="uid://cb4kgy0hkc08p" path="res://models/test_hexagon.fbx" id="1_hn0y8"]
+
+[node name="Testtile01" type="Node3D"]
+
+[node name="test_hexagon" parent="." instance=ExtResource("1_hn0y8")]

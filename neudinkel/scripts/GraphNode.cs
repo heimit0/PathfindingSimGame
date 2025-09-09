@@ -87,7 +87,7 @@ public partial class GraphNode : Node3D
 
 	private Node3D getStreetTile(int from, int too){
 		int diff = (too - from % 6);
-		var scene = ResourceLoader.Load<PackedScene>("models/test_hexagon" + /**diff +**/ ".fbx"); //TODO replace with actual street
+		var scene = ResourceLoader.Load<PackedScene>("assets/testtile0" + diff + ".tscn"); //TODO replace with actual street
 		var streetModell = scene.Instantiate();
 		Node3D street = new Node3D();
 		street.AddChild(streetModell);
@@ -96,7 +96,7 @@ public partial class GraphNode : Node3D
 	}
 
 	private Node3D getCityTile(int size){
-		var scene = ResourceLoader.Load<PackedScene>("models/test_hexagon" + /**size +**/ ".fbx"); //TODO replace with actual city
+		var scene = ResourceLoader.Load<PackedScene>("assets/testtile_city00" + /**size +**/ ".tscn"); //TODO replace with actual city
 		Node3D citytile = new Node3D();
 		var instantiatedcity = scene.Instantiate();
 		citytile.AddChild(instantiatedcity);
@@ -166,6 +166,7 @@ public partial class GraphNode : Node3D
 	///tilePosY 0.86 Offset wegen der Geometrie der Tiles
 	///tilePosX 0.5 mal tilePosY Offset weil es Hexagone sind und die Zeilen versetzt sein muessen
 	///</summary>
+	// TODO (mkolb2): Umkehrfunktion
 	public static Vector3 convertTilePosToPos(int tilePosX, int tilePosY)
 	{
 		return new Vector3(tilePosX + 0.5f * tilePosY,0.0f,tilePosY * 0.86f);
