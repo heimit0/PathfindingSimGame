@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Text.Json.Nodes;
 
 public enum GamePhase
 {
@@ -21,7 +22,15 @@ public partial class GameManager : Node3D
 
 	public override void _Ready()
 	{
+		Graph g;
+		JsonObject json;
+		using var file = FileAccess.Open("res:///levels/test.json", FileAccess.ModeFlags.Read);
+		
 		base._Ready();
+		g = new Graph();
+		json = JsonNode.Parse(file.GetAsText()).AsObject();
+		g.fromJsonObject(json);
+		this.AddChild(g);
 	}
 
 	public override void _Process(double delta)

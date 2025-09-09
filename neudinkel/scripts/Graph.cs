@@ -17,10 +17,6 @@ public partial class Graph : Node3D
 	public override void _Ready()
 	{
 		base._Ready();
-
-		// TODO: Temp code
-		using var file = FileAccess.Open("res:///levels/test.json", FileAccess.ModeFlags.Read);
-		this.fromJsonObject(JsonNode.Parse(file.GetAsText()).AsObject());
 	}
 	
 	public override void _Process(double delta) { }
