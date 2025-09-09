@@ -25,7 +25,7 @@ def get_unvisited_neighbors(size, visited, current):
 		result.append((current[0]-1, current[1]+1))
 	if (not current[1] == 0) and current[0] < size[0]-1:
 		# Position 0
-		result.append((current[0]+1, current[0]+1))
+		result.append((current[0]+1, current[1]-1))
 
 	# BuT ItS ThE IdIoMaTiC WaY
 	result = list(set(result) - set(visited))
