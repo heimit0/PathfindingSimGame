@@ -131,6 +131,8 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	public void addNeighbor(GraphNode a)
 	{
+		// TODO(jbrause): Pruefen ob wir WIRKLICH einen Nachbarknoten haben
+		// TODO(jbrause oder mkolb2): Bestimmten um welchen Nachbarn es sich handelt auslagern in statische Hilfsmethode
 		if (a.getTilePosX() > this.tilePosX && a.getTilePosY() < this.tilePosY)
 			// Position 0
 			this.neighbors[0] = a;
