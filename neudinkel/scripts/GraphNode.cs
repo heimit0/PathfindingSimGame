@@ -85,14 +85,15 @@ public partial class GraphNode : Node3D
 		}
 	
 
-	private Node3D getStreetTile(int from, int too){
-		int diff = (too - from % 6);
-		var scene = ResourceLoader.Load<PackedScene>("assets/testtile0" + diff + ".tscn"); //TODO replace with actual street
+	private Node3D getStreetTile(int from, int to){
+        int diff = Mathf.PosMod(to - from, 6);
+        int model = diff > 3 ? 6 - diff : diff;
+        var scene = ResourceLoader.Load<PackedScene>("assets/testtile0" + diff + ".tscn"); //TODO replace with actual street
 		var streetModell = scene.Instantiate();
-		Node3D street = new Node3D();
+		Node3D street = new();
 		street.AddChild(streetModell);
-		street.RotateY(Mathf.DegToRad(60*from));
-		return street;
+        street.RotateY(Mathf.DegToRad(60 * Mathf.PosMod(from, 6)));
+        return street;
 	}
 
 	private Node3D getCityTile(int size){
