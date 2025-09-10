@@ -154,8 +154,6 @@ public partial class GraphNode : Node3D
 		else
 			GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
 	}
-
-	// TODO(jbrause): Weitere Getter und Setter implementieren
 	
 	/// <summary>
 	/// Setzt die TilePos-Variablen und updated dabei

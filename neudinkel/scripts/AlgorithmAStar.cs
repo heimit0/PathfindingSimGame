@@ -41,6 +41,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 
 		this.steps = new Func<Graph, int>[10]; // idk wie viele
 		// schritte funktionen zuordnen
+		// TODO(gfriedr3 oder hsimosse): Zuweisen
 
 		while(unvisitedNodes.Count>0)
 		{

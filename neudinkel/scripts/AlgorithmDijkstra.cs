@@ -5,8 +5,8 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 {
 
 	private GraphNode currentNeighbour;
-	public Dictionary<GraphNode, GraphNode> cameFrom;
-	// TODO(mkolb2): Implementieren (Siehe Erklärungen NeudinkelAlgorithm.cs)
+	private Dictionary<GraphNode, GraphNode> cameFrom;
+
 	public AlgorithmDijkstra(Graph graph, GraphNode startNode, GraphNode goalNode)
 	{
 		this.graph = graph;
@@ -16,6 +16,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		this.goalNode = goalNode;
 		this.unvisitedNodes.Enqueue(startNode, 0);
 		this.distanceFromStart.Add(startNode,0);
+		this.cameFrom = new Dictionary<GraphNode, GraphNode>();
 
 		// alle nodes mit distanz = unendlich initialisieren
 		foreach (GraphNode node in graph.getNodes()) {
