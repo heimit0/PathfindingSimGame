@@ -175,10 +175,19 @@ public partial class GraphNode : Node3D
 	///tilePosY 0.86 Offset wegen der Geometrie der Tiles
 	///tilePosX 0.5 mal tilePosY Offset weil es Hexagone sind und die Zeilen versetzt sein muessen
 	///</summary>
-	// TODO (mkolb2): Umkehrfunktion
 	public static Vector3 convertTilePosToPos(int tilePosX, int tilePosY)
 	{
 		return new Vector3(tilePosX + 0.5f * tilePosY,0.0f,tilePosY * 0.86f);
+	}
+	
+	///<summary>
+	///convertiert nach den gleichen regeln wie TilePosToPos nur andersrum
+	///</summary>
+	public static int[] convertPosToTilePos(Vector3 pos)
+	{
+		float tilePosY = pos.Z / 0.86f;
+		float tilePosX = pos.X - 0.5f * tilePosY;
+		return new int[] {(int)tilePosX,(int)tilePosY};
 	}
 
 }
