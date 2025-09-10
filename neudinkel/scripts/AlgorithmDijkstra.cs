@@ -25,7 +25,10 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		this.steps = new Func<Graph, int>[10]; // idk wie viele
 
 		// schritte funktionen zuordnen
-		dijkstra(this.graph);
+		this.steps[0] = dijkstra;
+		this.steps[1] = chooseNextNode;
+		this.steps[2] = visitNextNode;
+		this.steps[3] = checkNeighbour;
 	}
 	
 	///<summary>
