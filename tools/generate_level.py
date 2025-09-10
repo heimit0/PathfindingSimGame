@@ -53,7 +53,7 @@ _, edges = walk(size, [], [], (0, 0))
 j = {"name": "Level", "tiles": [], "edges": []}
 for y in range(size[1]):
 	for x in range(size[0]):
-		j["tiles"].append({"posX": x, "posY": y})
+		j["tiles"].append({"posX": x, "posY": y, "type": 0})
 
 for edge in edges:
 	node_from = edge[0][0] + size[0] * edge[0][1]

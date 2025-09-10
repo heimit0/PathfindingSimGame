@@ -75,6 +75,8 @@ public partial class Graph : Node3D
 			GraphNode node = new GraphNode();
 			// wild dass C# das einfach so erlaubt...
 			node.setTilePos((int) n["posX"], (int) n["posY"]);
+			// abomination.
+			node.setStreetType((StreetType)(int) n["type"]);
 			nodes.Add(node);
 		}
 		

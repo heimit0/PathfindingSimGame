@@ -104,7 +104,6 @@ public partial class GraphNode : Node3D
 		return citytile;
 	}
 
-
 	public int getTilePosX()
 	{
 		return this.tilePosX;	
@@ -162,7 +161,12 @@ public partial class GraphNode : Node3D
 		this.tilePosY = tilePosY;
 		this.Position = convertTilePosToPos(tilePosX,tilePosY);
 	}
-	
+
+	public void setStreetType(StreetType t)
+	{
+		this.streetType = t;
+	}
+
 	///<summary>
 	///tilePosY 0.86 Offset wegen der Geometrie der Tiles
 	///tilePosX 0.5 mal tilePosY Offset weil es Hexagone sind und die Zeilen versetzt sein muessen
@@ -172,5 +176,5 @@ public partial class GraphNode : Node3D
 	{
 		return new Vector3(tilePosX + 0.5f * tilePosY,0.0f,tilePosY * 0.86f);
 	}
-	
+
 }
