@@ -57,7 +57,8 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	public void updateModel()
 	{
-		if (this.GetChildren().Contains(tile)){
+		if (this.GetChildren().Contains(tile))
+		{
 			this.RemoveChild(tile);
 		}
 		tile = new Node3D();
@@ -71,32 +72,33 @@ public partial class GraphNode : Node3D
 				positionConnections.Add(n);
 			}
 		}
-		if(nrconnections != 2)
-			{
-				nrconnections -= 3;
-				tile = getCityTile(nrconnections);
-				AddChild(tile);
-			}
-			else
-			{
-				tile = getStreetTile(positionConnections[0], positionConnections[1]);
-				AddChild(tile);
-			}
+		if (nrconnections != 2)
+		{
+			nrconnections -= 3;
+			tile = getCityTile(nrconnections);
+			AddChild(tile);
 		}
-	
+		else
+		{
+			tile = getStreetTile(positionConnections[0], positionConnections[1]);
+			AddChild(tile);
+		}
+	}
 
-	private Node3D getStreetTile(int from, int to){
-        int diff = Mathf.PosMod(to - from, 6);
-        int model = diff > 3 ? 6 - diff : diff;
-        var scene = ResourceLoader.Load<PackedScene>("assets/testtile0" + diff + ".tscn"); //TODO replace with actual street
+	private Node3D getStreetTile(int from, int to)
+	{
+		int diff = Mathf.PosMod(to - from, 6);
+		int model = diff > 3 ? 6 - diff : diff;
+		var scene = ResourceLoader.Load<PackedScene>("assets/testtile0" + diff + ".tscn"); //TODO replace with actual street
 		var streetModell = scene.Instantiate();
 		Node3D street = new();
 		street.AddChild(streetModell);
-        street.RotateY(Mathf.DegToRad(60 * Mathf.PosMod(from, 6)));
-        return street;
+		street.RotateY(Mathf.DegToRad(60 * Mathf.PosMod(from, 6)));
+		return street;
 	}
 
-	private Node3D getCityTile(int size){
+	private Node3D getCityTile(int size)
+	{
 		var scene = ResourceLoader.Load<PackedScene>("assets/testtile_city00" + /**size +**/ ".tscn"); //TODO replace with actual city
 		Node3D citytile = new Node3D();
 		var instantiatedcity = scene.Instantiate();
@@ -114,11 +116,13 @@ public partial class GraphNode : Node3D
 		return this.tilePosY;	
 	}
 
-	public StreetType getStreetType(){
+	public StreetType getStreetType()
+	{
 		return streetType;
 	}
 
-	public GraphNode[] getNeighbours(){
+	public GraphNode[] getNeighbours()
+	{
 		return neighbors;
 	}
 
