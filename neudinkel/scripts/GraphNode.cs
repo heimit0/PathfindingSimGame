@@ -99,7 +99,7 @@ public partial class GraphNode : Node3D
 
 	private Node3D getCityTile(int size)
 	{
-		var scene = ResourceLoader.Load<PackedScene>("assets/testtile_city00" + /**size +**/ ".tscn"); //TODO replace with actual city
+		var scene = ResourceLoader.Load<PackedScene>("assets/testtile_city03" /**+ size**/ + ".tscn"); //TODO replace with actual city
 		Node3D citytile = new Node3D();
 		var instantiatedcity = scene.Instantiate();
 		citytile.AddChild(instantiatedcity);
