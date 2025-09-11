@@ -3,6 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
+/*
+	TODO:
+		Debug Drawing - besonders die Edges
+		Raycasting/Auswahl - zum Auswaehlen der Tiles per Maus (vielleicht auch im Graph?)
+		Marker - zum Hervorheben der ausgewaehlten Tile
+		Variationen - zufaellige Auswahl einer Tile-Variation
+		Batch Rendering - damit wir viele Tiles haben koennen
+*/
+
 /// <summary>
 /// Alle moeglichen Typen fuer eine Strasse
 /// </summary>

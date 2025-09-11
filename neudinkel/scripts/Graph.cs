@@ -5,6 +5,11 @@ using System.Collections;
 using System.Text.Json.Nodes;
 using System.Collections.Generic;
 
+/*
+	TODO:
+		Debug Drawing - weitergeben an die Nodes/Tiles
+*/
+
 public enum GraphSearchAlgorithm
 {
 	A_STAR,

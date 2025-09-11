@@ -1,7 +1,17 @@
 using Godot;
 using System;
+
+/*
+	TODO:
+		Perspektive - muss ueberarbeitet werden, noch nicht schoen (eventuell im Editor?)
+		Zoom-Grenze - damit man nicht durch die Karte "durchzoomen" kann
+		Weiches Zoomen - bis jetzt ist es sehr ruckartig
+		Perspektivisches Zoomen - siehe Warcraft III / Starcraft II
+*/
+
 public partial class Camera : Camera3D
 {
+
 	[Export]
 	public float moveSpeed;
 	[Export]
@@ -48,4 +58,5 @@ public partial class Camera : Camera3D
 		
 		this.Position += Transform.Basis.Z * scrollInput * scrollSpeed * (float) delta * 60;
 	}
+
 }
