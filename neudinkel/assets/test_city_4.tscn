@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://byibhdjek71se"]
-
-[ext_resource type="PackedScene" uid="uid://be6vv8nqtfy1w" path="res://models/test_city4.fbx" id="1_a1xm4"]
-
-[node name="test_city4" instance=ExtResource("1_a1xm4")]
