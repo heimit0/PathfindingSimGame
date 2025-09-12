@@ -142,24 +142,10 @@ public partial class GraphNode : Node3D
 	{
 		// TODO(jbrause): Pruefen ob wir WIRKLICH einen Nachbarknoten haben
 		// TODO(jbrause oder mkolb2): Bestimmten um welchen Nachbarn es sich handelt auslagern in statische Hilfsmethode
-		if (a.getTilePosX() > this.tilePosX && a.getTilePosY() < this.tilePosY)
-			// Position 0
-			this.neighbors[0] = a;
-		else if (a.getTilePosX() > this.tilePosX && a.getTilePosY() == this.tilePosY)
-			// Position 1
-			this.neighbors[1] = a;
-		else if (a.getTilePosX() == this.tilePosX && a.getTilePosY() > this.tilePosY)
-			// Position 2
-			this.neighbors[2] = a;
-		else if (a.getTilePosX() < this.tilePosX && a.getTilePosY() > this.tilePosY)
-			// Position 3
-			this.neighbors[3] = a;
-		else if (a.getTilePosX() < this.tilePosX && a.getTilePosY() == this.tilePosY)
-			// Position 4
-			this.neighbors[4] = a;
-		else if (a.getTilePosX() == this.tilePosX && a.getTilePosY() < this.tilePosY)
-			// Position 5
-			this.neighbors[5] = a;
+		if((int)getNeighbourType(this,a) != -1)
+		{
+			this.neighbors[(int)getNeighbourType(this,a)] = a;
+		}
 		else
 			GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
 	}
@@ -197,6 +183,32 @@ public partial class GraphNode : Node3D
 		float tilePosY = pos.Z / 0.86f;
 		float tilePosX = pos.X - 0.5f * tilePosY;
 		return new int[] {(int)tilePosX,(int)tilePosY};
+	}
+	
+	public static TileRelation getNeighbourType(GraphNode middle,GraphNode neighbour)
+	{
+		int x = middle.getTilePosX() - neighbour.tilePosX;
+		int y = middle.getTilePosY() - neighbour.tilePosY;
+		//topright x negativ y positiv
+		//right x negativ y 0
+		//bottomright x 0 y negativ
+		//bottomleft x positiv y negativ
+		//left x positiv y 0
+		//topleft x 0 y posititv
+		if (x < 0 && y > 0)
+			return TileRelation.TOPRIGHT;
+		else if (x < 0 && y == 0)
+			return TileRelation.RIGHT;
+		else if (x == 0 && y < 0)
+			return TileRelation.BOTTOMRIGHT;
+		else if (x > 0 && y < 0)
+			return TileRelation.BOTTOMLEFT;
+		else if (x > 0 && y == 0)
+			return TileRelation.LEFT;
+		else if (x == 0 && y > 0)
+			return TileRelation.TOPLEFT;
+		else
+			return TileRelation.INVALID;
 	}
 
 }
