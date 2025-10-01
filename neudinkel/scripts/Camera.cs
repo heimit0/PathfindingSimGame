@@ -4,9 +4,6 @@ using System;
 /*
 	TODO:
 		Perspektive - muss ueberarbeitet werden, noch nicht schoen (eventuell im Editor?)
-		Zoom-Grenze - damit man nicht durch die Karte "durchzoomen" kann
-		Weiches Zoomen - bis jetzt ist es sehr ruckartig
-		Perspektivisches Zoomen - siehe Warcraft III / Starcraft II
 */
 
 public partial class Camera : Camera3D
@@ -20,7 +17,6 @@ public partial class Camera : Camera3D
 	private Vector3 originPos;
 	private float scrollInput = 0.0f;
 	private Vector2 originMousePos;
-	Vector3 distanceToScroll;
 	private Vector3 scrollToPosition;
 	private bool scrolling = false;
 	public override void _Ready() { }
@@ -68,46 +64,39 @@ public partial class Camera : Camera3D
 		}
 		
 		
-		if(distanceToScroll.Length() > 0.1f )
+		if(scrolling)
 		{
 			Vector3 newPosition= this.Position + Transform.Basis.Z * scrollInput * scrollSpeed * (float) delta * 60;
-			if(newPosition.Y > 5)
+			if(newPosition.Y > 7 || newPosition.Y < 0.6f)
 			{
-				resetCamera();
-				
+				scrolling = false;
+				return;
+			}
+			if(scrollInput < 0 && newPosition.Y < scrollToPosition.Y)
+			{
+				scrolling = false;
+				return;
+			}
+			if(scrollInput > 0 && newPosition.Y > scrollToPosition.Y)
+			{
+				scrolling = false;
 				return;
 			}
 			this.Position = newPosition;
 			this.Rotation = getRotation(this.Position.Y);
-			distanceToScroll = this.Position - scrollToPosition;
-		}
-		else
-		{
-			scrolling = false;
 		}
 		
-		
-		
-
 	}
 	private void setScroll(float scrollDirection)
 	{
 			scrollInput = scrollDirection;
 			scrolling = true;
-			scrollToPosition = this.Position + Transform.Basis.Z * scrollInput*2;
-			distanceToScroll = this.Position - scrollToPosition;
+			scrollToPosition = new Vector3(0,this.Position.Y+scrollDirection * 1.5f,0);
 	}
 	
 	private Vector3 getRotation(float position)
 	{
-		
 		float test = Mathf.Min(position+2 / 5,1);
 		return new Vector3(test*-45*Mathf.Pi/180,0,0);
 	}
-	private void resetCamera()
-	{
-		scrolling = false;
-		distanceToScroll = new Vector3(0,0,0);
-	}
-
 }
