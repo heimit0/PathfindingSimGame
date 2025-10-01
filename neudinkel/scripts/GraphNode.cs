@@ -45,6 +45,7 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	private GraphNode[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 	private Node3D tile;
+	private EdgeVis edgeVis;
 
 	private StreetType streetType;
 
@@ -56,6 +57,8 @@ public partial class GraphNode : Node3D
 	public override void _Ready()
 	{
 		base._Ready();
+		edgeVis = new EdgeVis();
+		AddChild(edgeVis);
 		updateModel();
 	}
 
@@ -92,6 +95,8 @@ public partial class GraphNode : Node3D
 			tile = getStreetTile(positionConnections[0], positionConnections[1]);
 			AddChild(tile);
 		}
+		
+		edgeVis.updateMesh();
 	}
 
 	private Node3D getStreetTile(int from, int to)

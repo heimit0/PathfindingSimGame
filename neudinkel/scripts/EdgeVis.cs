@@ -27,17 +27,17 @@ public partial class EdgeVis : MeshInstance3D
 	
 	public void updateEdges(ImmediateMesh mesh)
 	{
-		GraphNode[] neighbors = parent.getNeighbors();
+		GraphNode[] neighbors = parent.getNeighbours();
 
 		// TODO: Material?
 		mesh.SurfaceBegin(Mesh.PrimitiveType.Lines, null);
 		for (int i = 0; i < 6; i++)
 		{
-			if (neighbors[i] != 0)
+			if (neighbors[i] is not null)
 			{
 				// Wir zeichnen eine Linie. UVs und Normalen egal
-				mesh.SurfaceAddVertex(new Vector3D(0, 0, 0));
-				mesh.SurfaceAddVertex(new Vector3D(0.5f, 0, 0));
+				mesh.SurfaceAddVertex(new Vector3(0, 0, 0));
+				mesh.SurfaceAddVertex(new Vector3(-Mathf.Sin(Mathf.DegToRad(i*10)), 0, Mathf.Cos(Mathf.DegToRad(10*i))));
 			}
 		}
 		mesh.SurfaceEnd();
