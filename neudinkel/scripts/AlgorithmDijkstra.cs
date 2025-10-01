@@ -79,7 +79,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	{
 		if(this.currentNode.Equals(goalNode))
 		{
-		resultToString();
+			resultToString();
 			return -1;
 		}
 		return 4;
@@ -175,7 +175,14 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	///</summary>
 	public String resultToString()
 	{
-		String result = "";
+		GraphNode resultHelper;
+		resultHelper = cameFrom[currentNode];
+		String result = "("+resultHelper.getTilePosX()+","+resultHelper.getTilePosY()+")";
+		while(!startNode.Equals(resultHelper))
+		{
+			resultHelper = cameFrom[resultHelper];
+			result = "("+resultHelper.getTilePosX()+","+resultHelper.getTilePosY()+") ->" + result;
+		}
 		return result;
 	}
 	
