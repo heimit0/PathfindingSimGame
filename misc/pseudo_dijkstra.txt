@@ -1,0 +1,15 @@
+Solange Warteschlange nicht leer:
+	k := Knoten mit kleinstem Wert aus Warteschlange
+	setze k als besucht
+	falls k gleich dem Ziel
+		berechne_Ergebnis()
+	für jeden NachbarKnoten n von k:
+		 abstand := abstand_von_start + abstand_von(k zu n)
+		 falls n bereits besucht
+			 falls abstand < abstand(n)
+				 abstand(n) := abstand
+				 setzte k als neuen Vorgänger von n
+			 sonst 
+				 abstand(n) := abstand
+				 setze k als Vorgänger von n
+				 füge n der Warteschlange mit abstand als wert hinzu
