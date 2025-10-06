@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=3 uid="uid://mkk1cd41mlpr"]
+
+[ext_resource type="PackedScene" uid="uid://cgw1cgmwim2v" path="res://Untitled.fbx" id="1_85scv"]
+
+[node name="Simulationsmodus" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ObenRechts" type="HBoxContainer" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -380.0
+offset_bottom = 70.0
+grow_horizontal = 0
+
+[node name="Button1" type="Button" parent="UI/ObenRechts"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Baumodus"
+
+[node name="CheckButton" type="CheckButton" parent="UI/ObenRechts"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Button2" type="Button" parent="UI/ObenRechts"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Simulieren"
+
+[node name="links" type="VBoxContainer" parent="UI/ObenRechts"]
+layout_mode = 2
+
+[node name="Minimap" type="SubViewportContainer" parent="UI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -262.0
+offset_top = -168.0
+offset_right = -12.0
+offset_bottom = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+
+[node name="SubViewport" type="SubViewport" parent="UI/Minimap"]
+handle_input_locally = false
+size = Vector2i(250, 150)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="UI/Minimap/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.362536, 0.93197, 0, -0.93197, 0.362536, -0.496811, 6.0264, -2.6299)
+
+[node name="Untitled" parent="UI/Minimap/SubViewport" instance=ExtResource("1_85scv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.86365)
+
+[node name="Untitled2" parent="UI/Minimap/SubViewport" instance=ExtResource("1_85scv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7905, 0, -5.7273)
+
+[node name="Untitled3" parent="UI/Minimap/SubViewport" instance=ExtResource("1_85scv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4169, 0, -8.59095)
