@@ -1,26 +1,26 @@
-Setze alle Knoten auf unendlich Kosten
+1. Setze alle Knoten auf unendlich Kosten
 
-Setze die Kosten des Startknoten auf 0
+2. Setze die Kosten des Startknoten auf 0
 
-Fuege den Startknoten ind die Queue und berechne ihren heuristischen Wert
+3. Fuege den Startknoten ind die Queue und berechne ihren heuristischen Wert
 
 Waehrend die Queue nicht leer ist:
 
-    Speichere die derzeitige Node in einen Zwischenspeicher
+4.     Speichere die derzeitige Node in einen Zwischenspeicher
 
-    Hole einen neuen Knoten aus der Queue
+5.     Hole einen neuen Knoten aus der Queue
     
-    Fuege den neuen Knoten in die Liste besuchter Knoten hinzu
+6.    Fuege den neuen Knoten in die Liste besuchter Knoten hinzu
     
-    Berechne die Kosten fuer die jetztige Node
+7.    Berechne die Kosten fuer die jetztige Node
     
-    Speichere die vorgaenger Note zur jetzigen
+8.   Speichere die vorgaenger Note zur jetzigen
     
-    Falls die jetztige Node die Zielnode ist: Beende
+9.    Falls die jetztige Node die Zielnode ist: Beende
     
-    Fuer jeden benachbarten Knoten
+10.    Fuer jeden benachbarten Knoten
     
-        Fuege alle noch nicht besuchten Knoten die an den Knoten grenzen in die Queue hinzu
+11.        Fuege alle noch nicht besuchten Knoten die an den Knoten grenzen in die Queue hinzu
 
 
     

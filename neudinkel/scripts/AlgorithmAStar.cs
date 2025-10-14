@@ -20,6 +20,10 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		 - f(n) => totalCost
 	*/
 	{
+		this.steps = new Func<Graph, int>[12]; // idk wie viele
+		// schritte funktionen zuordnen
+		// TODO(gfriedr3 oder hsimosse): Zuweisen
+		
 		this.graph = graph;
 
 		this.startNode = startNode;
@@ -39,9 +43,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		totalCost[startNode] = 0;
 		this.unvisitedNodes.Enqueue(startNode, heuristic(startNode));
 
-		this.steps = new Func<Graph, int>[10]; // idk wie viele
-		// schritte funktionen zuordnen
-		// TODO(gfriedr3 oder hsimosse): Zuweisen
+		
 
 		while(unvisitedNodes.Count>0)
 		{
