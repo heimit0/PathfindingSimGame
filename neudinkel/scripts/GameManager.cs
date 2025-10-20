@@ -2,6 +2,13 @@ using Godot;
 using System;
 using System.Text.Json.Nodes;
 
+/*
+	TODO:
+		Initialisierung - Parameter einlesen, Level laden, Status setzen etc.
+		Ablaufsteuerung - Was passiert wann wie?
+		UI-Koordinierung - Signale etc.
+*/
+
 public enum GamePhase
 {
 	BUILDING,
