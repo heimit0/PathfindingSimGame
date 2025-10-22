@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+
 /*
 	TODO:
 		Perspektive - muss ueberarbeitet werden, noch nicht schoen (eventuell im Editor?)
@@ -20,7 +21,20 @@ public partial class Camera : Camera3D
 	private Vector3 scrollToPosition;
 	private bool scrolling = false;
 	public override void _Ready() { }
-
+	
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton eventMouseButton)
+		 	{
+				Vector2 size = eventMouseButton.Position/GetViewport().GetVisibleRect().Size - new Vector2(0.5f,0.5f);
+				
+				var camPos = this.Position;
+				float ges = this.Position.Y * Mathf.Tan(this.Rotation.X);
+				Vector2 clickPosition = size - new Vector2(ges,0);
+				GD.Print("Mouse Click/Unclick at: ", clickPosition);
+			}
+	} 
+	
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionPressed("mouse_drag"))
