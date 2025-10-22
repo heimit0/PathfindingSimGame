@@ -221,6 +221,13 @@ public partial class GraphNode : Node3D
 	{
 		int x = middle.getTilePosX() - neighbour.tilePosX;
 		int y = middle.getTilePosY() - neighbour.tilePosY;
+
+		if (Mathf.Sqrt( Mathf.pow(a.tilePosX - a.getTilePosY, 2) + Mathf.pow(a.tilePosY - tile.tilePosY, 2)) != 1) 
+		{
+			return TileRelation.INVALID;
+		}
+
+
 		//topright x negativ y positiv
 		//right x negativ y 0
 		//bottomright x 0 y negativ
