@@ -26,12 +26,12 @@ public partial class Camera : Camera3D
 	{
 		if (@event is InputEventMouseButton eventMouseButton)
 		 	{
-				Vector2 size = eventMouseButton.Position/GetViewport().GetVisibleRect().Size - new Vector2(0.5f,0.5f);
-				
-				var camPos = this.Position;
-				float ges = this.Position.Y * Mathf.Tan(this.Rotation.X);
-				Vector2 clickPosition = size - new Vector2(ges,0);
-				GD.Print("Mouse Click/Unclick at: ", clickPosition);
+				Vector2 screenSize = GetViewport().GetVisibleRect().Size;
+				Vector2 relativeScreenPos = eventMouseButton.Position/screenSize;
+				float miau = relativeScreenPos.Y;
+				float distanceToGround = 4.925f * Mathf.Pow(miau,4)-17.855f*Mathf.Pow(miau,3)+24.521f*Mathf.Pow(miau,2)-19.091f*miau+(7.5f+this.Position.Y);
+				Vector3 size = this.ProjectPosition(eventMouseButton.Position,distanceToGround); //5-12,5
+				GD.Print("Mouse Click/Unclick at: ", size);
 			}
 	} 
 	
