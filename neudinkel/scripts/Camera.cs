@@ -26,17 +26,12 @@ public partial class Camera : Camera3D
 	{
 		if (@event is InputEventMouseButton eventMouseButton)
 		 	{
-				Vector2 screenSize = GetViewport().GetVisibleRect().Size;
-				Vector2 relativeScreenPos = eventMouseButton.Position/screenSize;
-				float miau = relativeScreenPos.Y;
+				Vector3 clickPoint = this.ProjectPosition(eventMouseButton.Position,1); 
+				Vector3 ray = new Vector3 (this.Position.X-size.X,this.Position.Y-size.Y,this.Position.Z-size.Z);
+				float castDistance = this.Position.Y / test.Y;
+				Vector3 nullPos = this.Position - test*miau;
 				
-				
-				
-				float winkel = 75f-(75f*miau);
-				float test = this.Position.Y / Mathf.Cos((7.5f+winkel)*Mathf.Pi/180f);
-				
-				Vector3 size = this.ProjectPosition(eventMouseButton.Position,test); 
-				GD.Print("Mouse Click/Unclick at: ",size, test," ",winkel);
+				GD.Print("Mouse Click/Unclick at: ",nullpos);
 			}
 	} 
 	
