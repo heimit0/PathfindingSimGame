@@ -27,11 +27,11 @@ public partial class Camera : Camera3D
 		if (@event is InputEventMouseButton eventMouseButton)
 		 	{
 				Vector3 clickPoint = this.ProjectPosition(eventMouseButton.Position,1); 
-				Vector3 ray = new Vector3 (this.Position.X-size.X,this.Position.Y-size.Y,this.Position.Z-size.Z);
-				float castDistance = this.Position.Y / test.Y;
-				Vector3 nullPos = this.Position - test*miau;
+				Vector3 ray = new Vector3 (this.Position.X-clickPoint.X,this.Position.Y-clickPoint.Y,this.Position.Z-clickPoint.Z);
+				float castDistance = this.Position.Y / ray.Y;
+				Vector3 nullPos = this.Position - ray*castDistance;
 				
-				GD.Print("Mouse Click/Unclick at: ",nullpos);
+				GD.Print("Mouse Click/Unclick at: ",nullPos);
 			}
 	} 
 	
