@@ -4,7 +4,6 @@ using System.Text.Json.Nodes;
 
 /*
 	TODO:
-		Initialisierung - Parameter einlesen, Level laden, Status setzen etc.
 		Ablaufsteuerung - Was passiert wann wie?
 		UI-Koordinierung - Signale etc.
 */
@@ -29,19 +28,28 @@ public partial class GameManager : Node3D
 
 	public override void _Ready()
 	{
-		Graph g;
-		JsonObject json;
-		using var file = FileAccess.Open("res:///levels/test.json", FileAccess.ModeFlags.Read);
-		
 		base._Ready();
-		g = new Graph();
-		json = JsonNode.Parse(file.GetAsText()).AsObject();
-		g.fromJsonObject(json);
-		this.AddChild(g);
+		loadLevel("test");
 	}
 
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
+	}
+	
+	/// <summary>
+	/// Lädt das angegebene Level.
+	/// loadLevel("test") lädt das Level levels/test.json.
+	/// </summary>
+	public void loadLevel(string levelName)
+	{
+		Graph g;
+		JsonObject json;
+		using var file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
+
+		g = new Graph();
+		json = JsonNode.Parse(file.GetAsText()).AsObject();
+		g.fromJsonObject(json);
+		this.AddChild(g);
 	}
 }
