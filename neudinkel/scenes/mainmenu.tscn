@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmoc8fo8iyfqp"]
+[gd_scene load_steps=5 format=3 uid="uid://cmoc8fo8iyfqp"]
 
 [ext_resource type="Texture2D" uid="uid://dkilv13pdcd33" path="res://icon.svg" id="1_5mbse"]
+[ext_resource type="Script" uid="uid://c48nvxgn3oi8v" path="res://scripts/ui_buttons/Mainmenu.cs" id="1_natt5"]
+[ext_resource type="FontFile" uid="uid://cyk2vwfyjscxt" path="res://assets/ui_presets/SairaCondensed-Medium.ttf" id="2_3vvtq"]
+[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="4_s5g8n"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -11,6 +14,7 @@ offset_left = 7.0
 offset_right = 7.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_natt5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -22,8 +26,10 @@ offset_left = -286.5
 offset_right = 286.5
 offset_bottom = 91.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_3vvtq")
 theme_override_font_sizes/font_size = 66
 text = "Projekt Neudinkel"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
@@ -61,13 +67,22 @@ texture = ExtResource("1_5mbse")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_constants/separation = 30
 
-[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+[node name="baumodus" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+theme = ExtResource("4_s5g8n")
 theme_override_font_sizes/font_size = 50
 text = "Baumodus"
 
-[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+[node name="pruefmodus" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+theme = ExtResource("4_s5g8n")
 theme_override_font_sizes/font_size = 50
 text = "Prüfmodus"
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer2/baumodus" to="." method="_on_baumodus_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer2/pruefmodus" to="." method="_on_pruefmodus_pressed"]

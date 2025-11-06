@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0f6gmgtyw2ru"]
+[gd_scene load_steps=4 format=3 uid="uid://b0f6gmgtyw2ru"]
 
+[ext_resource type="Script" uid="uid://bvjx8h2ld50bf" path="res://scripts/ui_buttons/Levelmenu.cs" id="1_3ooxb"]
 [ext_resource type="Texture2D" uid="uid://dkilv13pdcd33" path="res://icon.svg" id="1_5tdid"]
+[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_lajna"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3ooxb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -62,27 +65,35 @@ texture = ExtResource("1_5tdid")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+theme = ExtResource("3_lajna")
 
-[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+[node name="dijkstra" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
 text = "   Dijkstra   "
 
-[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+[node name="aStar" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "        A*        "
 
-[node name="Button3" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+[node name="dfs" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "       DFS       "
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 1064.0
-offset_top = 589.0
-offset_right = 1124.0
-offset_bottom = 620.0
+[node name="backButton" type="Button" parent="CanvasLayer"]
+offset_left = 1070.0
+offset_top = 600.0
+offset_right = 1130.0
+offset_bottom = 631.0
+theme = ExtResource("3_lajna")
+theme_override_font_sizes/font_size = 20
 text = "zurück"
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer2/dijkstra" to="." method="_on_dijkstra_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer2/aStar" to="." method="_on_a_star_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer2/dfs" to="." method="_on_dfs_pressed"]
+[connection signal="pressed" from="CanvasLayer/backButton" to="." method="_on_back_button_pressed"]

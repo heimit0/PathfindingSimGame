@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://dxnhei4odushk" path="res://assets/testtile00.tscn" id="1_sfl2l"]
 
-
 [sub_resource type="GDScript" id="GDScript_bn8a6"]
 script/source = "extends Button
 "
