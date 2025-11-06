@@ -4,148 +4,224 @@ using Godot;
 
 public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 {
-	// jede Node zeigt auf ihren besten Nachbarn ("Elternteil"), um den besten Pfad zu rekonstruieren
-	public Dictionary<GraphNode, GraphNode> cameFrom;
+    // jede Node zeigt auf ihren besten Nachbarn ("Elternteil"), um den besten Pfad zu rekonstruieren
+    public Dictionary<GraphNode, GraphNode> cameFrom;
 
-	// g(n) = bereits zurückgelegte Distanz (distanceFromStart)
-	public Dictionary<GraphNode, float> totalCost;
+    // g(n) = bereits zurückgelegte Distanz (distanceFromStart)
+    public Dictionary<GraphNode, float> totalCost;
 
-	private float currentHeuristic;
-	private float currentDistance;
+    private float currentHeuristic;
+    private float currentDistance;
 
-	public AlgorithmAStar(Graph graph, GraphNode startNode, GraphNode goalNode)
-	{
-		this.graph = graph;
-		this.startNode = startNode;
-		this.currentNode = startNode;
-		this.goalNode = goalNode;
+    private GraphNode[] currentNeighbours;
+    private int currentNeighbourIndex;
+    private float tentativeG;
+    private float neighbourFScore;
 
-		cameFrom = [];
-		totalCost = [];
+    // implemented code:
 
-		// Schritte-Array (nur Submethoden)
-		this.steps = new Func<Graph, int>[8];
-		this.steps[0] = aStar;                 // orchestriert nur Submethoden
-		this.steps[1] = initNodes;
-		this.steps[2] = addStartNode;
-		this.steps[3] = getNewNodeFromQueue;
-		this.steps[4] = addNodeToVisited;
-		this.steps[5] = checkIfGoal;
-		this.steps[6] = addNeighboursToList;
-        this.steps[7] = heuristic;
+    //     // addStartNode(graph);
 
-		initNodes(graph);
-        // Wenn kein Pfad gefunden wird, aStar gibt 0 zurück -> Exception
-        if (aStar(graph) == 0)
-			throw new ArgumentException("Es existiert kein Weg zum Ziel");
-	}
+    //     	while (unvisitedNodes.Count > 0)
+    //     	{
+    //         	getNewNodeFromQueue(graph);              // setzt currentNode
 
-	private int aStar(Graph graph)
-	{
+    //         	if (checkIfGoal(graph) == 1)             // Ziel erreicht?
+    //             	return 1;
+
+    //         	addNodeToVisited(graph);                 // current -> visited
+    //         	heuristic(graph);                        // berechnet currentHeuristic (optional für Visualisierung)
 		
-		addStartNode(graph);
+	// 			foreach (GraphNode n in currentNode.getNeighbours())
+	// 			{
+	// 				if (visitedNodes.Contains(n))
+	// 					continue;
 
-		while (unvisitedNodes.Count > 0)
-		{
-			getNewNodeFromQueue(graph);              // setzt currentNode
-			
-			if (checkIfGoal(graph) == 1)             // Ziel erreicht?
-				return 1;
+	// 				float tentativeG = totalCost[currentNode] + edgeCost(currentNode, n);
 
-			addNodeToVisited(graph);                 // current -> visited
-			heuristic(graph);                        // berechnet currentHeuristic (optional für Visualisierung)
-			addNeighboursToList(graph);              // Nachbarn mit f(n) in PQ
-		}
+	// 				if (tentativeG < totalCost[n])
+	// 				{
+	// 					totalCost[n] = tentativeG;
+	// 					cameFrom[n] = currentNode;
+	// 					float fScore = tentativeG + heuristicValue(n);
+	// 					unvisitedNodes.Enqueue(n, fScore);
+	// 				}
+	// 			}
+    //     	}
 
-		return 0;
-	}
+    public AlgorithmAStar(Graph graph, GraphNode startNode, GraphNode goalNode)
+    {
+        this.graph = graph;
+        this.startNode = startNode;
+        this.currentNode = startNode;
+        this.goalNode = goalNode;
 
-	// Submethoden
+        cameFrom = [];
+        totalCost = [];
 
-	private int initNodes(Graph graph)
-	{
-		cameFrom.Clear();
-		totalCost.Clear();
-		visitedNodes = [];
-		unvisitedNodes = new PriorityQueue<GraphNode, float>();
+        // Schritte-Array (nur Submethoden)
+        this.steps = new Func<Graph, int>[] {
+            initOpenList,
+            initClosedList,
+            initCosts,
+            checkIfOpenListIsEmpty,
+            getBestNodeFromQueue,
+            addNodeToVisited,
+            checkIfGoal,
+            checkIfNeighbourVisited,
+            calcTentativeG,
+            checkIfTentativeIsBetter,
+            updateNeighbourTotalCost,
+            updateNeighbourCameFrom,
+            calcNeighbourFScore,
+            updateNeighbourFScore
+        };
+    }
 
-		foreach (GraphNode node in graph.getNodes())
-			totalCost[node] = float.MaxValue;
+    private int initOpenList(Graph g)
+    {
+        visitedNodes = [];
 
-		return this.currentStep + 1;
-	}
+        return currentStep + 1;
+    }
 
-	private int addStartNode(Graph graph)
-	{
-		currentNode = startNode;
-		totalCost[startNode] = 0f;
-		unvisitedNodes.Enqueue(startNode, heuristicValue(startNode));
-		return 1;
-	}
+    private int initClosedList(Graph g)
+    {
+        unvisitedNodes = new PriorityQueue<GraphNode, float>();
+        unvisitedNodes.Enqueue(startNode, heuristic(startNode));
 
-	private int getNewNodeFromQueue(Graph graph)
-	{
-		currentNode = unvisitedNodes.Dequeue();
-		currentDistance = totalCost[currentNode];
-		return 1;
-	}
+        return currentStep + 1;
+    }
 
-	private int addNodeToVisited(Graph graph)
-	{
-		visitedNodes.Add(currentNode);
-		return 1;
-	}
+    private int initCosts(Graph g)
+    {
+        foreach (GraphNode node in graph.getNodes())
+        {
+            totalCost[node] = float.MaxValue;
+        }
 
-	private int checkIfGoal(Graph graph)
-	{
-		return (currentNode == goalNode) ? 1 : 0;
-	}
+        totalCost[startNode] = 0f;
 
-	private int addNeighboursToList(Graph graph)
-	{
-		foreach (GraphNode n in currentNode.getNeighbours())
-		{
-			if (visitedNodes.Contains(n))
-				continue;
+        return currentStep + 1;
+    }
 
-			float tentativeG = totalCost[currentNode] + edgeCost(currentNode, n);
-			
-			if (tentativeG < totalCost[n])
-			{
-				totalCost[n] = tentativeG;
-				cameFrom[n] = currentNode;
-				float fScore = tentativeG + heuristicValue(n);
-				unvisitedNodes.Enqueue(n, fScore);
-			}
-		}
-		return 1;
-	}
+    private int checkIfOpenListIsEmpty(Graph g)
+    {
+        if (unvisitedNodes.Count == 0)
+        {
+            // Error: no path found
+            return -1;
+        }
 
-	private int heuristic(Graph graph)
-	{
-		currentHeuristic = heuristicValue(currentNode);
-		return 1;
-	}
+        return currentStep + 1;
+    }
 
-	private float heuristicValue(GraphNode node)
-	{
-		return getDistanceNodes(node, goalNode); // euklidische Luftliniendistanz als zulässige Heuristik
-	}
+    private int getBestNodeFromQueue(Graph g)
+    {
+        currentNode = unvisitedNodes.Dequeue();
+        currentDistance = totalCost[currentNode];
 
-	private float edgeCost(GraphNode from, GraphNode to)
-	{
-		// Verwendet den Kantentyp des Zielpunkts als Kosten
-		// Alternativ: Graph sollte Kantenwerte speichern
-		return (float)to.getStreetType();
-	}
+        return currentStep + 1;
+    }
 
-	private float getDistanceNodes(GraphNode node1, GraphNode node2)
-	{
-		float xDistance = node2.getTilePosX() - node1.getTilePosX();
-		float yDistance = node2.getTilePosY() - node1.getTilePosY();
-		float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
-		return distance;
-	}
+    private int addNodeToVisited(Graph g)
+    {
+        visitedNodes.Add(currentNode);
+
+        return currentStep + 1;
+    }
+
+    private int checkIfGoal(Graph g)
+    {
+        if (currentNode.Equals(goalNode))
+        {
+            return -1;
+        }
+
+        // init for loop over each neighbour
+        currentNeighbours = currentNode.getNeighbours();
+        currentNeighbourIndex = 0;
+
+        return currentStep + 1;
+    }
+
+    private int checkIfNeighbourVisited(Graph g)
+    {
+        if (visitedNodes.Contains(currentNeighbours[currentNeighbourIndex]))
+        {
+            currentNeighbourIndex++;
+            return currentStep; // repeat this
+        }
+
+        return currentStep + 1;
+    }
+
+    private int calcTentativeG(Graph g)
+    {
+        tentativeG = totalCost[currentNode] + edgeCost(currentNode, currentNeighbours[currentNeighbourIndex]);
+
+        return currentStep + 1;
+    }
+
+    private int checkIfTentativeIsBetter(Graph g)
+    {
+        if (tentativeG < totalCost[currentNeighbours[currentNeighbourIndex]])
+        {
+
+        }
+
+        return 7; // checkIfNeighbourVisited-index
+    }
+
+    private int updateNeighbourTotalCost(Graph g)
+    {
+        totalCost[currentNeighbours[currentNeighbourIndex]] = tentativeG;
+
+        return currentStep + 1;
+    }
+
+    private int updateNeighbourCameFrom(Graph g)
+    {
+        cameFrom[currentNeighbours[currentNeighbourIndex]] = currentNode;
+
+        return currentStep + 1;
+    }
+
+    // F-Score = current distance to start + approximated distance to goal
+    private int calcNeighbourFScore(Graph g)
+    {
+        neighbourFScore = tentativeG + heuristic(currentNeighbours[currentNeighbourIndex]);
+
+        return this.currentStep + 1;
+    }
+
+    private int updateNeighbourFScore(Graph g)
+    {
+        unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex], neighbourFScore);
+
+        return 7; // checkIfNeighbourVisited-index
+    }
+
+
+    private float heuristic(GraphNode node)
+    {
+        return getDistanceNodes(node, goalNode);
+    }
+
+    private float edgeCost(GraphNode from, GraphNode to)
+    {
+        // Verwendet den Kantentyp des Zielpunkts als Kosten
+        // Alternativ: Graph sollte Kantenwerte speichern
+        return (float)to.getStreetType();
+    }
+
+    private float getDistanceNodes(GraphNode node1, GraphNode node2)
+    {
+        float xDistance = node2.getTilePosX() - node1.getTilePosX();
+        float yDistance = node2.getTilePosY() - node1.getTilePosY();
+        float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
+        return distance;
+    }
 
     public void visualize(Graph g)
     {
