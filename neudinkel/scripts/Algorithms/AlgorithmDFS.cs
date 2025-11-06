@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class AlgorithmDFS : NeudinkelAlgorithm
+public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 {
 
 	public Stack<GraphNode> nodesToProcess;
@@ -20,5 +20,9 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		this.steps = new Func<Graph, int>[10]; // idk wie viele
 		// schritte funktionen zuordnen
 	}
-	
+
+    public void visualize(Graph g)
+    {
+        throw new NotImplementedException();
+    }
 }

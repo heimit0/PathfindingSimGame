@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class AlgorithmDijkstra : NeudinkelAlgorithm
+public class AlgorithmDijkstra : NeudinkelAlgorithm, INeudinkelAlgorithm
 {
 
 	private GraphNode currentNeighbour;
@@ -204,4 +204,8 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		return 0;
 	}
 
+    public void visualize(Graph g)
+    {
+        throw new NotImplementedException();
+    }
 }

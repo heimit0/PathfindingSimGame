@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public class AlgorithmAStar : NeudinkelAlgorithm
+public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 {
 	// jede Node zeigt auf ihren besten Nachbarn ("Elternteil"), um den besten Pfad zu rekonstruieren
 	public Dictionary<GraphNode, GraphNode> cameFrom;
@@ -56,6 +56,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 			heuristic(graph);                        // berechnet currentHeuristic (optional für Visualisierung)
 			addNeighboursToList(graph);              // Nachbarn mit f(n) in PQ
 		}
+
 		return 0;
 	}
 
@@ -71,7 +72,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		foreach (GraphNode node in graph.getNodes())
 			totalCost[node] = float.MaxValue;
 
-		return 1;
+		return this.currentStep + 1;
 	}
 
 	private int addStartNode(Graph graph)
@@ -145,4 +146,9 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
 		return distance;
 	}
+
+    public void visualize(Graph g)
+    {
+        throw new NotImplementedException();
+    }
 }
