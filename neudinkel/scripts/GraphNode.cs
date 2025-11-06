@@ -188,13 +188,13 @@ public partial class GraphNode : Node3D
 		float preTilePosY = pos.Z / 0.86f;
 		float preTilePosX = pos.X - 0.5f * preTilePosY;
 		int tilePosX = (int)Math.Truncate(preTilePosX);
-		float test23 = preTilePosX - (float)Math.Truncate(preTilePosX);
-		if(test23 > 0.5){
+		float tilePosXFracture = preTilePosX - (float)Math.Truncate(preTilePosX);
+		if(tilePosXFracture > 0.5){
 			tilePosX++;
 		}
 		int tilePosY = (int)Math.Truncate(preTilePosY);
-		float test24 = preTilePosY - (float)Math.Truncate(preTilePosY);
-		if(test24 > 0.5){
+		float tilePosYFracture = preTilePosY - (float)Math.Truncate(preTilePosY);
+		if(tilePosYFracture > 0.5){
 			tilePosY++;
 		}
 		
