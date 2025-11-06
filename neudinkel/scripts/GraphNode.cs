@@ -185,9 +185,20 @@ public partial class GraphNode : Node3D
 	///</summary>
 	public static int[] convertPosToTilePos(Vector3 pos)
 	{
-		float tilePosY = pos.Z / 0.86f;
-		float tilePosX = pos.X - 0.5f * tilePosY;
-		return new int[] {(int)tilePosX,(int)tilePosY};
+		float preTilePosY = pos.Z / 0.86f;
+		float preTilePosX = pos.X - 0.5f * preTilePosY;
+		int tilePosX = (int)Math.Truncate(preTilePosX);
+		float test23 = preTilePosX - (float)Math.Truncate(preTilePosX);
+		if(test23 > 0.5){
+			tilePosX++;
+		}
+		int tilePosY = (int)Math.Truncate(preTilePosY);
+		float test24 = preTilePosY - (float)Math.Truncate(preTilePosY);
+		if(test24 > 0.5){
+			tilePosY++;
+		}
+		
+		return new int[] {tilePosX,tilePosY};
 	}
 	
 	public static TileRelation getNeighbourType(GraphNode middle,GraphNode neighbour)

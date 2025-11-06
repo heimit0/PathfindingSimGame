@@ -14,6 +14,7 @@ public partial class Camera : Camera3D
 	public float moveSpeed;
 	[Export]
 	public float scrollSpeed;
+	private double test;
 	private bool isDragging = false;
 	private Vector3 originPos;
 	private float scrollInput = 0.0f;
@@ -25,20 +26,24 @@ public partial class Camera : Camera3D
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseButton eventMouseButton)
+		{
+			if (eventMouseButton.GetButtonIndex() == MouseButton.Right && eventMouseButton.IsReleased())
 		 	{
 				Vector3 clickPoint = this.ProjectPosition(eventMouseButton.Position,1); 
 				Vector3 ray = new Vector3 (this.Position.X-clickPoint.X,this.Position.Y-clickPoint.Y,this.Position.Z-clickPoint.Z);
 				float castDistance = this.Position.Y / ray.Y;
 				Vector3 nullPos = this.Position - ray*castDistance;
+				int[] tilePos = GraphNode.convertPosToTilePos(nullPos);
 				
-				GD.Print("Mouse Click/Unclick at: ",nullPos);
 			}
+		}
 	} 
 	
 	public override void _Process(double delta)
-	{
+	{		
 		if (Input.IsActionPressed("mouse_drag"))
 		{
+			
 			if (!isDragging)
 			{
 				isDragging = true;
