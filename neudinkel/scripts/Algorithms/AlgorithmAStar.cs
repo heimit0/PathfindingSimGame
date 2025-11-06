@@ -148,7 +148,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
     {
         if (currentNode.Equals(goalNode))
         {
-            return -1;
+            return -1; // pfad gefunden
         }
 
         // falls die derzeitige node nicht die zielnode ist,
@@ -161,6 +161,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 
 	// falls der derzeitig zu überprüfende nachbar schon besucht wurde,
 	// überspringe diesen nachbarn => wiederhole diesen schritt mit dem nächsten nachbarn
+	// TODO: add for loop index check
     private int checkIfNeighbourVisited(Graph g)
     {
         if (visitedNodes.Contains(currentNeighbours[currentNeighbourIndex]))
