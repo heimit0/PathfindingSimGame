@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://lruru8fkjqyt"]
+[gd_scene load_steps=4 format=3 uid="uid://lruru8fkjqyt"]
 
 [ext_resource type="Texture2D" uid="uid://dkilv13pdcd33" path="res://icon.svg" id="1_6sx50"]
 [ext_resource type="Script" uid="uid://cfs40l745o8xx" path="res://scripts/ui_buttons/LevelmenuAStar.cs" id="1_33xbi"]
+[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_d8yyi"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -66,6 +67,7 @@ texture = ExtResource("1_6sx50")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("3_d8yyi")
 
 [node name="level1" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -83,10 +85,12 @@ theme_override_font_sizes/font_size = 50
 text = "    Level 3    "
 
 [node name="backButton" type="Button" parent="CanvasLayer"]
-offset_left = 1000.0
+offset_left = 1070.0
 offset_top = 600.0
-offset_right = 1060.0
+offset_right = 1130.0
 offset_bottom = 631.0
+theme = ExtResource("3_d8yyi")
+theme_override_font_sizes/font_size = 20
 text = "zurück"
 
 [connection signal="pressed" from="CanvasLayer/backButton" to="." method="_on_back_button_pressed"]
