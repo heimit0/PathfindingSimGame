@@ -78,8 +78,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         };
     }
 
-	// PriorityQueue(node, approximated_distance) mit der Startnode direkt in der queue
-	// diese wird nach und nach mit nachbarn gefüllt
+    // PriorityQueue(node, approximated_distance) mit der Startnode direkt in der queue
+    // diese wird nach und nach mit nachbarn gefüllt
     private int initUnvisitedNodes(Graph g)
     {
         unvisitedNodes = new PriorityQueue<GraphNode, float>();
@@ -88,8 +88,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return currentStep + 1;
     }
 
-	// die bereits besuchten nodes und
-	// elternbeziehungen (um den besten pfad am ende zu bilden)
+    // die bereits besuchten nodes und
+    // elternbeziehungen (um den besten pfad am ende zu bilden)
     private int initVisitedNodes(Graph g)
     {
         visitedNodes = [];
@@ -98,8 +98,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return currentStep + 1;
     }
 
-	// die kosten (distanzen) für alle nodes werden am anfang auf unendlich gesetzt,
-	// außer für die Startnode
+    // die kosten (distanzen) für alle nodes werden am anfang auf unendlich gesetzt,
+    // außer für die Startnode
     private int initCosts(Graph g)
     {
         foreach (GraphNode node in graph.getNodes())
@@ -112,8 +112,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return currentStep + 1;
     }
 
-	// while loop condition: gehe solange bis es keine nodes zu besuchen mehr gibt
-	// (außer es wird vorher der pfad gefunden)
+    // while loop condition: gehe solange bis es keine nodes zu besuchen mehr gibt
+    // (außer es wird vorher der pfad gefunden)
     private int checkIfOpenListIsEmpty(Graph g)
     {
         if (unvisitedNodes.Count == 0)
@@ -125,8 +125,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return currentStep + 1;
     }
 
-	// hole die derzeit günstigste node aus der PriorityQueue
-	// um sie zu verarbeiten
+    // hole die derzeit günstigste node aus der PriorityQueue
+    // um sie zu verarbeiten
     private int getBestNodeFromQueue(Graph g)
     {
         currentNode = unvisitedNodes.Dequeue();
@@ -135,7 +135,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return currentStep + 1;
     }
 
-	// füge die derzeitige node zu den besuchten hinzu
+    // füge die derzeitige node zu den besuchten hinzu
     private int addNodeToVisited(Graph g)
     {
         visitedNodes.Add(currentNode);
@@ -143,7 +143,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return currentStep + 1;
     }
 
-	// win condition: falls die derzeitige node die zielnode ist
+    // win condition: falls die derzeitige node die zielnode ist
     private int checkIfGoal(Graph g)
     {
         if (currentNode.Equals(goalNode))
@@ -152,18 +152,19 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         }
 
         // falls die derzeitige node nicht die zielnode ist,
-		// initialisiere die for loop über den nachbarn der derzeitigen node
+        // initialisiere die for loop über den nachbarn der derzeitigen node
         currentNeighbours = currentNode.getNeighbours();
         currentNeighbourIndex = 0;
 
         return currentStep + 1;
     }
 
-	// falls der derzeitig zu überprüfende nachbar schon besucht wurde,
-	// überspringe diesen nachbarn => wiederhole diesen schritt mit dem nächsten nachbarn
-	// TODO: add for loop index check
+    // falls der derzeitig zu überprüfende nachbar schon besucht wurde,
+    // überspringe diesen nachbarn => wiederhole diesen schritt mit dem nächsten nachbarn
     private int checkIfNeighbourVisited(Graph g)
     {
+        if (currentNeighbourIndex > currentNeighbours.Length) return -1;
+
         if (visitedNodes.Contains(currentNeighbours[currentNeighbourIndex]))
         {
             currentNeighbourIndex++;
@@ -173,7 +174,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return currentStep + 1;
     }
 
-	// errechne die direkten kosten vom start zum derzeitigen nachnarn nachbarn
+    // errechne die direkten kosten vom start zum derzeitigen nachnarn nachbarn
     private int calcTentativeG(Graph g)
     {
         tentativeG = totalCost[currentNode] + edgeCost(currentNode, currentNeighbours[currentNeighbourIndex]);
@@ -181,11 +182,11 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return currentStep + 1;
     }
 
-	// überprüfe, ob die errechneten kosten zum derzeitigen nachbarn besser sind,
-	// als die vorgespeicherten nachbarn
+    // überprüfe, ob die errechneten kosten zum derzeitigen nachbarn besser sind,
+    // als die vorgespeicherten nachbarn
     private int checkIfTentativeIsBetter(Graph g)
     {
-		// falls ja, gehe weiter
+        // falls ja, gehe weiter
         if (tentativeG < totalCost[currentNeighbours[currentNeighbourIndex]])
         {
             return currentStep + 1;
@@ -196,7 +197,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return 7; // checkIfNeighbourVisited-index
     }
 
-	// überschreibe die gesamtkosten für den derzeitigen nachbarn
+    // überschreibe die gesamtkosten für den derzeitigen nachbarn
     private int updateNeighbourTotalCost(Graph g)
     {
         totalCost[currentNeighbours[currentNeighbourIndex]] = tentativeG;
@@ -204,8 +205,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return currentStep + 1;
     }
 
-	// überschreibe das elternteil des derzeitigen nachbarns mit der derzeitigen node,
-	// da die gesamtkosten hier billiger sind
+    // überschreibe das elternteil des derzeitigen nachbarns mit der derzeitigen node,
+    // da die gesamtkosten hier billiger sind
     private int updateNeighbourCameFrom(Graph g)
     {
         cameFrom[currentNeighbours[currentNeighbourIndex]] = currentNode;
@@ -214,8 +215,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
     }
 
     // F-Score = current distance to start + approximated distance to goal
-	//
-	// errechne die geschätzten gesamtkosten zum ziel für den derzeitigen nachbarn
+    //
+    // errechne die geschätzten gesamtkosten zum ziel für den derzeitigen nachbarn
     private int calcNeighbourFScore(Graph g)
     {
         neighbourFScore = tentativeG + heuristic(currentNeighbours[currentNeighbourIndex]);
@@ -223,8 +224,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return this.currentStep + 1;
     }
 
-	// füge den derzeitigen nachbarn zur PriorityQueue hinzu mit
-	// dem gerade errechneten F-Score
+    // füge den derzeitigen nachbarn zur PriorityQueue hinzu mit
+    // dem gerade errechneten F-Score
     private int updateNeighbourFScore(Graph g)
     {
         unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex], neighbourFScore);
@@ -233,7 +234,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         return 7; // checkIfNeighbourVisited-index
     }
 
-	// Heuristik für A* --> einfache Dreiecksberechnung
+    // Heuristik für A* --> einfache Dreiecksberechnung
     private float heuristic(GraphNode node)
     {
         return getDistanceNodes(node, goalNode);

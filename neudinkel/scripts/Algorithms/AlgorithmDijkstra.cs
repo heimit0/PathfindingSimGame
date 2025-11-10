@@ -123,9 +123,10 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm, INeudinkelAlgorithm
     }
 
     // errechne die direkten kosten vom start zum derzeitigen nachnarn nachbarn
-	// TODO: for loop index check
     private int calculteDistance(Graph g)
     {
+        if (currentNeighbourIndex > currentNeighbours.Length) return -1;
+
         currentNeighbourCost = distanceFromStart[currentNode] + edgeCost(currentNode, currentNeighbours[currentNeighbourIndex]);
 
         return currentStep + 1;
