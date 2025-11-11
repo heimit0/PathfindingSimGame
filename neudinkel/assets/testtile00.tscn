@@ -1,7 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxnhei4odushk"]
+[gd_scene load_steps=5 format=3 uid="uid://dxnhei4odushk"]
 
 [ext_resource type="PackedScene" uid="uid://cb4kgy0hkc08p" path="res://models/test_hexagon.fbx" id="2_3inqd"]
+[ext_resource type="Shader" uid="uid://c82e1dynmucfm" path="res://assets/shaders/saturation_shader.gdshader" id="2_wxrm8"]
+[ext_resource type="Texture2D" uid="uid://bi56axk4qpn2u" path="res://models/textures/test_hexagon_t.png" id="3_7npo8"]
 
-[node name="Testtile01" type="Node3D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tc7bc"]
+render_priority = 0
+shader = ExtResource("2_wxrm8")
+shader_parameter/saturation = 1.0
+shader_parameter/albedo_texture = ExtResource("3_7npo8")
 
-[node name="test_hexagon" parent="." instance=ExtResource("2_3inqd")]
+[node name="test_hexagon" instance=ExtResource("2_3inqd")]
+
+[node name="test_hexagon" parent="." index="0"]
+material_override = SubResource("ShaderMaterial_tc7bc")
