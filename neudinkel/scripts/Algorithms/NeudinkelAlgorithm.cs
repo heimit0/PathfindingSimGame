@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Godot;
 
 /// <summary>
 /// Elternklasse aller Suchalgorithmen.
@@ -39,6 +40,10 @@ public abstract class NeudinkelAlgorithm
 	public void doSearchStep()
 	{
 		currentStep = steps[currentStep](this.graph);
+
+		if (currentStep == -1) {
+            GD.Print("Finished oder Error!");
+        }
 
 		// currentStep an signal für die UI senden
 	}
