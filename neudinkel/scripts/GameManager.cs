@@ -24,10 +24,10 @@ public partial class GameManager : Node3D
 	public GamePhase gamePhase { get; set; }
 	public Graph graph { get; set; }
 
-    // TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
-    // TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
+	// TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
+	// TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 		base._Ready();
 		loadLevel("test");
@@ -56,6 +56,6 @@ public partial class GameManager : Node3D
 	// ruft die visualize() funktion im jeweiligen Algorithmus auf,
 	// welche die nötigen Tiles im Graphen anspricht
 	public void highlightGraph<T>(T algorithm) where T : INeudinkelAlgorithm {
-        algorithm.visualize(this.graph);
+		algorithm.visualize(this.graph);
     }
 }
