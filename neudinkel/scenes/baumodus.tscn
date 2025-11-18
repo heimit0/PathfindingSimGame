@@ -1,34 +1,24 @@
 [gd_scene load_steps=3 format=3 uid="uid://cja2otsjks3ig"]
 
-[ext_resource type="PackedScene" uid="uid://dxnhei4odushk" path="res://assets/testtile00.tscn" id="1_sfl2l"]
+[ext_resource type="Script" uid="uid://bh18bo3ubvwtm" path="res://scripts/GameManager.cs" id="1_sfl2l"]
 
 [sub_resource type="GDScript" id="GDScript_bn8a6"]
 script/source = "extends Button
 "
 
-[node name="Control" type="Control"]
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_sfl2l")
+
+[node name="Baumodus" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 grow_vertical = 2
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.895727, 0.444604, 0, -0.444604, 0.895727, 0, 4.81267, 2.64087)
-fov = 70.3125
+[node name="UI" type="CanvasLayer" parent="Baumodus"]
 
-[node name="Untitled" parent="." instance=ExtResource("1_sfl2l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.86365)
-
-[node name="Untitled2" parent="." instance=ExtResource("1_sfl2l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7905, 0, -5.7273)
-
-[node name="Untitled3" parent="." instance=ExtResource("1_sfl2l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4169, 0, -8.59095)
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="Links" type="VBoxContainer" parent="UI"]
+[node name="Links" type="VBoxContainer" parent="Baumodus/UI"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -37,7 +27,7 @@ offset_right = 187.0
 offset_bottom = 122.0
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="UI/Links"]
+[node name="Label" type="Label" parent="Baumodus/UI/Links"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
@@ -46,47 +36,47 @@ theme_override_font_sizes/font_size = 20
 text = "Straßentypen"
 horizontal_alignment = 1
 
-[node name="Button1" type="Button" parent="UI/Links"]
+[node name="Button1" type="Button" parent="Baumodus/UI/Links"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Landstraße"
 script = SubResource("GDScript_bn8a6")
 
-[node name="Button2" type="Button" parent="UI/Links"]
+[node name="Button2" type="Button" parent="Baumodus/UI/Links"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Autobahn"
 
-[node name="Button3" type="Button" parent="UI/Links"]
+[node name="Button3" type="Button" parent="Baumodus/UI/Links"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Sandweg"
 
-[node name="Button4" type="Button" parent="UI/Links"]
+[node name="Button4" type="Button" parent="Baumodus/UI/Links"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Torfweg"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Links"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Baumodus/UI/Links"]
 layout_mode = 2
 alignment = 1
 
-[node name="Button5" type="Button" parent="UI/Links/HBoxContainer"]
+[node name="Button5" type="Button" parent="Baumodus/UI/Links/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "<--"
 
-[node name="Button6" type="Button" parent="UI/Links/HBoxContainer"]
+[node name="Button6" type="Button" parent="Baumodus/UI/Links/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "-->"
 
-[node name="Button7" type="Button" parent="UI/Links/HBoxContainer"]
+[node name="Button7" type="Button" parent="Baumodus/UI/Links/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "del"
 
-[node name="ObenRechts" type="HBoxContainer" parent="UI"]
+[node name="ObenRechts" type="HBoxContainer" parent="Baumodus/UI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -94,20 +84,20 @@ offset_left = -380.0
 offset_bottom = 70.0
 grow_horizontal = 0
 
-[node name="Button1" type="Button" parent="UI/ObenRechts"]
+[node name="Button1" type="Button" parent="Baumodus/UI/ObenRechts"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Baumodus"
 
-[node name="CheckButton" type="CheckButton" parent="UI/ObenRechts"]
+[node name="CheckButton" type="CheckButton" parent="Baumodus/UI/ObenRechts"]
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="UI/ObenRechts"]
+[node name="Button2" type="Button" parent="Baumodus/UI/ObenRechts"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Simulieren"
 
-[node name="Minimap" type="SubViewportContainer" parent="UI"]
+[node name="Minimap" type="SubViewportContainer" parent="Baumodus/UI"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -121,10 +111,10 @@ grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 4
 
-[node name="SubViewport" type="SubViewport" parent="UI/Minimap"]
+[node name="SubViewport" type="SubViewport" parent="Baumodus/UI/Minimap"]
 handle_input_locally = false
 size = Vector2i(250, 150)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="UI/Minimap/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="Baumodus/UI/Minimap/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.362536, 0.93197, 0, -0.93197, 0.362536, -0.496811, 6.0264, -2.6299)

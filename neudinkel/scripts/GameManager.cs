@@ -16,7 +16,7 @@ public enum GamePhase
 }
 
 /// <summary>
-/// Der GameManager ist die RootNode der Spielszene.
+/// Der GameManager ist der Parent Node der Spielszene.
 /// Das Objekt uebersieht alle Aktionen und greift wenn noetig ein
 /// </summary>
 public partial class GameManager : Node3D
@@ -29,7 +29,14 @@ public partial class GameManager : Node3D
 
 	public override void _Ready()
 	{
+		Camera cam;
+		
 		base._Ready();
+		cam = new Camera();
+		this.AddChild(cam);
+		cam.Position = new Vector3(0.0f, 5.0f, 0.0f);
+		cam.Rotation = new Vector3(Mathf.DegToRad(-45.0f), 0, 0);
+		cam.MakeCurrent();
 		loadLevel("test");
 	}
 
@@ -57,5 +64,5 @@ public partial class GameManager : Node3D
 	// welche die nötigen Tiles im Graphen anspricht
 	public void highlightGraph<T>(T algorithm) where T : INeudinkelAlgorithm {
 		algorithm.visualize(this.graph);
-    }
+	}
 }
