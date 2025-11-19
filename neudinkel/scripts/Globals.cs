@@ -4,9 +4,11 @@ using System;
 
 public partial class Globals : Node
 {
+
+	public Random rand{ get; }
 	
-	ConfigFile SaveFile;
-	String path = "";
+	private ConfigFile SaveFile;
+	private String path = "";
 
 	//variablen
 	public string nextLevel;
@@ -17,7 +19,7 @@ public partial class Globals : Node
 	public Globals()
 	{
 		SaveFile = new ConfigFile();
-
+		rand = new Random();
 	}
 
 	public void safeGame()
@@ -28,10 +30,10 @@ public partial class Globals : Node
 			return;
 		}
 	   
-		SaveFile.SetValue("progress",""); 
+		// SaveFile.SetValue("progress",""); 
 
 		//in File speichern (wird überschrieben, wenn existent)
-		SaveFile.Save("")
+		SaveFile.Save("");
 	}
 
 	public void loadGame()
@@ -46,10 +48,10 @@ public partial class Globals : Node
 			return;
 		}
 
-		foreach(String progress in SaveFile.GetSections())
+		/**foreach(String progress in SaveFile.GetSections())
 		{
 			var progress = (int)SaveFile.GetValue(progress, "");
-		}
+		}**/
 	}
 
 }
