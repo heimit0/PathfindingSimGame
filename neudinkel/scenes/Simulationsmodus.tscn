@@ -96,6 +96,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
+toggle_mode = true
 text = "Simulieren"
 
 [node name="ButtonsStep" type="HBoxContainer" parent="Simulationsmodus/ButtonsTopRight"]
@@ -121,5 +122,6 @@ text = "restart
 [connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
 [connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
 [connection signal="toggled" from="Simulationsmodus/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onToggleGamePhase"]
+[connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/NextSearchStepButton" to="." method="onDoNextSearchStep"]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/RestartSimulation" to="." method="onInitOrChangeAlgorithm" binds= [-1]]

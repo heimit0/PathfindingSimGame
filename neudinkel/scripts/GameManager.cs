@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Globalization;
 using System.Text.Json.Nodes;
 
 /*
@@ -107,13 +108,13 @@ public partial class GameManager : Node3D
 		// dumme ui scheiße
 		// Connect algorithm selection buttons with parameters
         // Note: GetNode paths should match the scene tree structure
-        var dijkstraButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/Dijkstra");
-        var aStarButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/A*");
-        var dfsButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/DFS");
+        // var dijkstraButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/Dijkstra");
+        // var aStarButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/A*");
+        // var dfsButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/DFS");
 
-	    dijkstraButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DIJKSTRA);
-        aStarButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.ASTAR);
-        dfsButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DFS);
+	    // dijkstraButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DIJKSTRA);
+        // aStarButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.ASTAR);
+        // dfsButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DFS);
     }
 
 	public override void _Process(double delta)
@@ -123,7 +124,7 @@ public partial class GameManager : Node3D
 
 	/// <summary>
 	/// Lädt das angegebene Level.
-	/// loadLevel("test") lädt das Level levels/test.json.
+	/// loadLevel("test") lädt .das Level levels/test.json.
 	/// </summary>
 	public void loadLevel(string levelName)
 	{
@@ -134,17 +135,24 @@ public partial class GameManager : Node3D
 		json = JsonNode.Parse(file.GetAsText()).AsObject();
 		this.graph.fromJsonObject(json);
 		this.AddChild(this.graph);
-	}
+
+        onSetStartNode(this.graph.getNode(0, 0));
+        onSetGoalNode(this.graph.getNode(3, 3));
+    }
 
     // ruft gleichnamige Methode in jedem NeudinkelAlgorithm auf
     // gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
     public void onDoNextSearchStep()
     {
+		if (this.isSimulationAutomatic) GD.Print("isSimulationAutomatic is now: false");
+
         this.isSimulationAutomatic = false;
 
+        GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
         int nextStep = this.currentAlgorithm.doSearchStep();
+        GD.Print("Next step is: " + nextStep);
 
-		EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
+        // EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
 	}
 
 	public void onToggleGamePhase(bool isNewPhaseSimulationPhase)
@@ -156,7 +164,8 @@ public partial class GameManager : Node3D
 		}
 
 		this.gamePhase = isNewPhaseSimulationPhase ? GamePhase.SIMULATION : GamePhase.BUILDING;
-	}
+        GD.Print("GamePhase changed to: " + this.gamePhase.ToString());
+    }
 
 	// start immer alles neu
 	// int algorithm == -1 => gleichen Algorithmus nochmal, i.e. nur neustarten
@@ -189,6 +198,8 @@ public partial class GameManager : Node3D
                 this.currentAlgorithm = new AlgorithmDFS(this.graph, this.startNode, this.goalNode);
                 break;
         }
+
+        GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
     }
 
 	public void onSetStartNode(GraphNode node)
@@ -204,8 +215,9 @@ public partial class GameManager : Node3D
 	public void onSetIsSimulationAutomatic(bool isSimulationAutomatic)
 	{
         this.isSimulationAutomatic = isSimulationAutomatic;
+        GD.Print("isSimulationAutomatic is now: " + this.isSimulationAutomatic.ToString());
 
-		// TODO: idk
+        // TODO: idk
     }
 
     // ruft die visualize() funktion im jeweiligen Algorithmus auf,
