@@ -41,23 +41,17 @@ public partial class GameManager : Node3D
 
     public NeudinkelAlgorithm currentAlgorithm { get; set; }
 
-	// TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
-	// TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
-	// TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
-	// TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
+    // TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
+    // TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
 
     [Signal]
     public delegate void InitOrChangeAlgorithmEventHandler(int algorithm); // algorithmus setzen
 
-	[Signal]
-	public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
-	[Signal]
-	public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
+    [Signal]
+    public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
 
-	[Signal]
-	public delegate void AlgorithmFinishedEventHandler(); // weg gefunden, weg anzeigen
-	[Signal]
-	public delegate void AlgorithmFinishedEventHandler(); // weg gefunden, weg anzeigen
+    [Signal]
+    public delegate void AlgorithmFinishedEventHandler(); // weg gefunden, weg anzeigen
 
 	[Signal]
 	public delegate void ChangeGamePhaseEventHandler(GamePhase newGamePhase);
@@ -115,15 +109,12 @@ public partial class GameManager : Node3D
 	// gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
 	public void onDoNextSearchStep()
 	{
-		int nextStep = this.currentAlgorithm.doSearchStep();
-	}
-		int nextStep = this.currentAlgorithm.doSearchStep();
-	}
+        int nextStep = this.currentAlgorithm.doSearchStep();
+    }
 
 	public void onChangeGamePhase(GamePhase newGamePhase)
 	{
-		this.gamePhase = newGamePhase;
-		this.gamePhase = newGamePhase;
+        this.gamePhase = newGamePhase;
 
 		// if gamePhase: Baumodus -> SimulationsModus ==> initAlgorithm
     }
@@ -142,8 +133,6 @@ public partial class GameManager : Node3D
 	// custom getter, weil c# dumm ist
 	public GamePhase getGamePhase()
 	{
-		return this.gamePhase;
-	}
 		return this.gamePhase;
 	}
 }
