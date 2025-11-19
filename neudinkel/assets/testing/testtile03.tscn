@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4poal02rc61f"]
 
-[ext_resource type="PackedScene" uid="uid://brgkwnrtwjpio" path="res://models/test_hexagon03.fbx" id="1_1swqx"]
-[ext_resource type="PackedScene" uid="uid://cb4kgy0hkc08p" path="res://models/test_hexagon.fbx" id="2_xw55t"]
+[ext_resource type="PackedScene" uid="uid://brgkwnrtwjpio" path="res://models/testing/test_hexagon03.fbx" id="1_1swqx"]
+[ext_resource type="PackedScene" uid="uid://cb4kgy0hkc08p" path="res://models/testing/test_hexagon.fbx" id="2_xw55t"]
 
 [node name="Testtile01" type="Node3D"]
 

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b6ykh5wil6ew3"
-path="res://.godot/imported/test_hexagon02.fbx-38085cb97ed54f9b5fc9f192dcd42564.scn"
+uid="uid://dh7b3shclsqik"
+path="res://.godot/imported/test_city6.fbx-735eba377624df12b8cc5e351998d308.scn"
 
 [deps]
 
-source_file="res://models/test_hexagon02.fbx"
-dest_files=["res://.godot/imported/test_hexagon02.fbx-38085cb97ed54f9b5fc9f192dcd42564.scn"]
+source_file="res://models/testing/test_city6.fbx"
+dest_files=["res://.godot/imported/test_city6.fbx-735eba377624df12b8cc5e351998d308.scn"]
 
 [params]
 

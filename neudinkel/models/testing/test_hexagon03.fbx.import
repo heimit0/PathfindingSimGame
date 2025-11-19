@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c4okrpwlajq8h"
-path="res://.godot/imported/shitBoxCar1.fbx-92d40382acdd51040a7be81d54ad47b1.scn"
+uid="uid://brgkwnrtwjpio"
+path="res://.godot/imported/test_hexagon03.fbx-3921edde4789f06aa72ff38d703ebda8.scn"
 
 [deps]
 
-source_file="res://models/shitBoxCar1.fbx"
-dest_files=["res://.godot/imported/shitBoxCar1.fbx-92d40382acdd51040a7be81d54ad47b1.scn"]
+source_file="res://models/testing/test_hexagon03.fbx"
+dest_files=["res://.godot/imported/test_hexagon03.fbx-3921edde4789f06aa72ff38d703ebda8.scn"]
 
 [params]
 

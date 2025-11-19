@@ -1,5 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cun8ic4h6y5j2"]
 
-[ext_resource type="PackedScene" uid="uid://c4okrpwlajq8h" path="res://models/shitBoxCar1.fbx" id="1_m6m6s"]
+[ext_resource type="PackedScene" uid="uid://c4okrpwlajq8h" path="res://models/testing/shitBoxCar1.fbx" id="1_m6m6s"]
+
 
 [node name="shitBoxCar1" instance=ExtResource("1_m6m6s")]
