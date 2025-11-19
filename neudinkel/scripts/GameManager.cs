@@ -46,6 +46,7 @@ public partial class GameManager : Node3D
 
     [Signal]
     public delegate void InitOrChangeAlgorithmEventHandler(int algorithm); // algorithmus setzen
+	// usage: EmitSignal(GameManager.InitOrChangeAlgorithm, (int) ENeudinkelAlgorithm.ASTAR);
 
     [Signal]
     public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
