@@ -96,6 +96,7 @@ public partial class GraphNode : Node3D
 	private Node3D getStreetTile(int from, int to)
 	{
 		int diff = to - from;
+		int variation = Globals.rand.Next(1, 3);
 
 		if (diff > 3)
 		{
@@ -103,7 +104,7 @@ public partial class GraphNode : Node3D
 			diff = 6 - diff;
 		}
 
-		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street1_0" + diff + "_1.tscn"); // TODO: Adjust for type
+		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street1_0" + diff + "_" + variation + ".tscn"); // TODO: Adjust for type
 		var streetModell = scene.Instantiate();
 		Node3D street = new();
 		street.AddChild(streetModell);
@@ -222,10 +223,11 @@ public partial class GraphNode : Node3D
 		int x = middle.getTilePosX() - neighbour.tilePosX;
 		int y = middle.getTilePosY() - neighbour.tilePosY;
 
-		if (Mathf.Sqrt( Mathf.pow(a.tilePosX - a.getTilePosY, 2) + Mathf.pow(a.tilePosY - tile.tilePosY, 2)) != 1) 
+		// FIXME: Fix
+		/**if (Mathf.Sqrt( Mathf.pow(a.tilePosX - a.getTilePosY, 2) + Mathf.pow(a.tilePosY - tile.tilePosY, 2)) != 1) 
 		{
 			return TileRelation.INVALID;
-		}
+		}**/
 
 
 		//topright x negativ y positiv
