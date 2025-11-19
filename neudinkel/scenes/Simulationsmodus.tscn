@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://mkk1cd41mlpr"]
+[gd_scene load_steps=3 format=3 uid="uid://mkk1cd41mlpr"]
 
 [ext_resource type="Script" uid="uid://bh18bo3ubvwtm" path="res://scripts/GameManager.cs" id="1_5p374"]
-[ext_resource type="PackedScene" uid="uid://dxnhei4odushk" path="res://assets/testing/testtile00.tscn" id="1_v17mc"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_85scv"]
 
@@ -22,38 +21,8 @@ grow_vertical = 2
 
 [node name="UI" type="CanvasLayer" parent="Simulationsmodus"]
 
-[node name="Minimap" type="SubViewportContainer" parent="Simulationsmodus/UI"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -262.0
-offset_top = -168.0
-offset_right = -12.0
-offset_bottom = -18.0
-grow_horizontal = 0
-grow_vertical = 0
-size_flags_horizontal = 4
-
-[node name="SubViewport" type="SubViewport" parent="Simulationsmodus/UI/Minimap"]
-handle_input_locally = false
-size = Vector2i(250, 150)
-render_target_update_mode = 4
-
-[node name="Camera3D" type="Camera3D" parent="Simulationsmodus/UI/Minimap/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.362536, 0.93197, 0, -0.93197, 0.362536, -0.496811, 6.0264, -2.6299)
-
-[node name="Untitled" parent="Simulationsmodus/UI/Minimap/SubViewport" instance=ExtResource("1_v17mc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.86365)
-
-[node name="Untitled2" parent="Simulationsmodus/UI/Minimap/SubViewport" instance=ExtResource("1_v17mc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7905, 0, -5.7273)
-
-[node name="Untitled3" parent="Simulationsmodus/UI/Minimap/SubViewport" instance=ExtResource("1_v17mc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4169, 0, -8.59095)
-
 [node name="Pseudocodeblock" type="TextureRect" parent="Simulationsmodus/UI"]
+self_modulate = Color(1, 1, 1, 0.301961)
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -65,44 +34,45 @@ grow_vertical = 2
 pivot_offset = Vector2(0, 250)
 texture = SubResource("CanvasTexture_85scv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Simulationsmodus/UI/Pseudocodeblock"]
+[node name="TextDisplayAndAlgorithmSelection" type="VBoxContainer" parent="Simulationsmodus/UI/Pseudocodeblock"]
 layout_mode = 0
 offset_left = 65.0
 offset_right = 65.0
 offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer"]
+[node name="TextDisplay" type="Label" parent="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 29
 text = "Pseudocode"
 horizontal_alignment = 1
 
-[node name="AlgortihmButtons" type="HBoxContainer" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer"]
+[node name="AlgortihmButtons" type="HBoxContainer" parent="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection"]
 layout_mode = 2
 
-[node name="Dijkstra" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons"]
+[node name="Dijkstra" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Dijkstra"
 
-[node name="A*" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons"]
+[node name="A*" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "A*"
 
-[node name="DFS" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons"]
+[node name="DFS" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "DFS
 "
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Simulationsmodus/UI/Pseudocodeblock"]
+[node name="PseudocodeTextBox" type="RichTextLabel" parent="Simulationsmodus/UI/Pseudocodeblock"]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 79.0
 offset_right = 266.0
 offset_bottom = 418.0
+scale = Vector2(1, 1.00162)
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Lorem
 Ipsum
@@ -147,10 +117,9 @@ size_flags_horizontal = 3
 text = "restart
 "
 
-[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
-[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
-[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
+[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
+[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
+[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
 [connection signal="toggled" from="Simulationsmodus/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onToggleGamePhase"]
-[connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/NextSearchStepButton" to="." method="onDoNextSearchStep"]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/RestartSimulation" to="." method="onInitOrChangeAlgorithm" binds= [-1]]
