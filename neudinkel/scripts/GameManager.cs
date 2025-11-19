@@ -21,6 +21,13 @@ public enum SimulationModus
 	AUTOMATIC
 }
 
+public enum ENeudinkelAlgorithm
+{
+	ASTAR = 0,
+	DIJKSTRA = 1,
+	DFS = 2
+}
+
 /// <summary>
 /// Der GameManager ist der Parent Node der Spielszene.
 /// Das Objekt uebersieht alle Aktionen und greift wenn noetig ein
@@ -38,7 +45,7 @@ public partial class GameManager : Node3D
     // TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
 
     [Signal]
-    public delegate void InitOrChangeAlgorithmEventHandler(NeudinkelAlgorithm algorithm); // algorithmus setzen
+    public delegate void InitOrChangeAlgorithmEventHandler(int algorithm); // algorithmus setzen
 
     [Signal]
     public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
@@ -50,10 +57,10 @@ public partial class GameManager : Node3D
     public delegate void ChangeGamePhaseEventHandler(GamePhase newGamePhase);
 
     [Signal]
-    public delegate void updateInternalGraphEventHandler(Graph graph); // für baumodus
+    public delegate void UpdateInternalGraphEventHandler(Graph graph); // für baumodus
 
     [Signal]
-    public delegate void setAutomaticSimulationSpeedEventHandler(int newSpeed); // slider für speed im simulations-modus
+    public delegate void SetAutomaticSimulationSpeedEventHandler(int newSpeed); // slider für speed im simulations-modus
 
     public override void _Ready()
 	{
@@ -69,6 +76,7 @@ public partial class GameManager : Node3D
 
         // signale
         DoNextSearchStep += onDoNextSearchStep;
+        InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
     }
 
 	public override void _Process(double delta)
@@ -103,6 +111,11 @@ public partial class GameManager : Node3D
         this.gamePhase = newGamePhase;
 
 		// if gamePhase: Baumodus -> SimulationsModus ==> initAlgorithm
+    }
+
+	public void onInitOrChangeAlgorithm(int algorithm)
+	{
+        
     }
 
 	// ruft die visualize() funktion im jeweiligen Algorithmus auf,
