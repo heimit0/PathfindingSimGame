@@ -132,6 +132,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
     // um sie zu verarbeiten
     private int getBestNodeFromQueue(Graph g)
     {
+        currentNode.toggleHightlight(false);
         currentNode = unvisitedNodes.Dequeue();
         currentDistance = totalCost[currentNode];
 
@@ -157,6 +158,12 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         // falls die derzeitige node nicht die zielnode ist,
         // initialisiere die for loop über den nachbarn der derzeitigen node
         Dictionary<GraphNode, int> tmpNeighbours = currentNode.getNeighborsUnsorted();
+
+        foreach(GraphNode n in tmpNeighbours.Keys)
+        {
+            GD.Print(n.getTilePosX() + ", " + n.getTilePosY());
+        }
+
         tmpNeighbours.Keys.CopyTo(currentNeighbours, 0); // in currentNeighbours kopieren
 
         currentNeighbourIndex = 0;
@@ -262,6 +269,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 
     public void visualize(Graph g)
     {
-        throw new NotImplementedException();
+        this.currentNode.toggleHightlight(true);
     }
 }
