@@ -45,6 +45,11 @@ public partial class GraphNode : Node3D
 	private GraphNode[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 	private Node3D tile;
 
+	/// <summary>
+	/// zeigt ob node gehighlighted ist oder nich
+	/// </summary>
+	private bool highlighted = false;
+
 	private StreetType streetType;
 
 	public GraphNode() : base()
@@ -96,6 +101,7 @@ public partial class GraphNode : Node3D
 	private Node3D getStreetTile(int from, int to)
 	{
 		int diff = to - from;
+		int variation = Globals.rand.Next(1, 3);
 
 		if (diff > 3)
 		{
@@ -103,7 +109,7 @@ public partial class GraphNode : Node3D
 			diff = 6 - diff;
 		}
 
-		var scene = ResourceLoader.Load<PackedScene>("assets/testtile0" + diff + ".tscn"); //TODO replace with actual street
+		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street1_0" + diff + "_" + variation + ".tscn"); // TODO: Adjust for type
 		var streetModell = scene.Instantiate();
 		Node3D street = new();
 		street.AddChild(streetModell);
@@ -113,7 +119,7 @@ public partial class GraphNode : Node3D
 
 	private Node3D getCityTile(int size)
 	{
-		var scene = ResourceLoader.Load<PackedScene>("assets/testtile_city03" /**+ size**/ + ".tscn"); //TODO replace with actual city
+		var scene = ResourceLoader.Load<PackedScene>("assets/testing/testtile_city03" /**+ size**/ + ".tscn"); //TODO replace with actual city
 		Node3D citytile = new Node3D();
 		var instantiatedcity = scene.Instantiate();
 		citytile.AddChild(instantiatedcity);
@@ -153,6 +159,22 @@ public partial class GraphNode : Node3D
 		}
 		else
 			GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
+	}
+
+	// gibt nur die existierenden Nachbarn mit der TileRelation zurück
+	// für Algorithmen
+	public Dictionary<GraphNode, int> getNeighborsUnsorted() {
+		Dictionary<GraphNode, int> _neighbors = new Dictionary<GraphNode, int>();
+
+		for (int i = 0; i < this.neighbors.Length; i++)
+		{
+			if (this.neighbors[i] != null)
+			{
+				_neighbors.Add(this.neighbors[i], i);
+			}
+		}
+
+		return _neighbors;
 	}
 	
 	/// <summary>
@@ -201,10 +223,33 @@ public partial class GraphNode : Node3D
 		return new int[] {tilePosX,tilePosY};
 	}
 	
+	public void toggleHightlight()
+	{
+		this.highlighted = !highlighted;
+		Vector3 pos = this.Position;
+		Vector3 relPos = new Vector3(0.0f,0.0f,1.0f);
+		if(highlighted)
+		{
+			this.Position = pos + relPos;
+		}
+		else
+		{
+			this.Position = pos - relPos;
+		}
+	}
+	
 	public static TileRelation getNeighbourType(GraphNode middle,GraphNode neighbour)
 	{
 		int x = middle.getTilePosX() - neighbour.tilePosX;
 		int y = middle.getTilePosY() - neighbour.tilePosY;
+
+		// FIXME: Fix
+		/**if (Mathf.Sqrt( Mathf.pow(a.tilePosX - a.getTilePosY, 2) + Mathf.pow(a.tilePosY - tile.tilePosY, 2)) != 1) 
+		{
+			return TileRelation.INVALID;
+		}**/
+
+
 		//topright x negativ y positiv
 		//right x negativ y 0
 		//bottomright x 0 y negativ
