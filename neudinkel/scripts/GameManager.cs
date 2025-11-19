@@ -10,22 +10,22 @@ using System.Text.Json.Nodes;
 
 public enum GamePhase
 {
-    BUILDING = 0,
-    SIMULATION = 1,
-    EXAM = 2
+	BUILDING = 0,
+	SIMULATION = 1,
+	EXAM = 2
 }
 
 public enum SimulationModus
 {
-    STEP_BY_STEP,
-    AUTOMATIC
+	STEP_BY_STEP,
+	AUTOMATIC
 }
 
 public enum ENeudinkelAlgorithm
 {
-    ASTAR = 0,
-    DIJKSTRA = 1,
-    DFS = 2
+	ASTAR = 0,
+	DIJKSTRA = 1,
+	DFS = 2
 }
 
 /// <summary>
@@ -34,47 +34,47 @@ public enum ENeudinkelAlgorithm
 /// </summary>
 public partial class GameManager : Node3D
 {
-    private GamePhase gamePhase;
-    public Graph graph { get; set; }
+	private GamePhase gamePhase;
+	public Graph graph { get; set; }
 
-    public GraphNode startNode { get; set; }
-    public GraphNode goalNode { get; set; }
+	public GraphNode startNode { get; set; }
+	public GraphNode goalNode { get; set; }
 
     public int automaticSimulationSpeed = 1; // für simulationsmodus
     public bool isSimulationAutomatic { get; set; }
 
-    public NeudinkelAlgorithm currentAlgorithm { get; set; }
+	public NeudinkelAlgorithm currentAlgorithm { get; set; }
 
-    // TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
-    // TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
+	// TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
+	// TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
 
-    [Signal]
-    public delegate void InitOrChangeAlgorithmEventHandler(int algorithm); // algorithmus setzen
-                                                                           // usage: EmitSignal(GameManager.InitOrChangeAlgorithm, (int) ENeudinkelAlgorithm.ASTAR);
+	[Signal]
+	public delegate void InitOrChangeAlgorithmEventHandler(int algorithm); // algorithmus setzen
+																		   // usage: EmitSignal(GameManager.InitOrChangeAlgorithm, (int) ENeudinkelAlgorithm.ASTAR);
 
-    [Signal]
-    public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
+	[Signal]
+	public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
 
-    [Signal]
-    public delegate void UpdateUIPseudoCodeEventHandler(int currentStep); // pseudo code anzeigen
+	[Signal]
+	public delegate void UpdateUIPseudoCodeEventHandler(int currentStep); // pseudo code anzeigen
 
-    [Signal]
-    public delegate void AlgorithmFinishedEventHandler(); // weg gefunden, weg anzeigen
+	[Signal]
+	public delegate void AlgorithmFinishedEventHandler(); // weg gefunden, weg anzeigen
 
-    [Signal]
-    public delegate void ToggleGamePhaseEventHandler(bool isNewPhaseSimulationPhase);
+	[Signal]
+	public delegate void ToggleGamePhaseEventHandler(bool isNewPhaseSimulationPhase);
 
-    [Signal]
-    public delegate void UpdateInternalGraphEventHandler(Graph graph); // für baumodus
+	[Signal]
+	public delegate void UpdateInternalGraphEventHandler(Graph graph); // für baumodus
 
-    [Signal]
-    public delegate void SetAutomaticSimulationSpeedEventHandler(int newSpeed); // slider für speed im simulations-modus
+	[Signal]
+	public delegate void SetAutomaticSimulationSpeedEventHandler(int newSpeed); // slider für speed im simulations-modus
 
-    [Signal]
-    public delegate void SetStartNodeEventHandler(GraphNode node);
+	[Signal]
+	public delegate void SetStartNodeEventHandler(GraphNode node);
 
-    [Signal]
-    public delegate void setGoalNodeEventHandler(GraphNode node);
+	[Signal]
+	public delegate void setGoalNodeEventHandler(GraphNode node);
 
     [Signal]
     public delegate void setIsSimulationAutomaticEventHandler(bool isSimulationAutomatic);
@@ -84,18 +84,18 @@ public partial class GameManager : Node3D
         Camera cam;
         DirectionalLight3D light;
 
-        base._Ready();
-        cam = new Camera();
-        this.AddChild(cam);
-        cam.Position = new Vector3(0.0f, 5.0f, 0.0f);
-        cam.Rotation = new Vector3(Mathf.DegToRad(-45.0f), 0, 0);
-        cam.MakeCurrent();
-        light = new DirectionalLight3D();
-        this.AddChild(light);
-        light.Position = new Vector3(0.0f, 10.0f, 0.0f);
-        light.Rotation = new Vector3(Mathf.DegToRad(-45.0f), Mathf.DegToRad(45.0f), 0);
+		base._Ready();
+		cam = new Camera();
+		this.AddChild(cam);
+		cam.Position = new Vector3(0.0f, 5.0f, 0.0f);
+		cam.Rotation = new Vector3(Mathf.DegToRad(-45.0f), 0, 0);
+		cam.MakeCurrent();
+		light = new DirectionalLight3D();
+		this.AddChild(light);
+		light.Position = new Vector3(0.0f, 10.0f, 0.0f);
+		light.Rotation = new Vector3(Mathf.DegToRad(-45.0f), Mathf.DegToRad(45.0f), 0);
 
-        loadLevel("test");
+		loadLevel("test");
 
         // signale
         DoNextSearchStep += onDoNextSearchStep;
@@ -116,25 +116,25 @@ public partial class GameManager : Node3D
         dfsButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DFS);
     }
 
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-    }
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
+	}
 
-    /// <summary>
-    /// Lädt das angegebene Level.
-    /// loadLevel("test") lädt das Level levels/test.json.
-    /// </summary>
-    public void loadLevel(string levelName)
-    {
-        JsonObject json;
-        using var file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
+	/// <summary>
+	/// Lädt das angegebene Level.
+	/// loadLevel("test") lädt das Level levels/test.json.
+	/// </summary>
+	public void loadLevel(string levelName)
+	{
+		JsonObject json;
+		using var file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
 
-        this.graph = new Graph();
-        json = JsonNode.Parse(file.GetAsText()).AsObject();
-        this.graph.fromJsonObject(json);
-        this.AddChild(this.graph);
-    }
+		this.graph = new Graph();
+		json = JsonNode.Parse(file.GetAsText()).AsObject();
+		this.graph.fromJsonObject(json);
+		this.AddChild(this.graph);
+	}
 
     // ruft gleichnamige Methode in jedem NeudinkelAlgorithm auf
     // gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
@@ -144,19 +144,19 @@ public partial class GameManager : Node3D
 
         int nextStep = this.currentAlgorithm.doSearchStep();
 
-        EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
-    }
+		EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
+	}
 
-    public void onToggleGamePhase(bool isNewPhaseSimulationPhase)
-    {
-        // if Baumodus => Simulationsmodus
-        if ((int)this.gamePhase == 0 && isNewPhaseSimulationPhase)
-        {
-            EmitSignal(SignalName.InitOrChangeAlgorithm, (int)ENeudinkelAlgorithm.ASTAR);
-        }
+	public void onToggleGamePhase(bool isNewPhaseSimulationPhase)
+	{
+		// if Baumodus => Simulationsmodus
+		if ((int)this.gamePhase == 0 && isNewPhaseSimulationPhase)
+		{
+			EmitSignal(SignalName.InitOrChangeAlgorithm, (int)ENeudinkelAlgorithm.ASTAR);
+		}
 
-        this.gamePhase = isNewPhaseSimulationPhase ? GamePhase.SIMULATION : GamePhase.BUILDING;
-    }
+		this.gamePhase = isNewPhaseSimulationPhase ? GamePhase.SIMULATION : GamePhase.BUILDING;
+	}
 
 	// start immer alles neu
 	// int algorithm == -1 => gleichen Algorithmus nochmal, i.e. nur neustarten
@@ -191,15 +191,15 @@ public partial class GameManager : Node3D
         }
     }
 
-    public void onSetStartNode(GraphNode node)
-    {
-        this.startNode = node;
-    }
+	public void onSetStartNode(GraphNode node)
+	{
+		this.startNode = node;
+	}
 
-    public void onSetGoalNode(GraphNode node)
-    {
-        this.goalNode = node;
-    }
+	public void onSetGoalNode(GraphNode node)
+	{
+		this.goalNode = node;
+	}
 
 	public void onSetIsSimulationAutomatic(bool isSimulationAutomatic)
 	{
@@ -215,19 +215,19 @@ public partial class GameManager : Node3D
         algorithm.visualize(this.graph);
     }
 
-    // custom getter, weil c# dumm ist
-    public GamePhase getGamePhase()
-    {
-        return this.gamePhase;
-    }
+	// custom getter, weil c# dumm ist
+	public GamePhase getGamePhase()
+	{
+		return this.gamePhase;
+	}
 
-    public static GamePhase IntToGamePhase(int value)
-    {
-        if (Enum.IsDefined(typeof(GamePhase), value))
-        {
-            return (GamePhase) value;
-        }
+	public static GamePhase IntToGamePhase(int value)
+	{
+		if (Enum.IsDefined(typeof(GamePhase), value))
+		{
+			return (GamePhase) value;
+		}
 
-        throw new ArgumentException($"Value {value} is not a valid Status");
-    }
+		throw new ArgumentException($"Value {value} is not a valid Status");
+	}
 }

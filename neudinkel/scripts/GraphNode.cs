@@ -96,6 +96,7 @@ public partial class GraphNode : Node3D
 	private Node3D getStreetTile(int from, int to)
 	{
 		int diff = to - from;
+		int variation = Globals.rand.Next(1, 3);
 
 		if (diff > 3)
 		{
@@ -103,7 +104,7 @@ public partial class GraphNode : Node3D
 			diff = 6 - diff;
 		}
 
-		var scene = ResourceLoader.Load<PackedScene>("assets/testtile0" + diff + ".tscn"); //TODO replace with actual street
+		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street1_0" + diff + "_" + variation + ".tscn"); // TODO: Adjust for type
 		var streetModell = scene.Instantiate();
 		Node3D street = new();
 		street.AddChild(streetModell);
@@ -113,7 +114,7 @@ public partial class GraphNode : Node3D
 
 	private Node3D getCityTile(int size)
 	{
-		var scene = ResourceLoader.Load<PackedScene>("assets/testtile_city03" /**+ size**/ + ".tscn"); //TODO replace with actual city
+		var scene = ResourceLoader.Load<PackedScene>("assets/testing/testtile_city03" /**+ size**/ + ".tscn"); //TODO replace with actual city
 		Node3D citytile = new Node3D();
 		var instantiatedcity = scene.Instantiate();
 		citytile.AddChild(instantiatedcity);
@@ -158,18 +159,18 @@ public partial class GraphNode : Node3D
 	// gibt nur die existierenden Nachbarn mit der TileRelation zurück
 	// für Algorithmen
 	public Dictionary<GraphNode, int> getNeighborsUnsorted() {
-        Dictionary<GraphNode, int> _neighbors = new Dictionary<GraphNode, int>();
+		Dictionary<GraphNode, int> _neighbors = new Dictionary<GraphNode, int>();
 
-        for (int i = 0; i < this.neighbors.Length; i++)
-        {
-            if (this.neighbors[i] != null)
-            {
-                _neighbors.Add(this.neighbors[i], i);
-            }
-        }
+		for (int i = 0; i < this.neighbors.Length; i++)
+		{
+			if (this.neighbors[i] != null)
+			{
+				_neighbors.Add(this.neighbors[i], i);
+			}
+		}
 
-        return _neighbors;
-    }
+		return _neighbors;
+	}
 	
 	/// <summary>
 	/// Setzt die TilePos-Variablen und updated dabei
@@ -221,6 +222,14 @@ public partial class GraphNode : Node3D
 	{
 		int x = middle.getTilePosX() - neighbour.tilePosX;
 		int y = middle.getTilePosY() - neighbour.tilePosY;
+
+		// FIXME: Fix
+		/**if (Mathf.Sqrt( Mathf.pow(a.tilePosX - a.getTilePosY, 2) + Mathf.pow(a.tilePosY - tile.tilePosY, 2)) != 1) 
+		{
+			return TileRelation.INVALID;
+		}**/
+
+
 		//topright x negativ y positiv
 		//right x negativ y 0
 		//bottomright x 0 y negativ
