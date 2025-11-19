@@ -19,6 +19,7 @@ public enum GraphSearchAlgorithm
 
 public partial class Graph : Node3D
 {
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -67,12 +68,20 @@ public partial class Graph : Node3D
 	public bool fromJsonObject(JsonObject json)
 	{
 		List<GraphNode> nodes = new List<GraphNode>();
+		GameManager gm = this.GetParent<GameManager>();
 		
 		// Struktur des Root testen
 		if (!(json.ContainsKey("tiles") && json.ContainsKey("edges")))
 		{
 			GD.Print("fromJsonObject: Level-Objekt ist kaputt, es fehlen tiles und/oder edges :(");
 			return true;
+		}
+		
+		// Kamera-Position setzen
+		if (json.ContainsKey("startPos") && json["startPos"].AsArray().Count == 2)
+		{
+			JsonArray startPos = json["startPos"].AsArray();
+			gm.EmitSignal(GameManager.SignalName.SetCameraPosition, new Vector2((float) startPos[0], (float) startPos[1]));
 		}
 		
 		foreach (JsonObject n in json["tiles"].AsArray())

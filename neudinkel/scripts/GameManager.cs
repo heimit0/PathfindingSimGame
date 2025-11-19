@@ -79,6 +79,9 @@ public partial class GameManager : Node3D
 
 	[Signal]
 	public delegate void setIsSimulationAutomaticEventHandler(bool isSimulationAutomatic);
+	
+	[Signal]
+	public delegate void SetCameraPositionEventHandler(Vector2 pos);
 
 	public override void _Ready()
 	{
@@ -133,8 +136,8 @@ public partial class GameManager : Node3D
 
 		this.graph = new Graph();
 		json = JsonNode.Parse(file.GetAsText()).AsObject();
-		this.graph.fromJsonObject(json);
 		this.AddChild(this.graph);
+		this.graph.fromJsonObject(json);
 
 		onSetStartNode(this.graph.getNode(0, 0));
 		onSetGoalNode(this.graph.getNode(3, 3));
