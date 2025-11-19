@@ -55,10 +55,13 @@ public partial class GameManager : Node3D
     public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
 
     [Signal]
+    public delegate void UpdateUIPseudoCodeEventHandler(int currentStep); // pseudo code anzeigen
+
+    [Signal]
     public delegate void AlgorithmFinishedEventHandler(); // weg gefunden, weg anzeigen
 
     [Signal]
-    public delegate void ChangeGamePhaseEventHandler(GamePhase newGamePhase);
+    public delegate void ChangeGamePhaseEventHandler(int newGamePhase);
 
     [Signal]
     public delegate void UpdateInternalGraphEventHandler(Graph graph); // für baumodus
@@ -124,15 +127,15 @@ public partial class GameManager : Node3D
         int nextStep = this.currentAlgorithm.doSearchStep();
     }
 
-    public void onChangeGamePhase(GamePhase newGamePhase)
+    public void onChangeGamePhase(int newGamePhase)
     {
         // if Baumodus => Simulationsmodus
-        if ((int)this.gamePhase == 0 && (int)newGamePhase == 1)
+        if ((int)this.gamePhase == 0 && newGamePhase == 1)
         {
             EmitSignal(SignalName.InitOrChangeAlgorithm, (int)ENeudinkelAlgorithm.ASTAR);
         }
 
-        this.gamePhase = newGamePhase;
+        this.gamePhase = IntToGamePhase(newGamePhase);
     }
 
     public void onInitOrChangeAlgorithm(int algorithm)
@@ -151,13 +154,13 @@ public partial class GameManager : Node3D
         }
     }
 
-	public void onSetStartNode(GraphNode node) 
-	{
+    public void onSetStartNode(GraphNode node)
+    {
         this.startNode = node;
     }
 
-	public void onSetGoalNode(GraphNode node)
-	{
+    public void onSetGoalNode(GraphNode node)
+    {
         this.goalNode = node;
     }
 
@@ -172,5 +175,15 @@ public partial class GameManager : Node3D
     public GamePhase getGamePhase()
     {
         return this.gamePhase;
+    }
+
+    public static GamePhase IntToGamePhase(int value)
+    {
+        if (Enum.IsDefined(typeof(GamePhase), value))
+        {
+            return (GamePhase) value;
+        }
+
+        throw new ArgumentException($"Value {value} is not a valid Status");
     }
 }
