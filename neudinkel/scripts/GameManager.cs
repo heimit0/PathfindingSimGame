@@ -61,7 +61,7 @@ public partial class GameManager : Node3D
     public delegate void AlgorithmFinishedEventHandler(); // weg gefunden, weg anzeigen
 
     [Signal]
-    public delegate void ChangeGamePhaseEventHandler(int newGamePhase);
+    public delegate void ToggleGamePhaseEventHandler(bool isNewPhaseSimulationPhase);
 
     [Signal]
     public delegate void UpdateInternalGraphEventHandler(Graph graph); // für baumodus
@@ -96,6 +96,7 @@ public partial class GameManager : Node3D
         // signale
         DoNextSearchStep += onDoNextSearchStep;
         InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
+        ToggleGamePhase += onToggleGamePhase;
         SetStartNode += onSetStartNode;
         setGoalNode += onSetGoalNode;
     }
@@ -125,17 +126,19 @@ public partial class GameManager : Node3D
     public void onDoNextSearchStep()
     {
         int nextStep = this.currentAlgorithm.doSearchStep();
+
+        EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
     }
 
-    public void onChangeGamePhase(int newGamePhase)
+    public void onToggleGamePhase(bool isNewPhaseSimulationPhase)
     {
         // if Baumodus => Simulationsmodus
-        if ((int)this.gamePhase == 0 && newGamePhase == 1)
+        if ((int)this.gamePhase == 0 && isNewPhaseSimulationPhase)
         {
             EmitSignal(SignalName.InitOrChangeAlgorithm, (int)ENeudinkelAlgorithm.ASTAR);
         }
 
-        this.gamePhase = IntToGamePhase(newGamePhase);
+        this.gamePhase = isNewPhaseSimulationPhase ? GamePhase.SIMULATION : GamePhase.BUILDING;
     }
 
     public void onInitOrChangeAlgorithm(int algorithm)
