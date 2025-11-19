@@ -21,13 +21,27 @@ public enum GamePhase
 /// </summary>
 public partial class GameManager : Node3D
 {
-	public GamePhase gamePhase { get; set; }
-	public Graph graph { get; set; }
+    private GamePhase gamePhase;
+    public Graph graph { get; set; }
 
-	// TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
-	// TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
+	public NeudinkelAlgorithm currentAlgorithm { get; set; }
 
-	public override void _Ready()
+    // TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
+    // TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
+
+    [Signal]
+    public delegate void InitOrChangeAlgorithmEventHandler(NeudinkelAlgorithm algorithm); // algorithmus setzen
+
+    [Signal]
+    public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
+
+    [Signal]
+    public delegate void AlgorithmFinishedEventHandler(); // weg gefunden, weg anzeigen
+
+    [Signal]
+    public delegate void ChangeGamePhaseEventHandler(GamePhase newGamePhase);
+
+    public override void _Ready()
 	{
 		Camera cam;
 		DirectionalLight3D light;
@@ -44,7 +58,10 @@ public partial class GameManager : Node3D
 		light.Rotation = new Vector3(Mathf.DegToRad(-45.0f), Mathf.DegToRad(45.0f), 0);
 		
 		loadLevel("test");
-	}
+
+        // signale
+        DoNextSearchStep += onDoNextSearchStep;
+    }
 
 	public override void _Process(double delta)
 	{
@@ -66,9 +83,29 @@ public partial class GameManager : Node3D
 		this.AddChild(this.graph);
 	}
 
+	// ruft gleichnamige Methode in jedem NeudinkelAlgorithm auf
+	// gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
+	public void onDoNextSearchStep()
+	{
+        int nextStep = this.currentAlgorithm.doSearchStep();
+    }
+
+	public void onChangeGamePhase(GamePhase newGamePhase)
+	{
+        this.gamePhase = newGamePhase;
+
+		// if gamePhase: Baumodus -> SimulationsModus ==> initAlgorithm
+    }
+
 	// ruft die visualize() funktion im jeweiligen Algorithmus auf,
 	// welche die nötigen Tiles im Graphen anspricht
 	public void highlightGraph<T>(T algorithm) where T : INeudinkelAlgorithm {
 		algorithm.visualize(this.graph);
 	}
+
+	// custom getter, weil c# dumm ist
+	public GamePhase getGamePhase()
+	{
+        return this.gamePhase;
+    }
 }

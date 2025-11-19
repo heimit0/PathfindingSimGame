@@ -119,7 +119,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
         if (unvisitedNodes.Count == 0)
         {
             // Error: no path found
-            return -1;
+            return -2;
         }
 
         return currentStep + 1;

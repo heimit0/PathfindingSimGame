@@ -83,7 +83,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm, INeudinkelAlgorithm
         if (unvisitedNodes.Count == 0)
         {
             // Error: no path found
-            return -1;
+            return -2;
         }
 
         return currentStep + 1;
@@ -111,6 +111,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm, INeudinkelAlgorithm
     {
         if (currentNode.Equals(goalNode))
         {
+            // Weg gefunden
             return -1;
         }
 
@@ -123,9 +124,10 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm, INeudinkelAlgorithm
     }
 
     // errechne die direkten kosten vom start zum derzeitigen nachnarn nachbarn
+    // for-loop start
     private int calculteDistance(Graph g)
     {
-        if (currentNeighbourIndex > currentNeighbours.Length) return -1;
+        if (currentNeighbourIndex >= currentNeighbours.Length) return 3; // exit for-loop, jz normaler durchlauf
 
         currentNeighbourCost = distanceFromStart[currentNode] + edgeCost(currentNode, currentNeighbours[currentNeighbourIndex]);
 

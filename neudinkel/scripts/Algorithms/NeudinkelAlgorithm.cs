@@ -37,7 +37,7 @@ public abstract class NeudinkelAlgorithm
 	/// <summary>
 	/// Ruft den aktuell naechsten Schritt auf und informiert die UI.
 	/// </summary>
-	public void doSearchStep()
+	public int doSearchStep()
 	{
 		currentStep = steps[currentStep](this.graph);
 
@@ -45,7 +45,8 @@ public abstract class NeudinkelAlgorithm
             GD.Print("Finished oder Error!");
         }
 
-		// currentStep an signal für die UI senden
-	}
+        // currentStep an signal für die UI senden
+        return currentStep;
+    }
 
 }
