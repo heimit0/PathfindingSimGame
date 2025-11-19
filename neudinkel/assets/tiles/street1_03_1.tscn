@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://yxhchjpdt2ek"]
+
+[ext_resource type="PackedScene" uid="uid://o2q3rb8624m3" path="res://models/tiles/highway_03_1.fbx" id="1_votbk"]
+
+[node name="highway_03_1" instance=ExtResource("1_votbk")]

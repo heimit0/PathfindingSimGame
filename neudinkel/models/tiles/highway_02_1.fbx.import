@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cek3p42qr0u14"
-path="res://.godot/imported/test_hexagon01.fbx-800310c883250a53c99d14d41a0a0bbb.scn"
+uid="uid://jidfbi53fa82"
+path="res://.godot/imported/highway_02_1.fbx-5115fcc722f2b4c656066e52bb383a49.scn"
 
 [deps]
 
-source_file="res://models/test_hexagon01.fbx"
-dest_files=["res://.godot/imported/test_hexagon01.fbx-800310c883250a53c99d14d41a0a0bbb.scn"]
+source_file="res://models/tiles/highway_02_1.fbx"
+dest_files=["res://.godot/imported/highway_02_1.fbx-5115fcc722f2b4c656066e52bb383a49.scn"]
 
 [params]
 

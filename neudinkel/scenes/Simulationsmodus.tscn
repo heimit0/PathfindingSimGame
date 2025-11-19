@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://mkk1cd41mlpr"]
 
 [ext_resource type="Script" uid="uid://bh18bo3ubvwtm" path="res://scripts/GameManager.cs" id="1_5p374"]
-[ext_resource type="PackedScene" uid="uid://dxnhei4odushk" path="res://assets/testtile00.tscn" id="1_v17mc"]
+[ext_resource type="PackedScene" uid="uid://dxnhei4odushk" path="res://assets/testing/testtile00.tscn" id="1_v17mc"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_85scv"]
 

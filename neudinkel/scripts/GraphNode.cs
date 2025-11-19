@@ -20,9 +20,9 @@ public enum StreetType
 	//und mit Typecasts abrufen (int)type gibt den int oder falls nötig (StreetType)int
 	//den typ nach kosten 
 	//Probleme enstehen wenn man paare casted die nicht enthalten sind
-	AUTOBAHN = 10,
-	LANSTRASSE = 5,
-	FELDWEG = 1
+	AUTOBAHN = 1,
+	LANSTRASSE = 2,
+	FELDWEG = 3
 };
 
 public partial class GraphNode : Node3D
