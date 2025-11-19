@@ -141,8 +141,25 @@ public partial class GameManager : Node3D
         this.gamePhase = isNewPhaseSimulationPhase ? GamePhase.SIMULATION : GamePhase.BUILDING;
     }
 
+	// start immer alles neu
+	// int algorithm == -1 => gleichen Algorithmus nochmal, i.e. nur neustarten
     public void onInitOrChangeAlgorithm(int algorithm)
     {
+		// gleichen algorithmus nochmal, nur neustarten
+		if (algorithm == -1)
+		{
+			if (this.currentAlgorithm is AlgorithmAStar) 
+			{
+                this.currentAlgorithm = new AlgorithmAStar(this.graph, this.startNode, this.goalNode);
+			} else if (this.currentAlgorithm is AlgorithmDijkstra) 
+			{
+                this.currentAlgorithm = new AlgorithmDijkstra(this.graph, this.startNode, this.goalNode);
+			} else if (this.currentAlgorithm is AlgorithmDFS) 
+			{
+                this.currentAlgorithm = new AlgorithmDFS(this.graph, this.startNode, this.goalNode);
+			}
+		}
+		
         switch (algorithm)
         {
             case ((int)ENeudinkelAlgorithm.ASTAR):
