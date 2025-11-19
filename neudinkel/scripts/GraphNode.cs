@@ -44,6 +44,7 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	private GraphNode[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 	private Node3D tile;
+	private Node3D tileBase;
 
 	/// <summary>
 	/// zeigt ob node gehighlighted ist oder nich
@@ -60,6 +61,8 @@ public partial class GraphNode : Node3D
 	public override void _Ready()
 	{
 		base._Ready();
+		this.tileBase = (Node3D) ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn").Instantiate();
+		this.AddChild(this.tileBase);
 		updateModel();
 	}
 
