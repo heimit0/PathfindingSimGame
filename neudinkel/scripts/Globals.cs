@@ -5,24 +5,24 @@ using System;
 public partial class Globals : Node
 {
 
-	public Random rand{ get; }
+	public static Random rand{ get; set; }
 	
-	private ConfigFile SaveFile;
-	private String path = "";
+	private static ConfigFile SaveFile;
+	private static String path = "";
 
 	//variablen
-	public string nextLevel;
+	public static string nextLevel;
 
 	//Persistente variablen
-	public int progress;
+	public static int progress;
 
 	public Globals()
 	{
 		SaveFile = new ConfigFile();
-		rand = new Random();
+		Globals.rand = new Random();
 	}
 
-	public void safeGame()
+	public static void safeGame()
 	{
 		if(SaveFile == null)
 		{
@@ -36,7 +36,7 @@ public partial class Globals : Node
 		SaveFile.Save("");
 	}
 
-	public void loadGame()
+	public static void loadGame()
 	{
 		var score_data = new Godot.Collections.Dictionary();
 
