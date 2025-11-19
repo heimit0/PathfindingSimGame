@@ -10,22 +10,22 @@ using System.Text.Json.Nodes;
 
 public enum GamePhase
 {
-	BUILDING,
-	SIMULATION,
-	EXAM
+    BUILDING = 0,
+    SIMULATION = 1,
+    EXAM = 2
 }
 
 public enum SimulationModus
 {
-	STEP_BY_STEP,
-	AUTOMATIC
+    STEP_BY_STEP,
+    AUTOMATIC
 }
 
 public enum ENeudinkelAlgorithm
 {
-	ASTAR = 0,
-	DIJKSTRA = 1,
-	DFS = 2
+    ASTAR = 0,
+    DIJKSTRA = 1,
+    DFS = 2
 }
 
 /// <summary>
@@ -37,6 +37,9 @@ public partial class GameManager : Node3D
     private GamePhase gamePhase;
     public Graph graph { get; set; }
 
+    public GraphNode startNode { get; set; }
+    public GraphNode goalNode { get; set; }
+
     public int automaticSimulationSpeed = 1; // für simulationsmodus
 
     public NeudinkelAlgorithm currentAlgorithm { get; set; }
@@ -46,7 +49,7 @@ public partial class GameManager : Node3D
 
     [Signal]
     public delegate void InitOrChangeAlgorithmEventHandler(int algorithm); // algorithmus setzen
-	// usage: EmitSignal(GameManager.InitOrChangeAlgorithm, (int) ENeudinkelAlgorithm.ASTAR);
+                                                                           // usage: EmitSignal(GameManager.InitOrChangeAlgorithm, (int) ENeudinkelAlgorithm.ASTAR);
 
     [Signal]
     public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
@@ -63,77 +66,111 @@ public partial class GameManager : Node3D
     [Signal]
     public delegate void SetAutomaticSimulationSpeedEventHandler(int newSpeed); // slider für speed im simulations-modus
 
+    [Signal]
+    public delegate void SetStartNodeEventHandler(GraphNode node);
+
+    [Signal]
+    public delegate void setGoalNodeEventHandler(GraphNode node);
+
     public override void _Ready()
-	{
-		Camera cam;
-		DirectionalLight3D light;
-		
-		base._Ready();
-		cam = new Camera();
-		this.AddChild(cam);
-		cam.Position = new Vector3(0.0f, 5.0f, 0.0f);
-		cam.Rotation = new Vector3(Mathf.DegToRad(-45.0f), 0, 0);
-		cam.MakeCurrent();
-		light = new DirectionalLight3D();
-		this.AddChild(light);
-		light.Position = new Vector3(0.0f, 10.0f, 0.0f);
-		light.Rotation = new Vector3(Mathf.DegToRad(-45.0f), Mathf.DegToRad(45.0f), 0);
-		
-		loadLevel("test");
+    {
+        Camera cam;
+        DirectionalLight3D light;
+
+        base._Ready();
+        cam = new Camera();
+        this.AddChild(cam);
+        cam.Position = new Vector3(0.0f, 5.0f, 0.0f);
+        cam.Rotation = new Vector3(Mathf.DegToRad(-45.0f), 0, 0);
+        cam.MakeCurrent();
+        light = new DirectionalLight3D();
+        this.AddChild(light);
+        light.Position = new Vector3(0.0f, 10.0f, 0.0f);
+        light.Rotation = new Vector3(Mathf.DegToRad(-45.0f), Mathf.DegToRad(45.0f), 0);
+
+        loadLevel("test");
 
         // signale
         DoNextSearchStep += onDoNextSearchStep;
         InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
+        SetStartNode += onSetStartNode;
+        setGoalNode += onSetGoalNode;
     }
 
-	public override void _Process(double delta)
-	{
-		base._Process(delta);
-	}
-	
-	/// <summary>
-	/// Lädt das angegebene Level.
-	/// loadLevel("test") lädt das Level levels/test.json.
-	/// </summary>
-	public void loadLevel(string levelName)
-	{
-		JsonObject json;
-		using var file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+    }
 
-		this.graph = new Graph();
-		json = JsonNode.Parse(file.GetAsText()).AsObject();
-		this.graph.fromJsonObject(json);
-		this.AddChild(this.graph);
-	}
+    /// <summary>
+    /// Lädt das angegebene Level.
+    /// loadLevel("test") lädt das Level levels/test.json.
+    /// </summary>
+    public void loadLevel(string levelName)
+    {
+        JsonObject json;
+        using var file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
 
-	// ruft gleichnamige Methode in jedem NeudinkelAlgorithm auf
-	// gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
-	public void onDoNextSearchStep()
-	{
+        this.graph = new Graph();
+        json = JsonNode.Parse(file.GetAsText()).AsObject();
+        this.graph.fromJsonObject(json);
+        this.AddChild(this.graph);
+    }
+
+    // ruft gleichnamige Methode in jedem NeudinkelAlgorithm auf
+    // gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
+    public void onDoNextSearchStep()
+    {
         int nextStep = this.currentAlgorithm.doSearchStep();
     }
 
-	public void onChangeGamePhase(GamePhase newGamePhase)
-	{
+    public void onChangeGamePhase(GamePhase newGamePhase)
+    {
+        // if Baumodus => Simulationsmodus
+        if ((int)this.gamePhase == 0 && (int)newGamePhase == 1)
+        {
+            EmitSignal(SignalName.InitOrChangeAlgorithm, (int)ENeudinkelAlgorithm.ASTAR);
+        }
+
         this.gamePhase = newGamePhase;
-
-		// if gamePhase: Baumodus -> SimulationsModus ==> initAlgorithm
     }
 
-	public void onInitOrChangeAlgorithm(int algorithm)
-	{
-        
+    public void onInitOrChangeAlgorithm(int algorithm)
+    {
+        switch (algorithm)
+        {
+            case ((int)ENeudinkelAlgorithm.ASTAR):
+                this.currentAlgorithm = new AlgorithmAStar(this.graph, this.startNode, this.goalNode);
+                break;
+            case ((int)ENeudinkelAlgorithm.DIJKSTRA):
+                this.currentAlgorithm = new AlgorithmDijkstra(this.graph, this.startNode, this.goalNode);
+                break;
+            case ((int)ENeudinkelAlgorithm.DFS):
+                this.currentAlgorithm = new AlgorithmDFS(this.graph, this.startNode, this.goalNode);
+                break;
+        }
     }
 
-	// ruft die visualize() funktion im jeweiligen Algorithmus auf,
-	// welche die nötigen Tiles im Graphen anspricht
-	public void highlightGraph<T>(T algorithm) where T : INeudinkelAlgorithm {
-		algorithm.visualize(this.graph);
-	}
-
-	// custom getter, weil c# dumm ist
-	public GamePhase getGamePhase()
+	public void onSetStartNode(GraphNode node) 
 	{
+        this.startNode = node;
+    }
+
+	public void onSetGoalNode(GraphNode node)
+	{
+        this.goalNode = node;
+    }
+
+    // ruft die visualize() funktion im jeweiligen Algorithmus auf,
+    // welche die nötigen Tiles im Graphen anspricht
+    public void highlightGraph<T>(T algorithm) where T : INeudinkelAlgorithm
+    {
+        algorithm.visualize(this.graph);
+    }
+
+    // custom getter, weil c# dumm ist
+    public GamePhase getGamePhase()
+    {
         return this.gamePhase;
     }
 }
