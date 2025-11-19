@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
@@ -153,7 +155,9 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 
         // falls die derzeitige node nicht die zielnode ist,
         // initialisiere die for loop über den nachbarn der derzeitigen node
-        currentNeighbours = currentNode.getNeighbours();
+        Dictionary<GraphNode, int> tmpNeighbours = currentNode.getNeighborsUnsorted();
+        tmpNeighbours.Keys.CopyTo(currentNeighbours, 0); // in currentNeighbours kopieren
+
         currentNeighbourIndex = 0;
 
         return currentStep + 1;
