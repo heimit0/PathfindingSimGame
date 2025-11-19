@@ -11,9 +11,10 @@ public partial class Camera : Camera3D
 {
 
 	[Export]
-	public float moveSpeed;
+	public float moveSpeed = 2.0f;
 	[Export]
-	public float scrollSpeed;
+	public float scrollSpeed = 0.2f;
+	
 	private double test;
 	private bool isDragging = false;
 	private Vector3 originPos;
