@@ -41,6 +41,7 @@ public partial class GameManager : Node3D
     public GraphNode goalNode { get; set; }
 
     public int automaticSimulationSpeed = 1; // für simulationsmodus
+    public bool isSimulationAutomatic { get; set; }
 
     public NeudinkelAlgorithm currentAlgorithm { get; set; }
 
@@ -75,6 +76,8 @@ public partial class GameManager : Node3D
     [Signal]
     public delegate void setGoalNodeEventHandler(GraphNode node);
 
+    [Signal]
+    public delegate void setIsSimulationAutomaticEventHandler(bool isSimulationAutomatic);
 
     public override void _Ready()
     {
@@ -137,6 +140,8 @@ public partial class GameManager : Node3D
     // gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
     public void onDoNextSearchStep()
     {
+        this.isSimulationAutomatic = false;
+
         int nextStep = this.currentAlgorithm.doSearchStep();
 
         EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
@@ -194,6 +199,13 @@ public partial class GameManager : Node3D
     public void onSetGoalNode(GraphNode node)
     {
         this.goalNode = node;
+    }
+
+	public void onSetIsSimulationAutomatic(bool isSimulationAutomatic)
+	{
+        this.isSimulationAutomatic = isSimulationAutomatic;
+
+		// TODO: idk
     }
 
     // ruft die visualize() funktion im jeweiligen Algorithmus auf,
