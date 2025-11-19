@@ -22,22 +22,6 @@ grow_vertical = 2
 
 [node name="UI" type="CanvasLayer" parent="Simulationsmodus"]
 
-[node name="ObenRechts" type="HBoxContainer" parent="Simulationsmodus/UI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -204.0
-offset_top = 9.0
-offset_right = -12.0
-offset_bottom = 79.0
-grow_horizontal = 0
-
-[node name="Button2" type="Button" parent="Simulationsmodus/UI/ObenRechts"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 30
-text = "Simulieren"
-
 [node name="Minimap" type="SubViewportContainer" parent="Simulationsmodus/UI"]
 anchors_preset = 3
 anchor_left = 1.0
@@ -82,7 +66,7 @@ pivot_offset = Vector2(0, 250)
 texture = SubResource("CanvasTexture_85scv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Simulationsmodus/UI/Pseudocodeblock"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 65.0
 offset_right = 65.0
 offset_bottom = 40.0
@@ -94,24 +78,27 @@ theme_override_font_sizes/font_size = 29
 text = "Pseudocode"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer"]
+[node name="AlgortihmButtons" type="HBoxContainer" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer"]
+[node name="Dijkstra" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Dijkstra"
 
-[node name="Button2" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer"]
+[node name="A*" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "A*"
 
-[node name="Button3" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer"]
+[node name="DFS" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "DFS
 "
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Simulationsmodus/UI/Pseudocodeblock"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 32.0
 offset_top = 79.0
 offset_right = 266.0
@@ -125,29 +112,45 @@ und
 so
 jaja"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Simulationsmodus/UI"]
-offset_left = 947.0
-offset_top = 86.0
-offset_right = 1141.0
-offset_bottom = 127.0
+[node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus"]
+layout_mode = 0
+offset_left = 964.0
+offset_top = 10.0
+offset_right = 1150.0
+offset_bottom = 101.0
 
-[node name="AutoStep" type="Button" parent="Simulationsmodus/UI/HBoxContainer2"]
+[node name="ObenRechts" type="HBoxContainer" parent="Simulationsmodus/ButtonsTopRight"]
+layout_mode = 2
+
+[node name="SimulierenUndBauenWechseln" type="Button" parent="Simulationsmodus/ButtonsTopRight/ObenRechts"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Simulieren"
+
+[node name="ButtonsStep" type="HBoxContainer" parent="Simulationsmodus/ButtonsTopRight"]
+layout_mode = 2
+
+[node name="AutoStep" type="Button" parent="Simulationsmodus/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "play"
 
-[node name="NextSearchStepButton" type="Button" parent="Simulationsmodus/UI/HBoxContainer2"]
+[node name="NextSearchStepButton" type="Button" parent="Simulationsmodus/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "step"
 
-[node name="RestartSimulation" type="Button" parent="Simulationsmodus/UI/HBoxContainer2"]
+[node name="RestartSimulation" type="Button" parent="Simulationsmodus/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "restart
 "
 
-[connection signal="toggled" from="Simulationsmodus/UI/ObenRechts/Button2" to="." method="ChangeGamePhase"]
-[connection signal="pressed" from="Simulationsmodus/UI/HBoxContainer2/AutoStep" to="." method="AutoNextSearchStep"]
-[connection signal="pressed" from="Simulationsmodus/UI/HBoxContainer2/NextSearchStepButton" to="." method="DoNextSearchStep"]
-[connection signal="pressed" from="Simulationsmodus/UI/HBoxContainer2/RestartSimulation" to="." method="RestartSearchRoutine"]
+[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
+[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
+[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
+[connection signal="toggled" from="Simulationsmodus/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onToggleGamePhase"]
+[connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]
+[connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/NextSearchStepButton" to="." method="onDoNextSearchStep"]
+[connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/RestartSimulation" to="." method="onInitOrChangeAlgorithm" binds= [-1]]
