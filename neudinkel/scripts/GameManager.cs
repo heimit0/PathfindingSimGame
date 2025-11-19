@@ -75,6 +75,7 @@ public partial class GameManager : Node3D
     [Signal]
     public delegate void setGoalNodeEventHandler(GraphNode node);
 
+
     public override void _Ready()
     {
         Camera cam;
@@ -99,6 +100,17 @@ public partial class GameManager : Node3D
         ToggleGamePhase += onToggleGamePhase;
         SetStartNode += onSetStartNode;
         setGoalNode += onSetGoalNode;
+
+		// dumme ui scheiße
+		// Connect algorithm selection buttons with parameters
+        // Note: GetNode paths should match the scene tree structure
+        var dijkstraButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/Dijkstra");
+        var aStarButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/A*");
+        var dfsButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/DFS");
+
+	    dijkstraButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DIJKSTRA);
+        aStarButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.ASTAR);
+        dfsButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DFS);
     }
 
     public override void _Process(double delta)
