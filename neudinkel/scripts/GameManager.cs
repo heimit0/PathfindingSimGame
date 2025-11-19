@@ -30,6 +30,7 @@ public partial class GameManager : Node3D
 	public override void _Ready()
 	{
 		Camera cam;
+		DirectionalLight3D light;
 		
 		base._Ready();
 		cam = new Camera();
@@ -37,6 +38,11 @@ public partial class GameManager : Node3D
 		cam.Position = new Vector3(0.0f, 5.0f, 0.0f);
 		cam.Rotation = new Vector3(Mathf.DegToRad(-45.0f), 0, 0);
 		cam.MakeCurrent();
+		light = new DirectionalLight3D();
+		this.AddChild(light);
+		light.Position = new Vector3(0.0f, 10.0f, 0.0f);
+		light.Rotation = new Vector3(Mathf.DegToRad(-45.0f), Mathf.DegToRad(45.0f), 0);
+		
 		loadLevel("test");
 	}
 
