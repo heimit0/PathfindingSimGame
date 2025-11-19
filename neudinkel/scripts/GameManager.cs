@@ -41,8 +41,8 @@ public partial class GameManager : Node3D
 	public GraphNode startNode { get; set; }
 	public GraphNode goalNode { get; set; }
 
-    public int automaticSimulationSpeed = 1; // für simulationsmodus
-    public bool isSimulationAutomatic { get; set; }
+	public int automaticSimulationSpeed = 1; // für simulationsmodus
+	public bool isSimulationAutomatic { get; set; }
 
 	public NeudinkelAlgorithm currentAlgorithm { get; set; }
 
@@ -77,13 +77,13 @@ public partial class GameManager : Node3D
 	[Signal]
 	public delegate void setGoalNodeEventHandler(GraphNode node);
 
-    [Signal]
-    public delegate void setIsSimulationAutomaticEventHandler(bool isSimulationAutomatic);
+	[Signal]
+	public delegate void setIsSimulationAutomaticEventHandler(bool isSimulationAutomatic);
 
-    public override void _Ready()
-    {
-        Camera cam;
-        DirectionalLight3D light;
+	public override void _Ready()
+	{
+		Camera cam;
+		DirectionalLight3D light;
 
 		base._Ready();
 		cam = new Camera();
@@ -98,24 +98,24 @@ public partial class GameManager : Node3D
 
 		loadLevel("test");
 
-        // signale
-        DoNextSearchStep += onDoNextSearchStep;
-        InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
-        ToggleGamePhase += onToggleGamePhase;
-        SetStartNode += onSetStartNode;
-        setGoalNode += onSetGoalNode;
+		// signale
+		DoNextSearchStep += onDoNextSearchStep;
+		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
+		ToggleGamePhase += onToggleGamePhase;
+		SetStartNode += onSetStartNode;
+		setGoalNode += onSetGoalNode;
 
 		// dumme ui scheiße
 		// Connect algorithm selection buttons with parameters
-        // Note: GetNode paths should match the scene tree structure
-        // var dijkstraButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/Dijkstra");
-        // var aStarButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/A*");
-        // var dfsButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/DFS");
+		// Note: GetNode paths should match the scene tree structure
+		// var dijkstraButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/Dijkstra");
+		// var aStarButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/A*");
+		// var dfsButton = GetNode<Button>("Simulationsmodus/UI/Pseudocodeblock/VBoxContainer/HBoxContainer/DFS");
 
-	    // dijkstraButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DIJKSTRA);
-        // aStarButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.ASTAR);
-        // dfsButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DFS);
-    }
+		// dijkstraButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DIJKSTRA);
+		// aStarButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.ASTAR);
+		// dfsButton.Pressed += () => onInitOrChangeAlgorithm((int)ENeudinkelAlgorithm.DFS);
+	}
 
 	public override void _Process(double delta)
 	{
@@ -136,23 +136,23 @@ public partial class GameManager : Node3D
 		this.graph.fromJsonObject(json);
 		this.AddChild(this.graph);
 
-        onSetStartNode(this.graph.getNode(0, 0));
-        onSetGoalNode(this.graph.getNode(3, 3));
-    }
+		onSetStartNode(this.graph.getNode(0, 0));
+		onSetGoalNode(this.graph.getNode(3, 3));
+	}
 
-    // ruft gleichnamige Methode in jedem NeudinkelAlgorithm auf
-    // gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
-    public void onDoNextSearchStep()
-    {
+	// ruft gleichnamige Methode in jedem NeudinkelAlgorithm auf
+	// gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
+	public void onDoNextSearchStep()
+	{
 		if (this.isSimulationAutomatic) GD.Print("isSimulationAutomatic is now: false");
 
-        this.isSimulationAutomatic = false;
+		this.isSimulationAutomatic = false;
 
-        GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
-        int nextStep = this.currentAlgorithm.doSearchStep();
-        GD.Print("Next step is: " + nextStep);
+		GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
+		int nextStep = this.currentAlgorithm.doSearchStep();
+		GD.Print("Next step is: " + nextStep);
 
-        // EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
+		// EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
 	}
 
 	public void onToggleGamePhase(bool isNewPhaseSimulationPhase)
@@ -164,43 +164,43 @@ public partial class GameManager : Node3D
 		}
 
 		this.gamePhase = isNewPhaseSimulationPhase ? GamePhase.SIMULATION : GamePhase.BUILDING;
-        GD.Print("GamePhase changed to: " + this.gamePhase.ToString());
-    }
+		GD.Print("GamePhase changed to: " + this.gamePhase.ToString());
+	}
 
 	// start immer alles neu
 	// int algorithm == -1 => gleichen Algorithmus nochmal, i.e. nur neustarten
-    public void onInitOrChangeAlgorithm(int algorithm)
-    {
+	public void onInitOrChangeAlgorithm(int algorithm)
+	{
 		// gleichen algorithmus nochmal, nur neustarten
 		if (algorithm == -1)
 		{
 			if (this.currentAlgorithm is AlgorithmAStar) 
 			{
-                this.currentAlgorithm = new AlgorithmAStar(this.graph, this.startNode, this.goalNode);
+				this.currentAlgorithm = new AlgorithmAStar(this.graph, this.startNode, this.goalNode);
 			} else if (this.currentAlgorithm is AlgorithmDijkstra) 
 			{
-                this.currentAlgorithm = new AlgorithmDijkstra(this.graph, this.startNode, this.goalNode);
+				this.currentAlgorithm = new AlgorithmDijkstra(this.graph, this.startNode, this.goalNode);
 			} else if (this.currentAlgorithm is AlgorithmDFS) 
 			{
-                this.currentAlgorithm = new AlgorithmDFS(this.graph, this.startNode, this.goalNode);
+				this.currentAlgorithm = new AlgorithmDFS(this.graph, this.startNode, this.goalNode);
 			}
 		}
 		
-        switch (algorithm)
-        {
-            case ((int)ENeudinkelAlgorithm.ASTAR):
-                this.currentAlgorithm = new AlgorithmAStar(this.graph, this.startNode, this.goalNode);
-                break;
-            case ((int)ENeudinkelAlgorithm.DIJKSTRA):
-                this.currentAlgorithm = new AlgorithmDijkstra(this.graph, this.startNode, this.goalNode);
-                break;
-            case ((int)ENeudinkelAlgorithm.DFS):
-                this.currentAlgorithm = new AlgorithmDFS(this.graph, this.startNode, this.goalNode);
-                break;
-        }
+		switch (algorithm)
+		{
+			case ((int)ENeudinkelAlgorithm.ASTAR):
+				this.currentAlgorithm = new AlgorithmAStar(this.graph, this.startNode, this.goalNode);
+				break;
+			case ((int)ENeudinkelAlgorithm.DIJKSTRA):
+				this.currentAlgorithm = new AlgorithmDijkstra(this.graph, this.startNode, this.goalNode);
+				break;
+			case ((int)ENeudinkelAlgorithm.DFS):
+				this.currentAlgorithm = new AlgorithmDFS(this.graph, this.startNode, this.goalNode);
+				break;
+		}
 
-        GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
-    }
+		GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
+	}
 
 	public void onSetStartNode(GraphNode node)
 	{
@@ -214,18 +214,18 @@ public partial class GameManager : Node3D
 
 	public void onSetIsSimulationAutomatic(bool isSimulationAutomatic)
 	{
-        this.isSimulationAutomatic = isSimulationAutomatic;
-        GD.Print("isSimulationAutomatic is now: " + this.isSimulationAutomatic.ToString());
+		this.isSimulationAutomatic = isSimulationAutomatic;
+		GD.Print("isSimulationAutomatic is now: " + this.isSimulationAutomatic.ToString());
 
-        // TODO: idk
-    }
+		// TODO: idk
+	}
 
-    // ruft die visualize() funktion im jeweiligen Algorithmus auf,
-    // welche die nötigen Tiles im Graphen anspricht
-    public void highlightGraph<T>(T algorithm) where T : INeudinkelAlgorithm
-    {
-        algorithm.visualize(this.graph);
-    }
+	// ruft die visualize() funktion im jeweiligen Algorithmus auf,
+	// welche die nötigen Tiles im Graphen anspricht
+	public void highlightGraph<T>(T algorithm) where T : INeudinkelAlgorithm
+	{
+		algorithm.visualize(this.graph);
+	}
 
 	// custom getter, weil c# dumm ist
 	public GamePhase getGamePhase()
