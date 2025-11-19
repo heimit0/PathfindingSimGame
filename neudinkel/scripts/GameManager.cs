@@ -15,6 +15,12 @@ public enum GamePhase
 	EXAM
 }
 
+public enum SimulationModus
+{
+	STEP_BY_STEP,
+	AUTOMATIC
+}
+
 /// <summary>
 /// Der GameManager ist der Parent Node der Spielszene.
 /// Das Objekt uebersieht alle Aktionen und greift wenn noetig ein
@@ -24,7 +30,9 @@ public partial class GameManager : Node3D
     private GamePhase gamePhase;
     public Graph graph { get; set; }
 
-	public NeudinkelAlgorithm currentAlgorithm { get; set; }
+    public int automaticSimulationSpeed = 1; // für simulationsmodus
+
+    public NeudinkelAlgorithm currentAlgorithm { get; set; }
 
     // TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
     // TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
@@ -40,6 +48,12 @@ public partial class GameManager : Node3D
 
     [Signal]
     public delegate void ChangeGamePhaseEventHandler(GamePhase newGamePhase);
+
+    [Signal]
+    public delegate void updateInternalGraphEventHandler(Graph graph); // für baumodus
+
+    [Signal]
+    public delegate void setAutomaticSimulationSpeedEventHandler(int newSpeed); // slider für speed im simulations-modus
 
     public override void _Ready()
 	{
