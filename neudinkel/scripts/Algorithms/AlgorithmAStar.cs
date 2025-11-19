@@ -86,6 +86,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
     {
         unvisitedNodes = new PriorityQueue<GraphNode, float>();
         unvisitedNodes.Enqueue(startNode, heuristic(startNode));
+        GD.Print("A Star init!");
 
         return currentStep + 1;
     }
