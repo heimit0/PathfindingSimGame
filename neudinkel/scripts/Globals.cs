@@ -2,13 +2,13 @@ using Godot;
 using Microsoft.VisualBasic;
 using System;
 
-public partial class GameSaver : Node
+public partial class Globals : Node
 {
     ConfigFile SaveFile;
     String path = "";
     
 
-    public GameSaver()
+    public Globals()
     {
         SaveFile = new ConfigFile();
     }
