@@ -45,6 +45,11 @@ public partial class GraphNode : Node3D
 	private GraphNode[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 	private Node3D tile;
 
+	/// <summary>
+	/// zeigt ob node gehighlighted ist oder nich
+	/// </summary>
+	private bool highlighted = false;
+
 	private StreetType streetType;
 
 	public GraphNode() : base()
@@ -216,6 +221,21 @@ public partial class GraphNode : Node3D
 		}
 		
 		return new int[] {tilePosX,tilePosY};
+	}
+	
+	public void toggleHightlight()
+	{
+		this.highlighted = !highlighted;
+		Vector3 pos = this.Position;
+		Vector3 relPos = new Vector3(0.0f,0.0f,1.0f);
+		if(highlighted)
+		{
+			this.Position = pos + relPos;
+		}
+		else
+		{
+			this.Position = pos - relPos;
+		}
 	}
 	
 	public static TileRelation getNeighbourType(GraphNode middle,GraphNode neighbour)
