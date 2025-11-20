@@ -167,19 +167,19 @@ public partial class GraphNode : Node3D
 
 	// gibt nur die existierenden Nachbarn mit der TileRelation zurück
 	// für Algorithmen
-	public Dictionary<GraphNode, int> getNeighborsUnsorted()
+	public GraphNode[] getNeighboursUnsorted()
 	{
-		Dictionary<GraphNode, int> _neighbors = new Dictionary<GraphNode, int>();
+        List<GraphNode> _neighbours = new List<GraphNode>();
 
-		for (int i = 0; i < this.neighbors.Length; i++)
+        for (int i = 0; i < this.neighbors.Length; i++)
 		{
 			if (this.neighbors[i] != null)
 			{
-				_neighbors.Add(this.neighbors[i], i);
+				_neighbours.Add(this.neighbors[i]);
 			}
 		}
 
-		return _neighbors;
+		return _neighbours.ToArray();
 	}
 
 	/// <summary>

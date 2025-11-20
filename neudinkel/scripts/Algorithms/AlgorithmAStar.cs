@@ -160,17 +160,14 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 			return -1; // pfad gefunden
 		}
 
-		// falls die derzeitige node nicht die zielnode ist,
-		// initialisiere die for loop über den nachbarn der derzeitigen node
-		Dictionary<GraphNode, int> tmpNeighbours = currentNode.getNeighborsUnsorted();
+        // falls die derzeitige node nicht die zielnode ist,
+        // initialisiere die for loop über den nachbarn der derzeitigen node
+        currentNeighbours = currentNode.getNeighboursUnsorted();
 
-		foreach(GraphNode n in tmpNeighbours.Keys)
+        foreach(GraphNode n in currentNeighbours)
 		{
 			GD.Print("[" + currentNode.getTilePosString() + "] has neighbour: [" + n.getTilePosString() + "]");
 		}
-
-        currentNeighbours = new GraphNode[tmpNeighbours.Count];
-        tmpNeighbours.Keys.CopyTo(currentNeighbours, 0); // in currentNeighbours kopieren
 
 		currentNeighbourIndex = 0;
 
@@ -181,7 +178,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 	// überspringe diesen nachbarn => wiederhole diesen schritt mit dem nächsten nachbarn
 	private int checkIfNeighbourVisited(Graph g)
 	{
-		if (currentNeighbourIndex > currentNeighbours.Length) return -1;
+		if (currentNeighbourIndex >= currentNeighbours.Length) return 3;
 
 		if (visitedNodes.Contains(currentNeighbours[currentNeighbourIndex]))
 		{
