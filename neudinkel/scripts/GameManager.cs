@@ -49,6 +49,8 @@ public partial class GameManager : Node3D
 
     public NeudinkelAlgorithm currentAlgorithm { get; set; }
 
+	public PseudocodeTextBox textBoxBox { get; set; }
+
     // TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
     // TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
 
@@ -160,9 +162,14 @@ public partial class GameManager : Node3D
             return;
         }
 
+        textBoxBox.resetAllFormatting();
+        textBoxBox.highlightCurrentStep(this.currentAlgorithm.currentStep);
+
         GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
         int nextStep = this.currentAlgorithm.doSearchStep();
-	}
+
+        textBoxBox.highlightNextStep(nextStep);
+    }
 
     public void onToggleGamePhase(bool isNewPhaseSimulationPhase)
     {
@@ -214,6 +221,8 @@ public partial class GameManager : Node3D
         onSetIsSimulationAutomatic(false);
 
         GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
+        textBoxBox = GetNode<PseudocodeTextBox>("Simulationsmodus/UI/Pseudocodeblock/PseudocodeTextBox");
+        textBoxBox.onInitOrChangeAlgorithm(algorithm);
     }
 
     public void onSetStartNode(GraphNode node)
