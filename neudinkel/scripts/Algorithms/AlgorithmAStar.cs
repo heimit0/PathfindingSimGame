@@ -55,7 +55,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 	{
 		this.graph = graph;
 		this.startNode = startNode;
-		this.currentNode = startNode;
+		this.currentNode = null;
 		this.goalNode = goalNode;
 
 		cameFrom = [];
@@ -63,20 +63,20 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 
 		// Schritte-Array (nur Submethoden)
 		this.steps = new Func<Graph, int>[] {
-			initUnvisitedNodes,
-			initVisitedNodes,
-			initCosts,
-			checkIfOpenListIsEmpty,
-			getBestNodeFromQueue,
-			addNodeToVisited,
-			checkIfGoal,
-			checkIfNeighbourVisited,
-			calcTentativeG,
-			checkIfTentativeIsBetter,
-			updateNeighbourTotalCost,
-			updateNeighbourCameFrom,
-			calcNeighbourFScore,
-			updateNeighbourFScore
+			/*  0 */ initUnvisitedNodes,
+			/*  1 */ initVisitedNodes,
+			/*  2 */ initCosts,
+			/*  3 */ checkIfOpenListIsEmpty,
+			/*  4 */ getBestNodeFromQueue,
+			/*  5 */ addNodeToVisited,
+			/*  6 */ checkIfGoal,
+			/*  7 */ checkIfNeighbourVisited,
+			/*  8 */ calcTentativeG,
+			/*  9 */ checkIfTentativeIsBetter,
+			/* 10 */ updateNeighbourTotalCost,
+			/* 11 */ updateNeighbourCameFrom,
+			/* 12 */ calcNeighbourFScore,
+			/* 13 */ updateNeighbourFScore
 		};
 	}
 
@@ -132,12 +132,17 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 	// um sie zu verarbeiten
 	private int getBestNodeFromQueue(Graph g)
 	{
-		currentNode.toggleHighlight(false);
-		currentNode = unvisitedNodes.Dequeue();
-		currentDistance = totalCost[currentNode];
+		// 1. schritt ignorieren
+		if (currentNode != null) currentNode.toggleHighlight(false);
+
+		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
+        currentNode = unvisitedNodes.Dequeue();
+        GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
+        currentNode.toggleHighlight(true);
+        currentDistance = totalCost[currentNode];
 
 		return currentStep + 1;
-	}
+	}	
 
 	// füge die derzeitige node zu den besuchten hinzu
 	private int addNodeToVisited(Graph g)
@@ -155,16 +160,14 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 			return -1; // pfad gefunden
 		}
 
-		// falls die derzeitige node nicht die zielnode ist,
-		// initialisiere die for loop über den nachbarn der derzeitigen node
-		Dictionary<GraphNode, int> tmpNeighbours = currentNode.getNeighborsUnsorted();
+        // falls die derzeitige node nicht die zielnode ist,
+        // initialisiere die for loop über den nachbarn der derzeitigen node
+        currentNeighbours = currentNode.getNeighboursUnsorted();
 
-		foreach(GraphNode n in tmpNeighbours.Keys)
+        foreach(GraphNode n in currentNeighbours)
 		{
-			GD.Print(n.getTilePosX() + ", " + n.getTilePosY());
+			GD.Print("[" + currentNode.getTilePosString() + "] has neighbour: [" + n.getTilePosString() + "]");
 		}
-
-		tmpNeighbours.Keys.CopyTo(currentNeighbours, 0); // in currentNeighbours kopieren
 
 		currentNeighbourIndex = 0;
 
@@ -175,7 +178,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 	// überspringe diesen nachbarn => wiederhole diesen schritt mit dem nächsten nachbarn
 	private int checkIfNeighbourVisited(Graph g)
 	{
-		if (currentNeighbourIndex > currentNeighbours.Length) return -1;
+		if (currentNeighbourIndex >= currentNeighbours.Length) return 3;
 
 		if (visitedNodes.Contains(currentNeighbours[currentNeighbourIndex]))
 		{
@@ -267,7 +270,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 		return distance;
 	}
 
-	public void visualize(Graph g)
+	public new void visualize(Graph g)
 	{
 		this.currentNode.toggleHighlight(true);
 	}

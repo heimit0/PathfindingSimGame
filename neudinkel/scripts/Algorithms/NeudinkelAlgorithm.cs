@@ -5,7 +5,7 @@ using Godot;
 /// <summary>
 /// Elternklasse aller Suchalgorithmen.
 /// </summary>
-public abstract class NeudinkelAlgorithm
+public abstract class NeudinkelAlgorithm : INeudinkelAlgorithm
 {
 
 	public Graph graph { get; set; }
@@ -39,6 +39,11 @@ public abstract class NeudinkelAlgorithm
 	/// </summary>
 	public int doSearchStep()
 	{
+		if (currentStep < 0)
+		{
+            GD.Print("Der Algorithmus sollte nicht mehr laufen! Er ist bereits beendet!");
+        }
+
 		try
 		{
 			currentStep = steps[currentStep].Invoke(this.graph);
@@ -50,10 +55,18 @@ public abstract class NeudinkelAlgorithm
 
 		if (currentStep == -1)
 		{
-			GD.Print("Finished oder Error!");
+			GD.Print("Der beste Pfad wurde gefunden!");
 		}
+		else if (currentStep == -2)
+		{
+            GD.Print("Es konnte kein Pfad gefunden werden!");
+        }
 
 		return currentStep;
 	}
 
+    public void visualize(Graph g)
+    {
+        throw new NotImplementedException();
+    }
 }
