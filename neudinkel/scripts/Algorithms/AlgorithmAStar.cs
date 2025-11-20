@@ -132,7 +132,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 	// um sie zu verarbeiten
 	private int getBestNodeFromQueue(Graph g)
 	{
-		currentNode.toggleHightlight(false);
+		currentNode.toggleHighlight(false);
 		currentNode = unvisitedNodes.Dequeue();
 		currentDistance = totalCost[currentNode];
 
@@ -269,6 +269,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 
 	public void visualize(Graph g)
 	{
-		this.currentNode.toggleHightlight(true);
+		this.currentNode.toggleHighlight(true);
 	}
 }
