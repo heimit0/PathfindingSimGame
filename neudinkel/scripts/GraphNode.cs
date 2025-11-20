@@ -167,19 +167,19 @@ public partial class GraphNode : Node3D
 
 	// gibt nur die existierenden Nachbarn mit der TileRelation zurück
 	// für Algorithmen
-	public Dictionary<GraphNode, int> getNeighborsUnsorted()
+	public GraphNode[] getNeighboursUnsorted()
 	{
-		Dictionary<GraphNode, int> _neighbors = new Dictionary<GraphNode, int>();
+        List<GraphNode> _neighbours = new List<GraphNode>();
 
-		for (int i = 0; i < this.neighbors.Length; i++)
+        for (int i = 0; i < this.neighbors.Length; i++)
 		{
 			if (this.neighbors[i] != null)
 			{
-				_neighbors.Add(this.neighbors[i], i);
+				_neighbours.Add(this.neighbors[i]);
 			}
 		}
 
-		return _neighbors;
+		return _neighbours.ToArray();
 	}
 
 	/// <summary>
@@ -234,7 +234,7 @@ public partial class GraphNode : Node3D
 	{
 		this.highlighted = highlight;
 		Vector3 pos = this.Position;
-		Vector3 relPos = new Vector3(0.0f, -0.5f, 0.0f);
+		Vector3 relPos = new Vector3(0.0f, 0.25f, 0.0f);
 		if (highlighted)
 		{
 			this.Position = pos + relPos;
@@ -278,5 +278,9 @@ public partial class GraphNode : Node3D
 		else
 			return TileRelation.INVALID;
 	}
+
+	public String getTilePosString() {
+		return this.getTilePosX() + ", " + this.getTilePosY();
+    }
 
 }
