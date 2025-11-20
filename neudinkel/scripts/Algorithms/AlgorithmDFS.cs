@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
+public class AlgorithmDFS : NeudinkelAlgorithm
 {
 
 	public Stack<GraphNode> nodesToProcess;
@@ -110,11 +110,5 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 		{
 			currentNeighbours.Add(node);
 		}
-	}
-	
-
-	public void visualize(Graph g)
-	{
-		throw new NotImplementedException();
 	}
 }

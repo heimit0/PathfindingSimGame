@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
+public class AlgorithmAStar : NeudinkelAlgorithm
 {
-	// jede Node zeigt auf ihren besten Nachbarn ("Elternteil"), um den besten Pfad zu rekonstruieren
-	public Dictionary<GraphNode, GraphNode> cameFrom;
-
 	// g(n) = bereits zurückgelegte Distanz (distanceFromStart)
 	public Dictionary<GraphNode, float> totalCost;
 
@@ -266,41 +263,5 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 		float yDistance = node2.getTilePosY() - node1.getTilePosY();
 		float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
 		return distance;
-	}
-
-	public new void visualize(Graph g)
-	{
-		// Zielweg anzeigen
-		if (currentStep == -1)
-		{
-            GD.Print("Showing best path...");
-            // erst alle ausschalten
-            foreach(GraphNode n in g.getNodes()) n.toggleHighlight(false);
-
-            GraphNode _currentNode = this.goalNode;
-
-            while (cameFrom.ContainsKey(_currentNode))
-            {
-                _currentNode.toggleHighlight(true);
-                _currentNode = cameFrom[_currentNode];
-                GD.Print(_currentNode.getTilePosString());
-            }
-
-            _currentNode.toggleHighlight(true);
-            return;
-        }
-
-		// 1. Schritt ignorieren
-		if (currentNode == null) return;
-
-        foreach(GraphNode n in g.getNodes())
-		{
-            n.toggleHighlight(false);
-
-            if (n.getTilePosX() == currentNode.getTilePosX() && n.getTilePosY() == currentNode.getTilePosY())
-			{
-                n.toggleHighlight(true);
-            }
-		}
 	}
 }
