@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Dynamic;
 
 /*
 	TODO:
@@ -28,30 +29,30 @@ public enum StreetType
 public partial class GraphNode : Node3D
 {
 
-	/// <summary>
-	/// Position auf dem Grid in Tile-Koordinaten.
-	/// Dabei wird das hexagonale Grid auf ein rechteckiges
-	/// abgebildet. Jede Zeile ist also zur vorherigen
-	/// versetzt.
-	/// </summary>
-	private int tilePosX;
-	private int tilePosY;
+    /// <summary>
+    /// Position auf dem Grid in Tile-Koordinaten.
+    /// Dabei wird das hexagonale Grid auf ein rechteckiges
+    /// abgebildet. Jede Zeile ist also zur vorherigen
+    /// versetzt.
+    /// </summary>
+    private int tilePosX;
+    private int tilePosY;
 
-	/// <summary>
-	/// Benachbarte Knoten.
-	/// Die Referenz ist hier eigentlich ueberfluessig, da aus dem
-	/// Verbindungspunkt ableitbar ist welcher Node angrenzt, aber naja.
-	/// </summary>
-	private GraphNode[] neighbours; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
-	private Node3D tile;
-	private Node3D tileBase;
+    /// <summary>
+    /// Benachbarte Knoten.
+    /// Die Referenz ist hier eigentlich ueberfluessig, da aus dem
+    /// Verbindungspunkt ableitbar ist welcher Node angrenzt, aber naja.
+    /// </summary>
+    private GraphNode[] neighbours; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
+    private Node3D tile;
+    private Node3D tileBase;
 
-	/// <summary>
-	/// zeigt ob node gehighlighted ist oder nich
-	/// </summary>
-	private bool highlighted = false;
+    /// <summary>
+    /// zeigt ob node gehighlighted ist oder nich
+    /// </summary>
+    public bool highlighted { get; set; }
 
-	private StreetType streetType;
+private StreetType streetType;
 
 	public GraphNode() : base()
 	{
@@ -64,7 +65,8 @@ public partial class GraphNode : Node3D
 		this.tileBase = (Node3D) ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn").Instantiate();
 		this.AddChild(this.tileBase);
 		updateModel();
-	}
+        this.highlighted = false;
+    }
 
 	public override void _Process(double delta) { }
 
@@ -253,7 +255,7 @@ public partial class GraphNode : Node3D
 			this.Position = pos - relPos;
 		}
 
-		this.highlighted = highlight;
+        this.highlighted = highlight;
 	}
 
 	public static TileRelation getNeighbourType(GraphNode middle, GraphNode neighbour)

@@ -48,20 +48,11 @@ public partial class GameManager : Node3D
     // TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
 
     [Signal]
-    public delegate void UpdateUIPseudoCodeEventHandler(int currentStep); // pseudo code anzeigen
-
-    [Signal]
-    public delegate void AlgorithmFinishedEventHandler(); // weg gefunden, weg anzeigen
-
-    [Signal]
     public delegate void ToggleGamePhaseEventHandler(bool isNewPhaseSimulationPhase);
 
     [Signal]
     public delegate void UpdateInternalGraphEventHandler(Graph graph); // für baumodus
-
-    [Signal]
-    public delegate void SetAutomaticSimulationSpeedEventHandler(int newSpeed); // slider für speed im simulations-modus
-
+	
     [Signal]
     public delegate void SetStartNodeEventHandler(GraphNode node);
 
