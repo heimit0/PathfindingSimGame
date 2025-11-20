@@ -14,6 +14,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		this.startNode = startNode;
 		this.currentNode = null;
 		this.goalNode = goalNode;
+		this.cameFrom = [];
 		
 		this.neighbourQueue = null;
 		this.currentNeighbour = null;
@@ -106,6 +107,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	public int enqueueNeighbour(Graph g)
 	{
 		this.unvisitedNodes.Enqueue(this.currentNeighbour, 1);
+		this.cameFrom.Add(currentNeighbour, currentNode);
 		return this.currentStep + 1;
 	}
 
