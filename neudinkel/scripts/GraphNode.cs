@@ -226,7 +226,7 @@ public partial class GraphNode : Node3D
 		return new int[] { tilePosX, tilePosY };
 	}
 
-	public void toggleHightlight(bool highlight)
+	public void toggleHighlight(bool highlight)
 	{
 		this.highlighted = highlight;
 		Vector3 pos = this.Position;
