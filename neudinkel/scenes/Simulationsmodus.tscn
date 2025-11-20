@@ -95,6 +95,7 @@ layout_mode = 2
 [node name="SimulierenUndBauenWechseln" type="Button" parent="Simulationsmodus/ButtonsTopRight/ObenRechts"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Wechselt zwischen Baumodus und Simulationsmodus"
 theme_override_font_sizes/font_size = 30
 toggle_mode = true
 text = "Simulieren"

@@ -2,7 +2,7 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cyk2vwfyjscxt"
+uid="uid://ckt7xray770d5"
 path="res://.godot/imported/SairaCondensed-Medium.ttf-76f73e7a0682fcf08e218d2905be8c05.fontdata"
 
 [deps]
@@ -21,7 +21,6 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
-modulate_color_glyphs=false
 hinting=1
 subpixel_positioning=4
 keep_rounding_remainders=true
