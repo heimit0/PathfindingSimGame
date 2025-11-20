@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Godot;
 
 public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 {
@@ -24,9 +25,10 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 			/*  2 */ enqueueStartNode,
 			/*  3 */ whileQueueNotEmpty,
 			/*  4 */ getNodeFromQueue,
-			/*  5 */ ifNodeUnvisited,
-			/*  6 */ enqueueNeighbour,
-			/*  7 */ markNeighbourVisited
+			/*  5 */ forEveryNeighbour,
+			/*  6 */ ifNodeUnvisited,
+			/*  7 */ enqueueNeighbour,
+			/*  8 */ markNeighbourVisited
 		};
 	}
 
@@ -44,13 +46,13 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 
 	public int enqueueStartNode(Graph g)
 	{
-		this.unvisitedNodes.Enqueue(this.startNode, 1);	
+		this.unvisitedNodes.Enqueue(this.startNode, 1);
 		return this.currentStep + 1;
 	}
 
 	public int whileQueueNotEmpty(Graph g)
 	{
-		if (this.visitedNodes.Count != 0)
+		if (this.unvisitedNodes.Count != 0)
 			return this.currentStep + 1;
 		else
 			return -2;
@@ -80,6 +82,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 		}
 		else
 		{
+			this.neighbourQueue = null; /* vorbereiten auf naechste Iteration */
 			return 3; /* whileQueueNotEmpty */ 
 		}
 	}
@@ -89,7 +92,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 		if (!this.visitedNodes.Contains(this.currentNeighbour))
 			return this.currentStep + 1;
 		else
-			return 3; /* whileQueueNotEmpty */
+			return 5; /* forEveryNeighbour */
 	}
 
 	public int enqueueNeighbour(Graph g)
@@ -101,7 +104,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 	public int markNeighbourVisited(Graph g)
 	{
 		this.visitedNodes.Add(this.currentNeighbour);
-		return 3; /* whileQueueNotEmpty */
+		return 5; /* forEveryNeighbour */
 	}
 
 	public void visualize(Graph g)
