@@ -272,6 +272,14 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 
 	public new void visualize(Graph g)
 	{
-		this.currentNode.toggleHighlight(true);
+		foreach(GraphNode n in g.getNodes())
+		{
+            n.toggleHighlight(false);
+
+            if (n.getTilePosX() == currentNode.getTilePosX() && n.getTilePosY() == currentNode.getTilePosY())
+			{
+                n.toggleHighlight(true);
+            }
+		}
 	}
 }
