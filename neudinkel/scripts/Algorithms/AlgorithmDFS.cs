@@ -27,9 +27,10 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 			/*  3 */ whileQueueNotEmpty,
 			/*  4 */ getNodeFromQueue,
 			/*  5 */ forEveryNeighbour,
-			/*  6 */ ifNodeUnvisited,
-			/*  7 */ enqueueNeighbour,
-			/*  8 */ markNeighbourVisited
+			/*  6 */ checkIfIsGoal,
+			/*  7 */ ifNodeUnvisited,
+			/*  8 */ enqueueNeighbour,
+			/*  9 */ markNeighbourVisited
 		};
 	}
 
@@ -95,6 +96,17 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	}
 
 	/* Schritt 6 */
+	public int checkIfIsGoal(Graph g)
+	{
+		if (this.currentNeighbour == this.goalNode)
+		{
+			this.cameFrom.Add(currentNeighbour, currentNode);
+			return -1;
+		}
+		return this.currentStep + 1;
+	}
+
+	/* Schritt 7 */
 	public int ifNodeUnvisited(Graph g)
 	{
 		if (!this.visitedNodes.Contains(this.currentNeighbour))
@@ -103,7 +115,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 			return 5; /* forEveryNeighbour */
 	}
 
-	/* Schritt 7 */
+	/* Schritt 8 */
 	public int enqueueNeighbour(Graph g)
 	{
 		this.unvisitedNodes.Enqueue(this.currentNeighbour, 1);
@@ -111,7 +123,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		return this.currentStep + 1;
 	}
 
-	/* Schritt 8 */
+	/* Schritt 9 */
 	public int markNeighbourVisited(Graph g)
 	{
 		this.visitedNodes.Add(this.currentNeighbour);
