@@ -51,11 +51,6 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	private bool highlighted = false;
 
-	/// <summary>
-	/// zeigt ob node gehighlighted ist oder nich
-	/// </summary>
-	private bool highlighted = false;
-
 	private StreetType streetType;
 
 	public GraphNode() : base()
