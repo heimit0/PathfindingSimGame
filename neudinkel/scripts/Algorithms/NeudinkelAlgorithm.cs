@@ -90,17 +90,11 @@ public abstract class NeudinkelAlgorithm
             return;
         }
 
+		foreach (GraphNode n in g.getNodes()) n.toggleHighlight(false);
+
         // 1. Schritt ignorieren
         if (currentNode == null) return;
 
-        foreach (GraphNode n in g.getNodes())
-        {
-            n.toggleHighlight(false);
-
-            if (n.getTilePosX() == currentNode.getTilePosX() && n.getTilePosY() == currentNode.getTilePosY())
-            {
-                n.toggleHighlight(true);
-            }
-        }
+        currentNode.toggleHighlight(true);
     }
 }

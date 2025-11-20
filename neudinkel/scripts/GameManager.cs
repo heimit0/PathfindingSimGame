@@ -210,6 +210,9 @@ public partial class GameManager : Node3D
                 break;
         }
 
+        this.currentAlgorithm.visualize(this.graph);
+        onSetIsSimulationAutomatic(false);
+
         GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
     }
 
