@@ -36,7 +36,7 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	private int tilePosX;
 	private int tilePosY;
-	
+
 	/// <summary>
 	/// Benachbarte Knoten.
 	/// Die Referenz ist hier eigentlich ueberfluessig, da aus dem
@@ -45,6 +45,11 @@ public partial class GraphNode : Node3D
 	private GraphNode[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 	private Node3D tile;
 	private Node3D tileBase;
+
+	/// <summary>
+	/// zeigt ob node gehighlighted ist oder nich
+	/// </summary>
+	private bool highlighted = false;
 
 	/// <summary>
 	/// zeigt ob node gehighlighted ist oder nich
@@ -132,12 +137,12 @@ public partial class GraphNode : Node3D
 
 	public int getTilePosX()
 	{
-		return this.tilePosX;	
+		return this.tilePosX;
 	}
-	
+
 	public int getTilePosY()
 	{
-		return this.tilePosY;	
+		return this.tilePosY;
 	}
 
 	public StreetType getStreetType()
@@ -157,9 +162,9 @@ public partial class GraphNode : Node3D
 	{
 		// TODO(jbrause): Pruefen ob wir WIRKLICH einen Nachbarknoten haben
 		// TODO(jbrause oder mkolb2): Bestimmten um welchen Nachbarn es sich handelt auslagern in statische Hilfsmethode
-		if((int)getNeighbourType(this,a) != -1)
+		if ((int)getNeighbourType(this, a) != -1)
 		{
-			this.neighbors[(int)getNeighbourType(this,a)] = a;
+			this.neighbors[(int)getNeighbourType(this, a)] = a;
 		}
 		else
 			GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
@@ -167,7 +172,8 @@ public partial class GraphNode : Node3D
 
 	// gibt nur die existierenden Nachbarn mit der TileRelation zurück
 	// für Algorithmen
-	public Dictionary<GraphNode, int> getNeighborsUnsorted() {
+	public Dictionary<GraphNode, int> getNeighborsUnsorted()
+	{
 		Dictionary<GraphNode, int> _neighbors = new Dictionary<GraphNode, int>();
 
 		for (int i = 0; i < this.neighbors.Length; i++)
@@ -180,7 +186,7 @@ public partial class GraphNode : Node3D
 
 		return _neighbors;
 	}
-	
+
 	/// <summary>
 	/// Setzt die TilePos-Variablen und updated dabei
 	/// die World-Position des Tiles.
@@ -189,7 +195,7 @@ public partial class GraphNode : Node3D
 	{
 		this.tilePosX = tilePosX;
 		this.tilePosY = tilePosY;
-		this.Position = convertTilePosToPos(tilePosX,tilePosY);
+		this.Position = convertTilePosToPos(tilePosX, tilePosY);
 	}
 
 	public void setStreetType(StreetType t)
@@ -203,9 +209,9 @@ public partial class GraphNode : Node3D
 	///</summary>
 	public static Vector3 convertTilePosToPos(int tilePosX, int tilePosY)
 	{
-		return new Vector3(tilePosX + 0.5f * tilePosY,0.0f,tilePosY * 0.86f);
+		return new Vector3(tilePosX + 0.5f * tilePosY, 0.0f, tilePosY * 0.86f);
 	}
-	
+
 	///<summary>
 	///convertiert nach den gleichen regeln wie TilePosToPos nur andersrum
 	///</summary>
@@ -215,24 +221,26 @@ public partial class GraphNode : Node3D
 		float preTilePosX = pos.X - 0.5f * preTilePosY;
 		int tilePosX = (int)Math.Truncate(preTilePosX);
 		float tilePosXFracture = preTilePosX - (float)Math.Truncate(preTilePosX);
-		if(tilePosXFracture > 0.5){
+		if (tilePosXFracture > 0.5)
+		{
 			tilePosX++;
 		}
 		int tilePosY = (int)Math.Truncate(preTilePosY);
 		float tilePosYFracture = preTilePosY - (float)Math.Truncate(preTilePosY);
-		if(tilePosYFracture > 0.5){
+		if (tilePosYFracture > 0.5)
+		{
 			tilePosY++;
 		}
-		
-		return new int[] {tilePosX,tilePosY};
+
+		return new int[] { tilePosX, tilePosY };
 	}
-	
-	public void toggleHightlight()
+
+	public void toggleHighlight(bool highlight)
 	{
-		this.highlighted = !highlighted;
+		this.highlighted = highlight;
 		Vector3 pos = this.Position;
-		Vector3 relPos = new Vector3(0.0f,0.0f,1.0f);
-		if(highlighted)
+		Vector3 relPos = new Vector3(0.0f, -0.5f, 0.0f);
+		if (highlighted)
 		{
 			this.Position = pos + relPos;
 		}
@@ -241,8 +249,8 @@ public partial class GraphNode : Node3D
 			this.Position = pos - relPos;
 		}
 	}
-	
-	public static TileRelation getNeighbourType(GraphNode middle,GraphNode neighbour)
+
+	public static TileRelation getNeighbourType(GraphNode middle, GraphNode neighbour)
 	{
 		int x = middle.getTilePosX() - neighbour.tilePosX;
 		int y = middle.getTilePosY() - neighbour.tilePosY;

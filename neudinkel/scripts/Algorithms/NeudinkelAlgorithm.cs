@@ -8,21 +8,21 @@ using Godot;
 public abstract class NeudinkelAlgorithm
 {
 
-    public Graph graph { get; set; }
-    public GraphNode startNode { get; set; }
-    public GraphNode goalNode { get; set; }
-    public GraphNode currentNode { get; set; }
+	public Graph graph { get; set; }
+	public GraphNode startNode { get; set; }
+	public GraphNode goalNode { get; set; }
+	public GraphNode currentNode { get; set; }
 
-    // noch nicht besuchte Nodes
-    public PriorityQueue<GraphNode, float> unvisitedNodes;
-    // bereits besuchte Nodes
-    public HashSet<GraphNode> visitedNodes;
-    // tatsächliche, bekannte Kosten pro Node zum Start
-    public Dictionary<GraphNode, float> distanceFromStart;
-    public Func<Graph, int>[] steps; // gibt den nächsten schritt zurück
-    public int currentStep { get; set; }
+	// noch nicht besuchte Nodes
+	public PriorityQueue<GraphNode, float> unvisitedNodes;
+	// bereits besuchte Nodes
+	public HashSet<GraphNode> visitedNodes;
+	// tatsächliche, bekannte Kosten pro Node zum Start
+	public Dictionary<GraphNode, float> distanceFromStart;
+	public Func<Graph, int>[] steps; // gibt den nächsten schritt zurück
+	public int currentStep { get; set; }
 
-    /*
+	/*
 		Zum Implementieren eines Suchalgorithmus muessen zuerst die einzelnen
 		Schritte als separate Funktionen geschrieben werden (Prototyp siehe Typ
 		von steps).
@@ -34,26 +34,26 @@ public abstract class NeudinkelAlgorithm
 	*/
 
 
-    /// <summary>
-    /// Ruft den aktuell naechsten Schritt auf und informiert die UI.
-    /// </summary>
-    public int doSearchStep()
-    {
-        try
-        {
-            currentStep = steps[currentStep].Invoke(this.graph);
-        }
+	/// <summary>
+	/// Ruft den aktuell naechsten Schritt auf und informiert die UI.
+	/// </summary>
+	public int doSearchStep()
+	{
+		try
+		{
+			currentStep = steps[currentStep].Invoke(this.graph);
+		}
 		catch (Exception e)
 		{
-            GD.PrintErr(e.GetBaseException());
-        }
+			GD.PrintErr(e.GetBaseException());
+		}
 
-        if (currentStep == -1)
-        {
-            GD.Print("Finished oder Error!");
-        }
+		if (currentStep == -1)
+		{
+			GD.Print("Finished oder Error!");
+		}
 
-        return currentStep;
-    }
+		return currentStep;
+	}
 
 }
