@@ -68,7 +68,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	public int getNodeFromQueue(Graph g)
 	{
 		this.currentNode = this.unvisitedNodes.Dequeue();
-		this.currentNode.toggleHighlight(true);
+		this.visualize(g);
 		return this.currentStep + 1;
 	}
 
@@ -130,9 +130,4 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		return 5; /* forEveryNeighbour */
 	}
 
-	public void visualize(Graph g)
-	{
-		this.currentNode.toggleHighlight(true);
-	}
-	
 }
