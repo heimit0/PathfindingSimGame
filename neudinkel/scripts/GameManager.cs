@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text.Json.Nodes;
 
 /*
@@ -153,7 +154,8 @@ public partial class GameManager : Node3D
 
 		GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
 		int nextStep = this.currentAlgorithm.doSearchStep();
-		GD.Print("Next step is: " + nextStep);
+        this.currentAlgorithm.visualize(this.graph);
+        GD.Print("Next step is: " + nextStep);
 
 		// EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
 	}

@@ -234,7 +234,7 @@ public partial class GraphNode : Node3D
 	{
 		this.highlighted = highlight;
 		Vector3 pos = this.Position;
-		Vector3 relPos = new Vector3(0.0f, -0.5f, 0.0f);
+		Vector3 relPos = new Vector3(0.0f, 0.25f, 0.0f);
 		if (highlighted)
 		{
 			this.Position = pos + relPos;
@@ -278,5 +278,9 @@ public partial class GraphNode : Node3D
 		else
 			return TileRelation.INVALID;
 	}
+
+	public String getTilePosString() {
+		return this.getTilePosX() + ", " + this.getTilePosY();
+    }
 
 }
