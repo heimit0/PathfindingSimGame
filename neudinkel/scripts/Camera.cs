@@ -34,13 +34,24 @@ public partial class Camera : Camera3D
 		{
 			if (eventMouseButton.GetButtonIndex() == MouseButton.Right && eventMouseButton.IsReleased())
 		 	{
+				
+    			Vector2 mousePos = eventMouseButton.Position;
+   				 //Deadzone in top-right corner
+    			if (mousePos.X > 945 && mousePos.Y < 100)
+        			return; // Ignore click in deadzone
+    			
+    			if (mousePos.X < 331)
+        			return; // Ignore click in deadzone
+    
 				Vector3 clickPoint = this.ProjectPosition(eventMouseButton.Position,1); 
 				Vector3 ray = new Vector3 (this.Position.X-clickPoint.X,this.Position.Y-clickPoint.Y,this.Position.Z-clickPoint.Z);
 				float castDistance = this.Position.Y / ray.Y;
 				Vector3 nullPos = this.Position - ray*castDistance;
 				int[] tilePos = GraphNode.convertPosToTilePos(nullPos);
+                GD.Print("Mouse clicked");
 				
-			}
+
+            }
 		}
 	} 
 	
@@ -54,6 +65,7 @@ public partial class Camera : Camera3D
 				isDragging = true;
 				originPos = this.Position;
 				originMousePos = GetViewport().GetMousePosition();
+				GD.Print("Dragging Mouse");
 			}
 		}
 

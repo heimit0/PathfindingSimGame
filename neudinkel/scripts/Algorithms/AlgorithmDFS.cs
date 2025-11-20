@@ -1,114 +1,115 @@
 using System;
 using System.Collections.Generic;
+using Godot;
 
 public class AlgorithmDFS : NeudinkelAlgorithm
 {
 
-	public Stack<GraphNode> nodesToProcess;
-	
-	private List<GraphNode> currentNeighbours = new List<GraphNode>();
-	private int currentNeighbourIndex;
-	
+	private Queue<GraphNode> neighbourQueue;
+	private GraphNode currentNeighbour; /* Zaehlvariable in der for loop */
+
 	public AlgorithmDFS(Graph graph, GraphNode startNode, GraphNode goalNode)
 	{
 		this.graph = graph;
 		this.startNode = startNode;
-		this.currentNode = startNode;
+		this.currentNode = null;
 		this.goalNode = goalNode;
+		
+		this.neighbourQueue = null;
+		this.currentNeighbour = null;
 
-		
-		
 		// Schritte-Array (nur Submethoden)
-		this.steps = new Func<Graph, int>[]{
-			initStack,
-			initVisitedNode,
-			initFirstNode,
-			addFirstNodeToStack,
-			whileStackNotEmpty,
-			pullNextNodeFromStack,
-			forEachNeigbourOfCurrentNode,
-			ifNotVisited,
-			checkIfGoalNodeFound,
-			addToStack,
-			visitNextNode,
-			
+		this.steps = new Func<Graph, int>[] {
+			/*  0 */ initUnvisitedNodes,
+			/*  1 */ initVisitedNodes,
+			/*  2 */ enqueueStartNode,
+			/*  3 */ whileQueueNotEmpty,
+			/*  4 */ getNodeFromQueue,
+			/*  5 */ forEveryNeighbour,
+			/*  6 */ ifNodeUnvisited,
+			/*  7 */ enqueueNeighbour,
+			/*  8 */ markNeighbourVisited
 		};
 	}
-	private int initStack(Graph g)
+
+	public int initUnvisitedNodes(Graph g)
 	{
-		nodesToProcess = new Stack<GraphNode>();
-		return currentStep + 1;
+		this.unvisitedNodes = new PriorityQueue<GraphNode, float>();
+		return this.currentStep + 1;
 	}
-	private int initVisitedNode(Graph g)
+
+	public int initVisitedNodes(Graph g)
 	{
-		visitedNodes = new HashSet<GraphNode>();
-		return currentStep + 1;
+		this.visitedNodes = [];
+		return this.currentStep + 1;
 	}
-	private int initFirstNode(Graph g)
+
+	public int enqueueStartNode(Graph g)
 	{
-		visitedNodes.Add(startNode);
-		return currentStep + 1;
+		this.unvisitedNodes.Enqueue(this.startNode, 1);
+		return this.currentStep + 1;
 	}
-	private int addFirstNodeToStack(Graph g)
+
+	public int whileQueueNotEmpty(Graph g)
 	{
-		nodesToProcess.Push(startNode);
-		return currentStep + 1;
-	}
-	private int whileStackNotEmpty(Graph g)
-	{
-		if(nodesToProcess.Count == 0){
+		if (this.unvisitedNodes.Count != 0)
+			return this.currentStep + 1;
+		else
 			return -2;
-		}
-		return currentStep + 1;
 	}
-	private int pullNextNodeFromStack(Graph g)
+
+	public int getNodeFromQueue(Graph g)
 	{
-		currentNode = nodesToProcess.Pop();
-		neighboursHelper(currentNode.getNeighbours());
-		currentNeighbourIndex = 0;
-		return currentStep + 1;
+		this.currentNode = this.unvisitedNodes.Dequeue();
+		this.currentNode.toggleHighlight(true);
+		return this.currentStep + 1;
 	}
-	private int forEachNeigbourOfCurrentNode(Graph g)
+
+	public int forEveryNeighbour(Graph g)
 	{
-		if (currentNeighbourIndex < currentNeighbours.Count)
+		if (this.neighbourQueue == null)
 		{
-			currentNeighbourIndex++;
-			currentNode = currentNeighbours[currentNeighbourIndex];
-			return currentStep + 1;
+			// Neue Iteration
+			this.neighbourQueue = new Queue<GraphNode>();
+			foreach (GraphNode node in this.currentNode.getNeighboursUnsorted())
+				this.neighbourQueue.Enqueue(node);
 		}
-		return 4;
-	}
-	private int checkIfGoalNodeFound(Graph g)
-	{
-		if(currentNode.Equals(goalNode)){
-			return -1;
-		}
-		return currentStep + 1;
-	}
-	private int ifNotVisited(Graph g)
-	{
-		if(visitedNodes.Contains(currentNode))
+		
+		if (this.neighbourQueue.Count > 0)
 		{
-			return 6;
+			this.currentNeighbour = this.neighbourQueue.Dequeue();
+			return this.currentStep + 1;
 		}
-		return currentStep + 1;
+		else
+		{
+			this.neighbourQueue = null; /* vorbereiten auf naechste Iteration */
+			return 3; /* whileQueueNotEmpty */ 
+		}
 	}
-	private int addToStack(Graph g)
+
+	public int ifNodeUnvisited(Graph g)
 	{
-		nodesToProcess.Push(currentNode);
-		return currentStep + 1;
+		if (!this.visitedNodes.Contains(this.currentNeighbour))
+			return this.currentStep + 1;
+		else
+			return 5; /* forEveryNeighbour */
 	}
-	private int visitNextNode(Graph g)
+
+	public int enqueueNeighbour(Graph g)
 	{
-		visitedNodes.Add(currentNode);
-		return 6;
+		this.unvisitedNodes.Enqueue(this.currentNeighbour, 1);
+		return this.currentStep + 1;
+	}
+
+	public int markNeighbourVisited(Graph g)
+	{
+		this.visitedNodes.Add(this.currentNeighbour);
+		return 5; /* forEveryNeighbour */
+	}
+
+	public void visualize(Graph g)
+	{
+		this.currentNode.toggleHighlight(true);
 	}
 	
-	private void neighboursHelper(GraphNode[] neighbours)
-	{
-		foreach (GraphNode node in neighbours)
-		{
-			currentNeighbours.Add(node);
-		}
-	}
 }
