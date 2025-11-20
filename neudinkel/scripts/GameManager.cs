@@ -52,7 +52,7 @@ public partial class GameManager : Node3D
 
     [Signal]
     public delegate void UpdateInternalGraphEventHandler(Graph graph); // für baumodus
-	
+
     [Signal]
     public delegate void SetStartNodeEventHandler(GraphNode node);
 
@@ -112,7 +112,7 @@ public partial class GameManager : Node3D
 
 		// TODO move to sim-modus
         onSetStartNode(this.graph.getNode(0, 0));
-        onSetGoalNode(this.graph.getNode(3, 3));
+        onSetGoalNode(this.graph.getNode(2, 2));
     }
 
     public void onToggleGamePhase(bool isNewPhaseSimulationPhase)

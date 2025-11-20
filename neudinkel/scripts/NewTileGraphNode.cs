@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 
 public partial class NewTileGraphNode : GraphNode
 {
+
     public NewTileGraphNode()
     {
         this.neighbours = new GraphNode[6];
@@ -21,6 +22,10 @@ public partial class NewTileGraphNode : GraphNode
     // macht das tile zu einem echten Tile
     public new void toggleHighlight(bool highlight)
     {
+        GraphNode node = new GraphNode();
+        node.setTilePos(node.tilePosX, node.tilePosY);
+        node.setStreetType(0);
 
+        QueueFree(); // kill self
     }
 }
