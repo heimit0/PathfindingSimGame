@@ -55,7 +55,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 	{
 		this.graph = graph;
 		this.startNode = startNode;
-		this.currentNode = startNode;
+		this.currentNode = null;
 		this.goalNode = goalNode;
 
 		cameFrom = [];
@@ -132,10 +132,13 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 	// um sie zu verarbeiten
 	private int getBestNodeFromQueue(Graph g)
 	{
-		currentNode.toggleHighlight(false);
-        GraphNode tmp = currentNode;
+		// 1. schritt ignorieren
+		if (currentNode != null) currentNode.toggleHighlight(false);
+
+		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
         currentNode = unvisitedNodes.Dequeue();
         GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
+        currentNode.toggleHighlight(true);
         currentDistance = totalCost[currentNode];
 
 		return currentStep + 1;
@@ -163,10 +166,11 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 
 		foreach(GraphNode n in tmpNeighbours.Keys)
 		{
-			GD.Print(n.getTilePosX() + ", " + n.getTilePosY());
+			GD.Print("[" + currentNode.getTilePosString() + "] has neighbour: [" + n.getTilePosString() + "]");
 		}
 
-		tmpNeighbours.Keys.CopyTo(currentNeighbours, 0); // in currentNeighbours kopieren
+        currentNeighbours = new GraphNode[tmpNeighbours.Count];
+        tmpNeighbours.Keys.CopyTo(currentNeighbours, 0); // in currentNeighbours kopieren
 
 		currentNeighbourIndex = 0;
 

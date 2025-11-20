@@ -154,8 +154,6 @@ public partial class GameManager : Node3D
 
 		GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
 		int nextStep = this.currentAlgorithm.doSearchStep();
-        this.currentAlgorithm.visualize(this.graph);
-        GD.Print("Next step is: " + nextStep);
 
 		// EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
 	}
