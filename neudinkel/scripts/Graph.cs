@@ -45,7 +45,9 @@ public partial class Graph : Node3D
 				}
 			}
 		}
-		return null;
+
+        GD.PrintErr("queried node from graph not found! returning null...");
+        return null;
 	}
 
 	public GraphNode[] getNodes()

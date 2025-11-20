@@ -102,7 +102,7 @@ public partial class GameManager : Node3D
         light.Position = new Vector3(0.0f, 10.0f, 0.0f);
         light.Rotation = new Vector3(Mathf.DegToRad(-45.0f), Mathf.DegToRad(45.0f), 0);
 
-        loadLevel("test_big");
+        loadLevel("test");
 
         // signale
         DoNextSearchStep += onDoNextSearchStep;
@@ -132,7 +132,7 @@ public partial class GameManager : Node3D
         this.graph.fromJsonObject(json);
 
         onSetStartNode(this.graph.getNode(0, 0));
-        onSetGoalNode(this.graph.getNode(44, 44));
+        onSetGoalNode(this.graph.getNode(3, 3));
     }
 
     // ruft gleichnamige Methode in jedem NeudinkelAlgorithm auf
@@ -140,14 +140,29 @@ public partial class GameManager : Node3D
     public void onDoNextSearchStep()
     {
         if (this.isSimulationAutomatic) GD.Print("isSimulationAutomatic is now: false");
-
         this.isSimulationAutomatic = false;
 
-        GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
-        int nextStep = this.currentAlgorithm.doSearchStep();
+        doNextSearchStepHelper();
 
         // EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
     }
+
+	// NICHT DAS SIGNAL, extra funktion für abstraktion
+	public void doNextSearchStepHelper()
+	{
+		if (this.currentAlgorithm.currentStep == -1)
+		{
+            if (this.currentAlgorithm is INeudinkelAlgorithm)
+            {
+                ((INeudinkelAlgorithm)this.currentAlgorithm).visualize(this.graph);
+            }
+
+            return;
+        }
+
+        GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
+        int nextStep = this.currentAlgorithm.doSearchStep();
+	}
 
     public void onToggleGamePhase(bool isNewPhaseSimulationPhase)
     {
@@ -225,8 +240,7 @@ public partial class GameManager : Node3D
     {
         while (isSimulationAutomatic)
         {
-            GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
-            int nextStep = this.currentAlgorithm.doSearchStep();
+            doNextSearchStepHelper();
 
             // wait
             // TODO: evtl geschwindikeits-berechnung ändern

@@ -270,6 +270,26 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 
 	public new void visualize(Graph g)
 	{
+		// Zielweg anzeigen
+		if (currentStep == -1)
+		{
+            GD.Print("Showing best path...");
+            // erst alle ausschalten
+            foreach(GraphNode n in g.getNodes()) n.toggleHighlight(false);
+
+            GraphNode _currentNode = this.goalNode;
+
+            while (cameFrom.ContainsKey(_currentNode))
+            {
+                _currentNode.toggleHighlight(true);
+                _currentNode = cameFrom[_currentNode];
+                GD.Print(_currentNode.getTilePosString());
+            }
+
+            _currentNode.toggleHighlight(true);
+            return;
+        }
+
 		// 1. Schritt ignorieren
 		if (currentNode == null) return;
 
