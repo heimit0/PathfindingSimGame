@@ -132,16 +132,14 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 	// um sie zu verarbeiten
 	private int getBestNodeFromQueue(Graph g)
 	{
-		// 1. schritt ignorieren
-		if (currentNode != null) currentNode.toggleHighlight(false);
-
 		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
         currentNode = unvisitedNodes.Dequeue();
         GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
-        currentNode.toggleHighlight(true);
         currentDistance = totalCost[currentNode];
 
-		return currentStep + 1;
+        visualize(g);
+
+        return currentStep + 1;
 	}	
 
 	// füge die derzeitige node zu den besuchten hinzu
@@ -272,7 +270,10 @@ public class AlgorithmAStar : NeudinkelAlgorithm, INeudinkelAlgorithm
 
 	public new void visualize(Graph g)
 	{
-		foreach(GraphNode n in g.getNodes())
+		// 1. Schritt ignorieren
+		if (currentNode == null) return;
+
+        foreach(GraphNode n in g.getNodes())
 		{
             n.toggleHighlight(false);
 
