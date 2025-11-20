@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdqly35aq64u6"]
+
+[ext_resource type="PackedScene" uid="uid://co10w00ilw8d2" path="res://models/tiles/highway_01_3.fbx" id="1_88vdt"]
+
+[node name="Street1013" type="Node3D"]
+
+[node name="highway_01_3" parent="." instance=ExtResource("1_88vdt")]
