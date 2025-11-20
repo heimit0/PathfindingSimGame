@@ -22,7 +22,11 @@ public partial class Camera : Camera3D
 	private Vector2 originMousePos;
 	private Vector3 scrollToPosition;
 	private bool scrolling = false;
-	public override void _Ready() { }
+	
+	public override void _Ready() {
+		// FIXME: TERRIBLE HACK
+		this.GetParent<GameManager>().SetCameraPosition += onSetCameraPosition;
+	}
 	
 	public override void _Input(InputEvent @event)
 	{
@@ -119,4 +123,10 @@ public partial class Camera : Camera3D
 		float test = Mathf.Min(position+2 / 5,1);
 		return new Vector3(test*-45*Mathf.Pi/180,0,0);
 	}
+	
+	public void onSetCameraPosition(Vector2 pos)
+	{
+		this.Position = new Vector3(pos.X, this.Position.Y, pos.Y);
+	}
+	
 }

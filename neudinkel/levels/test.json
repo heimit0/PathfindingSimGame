@@ -1,5 +1,6 @@
 {
 	"name":"Level",
+	"startPos":[2.0, 6.0],
 	"tiles":[
 		{
 			"posX":0,
