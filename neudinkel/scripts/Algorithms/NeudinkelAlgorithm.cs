@@ -42,6 +42,7 @@ public abstract class NeudinkelAlgorithm : INeudinkelAlgorithm
 		if (currentStep < 0)
 		{
             GD.Print("Der Algorithmus sollte nicht mehr laufen! Er ist bereits beendet!");
+            return currentStep;
         }
 
 		try

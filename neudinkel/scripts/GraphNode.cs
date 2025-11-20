@@ -232,17 +232,19 @@ public partial class GraphNode : Node3D
 
 	public void toggleHighlight(bool highlight)
 	{
-		this.highlighted = highlight;
 		Vector3 pos = this.Position;
 		Vector3 relPos = new Vector3(0.0f, 0.25f, 0.0f);
-		if (highlighted)
+
+		if (!highlighted && highlight)
 		{
 			this.Position = pos + relPos;
 		}
-		else
+		else if (highlighted && !highlight)
 		{
 			this.Position = pos - relPos;
 		}
+
+		this.highlighted = highlight;
 	}
 
 	public static TileRelation getNeighbourType(GraphNode middle, GraphNode neighbour)
