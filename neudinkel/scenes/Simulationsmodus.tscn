@@ -6,7 +6,7 @@
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_5p374")
-automaticSimulationSpeed = 4.0
+automaticSimulationSpeed = 10.0
 
 [node name="Simulationsmodus" type="Control" parent="."]
 layout_mode = 3

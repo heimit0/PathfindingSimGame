@@ -5,7 +5,7 @@ using Godot;
 /// <summary>
 /// Elternklasse aller Suchalgorithmen.
 /// </summary>
-public abstract class NeudinkelAlgorithm : INeudinkelAlgorithm
+public abstract class NeudinkelAlgorithm
 {
 
 	public Graph graph { get; set; }
@@ -65,9 +65,4 @@ public abstract class NeudinkelAlgorithm : INeudinkelAlgorithm
 
 		return currentStep;
 	}
-
-    public void visualize(Graph g)
-    {
-        throw new NotImplementedException();
-    }
 }
