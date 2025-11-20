@@ -42,7 +42,7 @@ public partial class GraphNode : Node3D
 	/// Die Referenz ist hier eigentlich ueberfluessig, da aus dem
 	/// Verbindungspunkt ableitbar ist welcher Node angrenzt, aber naja.
 	/// </summary>
-	private GraphNode[] neighbors; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
+	private GraphNode[] neighbours; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 	private Node3D tile;
 	private Node3D tileBase;
 
@@ -55,7 +55,7 @@ public partial class GraphNode : Node3D
 
 	public GraphNode() : base()
 	{
-		neighbors = new GraphNode[6];
+		neighbours = new GraphNode[6];
 	}
 
 	public override void _Ready()
@@ -73,33 +73,33 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	public void updateModel()
 	{
-		if (this.GetChildren().Contains(tile))
-		{
-			this.RemoveChild(tile);
-		}
+		if (this.GetChildren().Contains(tile)) this.RemoveChild(tile);
+
 		tile = new Node3D();
-		int nrconnections = 0;
-		List<Int32> positionConnections = [];
-		for (int n = 0; neighbors.Length > n; n++)
+
+        List<Int32> connections = [];
+        for (int n = 0; n < neighbours.Length; n++)
 		{
-			if (neighbors[n] != null)
+			if (neighbours[n] != null)
 			{
-				nrconnections++;
-				positionConnections.Add(n);
+				connections.Add(n);
 			}
 		}
-		if (nrconnections != 2)
+
+		if (connections.Count == 0)
 		{
-			if (nrconnections < 2)
-				nrconnections += 3;
-			tile = getCityTile(nrconnections);
-			AddChild(tile);
+            tile = getEmptyTile();
+		}
+		else if (connections.Count != 2)
+		{
+            tile = getCityTile(connections.Count + 3);
 		}
 		else
 		{
-			tile = getStreetTile(positionConnections[0], positionConnections[1]);
-			AddChild(tile);
+            tile = getStreetTile(connections[0], connections[1]);
 		}
+
+        AddChild(tile);
 	}
 
 	private Node3D getStreetTile(int from, int to)
@@ -130,6 +130,15 @@ public partial class GraphNode : Node3D
 		return citytile;
 	}
 
+	private Node3D getEmptyTile()
+	{
+		var scene = ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn"); //TODO replace with actual empty tile
+        Node3D emptyTile = new Node3D();
+		var instanciated = scene.Instantiate();
+		emptyTile.AddChild(instanciated);
+        return emptyTile;
+    }
+
 	public int getTilePosX()
 	{
 		return this.tilePosX;
@@ -147,7 +156,7 @@ public partial class GraphNode : Node3D
 
 	public GraphNode[] getNeighbours()
 	{
-		return neighbors;
+		return neighbours;
 	}
 
 	/// <summary>
@@ -159,7 +168,7 @@ public partial class GraphNode : Node3D
 		// TODO(jbrause oder mkolb2): Bestimmten um welchen Nachbarn es sich handelt auslagern in statische Hilfsmethode
 		if ((int)getNeighbourType(this, a) != -1)
 		{
-			this.neighbors[(int)getNeighbourType(this, a)] = a;
+			this.neighbours[(int)getNeighbourType(this, a)] = a;
 		}
 		else
 			GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
@@ -171,11 +180,11 @@ public partial class GraphNode : Node3D
 	{
         List<GraphNode> _neighbours = new List<GraphNode>();
 
-        for (int i = 0; i < this.neighbors.Length; i++)
+        for (int i = 0; i < this.neighbours.Length; i++)
 		{
-			if (this.neighbors[i] != null)
+			if (this.neighbours[i] != null)
 			{
-				_neighbours.Add(this.neighbors[i]);
+				_neighbours.Add(this.neighbours[i]);
 			}
 		}
 

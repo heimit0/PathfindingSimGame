@@ -37,29 +37,15 @@ public enum ENeudinkelAlgorithm
 /// </summary>
 public partial class GameManager : Node3D
 {
-    private GamePhase gamePhase;
     public Graph graph { get; set; }
 
     public GraphNode startNode { get; set; }
     public GraphNode goalNode { get; set; }
 
-	[Export]
-    public float automaticSimulationSpeed = 1; // für simulationsmodus
-    public bool isSimulationAutomatic { get; set; }
-
-    public NeudinkelAlgorithm currentAlgorithm { get; set; }
-
-	public PseudocodeTextBox textBoxBox { get; set; }
+    public GraphNode selectedNode { get; set; }
 
     // TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
     // TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
-
-    [Signal]
-    public delegate void InitOrChangeAlgorithmEventHandler(int algorithm); // algorithmus setzen
-                                                                           // usage: EmitSignal(GameManager.InitOrChangeAlgorithm, (int) ENeudinkelAlgorithm.ASTAR);
-
-    [Signal]
-    public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
 
     [Signal]
     public delegate void UpdateUIPseudoCodeEventHandler(int currentStep); // pseudo code anzeigen
@@ -83,13 +69,25 @@ public partial class GameManager : Node3D
     public delegate void setGoalNodeEventHandler(GraphNode node);
 
     [Signal]
-    public delegate void setIsSimulationAutomaticEventHandler(bool isSimulationAutomatic);
-
-    [Signal]
     public delegate void SetCameraPositionEventHandler(Vector2 pos);
 
     public override void _Ready()
     {
+        prepScene();
+
+        // signale
+        ToggleGamePhase += onToggleGamePhase;
+        SetStartNode += onSetStartNode;
+        setGoalNode += onSetGoalNode;
+    }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+    }
+
+	public void prepScene() 
+	{
         Camera cam;
         DirectionalLight3D light;
 
@@ -104,20 +102,8 @@ public partial class GameManager : Node3D
         light.Position = new Vector3(0.0f, 10.0f, 0.0f);
         light.Rotation = new Vector3(Mathf.DegToRad(-45.0f), Mathf.DegToRad(45.0f), 0);
 
-        loadLevel("test");
-
-        // signale
-        DoNextSearchStep += onDoNextSearchStep;
-        InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
-        ToggleGamePhase += onToggleGamePhase;
-        SetStartNode += onSetStartNode;
-        setGoalNode += onSetGoalNode;
-    }
-
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-    }
+        loadLevel("empty");
+	}
 
     /// <summary>
     /// Lädt das angegebene Level.
@@ -133,96 +119,23 @@ public partial class GameManager : Node3D
         this.AddChild(this.graph);
         this.graph.fromJsonObject(json);
 
+		// TODO move to sim-modus
         onSetStartNode(this.graph.getNode(0, 0));
         onSetGoalNode(this.graph.getNode(3, 3));
     }
 
-    // ruft gleichnamige Methode in jedem NeudinkelAlgorithm auf
-    // gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
-    public void onDoNextSearchStep()
-    {
-        if (this.isSimulationAutomatic) GD.Print("isSimulationAutomatic is now: false");
-        this.isSimulationAutomatic = false;
-
-        doNextSearchStepHelper();
-
-        // EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
-    }
-
-	// NICHT DAS SIGNAL, extra funktion für abstraktion
-	public void doNextSearchStepHelper()
-	{
-		if (this.currentAlgorithm.currentStep == -1)
-		{
-            if (this.currentAlgorithm is NeudinkelAlgorithm)
-            {
-                ((NeudinkelAlgorithm)this.currentAlgorithm).visualize(this.graph);
-            }
-
-            return;
-        }
-
-        textBoxBox.resetAllFormatting();
-        textBoxBox.highlightCurrentStep(this.currentAlgorithm.currentStep);
-
-        GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
-        int nextStep = this.currentAlgorithm.doSearchStep();
-
-        textBoxBox.highlightNextStep(nextStep);
-    }
-
     public void onToggleGamePhase(bool isNewPhaseSimulationPhase)
     {
+		// TODO change scene, when changing modi
+
         // if Baumodus => Simulationsmodus
-        if ((int)this.gamePhase == 0 && isNewPhaseSimulationPhase)
-        {
-            EmitSignal(SignalName.InitOrChangeAlgorithm, (int)ENeudinkelAlgorithm.ASTAR);
-        }
+        // if ((int)this.gamePhase == 0 && isNewPhaseSimulationPhase)
+        // {
+        //     EmitSignal(SignalName.InitOrChangeAlgorithm, (int)ENeudinkelAlgorithm.ASTAR);
+        // }
 
-        this.gamePhase = isNewPhaseSimulationPhase ? GamePhase.SIMULATION : GamePhase.BUILDING;
-        GD.Print("GamePhase changed to: " + this.gamePhase.ToString());
-    }
-
-    // start immer alles neu
-    // int algorithm == -1 => gleichen Algorithmus nochmal, i.e. nur neustarten
-    public void onInitOrChangeAlgorithm(int algorithm)
-    {
-        // gleichen algorithmus nochmal, nur neustarten
-        if (algorithm == -1)
-        {
-            if (this.currentAlgorithm is AlgorithmAStar)
-            {
-                this.currentAlgorithm = new AlgorithmAStar(this.graph, this.startNode, this.goalNode);
-            }
-            else if (this.currentAlgorithm is AlgorithmDijkstra)
-            {
-                this.currentAlgorithm = new AlgorithmDijkstra(this.graph, this.startNode, this.goalNode);
-            }
-            else if (this.currentAlgorithm is AlgorithmDFS)
-            {
-                this.currentAlgorithm = new AlgorithmDFS(this.graph, this.startNode, this.goalNode);
-            }
-        }
-
-        switch (algorithm)
-        {
-            case ((int)ENeudinkelAlgorithm.ASTAR):
-                this.currentAlgorithm = new AlgorithmAStar(this.graph, this.startNode, this.goalNode);
-                break;
-            case ((int)ENeudinkelAlgorithm.DIJKSTRA):
-                this.currentAlgorithm = new AlgorithmDijkstra(this.graph, this.startNode, this.goalNode);
-                break;
-            case ((int)ENeudinkelAlgorithm.DFS):
-                this.currentAlgorithm = new AlgorithmDFS(this.graph, this.startNode, this.goalNode);
-                break;
-        }
-
-        this.currentAlgorithm.visualize(this.graph);
-        onSetIsSimulationAutomatic(false);
-
-        GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
-        textBoxBox = GetNode<PseudocodeTextBox>("Simulationsmodus/UI/Pseudocodeblock/PseudocodeTextBox");
-        textBoxBox.onInitOrChangeAlgorithm(algorithm);
+        // this.gamePhase = isNewPhaseSimulationPhase ? GamePhase.SIMULATION : GamePhase.BUILDING;
+        // GD.Print("GamePhase changed to: " + this.gamePhase.ToString());
     }
 
     public void onSetStartNode(GraphNode node)
@@ -233,37 +146,6 @@ public partial class GameManager : Node3D
     public void onSetGoalNode(GraphNode node)
     {
         this.goalNode = node;
-    }
-
-    public void onSetIsSimulationAutomatic(bool isSimulationAutomatic)
-    {
-        this.isSimulationAutomatic = isSimulationAutomatic;
-        GD.Print("isSimulationAutomatic is now: " + this.isSimulationAutomatic.ToString());
-
-        if (isSimulationAutomatic)
-        {
-            executeAutomaticAlgorithmStepsAsync();
-        }
-    }
-
-    // automatisches Ausführen vom Algorithmus mit Geschwindigkeit automaticSimulationSpeed
-    // hört automatisch auf, wenn isSimulationAutomatic = false
-    private async void executeAutomaticAlgorithmStepsAsync()
-    {
-        while (isSimulationAutomatic)
-        {
-            doNextSearchStepHelper();
-
-            // wait
-            // TODO: evtl geschwindikeits-berechnung ändern
-            await ToSignal(GetTree().CreateTimer(1.0 / automaticSimulationSpeed), SceneTreeTimer.SignalName.Timeout);
-        }
-    }
-
-    // custom getter, weil c# dumm ist
-    public GamePhase getGamePhase()
-    {
-        return this.gamePhase;
     }
 
     public static GamePhase IntToGamePhase(int value)
