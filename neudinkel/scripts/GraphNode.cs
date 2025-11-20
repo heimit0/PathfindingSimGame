@@ -35,17 +35,17 @@ public partial class GraphNode : Node3D
     /// abgebildet. Jede Zeile ist also zur vorherigen
     /// versetzt.
     /// </summary>
-    private int tilePosX;
-    private int tilePosY;
+    public int tilePosX;
+    public int tilePosY;
 
     /// <summary>
     /// Benachbarte Knoten.
     /// Die Referenz ist hier eigentlich ueberfluessig, da aus dem
     /// Verbindungspunkt ableitbar ist welcher Node angrenzt, aber naja.
     /// </summary>
-    private GraphNode[] neighbours; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
-    private Node3D tile;
-    private Node3D tileBase;
+    public GraphNode[] neighbours; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
+    public Node3D tile;
+    public Node3D tileBase;
 
     /// <summary>
     /// zeigt ob node gehighlighted ist oder nich
