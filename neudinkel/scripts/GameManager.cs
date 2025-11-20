@@ -152,9 +152,9 @@ public partial class GameManager : Node3D
 	{
 		if (this.currentAlgorithm.currentStep == -1)
 		{
-            if (this.currentAlgorithm is INeudinkelAlgorithm)
+            if (this.currentAlgorithm is NeudinkelAlgorithm)
             {
-                ((INeudinkelAlgorithm)this.currentAlgorithm).visualize(this.graph);
+                ((NeudinkelAlgorithm)this.currentAlgorithm).visualize(this.graph);
             }
 
             return;
@@ -210,6 +210,9 @@ public partial class GameManager : Node3D
                 break;
         }
 
+        this.currentAlgorithm.visualize(this.graph);
+        onSetIsSimulationAutomatic(false);
+
         GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
     }
 
@@ -246,13 +249,6 @@ public partial class GameManager : Node3D
             // TODO: evtl geschwindikeits-berechnung ändern
             await ToSignal(GetTree().CreateTimer(1.0 / automaticSimulationSpeed), SceneTreeTimer.SignalName.Timeout);
         }
-    }
-
-    // ruft die visualize() funktion im jeweiligen Algorithmus auf,
-    // welche die nötigen Tiles im Graphen anspricht
-    public void highlightGraph<T>(T algorithm) where T : INeudinkelAlgorithm
-    {
-        algorithm.visualize(this.graph);
     }
 
     // custom getter, weil c# dumm ist

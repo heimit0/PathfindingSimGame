@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
+public class AlgorithmDFS : NeudinkelAlgorithm
 {
 
 	private Queue<GraphNode> neighbourQueue;

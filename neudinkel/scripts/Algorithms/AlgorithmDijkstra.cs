@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Reflection.Metadata;
 using Godot;
 
-public class AlgorithmDijkstra : NeudinkelAlgorithm, INeudinkelAlgorithm
+public class AlgorithmDijkstra : NeudinkelAlgorithm
 {
 
     private float cost;
-    public Dictionary<GraphNode, GraphNode> cameFrom;
-
     private GraphNode[] currentNeighbours;
     private int currentNeighbourIndex;
     private float currentNeighbourCost;
@@ -221,42 +219,5 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm, INeudinkelAlgorithm
         // Verwendet den Kantentyp des Zielpunkts als Kosten
         // Alternativ: Graph sollte Kantenwerte speichern
         return (float)to.getStreetType();
-    }
-
-
-    public new void visualize(Graph g)
-    {
-		// Zielweg anzeigen
-		if (currentStep == -1)
-		{
-            GD.Print("Showing best path...");
-            // erst alle ausschalten
-            foreach(GraphNode n in g.getNodes()) n.toggleHighlight(false);
-
-            GraphNode _currentNode = this.goalNode;
-
-            while (cameFrom.ContainsKey(_currentNode))
-            {
-                _currentNode.toggleHighlight(true);
-                _currentNode = cameFrom[_currentNode];
-                GD.Print(_currentNode.getTilePosString());
-            }
-
-            _currentNode.toggleHighlight(true);
-            return;
-        }
-
-        // 1. Schritt ignorieren
-        if (currentNode == null) return;
-
-        foreach (GraphNode n in g.getNodes())
-        {
-            n.toggleHighlight(false);
-
-            if (n.getTilePosX() == currentNode.getTilePosX() && n.getTilePosY() == currentNode.getTilePosY())
-            {
-                n.toggleHighlight(true);
-            }
-        }
     }
 }
