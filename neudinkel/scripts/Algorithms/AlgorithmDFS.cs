@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 {
-
+	
 	public Stack<GraphNode> nodesToProcess;
 	
 	private List<GraphNode> currentNeighbours = new List<GraphNode>();
@@ -34,33 +34,40 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 			
 		};
 	}
+	
 	private int initStack(Graph g)
 	{
 		nodesToProcess = new Stack<GraphNode>();
 		return currentStep + 1;
 	}
+	
 	private int initVisitedNode(Graph g)
 	{
 		visitedNodes = new HashSet<GraphNode>();
 		return currentStep + 1;
 	}
+	
 	private int initFirstNode(Graph g)
 	{
 		visitedNodes.Add(startNode);
 		return currentStep + 1;
 	}
+	
 	private int addFirstNodeToStack(Graph g)
 	{
 		nodesToProcess.Push(startNode);
 		return currentStep + 1;
 	}
+	
 	private int whileStackNotEmpty(Graph g)
 	{
-		if(nodesToProcess.Count == 0){
+		if(nodesToProcess.Count == 0)
+		{
 			return -2;
 		}
 		return currentStep + 1;
 	}
+	
 	private int pullNextNodeFromStack(Graph g)
 	{
 		currentNode = nodesToProcess.Pop();
@@ -68,16 +75,19 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 		currentNeighbourIndex = 0;
 		return currentStep + 1;
 	}
+	
 	private int forEachNeigbourOfCurrentNode(Graph g)
 	{
 		if (currentNeighbourIndex < currentNeighbours.Count)
 		{
 			currentNeighbourIndex++;
 			currentNode = currentNeighbours[currentNeighbourIndex];
+			currentNode.toggleHighlight(false);
 			return currentStep + 1;
 		}
 		return 4;
 	}
+	
 	private int checkIfGoalNodeFound(Graph g)
 	{
 		if(currentNode.Equals(goalNode)){
@@ -85,6 +95,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 		}
 		return currentStep + 1;
 	}
+	
 	private int ifNotVisited(Graph g)
 	{
 		if(visitedNodes.Contains(currentNode))
@@ -93,11 +104,13 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 		}
 		return currentStep + 1;
 	}
+	
 	private int addToStack(Graph g)
 	{
 		nodesToProcess.Push(currentNode);
 		return currentStep + 1;
 	}
+	
 	private int visitNextNode(Graph g)
 	{
 		visitedNodes.Add(currentNode);
@@ -111,10 +124,10 @@ public class AlgorithmDFS : NeudinkelAlgorithm, INeudinkelAlgorithm
 			currentNeighbours.Add(node);
 		}
 	}
-	
 
 	public void visualize(Graph g)
 	{
-		throw new NotImplementedException();
+		this.currentNode.toggleHighlight(true);
 	}
+	
 }
