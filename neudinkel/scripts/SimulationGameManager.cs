@@ -11,7 +11,7 @@ public partial class SimulationGameManager : GameManager
                                                                            // usage: EmitSignal(GameManager.InitOrChangeAlgorithm, (int) ENeudinkelAlgorithm.ASTAR);
 
     [Signal]
-    public delegate void DoNextSearchStepEventHandler(); // nächsten algorithmus-schritt
+    public delegate void DoSearchForwardEventHandler(bool step); // Algorithmus vorwärts bis Breakpoint. Wenn step true dann einzelner Schritt
 
     [Signal]
     public delegate void UpdateUIPseudoCodeEventHandler(int currentStep); // pseudo code anzeigen
@@ -35,7 +35,7 @@ public partial class SimulationGameManager : GameManager
     {
         prepScene();
 
-        DoNextSearchStep += onDoNextSearchStep;
+        DoSearchForward += onDoSearchForward;
         InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
     }
 
@@ -44,20 +44,20 @@ public partial class SimulationGameManager : GameManager
         base._Process(delta);
     }
 
-    // ruft gleichnamige Methode in jedem NeudinkelAlgorithm auf
+    // ruft ensprechende Methode in jedem NeudinkelAlgorithm auf
     // gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
-    public void onDoNextSearchStep()
+    public void onDoSearchForward(bool step)
     {
         if (this.isSimulationAutomatic) GD.Print("isSimulationAutomatic is now: false");
         this.isSimulationAutomatic = false;
 
-        doNextSearchStepHelper();
+        doSearchForwardHelper();
 
         // EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
     }
 
 	// NICHT DAS SIGNAL, extra funktion für abstraktion
-	public void doNextSearchStepHelper()
+	public void doSearchForwardHelper()
 	{
 		if (this.currentAlgorithm.currentStep == -1)
 		{
@@ -84,7 +84,7 @@ public partial class SimulationGameManager : GameManager
     {
         while (isSimulationAutomatic)
         {
-            doNextSearchStepHelper();
+            doSearchForwardHelper();
 
             // wait
             // TODO: evtl geschwindikeits-berechnung ändern
