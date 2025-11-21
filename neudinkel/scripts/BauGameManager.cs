@@ -83,8 +83,9 @@ public partial class BauGameManager : GameManager
 		}
 		else
 		{
-			// gucken, ob die neue node schon in der liste ist
-			foreach (GraphNode n in this.selectedNodes)
+            // gucken, ob die neue node schon in der liste ist
+            GraphNode[] _selectedNodes = this.selectedNodes.ToArray(); // komische c# errors vermeiden
+            foreach (GraphNode n in _selectedNodes)
 			{
 				if (newSelectedNode.Equals(n))
 				{

@@ -94,7 +94,9 @@ public partial class GraphNode : Node3D
 		}
 		else if (connections.Count != 2)
 		{
-			tile = getCityTile(connections.Count + 3);
+            int c = connections.Count < 2 ? 3 : 0;
+
+            tile = getCityTile(connections.Count + c);
 		}
 		else
 		{
