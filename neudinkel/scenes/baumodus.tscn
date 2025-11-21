@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cja2otsjks3ig"]
+[gd_scene load_steps=8 format=3 uid="uid://cja2otsjks3ig"]
 
 [ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/BauGameManager.cs" id="1_sfl2l"]
+[ext_resource type="Texture2D" uid="uid://w3401xlwp8ba" path="res://assets/ui_presets/highway.png" id="2_bn8a6"]
+[ext_resource type="Script" uid="uid://cvxkbvleegjuu" path="res://scripts/ui_buttons/ButtonOutline.cs" id="2_gt6qh"]
+[ext_resource type="Shader" uid="uid://corpeq40kesgw" path="res://assets/shaders/button_outline.gdshader" id="2_yojgw"]
+[ext_resource type="Texture2D" uid="uid://dw7jebtju7pnn" path="res://assets/ui_presets/empty.png" id="5_0prej"]
 
 [sub_resource type="GDScript" id="GDScript_bn8a6"]
 script/source = "extends Button
@@ -9,6 +13,11 @@ script/source = "extends Button
 func _on_baumodus_pressed() -> void:
 	pass # Replace with function body.
 "
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0prej"]
+shader = ExtResource("2_yojgw")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/thickness = 20.0
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_sfl2l")
@@ -23,13 +32,14 @@ grow_vertical = 2
 [node name="UI" type="CanvasLayer" parent="Baumodus"]
 
 [node name="Strasentypen" type="VBoxContainer" parent="Baumodus/UI"]
+visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 24.0
 offset_top = -122.0
-offset_right = 211.0
-offset_bottom = 122.0
+offset_right = 175.0
+offset_bottom = 122.00018
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="Baumodus/UI/Strasentypen"]
@@ -44,13 +54,13 @@ horizontal_alignment = 1
 [node name="Landstrasse" type="Button" parent="Baumodus/UI/Strasentypen"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Landstraße"
+text = " Landstr"
 script = SubResource("GDScript_bn8a6")
 
 [node name="Autobahn" type="Button" parent="Baumodus/UI/Strasentypen"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Autobahn"
+text = " Autobahn"
 
 [node name="Feldweg" type="Button" parent="Baumodus/UI/Strasentypen"]
 layout_mode = 2
@@ -62,6 +72,55 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
 text = "Leer"
+
+[node name="Strasentypen2" type="VBoxContainer" parent="Baumodus/UI"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -206.0
+offset_right = 130.0
+offset_bottom = 206.0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_gt6qh")
+OutlineMaterial = SubResource("ShaderMaterial_0prej")
+
+[node name="Autobahn2" type="TextureButton" parent="Baumodus/UI/Strasentypen2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+tooltip_text = "Autobahn
+Kosten: 10"
+texture_normal = ExtResource("2_bn8a6")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Landstrase2" type="TextureButton" parent="Baumodus/UI/Strasentypen2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+tooltip_text = "Landstraße
+Kosten: 5"
+texture_normal = ExtResource("2_bn8a6")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Feldweg2" type="TextureButton" parent="Baumodus/UI/Strasentypen2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+tooltip_text = "Feldweg
+Kosten: 1"
+texture_normal = ExtResource("2_bn8a6")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Leer2" type="TextureButton" parent="Baumodus/UI/Strasentypen2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+tooltip_text = "Leer"
+texture_normal = ExtResource("5_0prej")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="BauModusBox" type="HBoxContainer" parent="Baumodus/UI"]
 anchors_preset = 1
@@ -80,5 +139,3 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
 text = "Simulieren"
-
-[connection signal="pressed" from="Baumodus/UI/Strasentypen/Autobahn" to="." method="onChangeStreetType" binds= [1]]
