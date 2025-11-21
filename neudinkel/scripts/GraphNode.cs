@@ -207,12 +207,7 @@ public partial class GraphNode : Node3D
     public void setStreetType(StreetType t)
     {
         this.streetType = t;
-
-        if (this.GetChildren().Contains(tile)) this.RemoveChild(tile);
-
-        tile = getCityTile(3);
-
-        AddChild(tile);
+        updateModel();
     }
 
     ///<summary>

@@ -11,7 +11,6 @@ public partial class BauGameManager : GameManager
     [Signal]
     public delegate void ChangeTileStreetTypeEventHandler(int newStreetType);
 
-    public GraphNode selectedNode { get; set; }
     public List<GraphNode> selectedNodes { get; set; }
 
     public override void _Ready()
@@ -102,11 +101,34 @@ public partial class BauGameManager : GameManager
 
     public void onChangeStreetType(int newStreetType)
     {
-        GD.Print("new street type: " + newStreetType.ToString());
-
+        // add nodes
         foreach (GraphNode n in this.selectedNodes)
         {
-            n.setStreetType((StreetType) newStreetType);
+            if (this.graph.getNode(n) == null) this.graph.addNode(n);
         }
+
+        // add relations
+        foreach (GraphNode n1 in this.selectedNodes)
+        {
+            foreach (GraphNode n2 in this.selectedNodes)
+            {
+                // if its a neighbour
+                if (Math.Abs(n1.getTilePosX() - n2.getTilePosX()) == 1 && n1.getTilePosY() == n2.getTilePosY() ||
+                    (Math.Abs(n1.getTilePosY() - n2.getTilePosY()) == 1 && n1.getTilePosX() == n2.getTilePosX()) ||
+                    (n1.getTilePosX() - 1 == n2.getTilePosX() && n1.getTilePosY() + 1 == n2.getTilePosY()) ||
+                    (n1.getTilePosX() + 1 == n2.getTilePosX() && n1.getTilePosY() - 1 == n2.getTilePosY()))
+                {
+                    this.graph.addRelation(n1, n2);
+                }
+            }
+        }
+
+        foreach (GraphNode n in this.graph.getNodes())
+        {
+            n.setStreetType((StreetType)newStreetType);
+        }
+
+		// deselect all
+        onTileSelected(new int[] { -10000, -10000 });
     }
 }
