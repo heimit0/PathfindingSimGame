@@ -1,17 +1,26 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 public partial class BauGameManager : GameManager
 {
     [Signal]
     public delegate void TileSelectedEventHandler(int[] tilePos);
 
+    [Signal]
+    public delegate void ChangeTileStreetTypeEventHandler(int newStreetType);
+
+    public List<GraphNode> selectedNodes { get; set; }
+
     public override void _Ready()
     {
         prepScene();
         addNewTileTiles();
+        this.selectedNodes = new List<GraphNode>();
 
         TileSelected += onTileSelected;
+        ChangeTileStreetType += onChangeStreetType;
     }
 
     public override void _Process(double delta)
@@ -61,9 +70,65 @@ public partial class BauGameManager : GameManager
 
         GraphNode newSelectedNode = this.graph.getNode(tilePos[0], tilePos[1]);
 
-        if (this.selectedNode != null && !this.selectedNode.Equals(newSelectedNode)) this.selectedNode.toggleHighlight(false);
+        // wenn man in die luft klickt, sollen sich alle tiles aus der selection entfernen
+        if (newSelectedNode == null)
+        {
+            foreach (GraphNode n in this.selectedNodes)
+            {
+                this.graph.getNode(n.getTilePosX(), n.getTilePosY()).toggleHighlight(false);
+            }
 
-        newSelectedNode.toggleHighlight(!newSelectedNode.highlighted);
-        this.selectedNode = newSelectedNode;
+            this.selectedNodes.Clear();
+            return;
+        }
+        else
+        {
+            // gucken, ob die neue node schon in der liste ist
+            foreach (GraphNode n in this.selectedNodes)
+            {
+                if (newSelectedNode.Equals(n))
+                {
+                    // falls ja: wieder entfernen
+                    newSelectedNode.toggleHighlight(false);
+                    this.selectedNodes.Remove(n);
+                }
+            }
+
+            newSelectedNode.toggleHighlight(true);
+            this.selectedNodes.Add(newSelectedNode);
+        }
+    }
+
+    public void onChangeStreetType(int newStreetType)
+    {
+        // add nodes
+        foreach (GraphNode n in this.selectedNodes)
+        {
+            if (this.graph.getNode(n) == null) this.graph.addNode(n);
+        }
+
+        // add relations
+        foreach (GraphNode n1 in this.selectedNodes)
+        {
+            foreach (GraphNode n2 in this.selectedNodes)
+            {
+                // if its a neighbour
+                if (Math.Abs(n1.getTilePosX() - n2.getTilePosX()) == 1 && n1.getTilePosY() == n2.getTilePosY() ||
+                    (Math.Abs(n1.getTilePosY() - n2.getTilePosY()) == 1 && n1.getTilePosX() == n2.getTilePosX()) ||
+                    (n1.getTilePosX() - 1 == n2.getTilePosX() && n1.getTilePosY() + 1 == n2.getTilePosY()) ||
+                    (n1.getTilePosX() + 1 == n2.getTilePosX() && n1.getTilePosY() - 1 == n2.getTilePosY()))
+                {
+                    this.graph.addRelation(n1, n2);
+                }
+            }
+        }
+
+        foreach (GraphNode n in this.graph.getNodes())
+        {
+            n.setStreetType((StreetType)newStreetType);
+        }
+
+		// deselect all
+        onTileSelected(new int[] { -10000, -10000 });
     }
 }
