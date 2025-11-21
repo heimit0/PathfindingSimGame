@@ -124,7 +124,7 @@ stretch_mode = 0
 [node name="Sandweg" type="TextureButton" parent="Baumodus/UI/Strasentypen2"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-tooltip_text = "Feldweg
+tooltip_text = "Sandweg
 Kosten: 1"
 texture_normal = ExtResource("7_uq815")
 ignore_texture_size = true
