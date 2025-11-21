@@ -17,13 +17,13 @@ using System.Dynamic;
 /// </summary>
 public enum StreetType
 {
-	//enum weist jedem member nen integer zu (0,1,2,...) die kann man manuel setzen
-	//und mit Typecasts abrufen (int)type gibt den int oder falls nötig (StreetType)int
-	//den typ nach kosten 
-	//Probleme enstehen wenn man paare casted die nicht enthalten sind
-	AUTOBAHN = 1,
-	LANSTRASSE = 2,
-	FELDWEG = 3
+    //enum weist jedem member nen integer zu (0,1,2,...) die kann man manuel setzen
+    //und mit Typecasts abrufen (int)type gibt den int oder falls nötig (StreetType)int
+    //den typ nach kosten 
+    //Probleme enstehen wenn man paare casted die nicht enthalten sind
+    AUTOBAHN = 1,
+    LANSTRASSE = 2,
+    FELDWEG = 3
 };
 
 public partial class GraphNode : Node3D
@@ -52,250 +52,282 @@ public partial class GraphNode : Node3D
     /// </summary>
     public bool highlighted { get; set; }
 
-private StreetType streetType;
+    private StreetType streetType;
 
-	public GraphNode() : base()
-	{
-		neighbours = new GraphNode[6];
-	}
+    public GraphNode() : base()
+    {
+        neighbours = new GraphNode[6];
+    }
 
-	public override void _Ready()
-	{
-		base._Ready();
-		this.tileBase = (Node3D) ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn").Instantiate();
-		this.AddChild(this.tileBase);
-		updateModel();
+    public override void _Ready()
+    {
+        base._Ready();
+        this.tileBase = (Node3D)ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn").Instantiate();
+        this.AddChild(this.tileBase);
+        updateModel();
         this.highlighted = false;
     }
 
-	public override void _Process(double delta) { }
+    public override void _Process(double delta) { }
 
-	/// <summary>
-	/// Aktualisiert das gerenderte Modell je nach Status.
-	/// </summary>
-	public void updateModel()
-	{
-		if (this.GetChildren().Contains(tile)) this.RemoveChild(tile);
+    /// <summary>
+    /// Aktualisiert das gerenderte Modell je nach Status.
+    /// </summary>
+    public void updateModel()
+    {
+        if (this.GetChildren().Contains(tile)) this.RemoveChild(tile);
 
-		tile = new Node3D();
+        tile = new Node3D();
 
         List<Int32> connections = [];
         for (int n = 0; n < neighbours.Length; n++)
-		{
-			if (neighbours[n] != null)
-			{
-				connections.Add(n);
-			}
-		}
+        {
+            if (neighbours[n] != null)
+            {
+                connections.Add(n);
+            }
+        }
 
-		if (connections.Count == 0)
-		{
+        if (connections.Count == 0)
+        {
             tile = getEmptyTile();
-		}
-		else if (connections.Count != 2)
-		{
+        }
+        else if (connections.Count != 2)
+        {
             tile = getCityTile(connections.Count + 3);
-		}
-		else
-		{
+        }
+        else
+        {
             tile = getStreetTile(connections[0], connections[1]);
-		}
+        }
 
         AddChild(tile);
-	}
+    }
 
-	private Node3D getStreetTile(int from, int to)
-	{
-		int diff = to - from;
-		int variation = Globals.rand.Next(1, 3);
+    private Node3D getStreetTile(int from, int to)
+    {
+        int diff = to - from;
+        int variation = Globals.rand.Next(1, 3);
 
-		if (diff > 3)
-		{
-			from = to;
-			diff = 6 - diff;
-		}
+        if (diff > 3)
+        {
+            from = to;
+            diff = 6 - diff;
+        }
 
-		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street1_0" + diff + "_" + variation + ".tscn"); // TODO: Adjust for type
-		var streetModell = scene.Instantiate();
-		Node3D street = new();
-		street.AddChild(streetModell);
-		street.RotateY(Mathf.DegToRad(-60 * from));
-		return street;
-	}
+        var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street1_0" + diff + "_" + variation + ".tscn"); // TODO: Adjust for type
+        var streetModell = scene.Instantiate();
+        Node3D street = new();
+        street.AddChild(streetModell);
+        street.RotateY(Mathf.DegToRad(-60 * from));
+        return street;
+    }
 
-	private Node3D getCityTile(int size)
-	{
-		var scene = ResourceLoader.Load<PackedScene>("assets/testing/testtile_city0" + size + ".tscn"); //TODO replace with actual city
-		Node3D citytile = new Node3D();
-		var instantiatedcity = scene.Instantiate();
-		citytile.AddChild(instantiatedcity);
-		return citytile;
-	}
+    private Node3D getCityTile(int size)
+    {
+        var scene = ResourceLoader.Load<PackedScene>("assets/testing/testtile_city0" + size + ".tscn"); //TODO replace with actual city
+        Node3D citytile = new Node3D();
+        var instantiatedcity = scene.Instantiate();
+        citytile.AddChild(instantiatedcity);
+        return citytile;
+    }
 
-	private Node3D getEmptyTile()
-	{
-		var scene = ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn"); //TODO replace with actual empty tile
+    private Node3D getEmptyTile()
+    {
+        var scene = ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn"); //TODO replace with actual empty tile
         Node3D emptyTile = new Node3D();
-		var instanciated = scene.Instantiate();
-		emptyTile.AddChild(instanciated);
+        var instanciated = scene.Instantiate();
+        emptyTile.AddChild(instanciated);
         return emptyTile;
     }
 
-	public int getTilePosX()
-	{
-		return this.tilePosX;
-	}
+    public int getTilePosX()
+    {
+        return this.tilePosX;
+    }
 
-	public int getTilePosY()
-	{
-		return this.tilePosY;
-	}
+    public int getTilePosY()
+    {
+        return this.tilePosY;
+    }
 
-	public StreetType getStreetType()
-	{
-		return streetType;
-	}
+    public StreetType getStreetType()
+    {
+        return streetType;
+    }
 
-	public GraphNode[] getNeighbours()
-	{
-		return neighbours;
-	}
+    public GraphNode[] getNeighbours()
+    {
+        return neighbours;
+    }
 
-	/// <summary>
-	/// Fuegt einen Node als Nachbar hinzu.
-	/// </summary>
-	public void addNeighbor(GraphNode a)
-	{
-		// TODO(jbrause): Pruefen ob wir WIRKLICH einen Nachbarknoten haben
-		// TODO(jbrause oder mkolb2): Bestimmten um welchen Nachbarn es sich handelt auslagern in statische Hilfsmethode
-		if ((int)getNeighbourType(this, a) != -1)
-		{
-			this.neighbours[(int)getNeighbourType(this, a)] = a;
-		}
-		else
-			GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
-	}
+    /// <summary>
+    /// Fuegt einen Node als Nachbar hinzu.
+    /// </summary>
+    public void addNeighbor(GraphNode a)
+    {
+        // TODO(jbrause): Pruefen ob wir WIRKLICH einen Nachbarknoten haben
+        // TODO(jbrause oder mkolb2): Bestimmten um welchen Nachbarn es sich handelt auslagern in statische Hilfsmethode
+        if ((int)getNeighbourType(this, a) != -1)
+        {
+            this.neighbours[(int)getNeighbourType(this, a)] = a;
+        }
+        else
+            GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
+    }
 
-	// gibt nur die existierenden Nachbarn mit der TileRelation zurück
-	// für Algorithmen
-	public GraphNode[] getNeighboursUnsorted()
-	{
+    // gibt nur die existierenden Nachbarn mit der TileRelation zurück
+    // für Algorithmen
+    public GraphNode[] getNeighboursUnsorted()
+    {
         List<GraphNode> _neighbours = new List<GraphNode>();
 
         for (int i = 0; i < this.neighbours.Length; i++)
-		{
-			if (this.neighbours[i] != null)
-			{
-				_neighbours.Add(this.neighbours[i]);
-			}
-		}
+        {
+            if (this.neighbours[i] != null)
+            {
+                _neighbours.Add(this.neighbours[i]);
+            }
+        }
 
-		return _neighbours.ToArray();
-	}
+        return _neighbours.ToArray();
+    }
 
-	/// <summary>
-	/// Setzt die TilePos-Variablen und updated dabei
-	/// die World-Position des Tiles.
-	/// </summary>
-	public void setTilePos(int tilePosX, int tilePosY)
-	{
-		if (tilePosX == 0 && tilePosY == -1) GD.Print("d");
-
+    /// <summary>
+    /// Setzt die TilePos-Variablen und updated dabei
+    /// die World-Position des Tiles.
+    /// </summary>
+    public void setTilePos(int tilePosX, int tilePosY)
+    {
         this.tilePosX = tilePosX;
-		this.tilePosY = tilePosY;
-		this.Position = convertTilePosToPos(tilePosX, tilePosY);
-	}
+        this.tilePosY = tilePosY;
+        this.Position = convertTilePosToPos(tilePosX, tilePosY);
+    }
 
-	public void setStreetType(StreetType t)
-	{
-		this.streetType = t;
-	}
+    public void setStreetType(StreetType t)
+    {
+        this.streetType = t;
 
-	///<summary>
-	///tilePosY 0.86 Offset wegen der Geometrie der Tiles
-	///tilePosX 0.5 mal tilePosY Offset weil es Hexagone sind und die Zeilen versetzt sein muessen
-	///</summary>
-	public static Vector3 convertTilePosToPos(int tilePosX, int tilePosY)
-	{
-		return new Vector3(tilePosX + 0.5f * tilePosY, 0.0f, tilePosY * 0.86f);
-	}
+        if (this.GetChildren().Contains(tile)) this.RemoveChild(tile);
 
-	///<summary>
-	///convertiert nach den gleichen regeln wie TilePosToPos nur andersrum
-	///</summary>
-	public static int[] convertPosToTilePos(Vector3 pos)
-	{
-		float preTilePosY = pos.Z / 0.86f;
-		float preTilePosX = pos.X - 0.5f * preTilePosY;
-		int tilePosX = (int)Math.Truncate(preTilePosX);
-		float tilePosXFracture = preTilePosX - (float)Math.Truncate(preTilePosX);
-		if (tilePosXFracture > 0.5)
-		{
-			tilePosX++;
-		}
-		int tilePosY = (int)Math.Truncate(preTilePosY);
-		float tilePosYFracture = preTilePosY - (float)Math.Truncate(preTilePosY);
-		if (tilePosYFracture > 0.5)
-		{
-			tilePosY++;
-		}
+        tile = getCityTile(3);
 
-		return new int[] { tilePosX, tilePosY };
-	}
+        AddChild(tile);
+    }
 
-	public void toggleHighlight(bool highlight)
-	{
-		Vector3 pos = this.Position;
-		Vector3 relPos = new Vector3(0.0f, 0.25f, 0.0f);
+    ///<summary>
+    ///tilePosY 0.86 Offset wegen der Geometrie der Tiles
+    ///tilePosX 0.5 mal tilePosY Offset weil es Hexagone sind und die Zeilen versetzt sein muessen
+    ///</summary>
+    public static Vector3 convertTilePosToPos(int tilePosX, int tilePosY)
+    {
+        return new Vector3(tilePosX + 0.5f * tilePosY, 0.0f, tilePosY * 0.86f);
+    }
 
-		if (!highlighted && highlight)
-		{
-			this.Position = pos + relPos;
-		}
-		else if (highlighted && !highlight)
-		{
-			this.Position = pos - relPos;
-		}
+    ///<summary>
+    ///convertiert nach den gleichen regeln wie TilePosToPos nur andersrum
+    ///</summary>
+    public static int[] convertPosToTilePos(Vector3 pos)
+    {
+        float preTilePosY = pos.Z / 0.86f;
+        float preTilePosX = pos.X - 0.5f * preTilePosY;
+        int tilePosX = (int)Math.Truncate(preTilePosX);
+        float tilePosXFracture = preTilePosX - (float)Math.Truncate(preTilePosX);
+        if (tilePosXFracture > 0.5)
+        {
+            tilePosX++;
+        }
+        int tilePosY = (int)Math.Truncate(preTilePosY);
+        float tilePosYFracture = preTilePosY - (float)Math.Truncate(preTilePosY);
+        if (tilePosYFracture > 0.5)
+        {
+            tilePosY++;
+        }
+
+        return new int[] { tilePosX, tilePosY };
+    }
+
+    public void toggleHighlight(bool highlight)
+    {
+        Vector3 pos = this.Position;
+        Vector3 relPos = new Vector3(0.0f, 0.25f, 0.0f);
+
+        if (!highlighted && highlight)
+        {
+            this.Position = pos + relPos;
+        }
+        else if (highlighted && !highlight)
+        {
+            this.Position = pos - relPos;
+        }
 
         this.highlighted = highlight;
-	}
+    }
 
-	public static TileRelation getNeighbourType(GraphNode middle, GraphNode neighbour)
-	{
-		int x = middle.getTilePosX() - neighbour.tilePosX;
-		int y = middle.getTilePosY() - neighbour.tilePosY;
+    public static TileRelation getNeighbourType(GraphNode middle, GraphNode neighbour)
+    {
+        int x = middle.getTilePosX() - neighbour.tilePosX;
+        int y = middle.getTilePosY() - neighbour.tilePosY;
 
-		// FIXME: Fix
-		/**if (Mathf.Sqrt( Mathf.pow(a.tilePosX - a.getTilePosY, 2) + Mathf.pow(a.tilePosY - tile.tilePosY, 2)) != 1) 
+        // FIXME: Fix
+        /**if (Mathf.Sqrt( Mathf.pow(a.tilePosX - a.getTilePosY, 2) + Mathf.pow(a.tilePosY - tile.tilePosY, 2)) != 1) 
 		{
 			return TileRelation.INVALID;
 		}**/
 
 
-		//topright x negativ y positiv
-		//right x negativ y 0
-		//bottomright x 0 y negativ
-		//bottomleft x positiv y negativ
-		//left x positiv y 0
-		//topleft x 0 y posititv
-		if (x < 0 && y > 0)
-			return TileRelation.TOPRIGHT;
-		else if (x < 0 && y == 0)
-			return TileRelation.RIGHT;
-		else if (x == 0 && y < 0)
-			return TileRelation.BOTTOMRIGHT;
-		else if (x > 0 && y < 0)
-			return TileRelation.BOTTOMLEFT;
-		else if (x > 0 && y == 0)
-			return TileRelation.LEFT;
-		else if (x == 0 && y > 0)
-			return TileRelation.TOPLEFT;
-		else
-			return TileRelation.INVALID;
-	}
-
-	public String getTilePosString() {
-		return this.getTilePosX() + ", " + this.getTilePosY();
+        //topright x negativ y positiv
+        //right x negativ y 0
+        //bottomright x 0 y negativ
+        //bottomleft x positiv y negativ
+        //left x positiv y 0
+        //topleft x 0 y posititv
+        if (x < 0 && y > 0)
+            return TileRelation.TOPRIGHT;
+        else if (x < 0 && y == 0)
+            return TileRelation.RIGHT;
+        else if (x == 0 && y < 0)
+            return TileRelation.BOTTOMRIGHT;
+        else if (x > 0 && y < 0)
+            return TileRelation.BOTTOMLEFT;
+        else if (x > 0 && y == 0)
+            return TileRelation.LEFT;
+        else if (x == 0 && y > 0)
+            return TileRelation.TOPLEFT;
+        else
+            return TileRelation.INVALID;
     }
 
+    public String getTilePosString()
+    {
+        return this.getTilePosX() + ", " + this.getTilePosY();
+    }
+
+    public int[] getNeighbourPos(int direction)
+    {
+        switch (direction)
+        {
+            case 0:
+                return new int[] { this.tilePosX + 1, this.tilePosY - 1 };
+                break;
+            case 1:
+                return new int[] { this.tilePosX + 1, this.tilePosY };
+                break;
+            case 2:
+                return new int[] { this.tilePosX, this.tilePosY + 1 };
+                break;
+            case 3:
+                return new int[] { this.tilePosX - 1, this.tilePosY + 1 };
+                break;
+            case 4:
+                return new int[] { this.tilePosX - 1, this.tilePosY };
+                break;
+			case 5:
+                return new int[] { this.tilePosX, this.tilePosY - 1 };
+                break;
+        }
+
+		// shouldnt happen
+        return null;
+    }
 }

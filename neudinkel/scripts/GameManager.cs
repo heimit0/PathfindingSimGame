@@ -42,8 +42,6 @@ public partial class GameManager : Node3D
     public GraphNode startNode { get; set; }
     public GraphNode goalNode { get; set; }
 
-    public GraphNode selectedNode { get; set; }
-
     // TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
     // TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
 
