@@ -2,9 +2,22 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
+public class NeudinkelAngorithmPseudoCodeEntry
+{
+    public int stepsIndex { get; set; }
+	public String content { get; set; }
+
+	public NeudinkelAngorithmPseudoCodeEntry(int stepsIndex, String content)
+	{
+        this.stepsIndex = stepsIndex;
+        this.content = content;
+    }
+}
+
 /// <summary>
 /// Elternklasse aller Suchalgorithmen.
 /// </summary>
+
 public abstract class NeudinkelAlgorithm
 {
 
@@ -22,7 +35,9 @@ public abstract class NeudinkelAlgorithm
     // tatsächliche, bekannte Kosten pro Node zum Start
     public Dictionary<GraphNode, float> distanceFromStart;
     public Func<Graph, int>[] steps; // gibt den nächsten schritt zurück
+    public (int stepIndex, string content)[] pseudoCodeSteps; // mappt von einem index aus den steps auf den pseudocode
     public int currentStep { get; set; }
+
 
     /*
 		Zum Implementieren eines Suchalgorithmus muessen zuerst die einzelnen
