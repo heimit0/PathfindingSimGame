@@ -14,7 +14,7 @@ public partial class Camera : Camera3D
 	public float moveSpeed = 2.0f;
 	[Export]
 	public float scrollSpeed = 0.2f;
-	
+
 	private double test;
 	private bool isDragging = false;
 	private Vector3 originPos;
@@ -22,45 +22,46 @@ public partial class Camera : Camera3D
 	private Vector2 originMousePos;
 	private Vector3 scrollToPosition;
 	private bool scrolling = false;
-	
-	public override void _Ready() {
+
+	public override void _Ready()
+	{
 		// FIXME: TERRIBLE HACK
 		this.GetParent<GameManager>().SetCameraPosition += onSetCameraPosition;
 	}
-	
+
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseButton eventMouseButton)
 		{
 			if (eventMouseButton.GetButtonIndex() == MouseButton.Right && eventMouseButton.IsReleased())
-		 	{
-				
-    			Vector2 mousePos = eventMouseButton.Position;
-   				 //Deadzone in top-right corner
-    			if (mousePos.X > 945 && mousePos.Y < 100)
-        			return; // Ignore click in deadzone
-    			
-    			if (mousePos.X < 331)
-        			return; // Ignore click in deadzone
-    
-				Vector3 clickPoint = this.ProjectPosition(eventMouseButton.Position,1); 
-				Vector3 ray = new Vector3 (this.Position.X-clickPoint.X,this.Position.Y-clickPoint.Y,this.Position.Z-clickPoint.Z);
-				float castDistance = this.Position.Y / ray.Y;
-				Vector3 nullPos = this.Position - ray*castDistance;
-				int[] tilePos = GraphNode.convertPosToTilePos(nullPos);
-                GD.Print("Tile selected: [" + tilePos[0] + ", " + tilePos[1] + "]");
+			{
 
-                GameManager gameManager = GetNode<GameManager>("/root/Node3D");
-                gameManager.EmitSignal("TileSelected", tilePos);
-            }
+				Vector2 mousePos = eventMouseButton.Position;
+				//Deadzone in top-right corner
+				if (mousePos.X > 945 && mousePos.Y < 100)
+					return; // Ignore click in deadzone
+
+				if (mousePos.X < 331)
+					return; // Ignore click in deadzone
+
+				Vector3 clickPoint = this.ProjectPosition(eventMouseButton.Position, 1);
+				Vector3 ray = new Vector3(this.Position.X - clickPoint.X, this.Position.Y - clickPoint.Y, this.Position.Z - clickPoint.Z);
+				float castDistance = this.Position.Y / ray.Y;
+				Vector3 nullPos = this.Position - ray * castDistance;
+				int[] tilePos = GraphNode.convertPosToTilePos(nullPos);
+				GD.Print("Tile selected: [" + tilePos[0] + ", " + tilePos[1] + "]");
+
+				GameManager gameManager = GetNode<GameManager>("/root/Node3D");
+				gameManager.EmitSignal("TileSelected", tilePos);
+			}
 		}
-	} 
-	
+	}
+
 	public override void _Process(double delta)
-	{		
+	{
 		if (Input.IsActionPressed("mouse_drag"))
 		{
-			
+
 			if (!isDragging)
 			{
 				isDragging = true;
@@ -81,40 +82,40 @@ public partial class Camera : Camera3D
 				originMousePos.Y - currentMousePos.Y
 			);
 
-			this.Position = originPos + new Vector3(mouseDiff.X * moveSpeed * 0.01f, 0, mouseDiff.Y * moveSpeed * 0.01f) * (float) delta * 60;
+			this.Position = originPos + new Vector3(mouseDiff.X * moveSpeed * 0.01f, 0, mouseDiff.Y * moveSpeed * 0.01f) * (float)delta * 60;
 		}
 
-		
 
-		
-		if(!scrolling)
+
+
+		if (!scrolling)
 		{
 			if (Input.IsActionJustPressed("mouse_scroll_up"))
 			{
 				setScroll(-1.0f);
 			}
-			
+
 			if (Input.IsActionJustPressed("mouse_scroll_down"))
 			{
 				setScroll(1.0f);
 			}
 		}
-		
-		
-		if(scrolling)
+
+
+		if (scrolling)
 		{
-			Vector3 newPosition= this.Position + Transform.Basis.Z * scrollInput * scrollSpeed * (float) delta * 60;
-			if(newPosition.Y > 7 || newPosition.Y < 0.6f)
+			Vector3 newPosition = this.Position + Transform.Basis.Z * scrollInput * scrollSpeed * (float)delta * 60;
+			if (newPosition.Y > 7 || newPosition.Y < 0.6f)
 			{
 				scrolling = false;
 				return;
 			}
-			if(scrollInput < 0 && newPosition.Y < scrollToPosition.Y)
+			if (scrollInput < 0 && newPosition.Y < scrollToPosition.Y)
 			{
 				scrolling = false;
 				return;
 			}
-			if(scrollInput > 0 && newPosition.Y > scrollToPosition.Y)
+			if (scrollInput > 0 && newPosition.Y > scrollToPosition.Y)
 			{
 				scrolling = false;
 				return;
@@ -122,24 +123,24 @@ public partial class Camera : Camera3D
 			this.Position = newPosition;
 			this.Rotation = getRotation(this.Position.Y);
 		}
-		
+
 	}
 	private void setScroll(float scrollDirection)
 	{
-			scrollInput = scrollDirection;
-			scrolling = true;
-			scrollToPosition = new Vector3(0,this.Position.Y+scrollDirection * 1.5f,0);
+		scrollInput = scrollDirection;
+		scrolling = true;
+		scrollToPosition = new Vector3(0, this.Position.Y + scrollDirection * 1.5f, 0);
 	}
-	
+
 	private Vector3 getRotation(float position)
 	{
-		float test = Mathf.Min(position+2 / 5,1);
-		return new Vector3(test*-45*Mathf.Pi/180,0,0);
+		float test = Mathf.Min(position + 2 / 5, 1);
+		return new Vector3(test * -45 * Mathf.Pi / 180, 0, 0);
 	}
-	
+
 	public void onSetCameraPosition(Vector2 pos)
 	{
 		this.Position = new Vector3(pos.X, this.Position.Y, pos.Y);
 	}
-	
+
 }
