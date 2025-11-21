@@ -199,7 +199,9 @@ private StreetType streetType;
 	/// </summary>
 	public void setTilePos(int tilePosX, int tilePosY)
 	{
-		this.tilePosX = tilePosX;
+		if (tilePosX == 0 && tilePosY == -1) GD.Print("d");
+
+        this.tilePosX = tilePosX;
 		this.tilePosY = tilePosY;
 		this.Position = convertTilePosToPos(tilePosX, tilePosY);
 	}

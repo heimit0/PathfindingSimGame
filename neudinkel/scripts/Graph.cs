@@ -46,7 +46,23 @@ public partial class Graph : Node3D
 			}
 		}
 
-        GD.PrintErr("queried node from graph not found! returning null...");
+        return null;
+	}
+
+    public NewTileGraphNode getGhostNode(int x, int y)
+	{
+		foreach (object obj in this.GetChildren())
+		{
+			if (obj.GetType() == typeof(NewTileGraphNode))
+			{
+				NewTileGraphNode node = (NewTileGraphNode)obj;
+				if (node.getTilePosX() == x && node.getTilePosY() == y)
+				{
+					return node;
+				}
+			}
+		}
+
         return null;
 	}
 
