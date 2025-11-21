@@ -4,7 +4,7 @@
 [ext_resource type="StyleBox" uid="uid://qhm8qgtfl1y" path="res://assets/ui_presets/menu_button_focus.tres" id="1_pqxbd"]
 [ext_resource type="StyleBox" uid="uid://c4qtp5kce3mi1" path="res://assets/ui_presets/menu_button_default.tres" id="2_sd6g6"]
 [ext_resource type="StyleBox" uid="uid://ckr8sap5sw1if" path="res://assets/ui_presets/menu_button_pressed.tres" id="3_yumyv"]
-[ext_resource type="FontFile" uid="uid://cyk2vwfyjscxt" path="res://assets/ui_presets/SairaCondensed-Medium.ttf" id="4_7y8o8"]
+[ext_resource type="FontFile" uid="uid://ckt7xray770d5" path="res://assets/ui_presets/SairaCondensed-Medium.ttf" id="4_7y8o8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjkv0"]
 content_margin_left = 4.0

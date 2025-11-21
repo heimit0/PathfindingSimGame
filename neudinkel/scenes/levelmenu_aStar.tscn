@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://lruru8fkjqyt"]
 
-[ext_resource type="Texture2D" uid="uid://dkilv13pdcd33" path="res://icon.svg" id="1_6sx50"]
+[ext_resource type="Texture2D" uid="uid://bugu5vlgvm8hc" path="res://icon.svg" id="1_6sx50"]
 [ext_resource type="Script" uid="uid://cfs40l745o8xx" path="res://scripts/ui_buttons/LevelmenuAStar.cs" id="1_33xbi"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_d8yyi"]
 
