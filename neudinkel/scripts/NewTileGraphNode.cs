@@ -29,10 +29,15 @@ public partial class NewTileGraphNode : Node3D
     // macht das tile zu einem echten Tile
     public void makeInstance()
     {
+        // add real node
         GraphNode node = new GraphNode();
         node.setTilePos(this.tilePosX, this.tilePosY);
         node.setStreetType(0);
         this.GetParent().AddChild(node);
+
+        // add new ghost nodes
+        BauGameManager gameManager = GetNode<BauGameManager>("/root/Node3D"); // TODO fix
+        gameManager.checkForAllEmptyNeighbours(node);
 
         QueueFree(); // kill self
     }

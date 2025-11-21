@@ -23,18 +23,23 @@ public partial class BauGameManager : GameManager
     {
         foreach (GraphNode n in this.graph.getNodes())
         {
-            int _x = n.getTilePosX(), _y = n.getTilePosY();
-
-            checkForEmptyNeighbour(_x - 1, _y);
-            checkForEmptyNeighbour(_x, _y - 1);
-            checkForEmptyNeighbour(_x + 1, _y);
-            checkForEmptyNeighbour(_x, _y + 1);
-            checkForEmptyNeighbour(_x - 1, _y + 1);
-            checkForEmptyNeighbour(_x + 1, _y - 1);
+            checkForAllEmptyNeighbours(n);
         }
     }
 
-    private void checkForEmptyNeighbour(int x, int y)
+    public void checkForAllEmptyNeighbours(GraphNode n)
+    {
+        int _x = n.getTilePosX(), _y = n.getTilePosY();
+
+        checkForEmptyNeighbour(_x - 1, _y);
+        checkForEmptyNeighbour(_x, _y - 1);
+        checkForEmptyNeighbour(_x + 1, _y);
+        checkForEmptyNeighbour(_x, _y + 1);
+        checkForEmptyNeighbour(_x - 1, _y + 1);
+        checkForEmptyNeighbour(_x + 1, _y - 1);
+    }
+
+    public void checkForEmptyNeighbour(int x, int y)
     {
         if (this.graph.getNode(x, y) == null && this.graph.getGhostNode(x, y) == null)
         {
