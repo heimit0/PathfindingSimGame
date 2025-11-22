@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cja2otsjks3ig"]
+[gd_scene load_steps=14 format=3 uid="uid://cja2otsjks3ig"]
 
 [ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/BauGameManager.cs" id="1_sfl2l"]
 [ext_resource type="Texture2D" uid="uid://ctx4brr3q6rko" path="res://assets/ui_icons/tile_highway.png" id="2_bn8a6"]
@@ -12,14 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://cxw25x0gyjoo8" path="res://assets/ui_icons/tile_sandpath.png" id="7_uq815"]
 [ext_resource type="StyleBox" uid="uid://bi4osf3vsswdh" path="res://assets/ui_presets/menu_button_hover.tres" id="8_ae4ts"]
 [ext_resource type="StyleBox" uid="uid://qhm8qgtfl1y" path="res://assets/ui_presets/menu_button_focus.tres" id="9_sbvyt"]
-
-[sub_resource type="GDScript" id="GDScript_bn8a6"]
-script/source = "extends Button
-
-
-func _on_baumodus_pressed() -> void:
-	pass # Replace with function body.
-"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0prej"]
 shader = ExtResource("2_yojgw")
@@ -39,48 +31,6 @@ grow_vertical = 2
 [node name="UI" type="CanvasLayer" parent="Baumodus"]
 
 [node name="Strasentypen" type="VBoxContainer" parent="Baumodus/UI"]
-visible = false
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 24.0
-offset_top = -122.0
-offset_right = 175.0
-offset_bottom = 122.00018
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="Baumodus/UI/Strasentypen"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 20
-text = "Straßentypen"
-horizontal_alignment = 1
-
-[node name="Landstrasse" type="Button" parent="Baumodus/UI/Strasentypen"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = " Landstr"
-script = SubResource("GDScript_bn8a6")
-
-[node name="Autobahn" type="Button" parent="Baumodus/UI/Strasentypen"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = " Autobahn"
-
-[node name="Feldweg" type="Button" parent="Baumodus/UI/Strasentypen"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Feldweg"
-
-[node name="Leer" type="Button" parent="Baumodus/UI/Strasentypen"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 30
-text = "Leer"
-
-[node name="Strasentypen2" type="VBoxContainer" parent="Baumodus/UI"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -94,7 +44,7 @@ size_flags_vertical = 4
 script = ExtResource("2_gt6qh")
 OutlineMaterial = SubResource("ShaderMaterial_0prej")
 
-[node name="Autobahn2" type="TextureButton" parent="Baumodus/UI/Strasentypen2"]
+[node name="Autobahn" type="TextureButton" parent="Baumodus/UI/Strasentypen"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Autobahn
@@ -103,7 +53,7 @@ texture_normal = ExtResource("2_bn8a6")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Landstrase2" type="TextureButton" parent="Baumodus/UI/Strasentypen2"]
+[node name="Landstrase" type="TextureButton" parent="Baumodus/UI/Strasentypen"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Landstraße
@@ -112,7 +62,7 @@ texture_normal = ExtResource("5_sbvyt")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Feldweg2" type="TextureButton" parent="Baumodus/UI/Strasentypen2"]
+[node name="Feldweg" type="TextureButton" parent="Baumodus/UI/Strasentypen"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Feldweg
@@ -121,7 +71,7 @@ texture_normal = ExtResource("6_axwq4")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Sandweg" type="TextureButton" parent="Baumodus/UI/Strasentypen2"]
+[node name="Sandweg" type="TextureButton" parent="Baumodus/UI/Strasentypen"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Sandweg
@@ -130,7 +80,7 @@ texture_normal = ExtResource("7_uq815")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Leer2" type="TextureButton" parent="Baumodus/UI/Strasentypen2"]
+[node name="Leer" type="TextureButton" parent="Baumodus/UI/Strasentypen"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Leer"
@@ -159,3 +109,9 @@ theme_override_styles/pressed = ExtResource("7_fmqkg")
 theme_override_styles/hover = ExtResource("8_ae4ts")
 theme_override_styles/focus = ExtResource("9_sbvyt")
 text = "Simulieren"
+
+[connection signal="pressed" from="Baumodus/UI/Strasentypen/Autobahn" to="." method="onChangeStreetType" binds= [1]]
+[connection signal="pressed" from="Baumodus/UI/Strasentypen/Landstrase" to="." method="onChangeStreetType" binds= [2]]
+[connection signal="pressed" from="Baumodus/UI/Strasentypen/Feldweg" to="." method="onChangeStreetType" binds= [3]]
+[connection signal="pressed" from="Baumodus/UI/Strasentypen/Sandweg" to="." method="onChangeStreetType" binds= [4]]
+[connection signal="pressed" from="Baumodus/UI/Strasentypen/Leer" to="." method="onChangeStreetType" binds= [0]]

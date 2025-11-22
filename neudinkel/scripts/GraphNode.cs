@@ -23,7 +23,8 @@ public enum StreetType
 	//Probleme enstehen wenn man paare casted die nicht enthalten sind
 	AUTOBAHN = 1,
 	LANSTRASSE = 2,
-	FELDWEG = 3
+	FELDWEG = 3,
+	SANDWEG = 4
 };
 
 public partial class GraphNode : Node3D
@@ -115,7 +116,7 @@ public partial class GraphNode : Node3D
 			diff = 6 - diff;
 		}
 
-		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street1_0" + diff + "_" + variation + ".tscn"); // TODO: Adjust for type
+		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street" + (int)this.streetType + "_0" + diff + "_" + "1" + ".tscn"); // TODO: Adjust for type
 		var streetModell = scene.Instantiate();
 		Node3D street = new();
 		street.AddChild(streetModell);
