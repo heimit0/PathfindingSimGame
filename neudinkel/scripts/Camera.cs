@@ -38,13 +38,11 @@ public partial class Camera : Camera3D
 
 				Vector2 mousePos = eventMouseButton.Position;
 				//Deadzone in top-right corner
-				if (mousePos.X > 945 && mousePos.Y < 100)
-					return; // Ignore click in deadzone
+				if (isMouseInUIDeadzone(mousePos))
+                    return;
 
-				if (mousePos.X < 331)
-					return; // Ignore click in deadzone
 
-				Vector3 clickPoint = this.ProjectPosition(eventMouseButton.Position, 1);
+                Vector3 clickPoint = this.ProjectPosition(eventMouseButton.Position, 1);
 				Vector3 ray = new Vector3(this.Position.X - clickPoint.X, this.Position.Y - clickPoint.Y, this.Position.Z - clickPoint.Z);
 				float castDistance = this.Position.Y / ray.Y;
 				Vector3 nullPos = this.Position - ray * castDistance;
@@ -143,4 +141,40 @@ public partial class Camera : Camera3D
 		this.Position = new Vector3(pos.X, this.Position.Y, pos.Y);
 	}
 
+
+	private bool isMouseInUIDeadzone(Vector2 mousePos)
+	{
+		// Get all buttons in the current scene
+		var buttons = GetTree().Root.GetNode("Node3D").FindChildren("*", "Button", true, false);
+		var textureButtons = GetTree().Root.GetNode("Node3D").FindChildren("*", "TextureButton", true, false);
+    
+		// Check TextureButtons
+		foreach (var btn in textureButtons)
+		{
+			if (btn is TextureButton textureButton && textureButton.Visible)
+			{
+				Rect2 buttonRect = textureButton.GetGlobalRect();
+				if (buttonRect.HasPoint(mousePos))
+				{
+					return true;
+    			}
+			}
+		}
+    
+    	// Check regular Buttons
+		foreach (var btn in buttons)
+		{
+			if (btn is Button button && button.Visible)
+			{
+    			Rect2 buttonRect = button.GetGlobalRect();
+				if (buttonRect.HasPoint(mousePos))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 }
+
