@@ -116,7 +116,7 @@ public partial class GraphNode : Node3D
 			diff = 6 - diff;
 		}
 
-		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street" + (int)this.streetType + "_0" + diff + "_" + "1" + ".tscn"); // TODO: Adjust for type
+		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street" + (int)this.streetType + "_0" + diff + "_" + "1" + ".tscn"); // TODO: add variations
 		var streetModell = scene.Instantiate();
 		Node3D street = new();
 		street.AddChild(streetModell);
@@ -126,7 +126,7 @@ public partial class GraphNode : Node3D
 
 	private Node3D getCityTile(int size)
 	{
-		var scene = ResourceLoader.Load<PackedScene>("assets/testing/testtile_city0" + size + ".tscn"); //TODO replace with actual city
+		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/city_0" + size + "_" + "1" + ".tscn"); //TODO add variations
 		Node3D citytile = new Node3D();
 		var instantiatedcity = scene.Instantiate();
 		citytile.AddChild(instantiatedcity);
