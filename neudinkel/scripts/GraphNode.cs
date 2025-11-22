@@ -278,14 +278,14 @@ public partial class GraphNode : Node3D
 	{
 		float preTilePosY = pos.Z / 0.86f;
 		float preTilePosX = pos.X - 0.5f * preTilePosY;
-		int tilePosX = (int)Math.Truncate(preTilePosX);
-		float tilePosXFracture = preTilePosX - (float)Math.Truncate(preTilePosX);
+		int tilePosX = (int) Math.Round(preTilePosX);
+		float tilePosXFracture = preTilePosX - (float)Math.Round(preTilePosX);
 		if (tilePosXFracture > 0.5)
 		{
 			tilePosX++;
 		}
-		int tilePosY = (int)Math.Truncate(preTilePosY);
-		float tilePosYFracture = preTilePosY - (float)Math.Truncate(preTilePosY);
+		int tilePosY = (int)Math.Round(preTilePosY);
+		float tilePosYFracture = preTilePosY - (float)Math.Round(preTilePosY);
 		if (tilePosYFracture > 0.5)
 		{
 			tilePosY++;
@@ -354,24 +354,12 @@ public partial class GraphNode : Node3D
 	{
 		switch (direction)
 		{
-			case 0:
-				return new int[] { this.tilePosX + 1, this.tilePosY - 1 };
-				break;
-			case 1:
-				return new int[] { this.tilePosX + 1, this.tilePosY };
-				break;
-			case 2:
-				return new int[] { this.tilePosX, this.tilePosY + 1 };
-				break;
-			case 3:
-				return new int[] { this.tilePosX - 1, this.tilePosY + 1 };
-				break;
-			case 4:
-				return new int[] { this.tilePosX - 1, this.tilePosY };
-				break;
-			case 5:
-				return new int[] { this.tilePosX, this.tilePosY - 1 };
-				break;
+			case 0: return new int[] { this.tilePosX + 1, this.tilePosY - 1 };
+			case 1: return new int[] { this.tilePosX + 1, this.tilePosY };
+			case 2: return new int[] { this.tilePosX, this.tilePosY + 1 };
+			case 3: return new int[] { this.tilePosX - 1, this.tilePosY + 1 };
+			case 4: return new int[] { this.tilePosX - 1, this.tilePosY };
+			case 5: return new int[] { this.tilePosX, this.tilePosY - 1 };
 		}
 
 		// shouldnt happen
