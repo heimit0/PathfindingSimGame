@@ -1,16 +1,14 @@
 [gd_scene load_steps=6 format=4 uid="uid://bepmdwnjw25k6"]
 
 [ext_resource type="PackedScene" uid="uid://b3x36cuu1onu5" path="res://models/testing/test_hexagon.fbx" id="1_06qqe"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5b7sj"]
-load_path = "res://.godot/imported/test_hexagon_t.png-ad09906964fba34555bfb25a0232d5d7.s3tc.ctex"
+[ext_resource type="Texture2D" uid="uid://dfgg4fanlhlt" path="res://models/textures/test_hexagon_t_gray.png" id="2_ls67t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ls67t"]
 resource_name = "test_hexagon"
 transparency = 1
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.4824236, 0.4824236, 0.4824236, 0.5058824)
-albedo_texture = SubResource("CompressedTexture2D_5b7sj")
+albedo_texture = ExtResource("2_ls67t")
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 0.0
 
