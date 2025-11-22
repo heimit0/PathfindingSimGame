@@ -21,6 +21,7 @@ public enum StreetType
 	//und mit Typecasts abrufen (int)type gibt den int oder falls nötig (StreetType)int
 	//den typ nach kosten 
 	//Probleme enstehen wenn man paare casted die nicht enthalten sind
+	EMPTY = 0,
 	AUTOBAHN = 1,
 	LANSTRASSE = 2,
 	FELDWEG = 3,
@@ -89,7 +90,9 @@ public partial class GraphNode : Node3D
 			}
 		}
 
-		if (connections.Count == 0)
+        GD.Print(this.getTilePosString() + " has nei: " + connections.Count);
+
+        if (connections.Count == 0)
 		{
 			tile = getEmptyTile();
 		}
@@ -178,6 +181,44 @@ public partial class GraphNode : Node3D
 		else
 			GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
 	}
+
+	public void removeNeighbour(GraphNode n)
+	{
+        GD.Print("trying to remove neighbour");
+
+        for (int i = 0; i < this.neighbours.Length; i++)
+		{
+            GraphNode current = this.neighbours[i];
+
+			if (current == null) continue;
+
+            GD.Print("current: " + current.getTilePosString());
+            GD.Print("origin:  " + n.getTilePosString());
+
+            // .Equals hat nicht funktioniert
+            if (this.neighbours[i] != null && current.getTilePosX() == n.getTilePosX() && current.getTilePosY() == n.getTilePosY())
+			{
+                GD.Print("neighbour " + this.neighbours[i].getTilePosString() + " removed from " + this.getTilePosString());
+                this.neighbours[i] = null;
+                return;
+            }
+		}
+    }
+
+	public void clearNeighbours()
+	{
+		// clear connection from neighbours to this
+		foreach (GraphNode n in this.getNeighboursUnsorted())
+		{
+			foreach (GraphNode n2 in n.getNeighboursUnsorted())
+			{
+                // if n2 == this, remove it
+                if (n2.Equals(this)) n2.removeNeighbour(this);
+            }
+		}
+
+        this.neighbours = new GraphNode[6];
+    }
 
 	// gibt nur die existierenden Nachbarn mit der TileRelation zurück
 	// für Algorithmen
