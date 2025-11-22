@@ -194,13 +194,10 @@ public partial class GraphNode : Node3D
 
             GD.Print("current: " + current.getTilePosString());
             GD.Print("origin:  " + n.getTilePosString());
-
-            // .Equals hat nicht funktioniert
-            if (this.neighbours[i] != null && current.getTilePosX() == n.getTilePosX() && current.getTilePosY() == n.getTilePosY())
+            if (current.getTilePosX().Equals(n.getTilePosX()) && current.getTilePosY().Equals(n.getTilePosY()))
 			{
-                GD.Print("neighbour " + this.neighbours[i].getTilePosString() + " removed from " + this.getTilePosString());
+				GD.Print("neighbour " + this.neighbours[i].getTilePosString() + " removed from " + this.getTilePosString());
                 this.neighbours[i] = null;
-                return;
             }
 		}
     }
