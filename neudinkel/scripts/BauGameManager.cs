@@ -103,8 +103,11 @@ public partial class BauGameManager : GameManager
 
 	public void onChangeStreetType(int newStreetType)
 	{
-		// add nodes
-		foreach (GraphNode n in this.selectedNodes)
+		// if no tiles selected, => bug fix
+		if (this.selectedNodes.Count == 0) return;
+
+        // add nodes
+        foreach (GraphNode n in this.selectedNodes)
 		{
 			if (this.graph.getNode(n) == null) this.graph.addNode(n);
 		}
@@ -112,6 +115,14 @@ public partial class BauGameManager : GameManager
 		// add relations
 		foreach (GraphNode n1 in this.selectedNodes)
 		{
+            // if "make empty"
+            if (newStreetType == (int) StreetType.EMPTY)
+			{
+                // skip all, remove all neighbours
+                n1.clearNeighbours();
+                continue;
+            }
+
 			foreach (GraphNode n2 in this.selectedNodes)
 			{
 				// if its a neighbour
@@ -125,12 +136,11 @@ public partial class BauGameManager : GameManager
 			}
 		}
 
-		foreach (GraphNode n in this.graph.getNodes())
-		{
-			n.setStreetType((StreetType)newStreetType);
-		}
+		// erst alle streetTypes setzen, dann alle models updaten, um verwirrung zu vermeiden
+		foreach (GraphNode n in this.selectedNodes) n.setStreetType((StreetType)newStreetType);
+		foreach(GraphNode n in this.selectedNodes) n.updateModel();
 
-		// deselect all
-		onTileSelected(new int[] { -10000, -10000 });
+        // deselect all
+        onTileSelected(new int[] { -10000, -10000 });
 	}
 }

@@ -21,6 +21,7 @@ public enum StreetType
 	//und mit Typecasts abrufen (int)type gibt den int oder falls nötig (StreetType)int
 	//den typ nach kosten 
 	//Probleme enstehen wenn man paare casted die nicht enthalten sind
+	EMPTY = 0,
 	AUTOBAHN = 1,
 	LANSTRASSE = 2,
 	FELDWEG = 3,
@@ -89,17 +90,38 @@ public partial class GraphNode : Node3D
 			}
 		}
 
-		if (connections.Count == 0)
+        // GD.Print(this.getTilePosString() + " has nei: " + connections.Count);
+        // string s = this.getTilePosString() + " has neis: [";
+
+		// foreach (GraphNode n in this.neighbours) if (n != null) s += "(" + n.getTilePosString() + "), ";
+
+        // s += "]";
+        // GD.Print(s);
+
+        if (connections.Count == 0)
 		{
 			tile = getEmptyTile();
 		}
 		else if (connections.Count != 2)
 		{
-			tile = getCityTile(connections.Count + 3);
+            int c = connections.Count < 2 ? 3 : 0;
+
+            tile = getCityTile(connections.Count + c);
 		}
 		else
 		{
-			tile = getStreetTile(connections[0], connections[1]);
+            StreetType streetType = StreetType.EMPTY;
+            bool isDifferentStreetType = false;
+
+            foreach (GraphNode n in this.neighbours)
+			{
+				if (n == null) continue;
+                if ((int) streetType != 0 && (int) streetType != (int) n.getStreetType()) isDifferentStreetType = true;
+                streetType = n.getStreetType();
+            }
+
+			// TODO idk
+            tile = isDifferentStreetType ? getCityTile(3) : getStreetTile(connections[0], connections[1]);
 		}
 
 		AddChild(tile);
@@ -177,6 +199,36 @@ public partial class GraphNode : Node3D
 			GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
 	}
 
+	public void removeNeighbour(GraphNode n)
+	{
+        for (int i = 0; i < this.neighbours.Length; i++)
+		{
+            GraphNode current = this.neighbours[i];
+
+			if (current == null) continue;
+
+            // GD.Print(this.getTilePosString() + ": current = " + current.getTilePosString() + ", origin=" + n.getTilePosString());
+            if (current.getTilePosX().Equals(n.getTilePosX()) && current.getTilePosY().Equals(n.getTilePosY()))
+			{
+				GD.Print("neighbour " + this.neighbours[i].getTilePosString() + " removed from " + this.getTilePosString());
+                this.neighbours[i] = null;
+            }
+		}
+
+        updateModel();
+    }
+
+	public void clearNeighbours()
+	{
+		// clear connection from neighbours to this
+		foreach (GraphNode n in this.getNeighboursUnsorted())
+		{
+            n.removeNeighbour(this);
+        }
+
+        this.neighbours = new GraphNode[6];
+    }
+
 	// gibt nur die existierenden Nachbarn mit der TileRelation zurück
 	// für Algorithmen
 	public GraphNode[] getNeighboursUnsorted()
@@ -207,8 +259,7 @@ public partial class GraphNode : Node3D
 
 	public void setStreetType(StreetType t)
 	{
-		this.streetType = t;
-		updateModel();
+		this.streetType = t; // updateMode() in BauGameManager
 	}
 
 	///<summary>
