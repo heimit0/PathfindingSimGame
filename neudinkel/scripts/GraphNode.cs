@@ -90,7 +90,13 @@ public partial class GraphNode : Node3D
 			}
 		}
 
-        GD.Print(this.getTilePosString() + " has nei: " + connections.Count);
+        // GD.Print(this.getTilePosString() + " has nei: " + connections.Count);
+        // string s = this.getTilePosString() + " has neis: [";
+
+		// foreach (GraphNode n in this.neighbours) if (n != null) s += "(" + n.getTilePosString() + "), ";
+
+        // s += "]";
+        // GD.Print(s);
 
         if (connections.Count == 0)
 		{
@@ -104,7 +110,18 @@ public partial class GraphNode : Node3D
 		}
 		else
 		{
-			tile = getStreetTile(connections[0], connections[1]);
+            StreetType streetType = StreetType.EMPTY;
+            bool isDifferentStreetType = false;
+
+            foreach (GraphNode n in this.neighbours)
+			{
+				if (n == null) continue;
+                if ((int) streetType != 0 && (int) streetType != (int) n.getStreetType()) isDifferentStreetType = true;
+                streetType = n.getStreetType();
+            }
+
+			// TODO idk
+            tile = isDifferentStreetType ? getCityTile(3) : getStreetTile(connections[0], connections[1]);
 		}
 
 		AddChild(tile);
@@ -184,22 +201,21 @@ public partial class GraphNode : Node3D
 
 	public void removeNeighbour(GraphNode n)
 	{
-        GD.Print("trying to remove neighbour");
-
         for (int i = 0; i < this.neighbours.Length; i++)
 		{
             GraphNode current = this.neighbours[i];
 
 			if (current == null) continue;
 
-            GD.Print("current: " + current.getTilePosString());
-            GD.Print("origin:  " + n.getTilePosString());
+            // GD.Print(this.getTilePosString() + ": current = " + current.getTilePosString() + ", origin=" + n.getTilePosString());
             if (current.getTilePosX().Equals(n.getTilePosX()) && current.getTilePosY().Equals(n.getTilePosY()))
 			{
 				GD.Print("neighbour " + this.neighbours[i].getTilePosString() + " removed from " + this.getTilePosString());
                 this.neighbours[i] = null;
             }
 		}
+
+        updateModel();
     }
 
 	public void clearNeighbours()
@@ -207,12 +223,8 @@ public partial class GraphNode : Node3D
 		// clear connection from neighbours to this
 		foreach (GraphNode n in this.getNeighboursUnsorted())
 		{
-			foreach (GraphNode n2 in n.getNeighboursUnsorted())
-			{
-                // if n2 == this, remove it
-                if (n2.Equals(this)) n2.removeNeighbour(this);
-            }
-		}
+            n.removeNeighbour(this);
+        }
 
         this.neighbours = new GraphNode[6];
     }
@@ -247,8 +259,7 @@ public partial class GraphNode : Node3D
 
 	public void setStreetType(StreetType t)
 	{
-		this.streetType = t;
-		updateModel();
+		this.streetType = t; // updateMode() in BauGameManager
 	}
 
 	///<summary>

@@ -136,12 +136,11 @@ public partial class BauGameManager : GameManager
 			}
 		}
 
-		foreach (GraphNode n in this.graph.getNodes())
-		{
-			n.setStreetType((StreetType)newStreetType);
-		}
+		// erst alle streetTypes setzen, dann alle models updaten, um verwirrung zu vermeiden
+		foreach (GraphNode n in this.selectedNodes) n.setStreetType((StreetType)newStreetType);
+		foreach(GraphNode n in this.selectedNodes) n.updateModel();
 
-		// deselect all
-		onTileSelected(new int[] { -10000, -10000 });
+        // deselect all
+        onTileSelected(new int[] { -10000, -10000 });
 	}
 }

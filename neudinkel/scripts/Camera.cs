@@ -49,7 +49,7 @@ public partial class Camera : Camera3D
 				float castDistance = this.Position.Y / ray.Y;
 				Vector3 nullPos = this.Position - ray * castDistance;
 				int[] tilePos = GraphNode.convertPosToTilePos(nullPos);
-				GD.Print("Tile selected: [" + tilePos[0] + ", " + tilePos[1] + "]");
+				// GD.Print("Tile selected: [" + tilePos[0] + ", " + tilePos[1] + "]");
 
 				GameManager gameManager = GetNode<GameManager>("/root/Node3D");
 				gameManager.EmitSignal("TileSelected", tilePos);
