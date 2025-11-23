@@ -51,13 +51,13 @@ public partial class SimulationGameManager : GameManager
 		if (this.isSimulationAutomatic) GD.Print("isSimulationAutomatic is now: false");
 		this.isSimulationAutomatic = false;
 
-		doSearchForwardHelper();
+		doSearchForwardHelper(step);
 
 		// EmitSignal(SignalName.UpdateUIPseudoCode, nextStep);
 	}
 
 	// NICHT DAS SIGNAL, extra funktion für abstraktion
-	public void doSearchForwardHelper()
+	public void doSearchForwardHelper(bool step)
 	{
 		if (this.currentAlgorithm.currentStep == -1)
 		{
@@ -73,7 +73,7 @@ public partial class SimulationGameManager : GameManager
 		textBoxBox.highlightCurrentStep(this.currentAlgorithm.currentStep);
 
 		GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
-		int nextStep = this.currentAlgorithm.doSearchStep();
+		int nextStep = step ? this.currentAlgorithm.doSearchStep() : this.currentAlgorithm.doSearchForward();
 
 		textBoxBox.highlightNextStep(nextStep);
 	}
@@ -84,7 +84,7 @@ public partial class SimulationGameManager : GameManager
 	{
 		while (isSimulationAutomatic)
 		{
-			doSearchForwardHelper();
+			doSearchForwardHelper(true);
 
 			// wait
 			// TODO: evtl geschwindikeits-berechnung ändern
