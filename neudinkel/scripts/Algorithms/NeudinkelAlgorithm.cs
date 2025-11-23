@@ -37,6 +37,8 @@ public abstract class NeudinkelAlgorithm
 	public Func<Graph, int>[] steps; // gibt den nächsten schritt zurück
 	public (int stepIndex, string content)[] pseudoCodeSteps; // mappt von einem index aus den steps auf den pseudocode
 	public int currentStep { get; set; }
+	// der breakpoint für die forward taste
+	public int breakpoint;
 
 
 	/*
@@ -79,6 +81,18 @@ public abstract class NeudinkelAlgorithm
 		{
 			GD.Print("Es konnte kein Pfad gefunden werden!");
 		}
+
+		return currentStep;
+	}
+
+	/// <summary>
+	/// Fuehrt Einzelschritte aus bis der im Code festgelegte Breakpoint erreicht ist.
+	/// </summary>
+	public int doSearchForward()
+	{
+		do
+			doSearchStep();
+		while (currentStep != breakpoint && currentStep >= 0);
 
 		return currentStep;
 	}
