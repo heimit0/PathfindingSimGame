@@ -48,7 +48,7 @@ OutlineMaterial = SubResource("ShaderMaterial_0prej")
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Autobahn
-Kosten: 10"
+Kosten: 1"
 texture_normal = ExtResource("2_bn8a6")
 ignore_texture_size = true
 stretch_mode = 0
@@ -57,7 +57,7 @@ stretch_mode = 0
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Landstraße
-Kosten: 5"
+Kosten: 2"
 texture_normal = ExtResource("5_sbvyt")
 ignore_texture_size = true
 stretch_mode = 0
@@ -66,7 +66,7 @@ stretch_mode = 0
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Feldweg
-Kosten: 1"
+Kosten: 3"
 texture_normal = ExtResource("6_axwq4")
 ignore_texture_size = true
 stretch_mode = 0
@@ -75,7 +75,7 @@ stretch_mode = 0
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Sandweg
-Kosten: 1"
+Kosten: 4"
 texture_normal = ExtResource("7_uq815")
 ignore_texture_size = true
 stretch_mode = 0
@@ -83,7 +83,7 @@ stretch_mode = 0
 [node name="Leer" type="TextureButton" parent="Baumodus/UI/Strasentypen"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-tooltip_text = "Leer"
+tooltip_text = "Setzt markierte Strasen auf leer zurueck"
 texture_normal = ExtResource("5_0prej")
 ignore_texture_size = true
 stretch_mode = 0
