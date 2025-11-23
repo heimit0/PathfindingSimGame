@@ -94,13 +94,18 @@ public partial class SimulationGameManager : GameManager
 
 	public void onSetIsSimulationAutomatic(bool isSimulationAutomatic)
 	{
-		this.isSimulationAutomatic = isSimulationAutomatic;
-		GD.Print("isSimulationAutomatic is now: " + this.isSimulationAutomatic.ToString());
-
+		// muessen wir so schreiben, sonst starten wir die Schleife mehrfach
 		if (isSimulationAutomatic)
 		{
-			executeAutomaticAlgorithmStepsAsync();
+			if (!this.isSimulationAutomatic)
+			{
+				this.isSimulationAutomatic = true;
+				executeAutomaticAlgorithmStepsAsync();
+			}
+		} else {
+			this.isSimulationAutomatic = false;
 		}
+		GD.Print("isSimulationAutomatic is now: " + this.isSimulationAutomatic.ToString());
 	}
 
 	// start immer alles neu
