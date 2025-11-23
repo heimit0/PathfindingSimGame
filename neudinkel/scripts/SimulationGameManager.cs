@@ -33,7 +33,7 @@ public partial class SimulationGameManager : GameManager
 
 	public override void _Ready()
 	{
-		prepScene();
+		prepScene("baumodus_save");
 
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;

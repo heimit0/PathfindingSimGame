@@ -107,22 +107,29 @@ public partial class GraphNode : Node3D
             int c = connections.Count < 2 ? 3 : 0;
 
             tile = getCityTile(connections.Count + c);
-		}
+        }
 		else
 		{
-            StreetType streetType = StreetType.EMPTY;
-            bool isDifferentStreetType = false;
+            // StreetType streetType = StreetType.EMPTY;
+            // bool isDifferentStreetType = false;
 
-            foreach (GraphNode n in this.neighbours)
-			{
-				if (n == null) continue;
-                if ((int) streetType != 0 && (int) streetType != (int) n.getStreetType()) isDifferentStreetType = true;
-                streetType = n.getStreetType();
-            }
+            // foreach (GraphNode n in this.getNeighboursUnsorted())
+            // {
+            // 	if (n == null) continue;
+            //     if ((int)streetType != 0 && (int)streetType != (int)n.getStreetType())
+            //     {
+            //         isDifferentStreetType = true;
+            //         GD.Print("diff street type: " + (int) streetType + ", " + (int) n.getStreetType());
+            //         GD.Print(this.getTilePosString() + " :: " + n.getTilePosString());
+            //     }
+            //     streetType = n.getStreetType();
+            // }
 
-			// TODO idk
-            tile = isDifferentStreetType ? getCityTile(3) : getStreetTile(connections[0], connections[1]);
-		}
+
+            // TODO idk
+            // tile = isDifferentStreetType ? getCityTile(3) : getStreetTile(connections[0], connections[1]);
+            tile = getStreetTile(connections[0], connections[1]);
+        }
 
 		AddChild(tile);
 	}
