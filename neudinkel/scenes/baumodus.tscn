@@ -118,11 +118,13 @@ offset_bottom = 614.0
 
 [node name="Start" type="Button" parent="Baumodus/UI/StartUndEndNode"]
 layout_mode = 2
+tooltip_text = "Setzt Startpunkt"
 disabled = true
 text = "Start"
 
 [node name="Ende" type="Button" parent="Baumodus/UI/StartUndEndNode"]
 layout_mode = 2
+tooltip_text = "Setzt Endpunkt"
 disabled = true
 text = "Ende"
 
