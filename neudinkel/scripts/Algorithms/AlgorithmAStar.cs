@@ -55,6 +55,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		this.currentNode = null;
 		this.goalNode = goalNode;
 
+		this.breakpoint = 5; /* addNodeToVisisted */
+
 		cameFrom = [];
 		totalCost = [];
 
