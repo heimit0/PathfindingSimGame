@@ -48,6 +48,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	{
 		unvisitedNodes = new PriorityQueue<GraphNode, float>();
 		unvisitedNodes.Enqueue(startNode, 0);
+		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, startNode, 0);
 
 		return currentStep + 1;
 	}
@@ -95,6 +96,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	{
 		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
 		currentNode = unvisitedNodes.Dequeue();
+		Events.Instance.EmitSignal(Events.SignalName.PopOpenQueue);
 		GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
 
 		visualize(g);
@@ -209,6 +211,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int addNeighbourToQueue(Graph g)
 	{
 		unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex], currentNeighbourCost);
+		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, currentNeighbours[currentNeighbourIndex], currentNeighbourCost);
 
 		currentNeighbourIndex++;
 		return 7;

@@ -116,6 +116,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	{
 		unvisitedNodes = new PriorityQueue<GraphNode, float>();
 		unvisitedNodes.Enqueue(startNode, heuristic(startNode));
+		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, startNode, heuristic(startNode));
 		GD.Print("A Star init!");
 
 		return currentStep + 1;
@@ -164,6 +165,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	{
 		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
 		currentNode = unvisitedNodes.Dequeue();
+		Events.Instance.EmitSignal(Events.SignalName.PopOpenQueue);
 		GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
 		currentDistance = totalCost[currentNode];
 
@@ -276,6 +278,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	private int updateNeighbourFScore(Graph g)
 	{
 		unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex], neighbourFScore);
+		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, currentNeighbours[currentNeighbourIndex], neighbourFScore);
 
 		currentNeighbourIndex++;
 		return 7; // checkIfNeighbourVisited-index

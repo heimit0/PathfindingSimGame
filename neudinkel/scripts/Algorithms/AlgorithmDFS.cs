@@ -51,7 +51,8 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	/* Schritt 3 */
 	public int enqueueStartNode(Graph g)
 	{
-		this.unvisitedNodes.Enqueue(this.startNode, 1);
+		this.unvisitedNodes.Enqueue(this.startNode, 0);
+		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, this.startNode, 0);
 		return this.currentStep + 1;
 	}
 
@@ -68,6 +69,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	public int getNodeFromQueue(Graph g)
 	{
 		this.currentNode = this.unvisitedNodes.Dequeue();
+		Events.Instance.EmitSignal(Events.SignalName.PopOpenQueue);
 		this.visualize(g);
 		return this.currentStep + 1;
 	}
@@ -118,7 +120,8 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	/* Schritt 8 */
 	public int enqueueNeighbour(Graph g)
 	{
-		this.unvisitedNodes.Enqueue(this.currentNeighbour, 1);
+		this.unvisitedNodes.Enqueue(this.currentNeighbour, 0);
+		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, this.currentNeighbour, 0);
 		this.cameFrom.Add(currentNeighbour, currentNode);
 		return this.currentStep + 1;
 	}
