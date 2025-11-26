@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://mkk1cd41mlpr"]
+[gd_scene load_steps=10 format=3 uid="uid://mkk1cd41mlpr"]
 
 [ext_resource type="Script" uid="uid://cxoox5vn5nmqm" path="res://scripts/SimulationGameManager.cs" id="1_5p374"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_5p374"]
+[ext_resource type="Script" uid="uid://dvdhi6nlj2t8q" path="res://scripts/OpenQueueList.cs" id="3_7whdq"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_rdpdv"]
 [ext_resource type="Texture2D" uid="uid://brl867djglgi3" path="res://assets/ui_icons/play.svg" id="4_7whdq"]
 [ext_resource type="Texture2D" uid="uid://dg21qqgbbnxyt" path="res://assets/ui_icons/step.svg" id="5_ud2kt"]
@@ -82,6 +83,20 @@ scale = Vector2(1, 1.00162)
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 scroll_active = false
 script = ExtResource("2_5p374")
+
+[node name="Info" type="Panel" parent="Simulationsmodus/UI"]
+offset_left = 912.0
+offset_top = 144.0
+offset_right = 1136.0
+offset_bottom = 544.0
+
+[node name="ItemList" type="ItemList" parent="Simulationsmodus/UI/Info"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 208.0
+offset_bottom = 384.0
+script = ExtResource("3_7whdq")
 
 [node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus"]
 layout_mode = 1
