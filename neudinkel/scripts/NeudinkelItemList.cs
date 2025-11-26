@@ -11,8 +11,12 @@ public partial class NeudinkelItemList : ItemList
 	{
 		int addedIndex;
 		
-		if (index > this.ItemCount)
+		if (--index > this.ItemCount)
+		{
+			GD.Print("NeudinkelItemList.InsertItem: Sinnloser Index " + index);
 			return;
+		}
+
 		addedIndex = this.AddItem(text, icon, selectable);
 		this.MoveItem(addedIndex, index);
 		
