@@ -13,16 +13,12 @@ public partial class OpenQueueList : NeudinkelItemList
 
 	public override void _Ready()
 	{
-		SimulationGameManager gm;
-
 		this.items = new List<(float, List<GraphNode>)>();
 		// Ensure no one can mess this up
 		this.MaxColumns = 3;
 
-		// FIXME: Hack und so
-		gm = GetNode<SimulationGameManager>("/root/Node3D");
-		gm.PushOpenQueue += onPushOpenQueue;
-		gm.PopOpenQueue += onPopOpenQueue;
+		Events.Instance.PushOpenQueue += onPushOpenQueue;
+		Events.Instance.PopOpenQueue += onPopOpenQueue;
 	}
 
 	public void onPushOpenQueue(GraphNode node, float prio)
@@ -30,7 +26,7 @@ public partial class OpenQueueList : NeudinkelItemList
 		List <GraphNode> list = null;
 		(float, List<GraphNode>) newPrio;
 		int newIndex = 0;
-		
+
 		foreach ((float _prio, List<GraphNode> _list) in this.items)
 		{
 			newIndex += _list.Count;
@@ -65,9 +61,9 @@ public partial class OpenQueueList : NeudinkelItemList
 		{
 			list.Add(node);
 		}
-		this.InsertItem(newIndex    , "a", null, false);
-		this.InsertItem(newIndex + 1, "b", null, false);
-		this.InsertItem(newIndex + 2, "c", null, false);
+		this.InsertItem(newIndex    , node.getTilePosX().ToString(), null, false);
+		this.InsertItem(newIndex + 1, node.getTilePosX().ToString(), null, false);
+		this.InsertItem(newIndex + 2, prio.ToString(), null, false);
 	}
 
 	public void onPopOpenQueue()
@@ -76,7 +72,7 @@ public partial class OpenQueueList : NeudinkelItemList
 		{
 			this.items[0].Item2.RemoveAt(0);
 			// Don't keep empty lists around
-			if (this.items[0].Item2.Count == 0) this.items[0].Item2.RemoveAt(0);
+			if (this.items[0].Item2.Count == 0) this.items.RemoveAt(0);
 			// Update UI accordingly
 			this.RemoveItem(0);
 			this.RemoveItem(0);
