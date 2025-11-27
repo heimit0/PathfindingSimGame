@@ -1,4 +1,4 @@
-hsing Godot;
+using Godot;
 using System;
 
 public partial class LevelLoadList : NeudinkelItemList
@@ -16,9 +16,9 @@ public partial class LevelLoadList : NeudinkelItemList
 		string fname;
 		DirAccess dir;
 
-		if (!DirAccess.DirExists(path))
+		if (!DirAccess.DirExistsAbsolute(path))
 		{
-			DirAccess.MakeDir(path);
+			DirAccess.MakeDirAbsolute(path);
 			return;
 		}
 
@@ -26,6 +26,7 @@ public partial class LevelLoadList : NeudinkelItemList
 
 		/* TODO: No error handling :( */
 		dir.ListDirBegin();
+		fname = dir.GetNext();
 		while (fname != "")
 		{
 			/* there should be no directories in here. if there are: oops. */
