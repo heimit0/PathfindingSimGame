@@ -77,8 +77,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 			/* 14 */ updateNeighbourFScore
 		};
 
-		int[] x = new int[] { };
-
 		this.pseudoCodeSteps = new[] {
 			( 0, "unvisited = PriorityQueue; // (node, priority)"),
 			( 0, "unvisited.add(startNode, heuristic(startNode));"),
@@ -114,7 +112,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	{
 		unvisitedNodes = new PriorityQueue<GraphNode, float>();
 		unvisitedNodes.Enqueue(startNode, heuristic(startNode));
-		GD.Print("A Star init!");
+		GD.Print("A Star innit!");
 
 		return currentStep + 1;
 	}
@@ -133,7 +131,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	// außer für die Startnode
 	private int initCosts(Graph g)
 	{
-		foreach (GraphNode node in graph.getNodes())
+		foreach (GraphNode node in graph.getCities())
 		{
 			totalCost[node] = float.MaxValue;
 		}
@@ -186,7 +184,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 			return -1; // pfad gefunden
 		}
 
-		currentNeighbours = currentNode.getNeighboursUnsorted();
+		// get next Knoten
+		currentNeighbours = currentNode.getNeighbouringCities();
 
 		foreach (GraphNode n in currentNeighbours)
 		{
@@ -287,9 +286,20 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 
 	private float edgeCost(GraphNode from, GraphNode to)
 	{
-		// Verwendet den Kantentyp des Zielpunkts als Kosten
-		// Alternativ: Graph sollte Kantenwerte speichern
-		return (float)to.getStreetType();
+		// falls to = direkter Nachbar
+		foreach (GraphNode n in from.getNeighboursUnsorted())
+		{
+			if (n.Equals(to)) return (float) to.getStreetType();
+		}
+
+		float cost = 0.0f;
+
+		foreach (GraphNode n in from.getPathToNeighbouringCity(to))
+		{
+			cost += (float) n.getStreetType();
+		}
+
+		return cost;
 	}
 
 	private float getDistanceNodes(GraphNode node1, GraphNode node2)

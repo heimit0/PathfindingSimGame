@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Collections;
 using System.Text.Json.Nodes;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 /*
 	TODO:
@@ -186,6 +187,19 @@ public partial class Graph : Node3D
         output += "]}";
         saveFile.StoreString(output);
         saveFile.Close();
+    }
+
+    // get Knoten
+    public GraphNode[] getCities()
+    {
+        List<GraphNode> cities = new List<GraphNode>();
+
+        foreach (GraphNode n in this.nodes)
+        {
+            if (n.getNeighboursUnsorted().Length > 2) cities.Add(n);
+        }
+
+        return cities.ToArray();
     }
 
     public void addNode(GraphNode node)
