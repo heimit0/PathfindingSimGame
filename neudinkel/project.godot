@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Neudinkel"
-run/main_scene="uid://hvtom2atj5ak"
+run/main_scene="uid://cja2otsjks3ig"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cja2otsjks3ig"]
+[gd_scene load_steps=16 format=3 uid="uid://cja2otsjks3ig"]
 
 [ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/BauGameManager.cs" id="1_sfl2l"]
 [ext_resource type="Texture2D" uid="uid://ctx4brr3q6rko" path="res://assets/ui_icons/tile_highway.png" id="2_bn8a6"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://cxw25x0gyjoo8" path="res://assets/ui_icons/tile_sandpath.png" id="7_uq815"]
 [ext_resource type="StyleBox" uid="uid://bi4osf3vsswdh" path="res://assets/ui_presets/menu_button_hover.tres" id="8_ae4ts"]
 [ext_resource type="StyleBox" uid="uid://qhm8qgtfl1y" path="res://assets/ui_presets/menu_button_focus.tres" id="9_sbvyt"]
+[ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="13_axwq4"]
+[ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="14_uq815"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0prej"]
 shader = ExtResource("2_yojgw")
@@ -134,3 +136,23 @@ text = "Ende"
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Sandweg" to="." method="onChangeStreetType" binds= [4]]
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Leer" to="." method="onChangeStreetType" binds= [0]]
 [connection signal="pressed" from="Baumodus/UI/BauModusBox/Baumodus" to="." method="onChangeToSimulationMode"]
+[node name="ToggleButtonBox" type="HBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+alignment = 1
+script = ExtResource("14_uq815")
+toggleButtonPath = NodePath("TextureButton")
+
+[node name="TextureButton" type="TextureButton" parent="ToggleButtonBox"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("13_axwq4")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="pressed" from="ToggleButtonBox/TextureButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]

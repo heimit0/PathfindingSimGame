@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [gd_scene load_steps=10 format=3 uid="uid://mkk1cd41mlpr"]
+=======
+[gd_scene load_steps=11 format=3 uid="uid://mkk1cd41mlpr"]
+>>>>>>> d1adca0 (SlideDownMenu für beide Modi implementiert und UI Ein-/Ausblenden dynamisch gemacht für beide Modi)
 
 [ext_resource type="Script" uid="uid://cxoox5vn5nmqm" path="res://scripts/SimulationGameManager.cs" id="1_5p374"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_5p374"]
@@ -9,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://dg21qqgbbnxyt" path="res://assets/ui_icons/step.svg" id="5_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://nn71yaibgw8f" path="res://assets/ui_icons/iterate.svg" id="6_k7vyk"]
 [ext_resource type="Texture2D" uid="uid://ymvtaea43a6k" path="res://assets/ui_icons/restart.svg" id="7_lrh4w"]
+[ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="8_ud2kt"]
+[ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="9_k7vyk"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_85scv"]
 
@@ -85,6 +91,7 @@ theme_override_colors/default_color = Color(1, 1, 1, 1)
 scroll_active = false
 script = ExtResource("2_5p374")
 
+<<<<<<< HEAD
 [node name="Info" type="Panel" parent="Simulationsmodus/UI"]
 offset_left = 912.0
 offset_top = 144.0
@@ -101,21 +108,24 @@ script = ExtResource("3_7whdq")
 
 [node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus"]
 layout_mode = 1
+=======
+[node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus/UI"]
+>>>>>>> d1adca0 (SlideDownMenu für beide Modi implementiert und UI Ein-/Ausblenden dynamisch gemacht für beide Modi)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -236.0
-offset_top = 15.0
-offset_right = -20.0
-offset_bottom = 106.0
+offset_left = -240.0
+offset_top = 12.0
+offset_right = -24.0
+offset_bottom = 125.0
 grow_horizontal = 0
 theme = ExtResource("3_rdpdv")
 theme_override_constants/separation = 5
 
-[node name="ObenRechts" type="HBoxContainer" parent="Simulationsmodus/ButtonsTopRight"]
+[node name="ObenRechts" type="HBoxContainer" parent="Simulationsmodus/UI/ButtonsTopRight"]
 layout_mode = 2
 
-[node name="SimulierenUndBauenWechseln" type="Button" parent="Simulationsmodus/ButtonsTopRight/ObenRechts"]
+[node name="SimulierenUndBauenWechseln" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ObenRechts"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Wechselt zwischen Baumodus und Simulationsmodus"
@@ -124,13 +134,13 @@ toggle_mode = true
 text = "Baumodus"
 script = ExtResource("4_ud2kt")
 
-[node name="ButtonsStep" type="HBoxContainer" parent="Simulationsmodus/ButtonsTopRight"]
+[node name="ButtonsStep" type="HBoxContainer" parent="Simulationsmodus/UI/ButtonsTopRight"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 17
 
-[node name="AutoStep" type="Button" parent="Simulationsmodus/ButtonsTopRight/ButtonsStep"]
+[node name="AutoStep" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Play"
@@ -139,7 +149,7 @@ theme_override_font_sizes/font_size = 30
 icon = ExtResource("4_7whdq")
 icon_alignment = 1
 
-[node name="NextSearchStepButton" type="Button" parent="Simulationsmodus/ButtonsTopRight/ButtonsStep"]
+[node name="NextSearchStepButton" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "gehe einen Schritt"
@@ -147,7 +157,7 @@ theme_override_constants/icon_max_width = 35
 theme_override_font_sizes/font_size = 30
 icon = ExtResource("5_ud2kt")
 
-[node name="IterateButton" type="Button" parent="Simulationsmodus/ButtonsTopRight/ButtonsStep"]
+[node name="IterateButton" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "gehe eine Iteration"
@@ -157,7 +167,7 @@ text = "
 "
 icon = ExtResource("6_k7vyk")
 
-[node name="RestartSimulation" type="Button" parent="Simulationsmodus/ButtonsTopRight/ButtonsStep"]
+[node name="RestartSimulation" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Starte neu"
@@ -167,11 +177,39 @@ text = "
 "
 icon = ExtResource("7_lrh4w")
 
+[node name="ToggleButtonBox" type="HBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+alignment = 1
+script = ExtResource("8_ud2kt")
+toggleButtonPath = NodePath("TextureButton")
+
+[node name="TextureButton" type="TextureButton" parent="ToggleButtonBox"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("9_k7vyk")
+ignore_texture_size = true
+stretch_mode = 5
+
 [connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
 [connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
 [connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
+<<<<<<< HEAD
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="Simulationsmodus/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" method="_on_simulationsmodus_pressed"]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/NextSearchStepButton" to="." method="onDoSearchForward" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/IterateButton" to="." method="onDoSearchForward" binds= [false]]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/RestartSimulation" to="." method="onInitOrChangeAlgorithm" binds= [-1]]
+=======
+[connection signal="toggled" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onToggleGamePhase"]
+[connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]
+[connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/NextSearchStepButton" to="." method="onDoSearchForward" binds= [true]]
+[connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/IterateButton" to="." method="onDoSearchForward" binds= [false]]
+[connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/RestartSimulation" to="." method="onInitOrChangeAlgorithm" binds= [-1]]
+[connection signal="pressed" from="ToggleButtonBox/TextureButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]
+>>>>>>> d1adca0 (SlideDownMenu für beide Modi implementiert und UI Ein-/Ausblenden dynamisch gemacht für beide Modi)
