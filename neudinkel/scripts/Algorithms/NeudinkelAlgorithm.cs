@@ -25,6 +25,7 @@ public abstract class NeudinkelAlgorithm
     public GraphNode startNode { get; set; }
     public GraphNode goalNode { get; set; }
     public GraphNode currentNode { get; set; }
+	public GraphNode lastNode { get; set; }
     public Dictionary<GraphNode, GraphNode> cameFrom { get; set; }
 
 
@@ -109,7 +110,13 @@ public abstract class NeudinkelAlgorithm
 
         // 1. Schritt ignorieren
         if (currentNode == null) return;
+		currentNode.toggleHighlight(true);
 
-        currentNode.toggleHighlight(true);
+		if (lastNode == null) return;
+
+        foreach (GraphNode toHighlight in currentNode.getPathToNeighbouringCity(lastNode))
+		{
+			toHighlight.toggleHighlight(true);
+		}
     }
 }

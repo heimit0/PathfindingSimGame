@@ -159,6 +159,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	private int getBestNodeFromQueue(Graph g)
 	{
 		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
+		lastNode = currentNode;
 		currentNode = unvisitedNodes.Dequeue();
 		GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
 		currentDistance = totalCost[currentNode];
@@ -185,7 +186,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		}
 
 		// get next Knoten
-		currentNeighbours = currentNode.getNeighbouringCities();
+		currentNeighbours = currentNode.getNeighbouringCities(new List<GraphNode>());
 
 		foreach (GraphNode n in currentNeighbours)
 		{

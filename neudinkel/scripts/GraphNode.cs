@@ -193,18 +193,35 @@ public partial class GraphNode : Node3D
     }
 
     // get next Knoten (Knoten := neighbours > 2)
-    public GraphNode[] getNeighbouringCities()
+    public GraphNode[] getNeighbouringCities(List<GraphNode> _visitedNeighbours)
     {
         List<GraphNode> neighbouringCities = new List<GraphNode>();
+		List<GraphNode> visitedNeighbours = _visitedNeighbours;
 
-        foreach (GraphNode n in this.getNeighboursUnsorted())
+        foreach (GraphNode immediateNeighbour in this.getNeighboursUnsorted())
         {
+			if (visitedNeighbours.Contains(immediateNeighbour)) continue;
+			visitedNeighbours.Add(immediateNeighbour);
+
+			if (immediateNeighbour.getNeighboursUnsorted().Length > 2)
+			{
+				neighbouringCities.Add(immediateNeighbour);
+				continue;
+			}
+
             // gucke den anderen nachbar an und guck, ob er ein Knoten ist
-            if (!n.Equals(this)) neighbouringCities.Add(n.getNeighboursUnsorted().Length > 2 ? n : n.getNeighbouringCities()[0]);
+            foreach (GraphNode n in immediateNeighbour.getNeighboursUnsorted())
+            {
+                if (!n.Equals(this) && !visitedNeighbours.Contains(n) && n.getNeighboursUnsorted().Length > 2) neighbouringCities.Add(n);
+            }
+
+			GraphNode[] currentResult = immediateNeighbour.getNeighbouringCities(visitedNeighbours);
+			if (currentResult == null) continue;
+			
+			neighbouringCities.AddRange(currentResult);
         }
 
-        // ig es gibt keine city
-        return null;
+        return neighbouringCities.ToArray().Length > 0 ? neighbouringCities.ToArray() : null;
     }
 
     // Wir gehen davon aus, dass man weiß, dass es benachbarte Knoten gibt
@@ -215,7 +232,7 @@ public partial class GraphNode : Node3D
 
         foreach (GraphNode immediateNeighbour in this.getNeighboursUnsorted())
         {
-			path = [];
+            path = [];
             GraphNode origin = this;
             GraphNode current = immediateNeighbour;
 
@@ -233,11 +250,11 @@ public partial class GraphNode : Node3D
                 }
             }
 
-			// falls richtiger nächster knoten
-			if (current.Equals(goalNode)) return path.ToArray();
+            // falls richtiger nächster knoten
+            if (current.Equals(goalNode)) return path.ToArray();
         }
 
-		// sollte nicht passieren
+        // sollte nicht passieren
         return null;
     }
 
