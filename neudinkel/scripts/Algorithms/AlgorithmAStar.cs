@@ -158,6 +158,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	// um sie zu verarbeiten
 	private int getBestNodeFromQueue(Graph g)
 	{
+		GD.Print("step 4 pwease");
 		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
 		lastNode = currentNode;
 		currentNode = unvisitedNodes.Dequeue();
