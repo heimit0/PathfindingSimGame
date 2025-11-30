@@ -29,15 +29,17 @@ public abstract class NeudinkelAlgorithm
     public Dictionary<GraphNode, GraphNode> cameFrom { get; set; }
 
 
-    // noch nicht besuchte Nodes
-    public PriorityQueue<GraphNode, float> unvisitedNodes;
-    // bereits besuchte Nodes
-    public HashSet<GraphNode> visitedNodes;
-    // tatsächliche, bekannte Kosten pro Node zum Start
-    public Dictionary<GraphNode, float> distanceFromStart;
-    public Func<Graph, int>[] steps; // gibt den nächsten schritt zurück
-    public (int stepIndex, string content)[] pseudoCodeSteps; // mappt von einem index aus den steps auf den pseudocode
-    public int currentStep { get; set; }
+	// noch nicht besuchte Nodes
+	public PriorityQueue<GraphNode, float> unvisitedNodes;
+	// bereits besuchte Nodes
+	public HashSet<GraphNode> visitedNodes;
+	// tatsächliche, bekannte Kosten pro Node zum Start
+	public Dictionary<GraphNode, float> distanceFromStart;
+	public Func<Graph, int>[] steps; // gibt den nächsten schritt zurück
+	public (int stepIndex, string content)[] pseudoCodeSteps; // mappt von einem index aus den steps auf den pseudocode
+	public int currentStep { get; set; }
+	// der breakpoint für die forward taste
+	public int breakpoint;
 
 
     /*
@@ -84,14 +86,26 @@ public abstract class NeudinkelAlgorithm
         return currentStep;
     }
 
-    public new void visualize(Graph g)
-    {
-        // Zielweg anzeigen
-        if (currentStep == -1)
-        {
-            GD.Print("Showing best path...");
-            // erst alle ausschalten
-            foreach (GraphNode n in g.getNodes()) n.toggleHighlight(false);
+	/// <summary>
+	/// Fuehrt Einzelschritte aus bis der im Code festgelegte Breakpoint erreicht ist.
+	/// </summary>
+	public int doSearchForward()
+	{
+		do
+			doSearchStep();
+		while (currentStep != breakpoint && currentStep >= 0);
+
+		return currentStep;
+	}
+
+	public new void visualize(Graph g)
+	{
+		// Zielweg anzeigen
+		if (currentStep == -1)
+		{
+			GD.Print("Showing best path...");
+			// erst alle ausschalten
+			foreach (GraphNode n in g.getNodes()) n.toggleHighlight(false);
 
             GraphNode _currentNode = this.goalNode;
 

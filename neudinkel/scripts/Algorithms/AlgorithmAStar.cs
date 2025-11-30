@@ -55,6 +55,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		this.currentNode = null;
 		this.goalNode = goalNode;
 
+		this.breakpoint = 5; /* addNodeToVisisted */
+
 		cameFrom = [];
 		totalCost = [];
 
@@ -162,6 +164,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
 		lastNode = currentNode;
 		currentNode = unvisitedNodes.Dequeue();
+		Events.Instance.EmitSignal(Events.SignalName.PopOpenQueue);
 		GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
 		currentDistance = totalCost[currentNode];
 
@@ -275,6 +278,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	private int updateNeighbourFScore(Graph g)
 	{
 		unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex], neighbourFScore);
+		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, currentNeighbours[currentNeighbourIndex], neighbourFScore);
 
 		currentNeighbourIndex++;
 		return 7; // checkIfNeighbourVisited-index
