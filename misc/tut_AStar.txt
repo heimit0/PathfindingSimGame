@@ -1,0 +1,43 @@
+WAS IST A*?
+A* findet den kürzesten Pfad von Start zu Ziel. Er ist schlauer als Dijkstra,
+weil er eine Heuristik nutzt, die zum Ziel "schaut".
+
+BEWERTUNGSFUNKTION:
+Jeder Knoten bekommt einen Wert: f(n) = g(n) + h(n)
+
+  g(n) = tatsächliche Kosten vom Start bis hierher
+  h(n) = geschätzte Kosten von hier zum Ziel (Heuristik)
+  f(n) = geschätzte Gesamtkosten
+
+Der Knoten mit dem kleinsten f-Wert wird als nächstes untersucht.
+
+ALGORITHMUS:
+
+1. Initialisierung:
+   - Startknoten in Open-Liste
+   - g(start) = 0, f(start) = h(start)
+
+2. Hauptschleife (solange Open-Liste nicht leer):
+
+   a) Nimm Knoten mit kleinstem f-Wert aus Open-Liste
+
+   b) Ist es das Ziel? → Fertig! Rekonstruiere Pfad
+
+   c) Verschiebe Knoten in Closed-Liste
+
+   d) Für jeden Nachbarn:
+      - Überspringe wenn in Closed-Liste
+      - Berechne tentative_g = g(aktuell) + kosten(aktuell→nachbar)
+      - Falls Nachbar neu oder tentative_g besser:
+        * g(nachbar) = tentative_g
+        * h(nachbar) = heuristik(nachbar, ziel)
+        * f(nachbar) = g(nachbar) + h(nachbar)
+        * vorgänger(nachbar) = aktueller Knoten
+        * Füge zu Open-Liste hinzu
+
+3. Falls Open-Liste leer wird: Kein Pfad existiert
+
+HEURISTIKEN FÜR 2D-GITTER:
+
+Euklidische Distanz: √((x1-x2)² + (y1-y2)²)
+  → für diagonale Bewegung

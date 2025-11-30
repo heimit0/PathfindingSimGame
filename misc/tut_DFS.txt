@@ -1,0 +1,13 @@
+WAS IST DFS?
+Tiefensuche: Gehe so tief wie möglich, dann zurück (backtracking).
+Wie ein Labyrinth-Läufer mit Hand an der Wand.
+
+ALGORITHMUS
+
+1. Lege Startknoten auf Stack
+2. Solange Stack nicht leer:
+   a) Nimm obersten Knoten (pop)
+   b) Falls noch nicht besucht:
+      - Markiere als besucht
+      - Lege alle unbesuchten Nachbarn auf Stack
+3. Fertig

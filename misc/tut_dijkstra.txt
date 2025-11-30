@@ -1,0 +1,26 @@
+WAS IST DIJKSTRA?
+Findet den kürzesten Pfad vom Startknoten zu allen anderen Knoten.
+Funktioniert nur mit nicht-negativen Kantengewichten.
+
+ALGORITHMUS:
+
+1. Initialisierung:
+   - Distanz(start) = 0
+   - Distanz(alle anderen) = ∞
+   - Alle Knoten unbesucht
+   - Alle Knoten in Priority Queue
+
+2. Hauptschleife (solange unbesuchte Knoten existieren):
+
+   a) Wähle unbesuchten Knoten mit kleinster Distanz
+
+   b) Für jeden unbesuchten Nachbarn:
+      - neue_distanz = distanz(aktuell) + kantengewicht
+      - Falls neue_distanz < distanz(nachbar):
+        * distanz(nachbar) = neue_distanz
+        * vorgänger(nachbar) = aktueller Knoten
+        * Aktualisiere Priority Queue
+
+   c) Markiere aktuellen Knoten als besucht
+
+3. Fertig: Kürzeste Distanzen bekannt, Pfad über Vorgänger
