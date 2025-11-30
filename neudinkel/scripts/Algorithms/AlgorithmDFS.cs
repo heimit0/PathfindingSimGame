@@ -34,16 +34,22 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		};
 
 		this.pseudoCodeSteps = new[] {
-			(0,"Initialisiere Queue der unbesuchten Knoten"),
-			(1,"Initilialisiere List der besuchen Knoten"),
-			(2,"Füge den ersten Knoten in die Queue der unbesuchten Knoten hinzu"),
-			(3,"Wiederhole solange bis die Queue der unbesuchten Knoten leer ist"),
-			(4,"     Entnehme einen Knoten aus der Queue der unbesuchten Knoten"),
-			(5,"     Für jeden nachbarn des Knoten :"),
-			(6,"          Überprüfe ob der aktuelle Knoten der Zielknoten ist, wenn ja breche ab"),
-			(7,"          Falls der Knoten nicht in der Liste der besuchten Knoten ist:"),
-			(8,"          Füge ihn in die Liste der unbesuchten Knoten hinzu"),
-			(9,"    Füge den Knoten in die Liste der Besuchten Knoten hinzu")
+			( 0, "unbesuchteKnoten = new Stack()"),
+			( 1, "besuchteKnoten = new List()"),
+			( 2, "unbesuchteKnoten.push(startNode)"),
+			( 2, "while (!unbesuchteKnoten.isEmpty()):"),
+			( 3, "    current = unbesuchteKnoten.pop()"),
+			( 4, "    for (neighbor in current.neighbors):"),
+			( 5, "        if (neighbor == targetNode):"),
+			(-1, "            Weg zu Ziel gefunden"),
+			( 5, "        "),
+			( 6, "        if (!besuchteKnoten.contains(neighbor)):"),
+			( 7, "            unbesuchteKnoten.push(neighbor)"),
+			( 7, "            cameFrom[neighbor] = current"),
+			( 8, "            besuchteKnoten.add(neighbor)"),
+			( 4, "    "),
+			( 2, ""),
+			(-2, "Kein Weg gefunden")
 		};
 
 	}

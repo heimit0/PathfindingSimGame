@@ -65,47 +65,47 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 			/*  0 */ initUnvisitedNodes,
 			/*  1 */ initVisitedNodes,
 			/*  2 */ initCosts,
-			/*  3 */ checkIfOpenListIsEmpty,
-			/*  4 */ getBestNodeFromQueue,
-			/*  5 */ addNodeToVisited,
-			/*  6 */ checkIfGoal,
-			/*  7 */ neighbourForLoop,
-			/*  8 */ checkIfNeighbourVisited,
-			/*  9 */ calcTentativeG,
-			/* 10 */ checkIfTentativeIsBetter,
-			/* 11 */ updateNeighbourTotalCost,
-			/* 12 */ updateNeighbourCameFrom,
-			/* 13 */ calcNeighbourFScore,
-			/* 14 */ updateNeighbourFScore
+			/*  3 */ addStartNodeToQueue,
+			/*  4 */ checkIfOpenListIsEmpty,
+			/*  5 */ getBestNodeFromQueue,
+			/*  6 */ addNodeToVisited,
+			/*  7 */ checkIfGoal,
+			/*  8 */ neighbourForLoop,
+			/*  9 */ checkIfNeighbourVisited,
+			/* 10 */ calcTentativeG,
+			/* 11 */ checkIfTentativeIsBetter,
+			/* 12 */ updateNeighbourTotalCost,
+			/* 13 */ updateNeighbourCameFrom,
+			/* 14 */ calcNeighbourFScore,
+			/* 15 */ updateNeighbourFScore
 		};
 
 		this.pseudoCodeSteps = new[] {
-			( 0, "Initialisiere Priority Queue unbesuchte Knoten"),
-			( 0, "Initialisiere Liste der besuchten Knoten"),
-			( 0, "Füge Startknoten zu unbesuchten Knoten hinzu"),
-			( 1, "visited = empty list;"),
-			( 2, "Setzte den g Score aller Knoten auf \\U+221E"),
-			( 2, "Setzte den g Score des Startknoten auf 0"),
-			( 3, "Während die  Priority Queue nicht leer ist:"),
-			( 4, "     Entnehme den Knoten mit dem besten Wert aus der Queue der unbesuchten Knoten"),
-			( 5, "     Füge den Knoten zu der Liste der besuchten Knoten hinzu"),
-			( 6, "     Falls der Knoten der Zielknoten ist: "),
-			(-1, "        Beene die Suche"),
+			( 0, "unbesuchteKnoten = new PriorityQueue()"),
+			( 1, "besuchteKnoten = new List()"),
+			( 2, "gScore[all nodes] = \\U+221E"),
+			( 3, "unbesuchteKnoten.add(startNode)"),
+			( 3, "gScore[startNode] = 0"),
+			( 3, "while (!unbesuchteKnoten.isEmpty()):"),
+			( 4, "    current = unbesuchteKnoten.dequeue()"),
+			( 5, "    besuchteKnoten.add(current)"),
+			( 6, "    if (current == targetNode):"),
+			(-1, "        Weg zu Ziel gefunden"),
 			( 6, "    "),
-			( 7, "     Für jeden Nachbarn: "),
-			( 8, "          Falls der Nachbar bereits besucht wurde:"),
-			( 8, "               Überspringe diesen Nachbarn"),
+			( 7, "    for (neighbor in current.neighbors):"),
+			( 8, "        if (besuchteKnoten.contains(neighbor)):"),
+			( 8, "            continue"),
 			( 8, "        "),
-			( 9, "          Berechne den vorläufigen g Score des Nachbarn"),
-			(10, "          Falls der vorläufige g Score besser ist als der bisherige g Score des Nachbarn:"),
-			(11, "               Aktualisiere den g Score des Nachbarn"),
-			(12, "               Aktualisiere den Vorgänger des Nachbarn"),
-			(13, "               Berechne den f Score des Nachbarn"),
-			(14, "               Füge den Nachbarn zur Priority Queue hinzu"),
-			(10, "          "),
-			( 7, "     "),
+			( 9, "        tentativeGScore = gScore[current] + distance(current, neighbor)"),
+			(10, "        if (tentativeGScore < gScore[neighbor]):"),
+			(11, "            gScore[neighbor] = tentativeGScore"),
+			(12, "            cameFrom[neighbor] = current"),
+			(13, "            fScore[neighbor] = gScore[neighbor] + heuristic(neighbor, target)"),
+			(14, "            unbesuchteKnoten.add(neighbor, fScore[neighbor])"),
+			(10, "        "),
+			( 7, "    "),
 			( 3, ""),
-			(-2, "Ende: Kein Weg gefunden")
+			(-2, "Kein Weg gefunden")
 		};
 	}
 
@@ -114,7 +114,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	private int initUnvisitedNodes(Graph g)
 	{
 		unvisitedNodes = new PriorityQueue<GraphNode, float>();
-		unvisitedNodes.Enqueue(startNode, heuristic(startNode));
 		GD.Print("A Star innit!");
 
 		return currentStep + 1;
@@ -130,6 +129,13 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		return currentStep + 1;
 	}
 
+	private int addStartNodeToQueue(Graph g)
+	{
+		unvisitedNodes.Enqueue(startNode, heuristic(startNode));
+		totalCost[startNode] = 0f;
+		return currentStep + 1;
+	}
+
 	// die kosten (distanzen) für alle nodes werden am anfang auf unendlich gesetzt,
 	// außer für die Startnode
 	private int initCosts(Graph g)
@@ -138,8 +144,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		{
 			totalCost[node] = float.MaxValue;
 		}
-
-		totalCost[startNode] = 0f;
 
 		return currentStep + 1;
 	}
