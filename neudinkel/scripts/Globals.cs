@@ -11,7 +11,8 @@ public partial class Globals : Node
 	private static String path = "";
 
 	//variablen
-	public static string nextLevel;
+	public static string nextLevel; // Gibt mit welches lvl File geladen werden soll
+	public static GraphSearchAlgorithm pruefungsAlgorithmus; //Gibt mit welcher Algorithmus bei der Pruefung genutzt wird
 
 	//Persistente variablen
 	public static int progress;
