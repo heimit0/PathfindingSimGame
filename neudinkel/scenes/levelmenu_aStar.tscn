@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cfs40l745o8xx" path="res://scripts/ui_buttons/LevelmenuAStar.cs" id="1_33xbi"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_d8yyi"]
 
-[node name="Control" type="Control"]
+[node name="Control2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,4 +93,7 @@ theme = ExtResource("3_d8yyi")
 theme_override_font_sizes/font_size = 20
 text = "zurück"
 
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer2/level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer2/level2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer2/level3" to="." method="_on_level_3_pressed"]
 [connection signal="pressed" from="CanvasLayer/backButton" to="." method="_on_back_button_pressed"]
