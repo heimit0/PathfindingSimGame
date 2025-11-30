@@ -32,6 +32,20 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 			/*  8 */ enqueueNeighbour,
 			/*  9 */ markNeighbourVisited
 		};
+
+		this.pseudoCodeSteps = new[] {
+			(0,"Initialisiere Queue der unbesuchten Knoten"),
+			(1,"Initilialisiere List der besuchen Knoten"),
+			(2,"Füge den ersten Knoten in die Queue der unbesuchten Knoten hinzu"),
+			(3,"Wiederhole solange bis die Queue der unbesuchten Knoten leer ist"),
+			(4,"     Entnehme einen Knoten aus der Queue der unbesuchten Knoten"),
+			(5,"     Für jeden nachbarn des Knoten :"),
+			(6,"          Überprüfe ob der aktuelle Knoten der Zielknoten ist, wenn ja breche ab"),
+			(7,"          Falls der Knoten nicht in der Liste der besuchten Knoten ist:"),
+			(8,"          Füge ihn in die Liste der unbesuchten Knoten hinzu"),
+			(9,"    Füge den Knoten in die Liste der Besuchten Knoten hinzu")
+		};
+
 	}
 
 	/* Schritt 1 */

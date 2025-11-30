@@ -25,18 +25,41 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 			/*  0 */ initUnvisitedNodes,
 			/*  1 */ initVisitedNodes,
 			/*  2 */ initCosts,
-			/*  3 */ checkIfOpenListIsEmpty,
-			/*  4 */ getBestNodeFromQueue,
-			/*  5 */ addNodeToVisited,
-			/*  6 */ checkIfGoal,
-			/*  7 */ calculteDistance,
-			/*  8 */ checkIfDistanceIsKnown,
-			/*  9 */ checkForBetterDistance,
-			/* 10 */ updateNeighbourCost,
-			/* 11 */ updateNeighbourCameFrom,
-			/* 12 */ addNeighbourParent,
-			/* 13 */ addNeighbourCost,
-			/* 14 */ addNeighbourToQueue
+			/*  3 */ addStartNodeToQueue,
+			/*  4 */ setStartNodeValueToZero,
+			/*  5 */ checkIfOpenListIsEmpty,
+			/*  6 */ getBestNodeFromQueue,
+			/*  7 */ addNodeToVisited,
+			/*  8 */ checkIfGoal,
+			/*  9 */ calculteDistance,
+			/* 10 */ checkIfDistanceIsKnown,
+			/* 11 */ checkForBetterDistance,
+			/* 12 */ updateNeighbourCost,
+			/* 13 */ updateNeighbourCameFrom,
+			/* 14 */ addNeighbourParent,
+			/* 15 */ addNeighbourCost,
+			/* 16 */ addNeighbourToQueue
+		}; //TODO kann verbessert werden
+
+		this.pseudoCodeSteps = new[] {
+			(0,"Initialisiere Priority Queue der unbesuchten Knoten"),
+			(1,"Initialisere Liste der besuchten Knoten"),
+			(2,"Setze die Kosten aller Knoten auf \\U+221E"),
+			(3,"Füge Startknoten zur Queue hinzu"),
+			(4,"Setzte den Wert des Startknoten auf Null"),
+			(5,"Während die Priority Queue nicht leer ist:"),
+			(6,"     Nehme den Knoten mit dem geringsten Kosten aus der Queue"),
+			(7,"     Füge diesen Knoten in die Liste der Besuchten Knoten hinzu"),
+			(8,"     Überprüfe ob dieser Knoten der Zielknoten ist, wenn ja beende den Algorithmus"),
+			(9,"     Berechne die Distanz vom Start zu diesem Knoten"),
+			(10,"     Überprüfe ob die Distanz zu diesem Nachbarn bereits bekannt ist"),
+			(11,"     Falls bekannt: überprüfe ob die neue Distanz besser ist"),
+			(12,"     Aktualisiere die Kosten des Nachbarn"),
+			(13,"     Aktualisiere den Vorgänger des Nachbarn"),
+			(14,"     Füge das Elternteil des Nachbarn hinzu"),
+			(15,"     Füge die Kosten des Nachbarn hinzu"),
+			(16,"     Füge den Nachbarn zur Priority Queue hinzu")
+
 		};
 
 	}
@@ -51,6 +74,19 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, startNode, 0);
 
 		return currentStep + 1;
+	}
+
+	private int addStartNodeToQueue(Graph g)
+	{
+		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, startNode, 0);
+		return currentStep +1;
+	}
+
+	private int setStartNodeValueToZero(Graph g)
+	{
+		distanceFromStart[startNode] = 0f;
+
+		return currentStep +1;
 	}
 
 	// die bereits besuchten nodes und
@@ -72,7 +108,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 			distanceFromStart[node] = float.MaxValue;
 		}
 
-		distanceFromStart[startNode] = 0f;
+		
 
 		return currentStep + 1;
 	}
