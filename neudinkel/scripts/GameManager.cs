@@ -103,7 +103,7 @@ public partial class GameManager : Node3D
 		JsonObject json;
 		using var file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
 
-        this.graph = new Graph();
+		this.graph = new Graph();
 		json = JsonNode.Parse(file.GetAsText()).AsObject();
 		this.AddChild(this.graph);
 		this.graph.fromJsonObject(json);
