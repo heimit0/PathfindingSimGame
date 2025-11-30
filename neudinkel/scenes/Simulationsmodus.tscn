@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dvdhi6nlj2t8q" path="res://scripts/OpenQueueList.cs" id="3_7whdq"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_rdpdv"]
 [ext_resource type="Texture2D" uid="uid://brl867djglgi3" path="res://assets/ui_icons/play.svg" id="4_7whdq"]
+[ext_resource type="Script" uid="uid://d1bqfncmscmb2" path="res://scripts/ui_buttons/BaumodusUndSimulationsButtons.cs" id="4_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://dg21qqgbbnxyt" path="res://assets/ui_icons/step.svg" id="5_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://nn71yaibgw8f" path="res://assets/ui_icons/iterate.svg" id="6_k7vyk"]
 [ext_resource type="Texture2D" uid="uid://ymvtaea43a6k" path="res://assets/ui_icons/restart.svg" id="7_lrh4w"]
@@ -120,7 +121,8 @@ size_flags_horizontal = 3
 tooltip_text = "Wechselt zwischen Baumodus und Simulationsmodus"
 theme_override_font_sizes/font_size = 30
 toggle_mode = true
-text = "Simulieren"
+text = "Baumodus"
+script = ExtResource("4_ud2kt")
 
 [node name="ButtonsStep" type="HBoxContainer" parent="Simulationsmodus/ButtonsTopRight"]
 layout_mode = 2
@@ -168,7 +170,7 @@ icon = ExtResource("7_lrh4w")
 [connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
 [connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
 [connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
-[connection signal="toggled" from="Simulationsmodus/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onToggleGamePhase"]
+[connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="Simulationsmodus/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" method="_on_simulationsmodus_pressed"]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/NextSearchStepButton" to="." method="onDoSearchForward" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/ButtonsTopRight/ButtonsStep/IterateButton" to="." method="onDoSearchForward" binds= [false]]

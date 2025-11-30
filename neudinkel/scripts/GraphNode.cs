@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Dynamic;
+using System.Globalization;
 
 /*
 	TODO:
@@ -90,38 +91,45 @@ public partial class GraphNode : Node3D
 			}
 		}
 
-        // GD.Print(this.getTilePosString() + " has nei: " + connections.Count);
-        // string s = this.getTilePosString() + " has neis: [";
+		// GD.Print(this.getTilePosString() + " has nei: " + connections.Count);
+		// string s = this.getTilePosString() + " has neis: [";
 
 		// foreach (GraphNode n in this.neighbours) if (n != null) s += "(" + n.getTilePosString() + "), ";
 
-        // s += "]";
-        // GD.Print(s);
+		// s += "]";
+		// GD.Print(s);
 
-        if (connections.Count == 0)
+		if (connections.Count == 0)
 		{
 			tile = getEmptyTile();
 		}
 		else if (connections.Count != 2)
 		{
-            int c = connections.Count < 2 ? 3 : 0;
+			int c = connections.Count < 2 ? 3 : 0;
 
-            tile = getCityTile(connections.Count + c);
+			tile = getCityTile(connections.Count + c);
 		}
 		else
 		{
-            StreetType streetType = StreetType.EMPTY;
-            bool isDifferentStreetType = false;
+			// StreetType streetType = StreetType.EMPTY;
+			// bool isDifferentStreetType = false;
 
-            foreach (GraphNode n in this.neighbours)
-			{
-				if (n == null) continue;
-                if ((int) streetType != 0 && (int) streetType != (int) n.getStreetType()) isDifferentStreetType = true;
-                streetType = n.getStreetType();
-            }
+			// foreach (GraphNode n in this.getNeighboursUnsorted())
+			// {
+			// 	if (n == null) continue;
+			//     if ((int)streetType != 0 && (int)streetType != (int)n.getStreetType())
+			//     {
+			//         isDifferentStreetType = true;
+			//         GD.Print("diff street type: " + (int) streetType + ", " + (int) n.getStreetType());
+			//         GD.Print(this.getTilePosString() + " :: " + n.getTilePosString());
+			//     }
+			//     streetType = n.getStreetType();
+			// }
+
 
 			// TODO idk
-            tile = isDifferentStreetType ? getCityTile(3) : getStreetTile(connections[0], connections[1]);
+			// tile = isDifferentStreetType ? getCityTile(3) : getStreetTile(connections[0], connections[1]);
+			tile = getStreetTile(connections[0], connections[1]);
 		}
 
 		AddChild(tile);
@@ -184,6 +192,67 @@ public partial class GraphNode : Node3D
 		return neighbours;
 	}
 
+	// get next Knoten (Knoten := neighbours > 2)
+	public GraphNode[] getNeighbouringCities(List<GraphNode> _visitedNeighbours)
+	{
+		List<GraphNode> neighbouringCities = new List<GraphNode>();
+		List<GraphNode> visitedNeighbours = _visitedNeighbours;
+
+		foreach (GraphNode immediateNeighbour in this.getNeighboursUnsorted())
+		{
+			if (visitedNeighbours.Contains(immediateNeighbour)) continue;
+			visitedNeighbours.Add(immediateNeighbour);
+
+			if (immediateNeighbour.getNeighboursUnsorted().Length > 2 && !neighbouringCities.Contains(immediateNeighbour))
+			{
+				neighbouringCities.Add(immediateNeighbour);
+				continue;
+			}
+
+			// gucke den anderen nachbar an und guck, ob er ein Knoten ist
+			foreach (GraphNode n in immediateNeighbour.getNeighboursUnsorted())
+			{
+				if (!n.Equals(this) && !neighbouringCities.Contains(n) && n.getNeighboursUnsorted().Length > 2)
+				{
+					neighbouringCities.Add(n);
+					visitedNeighbours.Add(n);
+				}
+			}
+
+			GraphNode[] currentResult = immediateNeighbour.getNeighbouringCities(visitedNeighbours);
+			if (currentResult == null) continue;
+
+			neighbouringCities.AddRange(currentResult);
+		}
+
+		return neighbouringCities.ToArray().Length > 0 ? neighbouringCities.ToArray() : null;
+	}
+
+	// Wir gehen davon aus, dass man weiß, dass es benachbarte Knoten gibt
+	// Außerdem muss ein Nachbar als Startpunkt übergeben werden
+	public GraphNode[] getPathToNeighbouringCity(GraphNode goalNode)
+	{
+		List<List<GraphNode>> paths = []; // bis zu 6 Pfade für jeden direkten Nachbarn von der Startnode
+		foreach (GraphNode head in this.getNeighboursUnsorted()) paths.Add([head]); // pfade initialisieren
+
+		// nicht fragen bitte ~georg
+		while (true)
+		{
+			foreach (List<GraphNode> path in paths)
+			{
+				// win condition
+				GraphNode head = path[path.Count - 1];
+				if (head.Equals(goalNode)) return path.ToArray();
+
+				// jeden Pfad um 1 vom start weg erweitern
+				foreach (GraphNode newHead in head.getNeighboursUnsorted())
+				{
+					if (!newHead.Equals(this) && (path.Count < 2 || !newHead.Equals(path[path.Count - 2]))) path.Add(newHead);
+				}
+			}
+		}
+	}
+
 	/// <summary>
 	/// Fuegt einen Node als Nachbar hinzu.
 	/// </summary>
@@ -201,33 +270,33 @@ public partial class GraphNode : Node3D
 
 	public void removeNeighbour(GraphNode n)
 	{
-        for (int i = 0; i < this.neighbours.Length; i++)
+		for (int i = 0; i < this.neighbours.Length; i++)
 		{
-            GraphNode current = this.neighbours[i];
+			GraphNode current = this.neighbours[i];
 
 			if (current == null) continue;
 
-            // GD.Print(this.getTilePosString() + ": current = " + current.getTilePosString() + ", origin=" + n.getTilePosString());
-            if (current.getTilePosX().Equals(n.getTilePosX()) && current.getTilePosY().Equals(n.getTilePosY()))
+			// GD.Print(this.getTilePosString() + ": current = " + current.getTilePosString() + ", origin=" + n.getTilePosString());
+			if (current.getTilePosX().Equals(n.getTilePosX()) && current.getTilePosY().Equals(n.getTilePosY()))
 			{
 				GD.Print("neighbour " + this.neighbours[i].getTilePosString() + " removed from " + this.getTilePosString());
-                this.neighbours[i] = null;
-            }
+				this.neighbours[i] = null;
+			}
 		}
 
-        updateModel();
-    }
+		updateModel();
+	}
 
 	public void clearNeighbours()
 	{
 		// clear connection from neighbours to this
 		foreach (GraphNode n in this.getNeighboursUnsorted())
 		{
-            n.removeNeighbour(this);
-        }
+			n.removeNeighbour(this);
+		}
 
-        this.neighbours = new GraphNode[6];
-    }
+		this.neighbours = new GraphNode[6];
+	}
 
 	// gibt nur die existierenden Nachbarn mit der TileRelation zurück
 	// für Algorithmen
@@ -278,7 +347,7 @@ public partial class GraphNode : Node3D
 	{
 		float preTilePosY = pos.Z / 0.86f;
 		float preTilePosX = pos.X - 0.5f * preTilePosY;
-		int tilePosX = (int) Math.Round(preTilePosX);
+		int tilePosX = (int)Math.Round(preTilePosX);
 		float tilePosXFracture = preTilePosX - (float)Math.Round(preTilePosX);
 		if (tilePosXFracture > 0.5)
 		{
