@@ -165,9 +165,9 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	// um sie zu verarbeiten
 	private int getBestNodeFromQueue(Graph g)
 	{
-		GD.Print("step 4 pwease");
 		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
 		lastNode = currentNode;
+
 		currentNode = unvisitedNodes.Dequeue();
 		Events.Instance.EmitSignal(Events.SignalName.PopOpenQueue);
 		GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
@@ -209,7 +209,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 
 	private int neighbourForLoop(Graph g)
 	{
-		if (currentNeighbourIndex >= currentNeighbours.Length) return 3;
+		if (currentNeighbourIndex >= currentNeighbours.Length) return 4;
 
 		return currentStep + 1;
 	}
@@ -248,7 +248,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 
 		// falls nein, gehe zum nächsten nachbarn
 		currentNeighbourIndex++;
-		return 7; // checkIfNeighbourVisited-index
+		return 8; // checkIfNeighbourVisited-index
 	}
 
 	// überschreibe die gesamtkosten für den derzeitigen nachbarn
