@@ -4,14 +4,14 @@ using Godot;
 
 public class NeudinkelAngorithmPseudoCodeEntry
 {
-    public int stepsIndex { get; set; }
-    public String content { get; set; }
+	public int stepsIndex { get; set; }
+	public String content { get; set; }
 
-    public NeudinkelAngorithmPseudoCodeEntry(int stepsIndex, String content)
-    {
-        this.stepsIndex = stepsIndex;
-        this.content = content;
-    }
+	public NeudinkelAngorithmPseudoCodeEntry(int stepsIndex, String content)
+	{
+		this.stepsIndex = stepsIndex;
+		this.content = content;
+	}
 }
 
 /// <summary>
@@ -21,12 +21,12 @@ public class NeudinkelAngorithmPseudoCodeEntry
 public abstract class NeudinkelAlgorithm
 {
 
-    public Graph graph { get; set; }
-    public GraphNode startNode { get; set; }
-    public GraphNode goalNode { get; set; }
-    public GraphNode currentNode { get; set; }
+	public Graph graph { get; set; }
+	public GraphNode startNode { get; set; }
+	public GraphNode goalNode { get; set; }
+	public GraphNode currentNode { get; set; }
 	public GraphNode lastNode { get; set; }
-    public Dictionary<GraphNode, GraphNode> cameFrom { get; set; }
+	public Dictionary<GraphNode, GraphNode> cameFrom { get; set; }
 
 
 	// noch nicht besuchte Nodes
@@ -42,7 +42,7 @@ public abstract class NeudinkelAlgorithm
 	public int breakpoint;
 
 
-    /*
+	/*
 		Zum Implementieren eines Suchalgorithmus muessen zuerst die einzelnen
 		Schritte als separate Funktionen geschrieben werden (Prototyp siehe Typ
 		von steps).
@@ -54,37 +54,37 @@ public abstract class NeudinkelAlgorithm
 	*/
 
 
-    /// <summary>
-    /// Ruft den aktuell naechsten Schritt auf und informiert die UI.
-    /// </summary>
-    public int doSearchStep()
-    {
-        if (currentStep < 0)
-        {
-            GD.Print("Der Algorithmus sollte nicht mehr laufen! Er ist bereits beendet!");
-            return currentStep;
-        }
+	/// <summary>
+	/// Ruft den aktuell naechsten Schritt auf und informiert die UI.
+	/// </summary>
+	public int doSearchStep()
+	{
+		if (currentStep < 0)
+		{
+			GD.Print("Der Algorithmus sollte nicht mehr laufen! Er ist bereits beendet!");
+			return currentStep;
+		}
 
-        try
-        {
-            currentStep = steps[currentStep].Invoke(this.graph);
-        }
-        catch (Exception e)
-        {
-            GD.PrintErr(e.GetBaseException());
-        }
+		try
+		{
+			currentStep = steps[currentStep].Invoke(this.graph);
+		}
+		catch (Exception e)
+		{
+			GD.PrintErr(e.GetBaseException());
+		}
 
-        if (currentStep == -1)
-        {
-            GD.Print("Der beste Pfad wurde gefunden!");
-        }
-        else if (currentStep == -2)
-        {
-            GD.Print("Es konnte kein Pfad gefunden werden!");
-        }
+		if (currentStep == -1)
+		{
+			GD.Print("Der beste Pfad wurde gefunden!");
+		}
+		else if (currentStep == -2)
+		{
+			GD.Print("Es konnte kein Pfad gefunden werden!");
+		}
 
-        return currentStep;
-    }
+		return currentStep;
+	}
 
 	/// <summary>
 	/// Fuehrt Einzelschritte aus bis der im Code festgelegte Breakpoint erreicht ist.
@@ -107,42 +107,42 @@ public abstract class NeudinkelAlgorithm
 			// erst alle ausschalten
 			foreach (GraphNode n in g.getNodes()) n.toggleHighlight(false);
 
-            GraphNode _currentNode = this.goalNode;
+			GraphNode _currentNode = this.goalNode;
 
-            while (cameFrom.ContainsKey(_currentNode))
-            {
-                _currentNode.toggleHighlight(true);
-                _currentNode = cameFrom[_currentNode];
-                GD.Print(_currentNode.getTilePosString());
-            }
+			while (cameFrom.ContainsKey(_currentNode))
+			{
+				_currentNode.toggleHighlight(true);
+				_currentNode = cameFrom[_currentNode];
+				GD.Print(_currentNode.getTilePosString());
+			}
 
-            _currentNode.toggleHighlight(true);
-            return;
-        }
+			_currentNode.toggleHighlight(true);
+			return;
+		}
 
-        foreach (GraphNode n in g.getNodes()) n.toggleHighlight(false);
+		foreach (GraphNode n in g.getNodes()) n.toggleHighlight(false);
 
-        // 1. Schritt ignorieren
-        if (currentNode == null) return;
+		// 1. Schritt ignorieren
+		if (currentNode == null) return;
 		currentNode.toggleHighlight(true);
-        if (lastNode == null) return;
+		if (lastNode == null) return;
 
-        // GD.Print("visualize current: " + currentNode.getTilePosString());
-        // GD.Print("visualize    goal: " + lastNode.getTilePosString());
+		// GD.Print("visualize current: " + currentNode.getTilePosString());
+		// GD.Print("visualize    goal: " + lastNode.getTilePosString());
 
 		if (lastNode == null) return;
 
-        if (currentNode.getPathToNeighbouringCity(lastNode) == null)
-        {
-            lastNode.toggleHighlight(true);
-            return;
-        }
+		if (currentNode.getPathToNeighbouringCity(lastNode) == null)
+		{
+			lastNode.toggleHighlight(true);
+			return;
+		}
 
-        foreach (GraphNode toHighlight in currentNode.getPathToNeighbouringCity(lastNode))
+		foreach (GraphNode toHighlight in currentNode.getPathToNeighbouringCity(lastNode))
 		{
 			toHighlight.toggleHighlight(true);
 		}
-    }
+	}
 
 	public float edgeCost(GraphNode from, GraphNode to)
 	{
