@@ -125,8 +125,18 @@ public abstract class NeudinkelAlgorithm
         // 1. Schritt ignorieren
         if (currentNode == null) return;
 		currentNode.toggleHighlight(true);
+        if (lastNode == null) return;
+
+        // GD.Print("visualize current: " + currentNode.getTilePosString());
+        // GD.Print("visualize    goal: " + lastNode.getTilePosString());
 
 		if (lastNode == null) return;
+
+        if (currentNode.getPathToNeighbouringCity(lastNode) == null)
+        {
+            lastNode.toggleHighlight(true);
+            return;
+        }
 
         foreach (GraphNode toHighlight in currentNode.getPathToNeighbouringCity(lastNode))
 		{

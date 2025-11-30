@@ -1,26 +1,27 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public class AlgorithmDFS : NeudinkelAlgorithm
 {
 
-	private Queue<GraphNode> neighbourQueue;
-	private GraphNode currentNeighbour; /* Zaehlvariable in der for loop */
+    private Queue<GraphNode> neighbourQueue;
+    private GraphNode currentNeighbour; /* Zaehlvariable in der for loop */
 
-	public AlgorithmDFS(Graph graph, GraphNode startNode, GraphNode goalNode)
-	{
-		this.graph = graph;
-		this.startNode = startNode;
-		this.currentNode = null;
-		this.goalNode = goalNode;
-		this.cameFrom = [];
-		
-		this.neighbourQueue = null;
-		this.currentNeighbour = null;
+    public AlgorithmDFS(Graph graph, GraphNode startNode, GraphNode goalNode)
+    {
+        this.graph = graph;
+        this.startNode = startNode;
+        this.currentNode = null;
+        this.goalNode = goalNode;
+        this.cameFrom = [];
 
-		// Schritte-Array (nur Submethoden)
-		this.steps = new Func<Graph, int>[] {
+        this.neighbourQueue = null;
+        this.currentNeighbour = null;
+
+        // Schritte-Array (nur Submethoden)
+        this.steps = new Func<Graph, int>[] {
 			/*  0 */ initUnvisitedNodes,
 			/*  1 */ initVisitedNodes,
 			/*  2 */ enqueueStartNode,
@@ -31,126 +32,133 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 			/*  7 */ ifNodeUnvisited,
 			/*  8 */ enqueueNeighbour,
 			/*  9 */ markNeighbourVisited
-		};
+        };
 
-		this.pseudoCodeSteps = new[] {
-			( 0, "unbesuchteKnoten = new Stack()"),
-			( 1, "besuchteKnoten = new List()"),
-			( 2, "unbesuchteKnoten.push(startNode)"),
-			( 2, "while (!unbesuchteKnoten.isEmpty()):"),
-			( 3, "    current = unbesuchteKnoten.pop()"),
-			( 4, "    for (neighbor in current.neighbors):"),
-			( 5, "        if (neighbor == targetNode):"),
-			(-1, "            Weg zu Ziel gefunden"),
-			( 5, "        "),
-			( 6, "        if (!besuchteKnoten.contains(neighbor)):"),
-			( 7, "            unbesuchteKnoten.push(neighbor)"),
-			( 7, "            cameFrom[neighbor] = current"),
-			( 8, "            besuchteKnoten.add(neighbor)"),
-			( 4, "    "),
-			( 2, ""),
-			(-2, "Kein Weg gefunden")
-		};
+        this.pseudoCodeSteps = new[] {
+            ( 0, "unbesuchteKnoten = new Stack()"),
+            ( 1, "besuchteKnoten = new List()"),
+            ( 2, "unbesuchteKnoten.push(startNode)"),
+            ( 2, "while (!unbesuchteKnoten.isEmpty()):"),
+            ( 3, "    current = unbesuchteKnoten.pop()"),
+            ( 4, "    for (neighbor in current.neighbors):"),
+            ( 5, "        if (neighbor == targetNode):"),
+            (-1, "            Weg zu Ziel gefunden"),
+            ( 5, "        "),
+            ( 6, "        if (!besuchteKnoten.contains(neighbor)):"),
+            ( 7, "            unbesuchteKnoten.push(neighbor)"),
+            ( 7, "            cameFrom[neighbor] = current"),
+            ( 8, "            besuchteKnoten.add(neighbor)"),
+            ( 4, "    "),
+            ( 2, ""),
+            (-2, "Kein Weg gefunden")
+        };
 
-	}
+    }
 
-	/* Schritt 1 */
-	public int initUnvisitedNodes(Graph g)
-	{
-		this.unvisitedNodes = new PriorityQueue<GraphNode, float>();
-		return this.currentStep + 1;
-	}
+    /* Schritt 1 */
+    public int initUnvisitedNodes(Graph g)
+    {
+        this.unvisitedNodes = new PriorityQueue<GraphNode, float>();
+        return this.currentStep + 1;
+    }
 
-	/* Schritt 2 */
-	public int initVisitedNodes(Graph g)
-	{
-		this.visitedNodes = [];
-		return this.currentStep + 1;
-	}
+    /* Schritt 2 */
+    public int initVisitedNodes(Graph g)
+    {
+        this.visitedNodes = [];
+        return this.currentStep + 1;
+    }
 
-	/* Schritt 3 */
-	public int enqueueStartNode(Graph g)
-	{
-		this.unvisitedNodes.Enqueue(this.startNode, 0);
-		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, this.startNode, 0);
-		return this.currentStep + 1;
-	}
+    /* Schritt 3 */
+    public int enqueueStartNode(Graph g)
+    {
+        this.unvisitedNodes.Enqueue(this.startNode, 0);
+		this.visitedNodes.Add(startNode);
+        Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, this.startNode, 0);
+        return this.currentStep + 1;
+    }
 
-	/* Schritt 3 */
-	public int whileQueueNotEmpty(Graph g)
-	{
-		if (this.unvisitedNodes.Count != 0)
-			return this.currentStep + 1;
-		else
-			return -2;
-	}
+    /* Schritt 3 */
+    public int whileQueueNotEmpty(Graph g)
+    {
+        if (this.unvisitedNodes.Count != 0)
+            return this.currentStep + 1;
+        else
+            return -2;
+    }
 
-	/* Schritt 4 */
-	public int getNodeFromQueue(Graph g)
-	{
-		this.currentNode = this.unvisitedNodes.Dequeue();
-		Events.Instance.EmitSignal(Events.SignalName.PopOpenQueue);
-		this.visualize(g);
-		return this.currentStep + 1;
-	}
+    /* Schritt 4 */
+    public int getNodeFromQueue(Graph g)
+    {
+        this.lastNode = this.currentNode;
+        this.currentNode = this.unvisitedNodes.Dequeue();
+        Events.Instance.EmitSignal(Events.SignalName.PopOpenQueue);
+        this.visualize(g);
+        return this.currentStep + 1;
+    }
 
-	/* Schritt 5 */
-	public int forEveryNeighbour(Graph g)
-	{
-		if (this.neighbourQueue == null)
-		{
-			// Neue Iteration
-			this.neighbourQueue = new Queue<GraphNode>();
-			foreach (GraphNode node in this.currentNode.getNeighboursUnsorted())
-				this.neighbourQueue.Enqueue(node);
-		}
-		
-		if (this.neighbourQueue.Count > 0)
-		{
-			this.currentNeighbour = this.neighbourQueue.Dequeue();
-			return this.currentStep + 1;
-		}
-		else
-		{
-			this.neighbourQueue = null; /* vorbereiten auf naechste Iteration */
-			return 3; /* whileQueueNotEmpty */ 
-		}
-	}
+    /* Schritt 5 */
+    public int forEveryNeighbour(Graph g)
+    {
+        if (this.neighbourQueue == null)
+        {
+            // Neue Iteration
+            this.neighbourQueue = new Queue<GraphNode>();
+            foreach (GraphNode node in this.currentNode.getNeighbouringCities(this.visitedNodes.ToArray()))
+                this.neighbourQueue.Enqueue(node);
 
-	/* Schritt 6 */
-	public int checkIfIsGoal(Graph g)
-	{
-		if (this.currentNeighbour == this.goalNode)
-		{
-			this.cameFrom.Add(currentNeighbour, currentNode);
-			return -1;
-		}
-		return this.currentStep + 1;
-	}
+            foreach (GraphNode n in this.neighbourQueue)
+            {
+                GD.Print("[" + currentNode.getTilePosString() + "] has neighbour: [" + n.getTilePosString() + "]");
+            }
+        }
 
-	/* Schritt 7 */
-	public int ifNodeUnvisited(Graph g)
-	{
-		if (!this.visitedNodes.Contains(this.currentNeighbour))
-			return this.currentStep + 1;
-		else
-			return 5; /* forEveryNeighbour */
-	}
+        if (this.neighbourQueue.Count > 0)
+        {
+            this.currentNeighbour = this.neighbourQueue.Dequeue();
+            return this.currentStep + 1;
+        }
+        else
+        {
+            this.neighbourQueue = null; /* vorbereiten auf naechste Iteration */
+            return 3; /* whileQueueNotEmpty */
+        }
+    }
 
-	/* Schritt 8 */
-	public int enqueueNeighbour(Graph g)
-	{
-		this.unvisitedNodes.Enqueue(this.currentNeighbour, 0);
-		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, this.currentNeighbour, 0);
-		this.cameFrom.Add(currentNeighbour, currentNode);
-		return this.currentStep + 1;
-	}
+    /* Schritt 6 */
+    public int checkIfIsGoal(Graph g)
+    {
+        if (this.currentNeighbour == this.goalNode)
+        {
+            this.cameFrom.Add(currentNeighbour, currentNode);
+            return -1;
+        }
+        return this.currentStep + 1;
+    }
 
-	/* Schritt 9 */
-	public int markNeighbourVisited(Graph g)
-	{
-		this.visitedNodes.Add(this.currentNeighbour);
-		return 5; /* forEveryNeighbour */
-	}
+    /* Schritt 7 */
+    public int ifNodeUnvisited(Graph g)
+    {
+        if (!this.visitedNodes.Contains(this.currentNeighbour))
+            return this.currentStep + 1;
+        else
+            return 5; /* forEveryNeighbour */
+    }
+
+    /* Schritt 8 */
+    public int enqueueNeighbour(Graph g)
+    {
+        this.unvisitedNodes.Enqueue(this.currentNeighbour, 0);
+        Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, this.currentNeighbour, 0);
+        this.cameFrom.Add(currentNeighbour, currentNode);
+        return this.currentStep + 1;
+    }
+
+    /* Schritt 9 */
+    public int markNeighbourVisited(Graph g)
+    {
+        this.visitedNodes.Add(this.currentNeighbour);
+        return 5; /* forEveryNeighbour */
+    }
 
 }

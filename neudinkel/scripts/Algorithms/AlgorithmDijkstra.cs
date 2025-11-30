@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Metadata;
 using Godot;
 
@@ -166,7 +167,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 
 		// falls die derzeitige node nicht die zielnode ist,
 		// initialisiere die for loop über den nachbarn der derzeitigen node
-		currentNeighbours = currentNode.getNeighbouringCities(new List<GraphNode>());
+		currentNeighbours = currentNode.getNeighbouringCities(this.visitedNodes.ToArray());
 		currentNeighbourIndex = 0;
 
 		foreach (GraphNode n in currentNeighbours)
