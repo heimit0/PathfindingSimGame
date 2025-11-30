@@ -71,6 +71,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	{
 		unvisitedNodes = new PriorityQueue<GraphNode, float>();
 		unvisitedNodes.Enqueue(startNode, 0);
+		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, startNode, 0);
 
 		return currentStep + 1;
 	}
@@ -102,7 +103,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	// außer für die Startnode
 	private int initCosts(Graph g)
 	{
-		foreach (GraphNode node in graph.getNodes())
+		foreach (GraphNode node in graph.getCities())
 		{
 			distanceFromStart[node] = float.MaxValue;
 		}
@@ -158,7 +159,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 
 		// falls die derzeitige node nicht die zielnode ist,
 		// initialisiere die for loop über den nachbarn der derzeitigen node
-		currentNeighbours = currentNode.getNeighboursUnsorted();
+		currentNeighbours = currentNode.getNeighbouringCities(new List<GraphNode>());
 		currentNeighbourIndex = 0;
 
 		foreach (GraphNode n in currentNeighbours)

@@ -133,3 +133,4 @@ text = "Ende"
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Feldweg" to="." method="onChangeStreetType" binds= [3]]
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Sandweg" to="." method="onChangeStreetType" binds= [4]]
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Leer" to="." method="onChangeStreetType" binds= [0]]
+[connection signal="pressed" from="Baumodus/UI/BauModusBox/Baumodus" to="." method="onChangeToSimulationMode"]

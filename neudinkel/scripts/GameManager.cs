@@ -62,7 +62,7 @@ public partial class GameManager : Node3D
 
 	public override void _Ready()
 	{
-		prepScene();
+		prepScene("empty");
 
 		// signale
 		ToggleGamePhase += onToggleGamePhase;
@@ -75,7 +75,7 @@ public partial class GameManager : Node3D
 		base._Process(delta);
 	}
 
-	public void prepScene() 
+	public void prepScene(string levelName) 
 	{
 		Camera cam;
 		DirectionalLight3D light;
@@ -91,7 +91,7 @@ public partial class GameManager : Node3D
 		light.Position = new Vector3(0.0f, 10.0f, 0.0f);
 		light.Rotation = new Vector3(Mathf.DegToRad(-45.0f), Mathf.DegToRad(45.0f), 0);
 
-		loadLevel("empty");
+		loadLevel(levelName);
 	}
 
 	/// <summary>
@@ -103,7 +103,7 @@ public partial class GameManager : Node3D
 		JsonObject json;
 		using var file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
 
-		this.graph = new Graph();
+        this.graph = new Graph();
 		json = JsonNode.Parse(file.GetAsText()).AsObject();
 		this.AddChild(this.graph);
 		this.graph.fromJsonObject(json);
