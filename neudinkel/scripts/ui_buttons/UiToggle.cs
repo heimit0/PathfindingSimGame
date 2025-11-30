@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class UiToggle : HBoxContainer   // <-- Geändert zu VBoxContainer
+public partial class UiToggle : HBoxContainer  
 {
 	[Export] public string RootName = "Node3D";
 	[Export] public string UiLayerName = "UI";
@@ -21,19 +21,19 @@ public partial class UiToggle : HBoxContainer   // <-- Geändert zu VBoxContaine
 
 		while (current != null)
 		{
-			// Baumodus Root suchen
+			// Root suchen mittels Namens - wir könnten auch mittels Typ suchen ist allerdings uneindeutiger 
 			if (current.Name == RootName)
 			{
+				// Canvas Layer mit dem Namen UI finden damit wir es unsichtbar schalten können 
 				uiCanvasLayer = FindCanvasLayerRecursive(current, UiLayerName);
 				
 				if (uiCanvasLayer == null)
 				{
-					GD.PrintErr($"Konnte CanvasLayer '{UiLayerName}' nicht finden.");
+					GD.PrintErr("Konnte CanvasLayer nicht finden");
 				}
 				else
 				{
 					uiCanvasLayerPath = uiCanvasLayer.GetPath();
-					GD.Print($"UI gefunden: {uiCanvasLayer.GetPath()}");
 				}
 				return;
 			}
@@ -41,9 +41,11 @@ public partial class UiToggle : HBoxContainer   // <-- Geändert zu VBoxContaine
 			current = current.GetParent();
 		}
 
-		GD.PrintErr("Root wurde im Elternpfad nicht gefunden");
+		GD.PrintErr("Root wurde nicht gefunden");
 	}
 
+
+	// Namen sagt eigentlich schon alles aus - rekursive suche nach dem CanvasLayer (hier doppelte Überprüfung ob Typ und Name gleich)
 	private CanvasLayer FindCanvasLayerRecursive(Node node, string name)
 	{
 		if (node is CanvasLayer cl && node.Name == name)
@@ -63,33 +65,28 @@ public partial class UiToggle : HBoxContainer   // <-- Geändert zu VBoxContaine
 	{
 		if (uiCanvasLayer == null)
 		{
-			GD.PrintErr("UiAusblenden: uiCanvasLayer ist null, versuche erneut FindUI()");
+			// nochmals FindUI() nutzen falls das UI CanvasLayer nicht gefunden wurde - nur zur doppelten Sicherheit 
 			FindUI();
 			if (uiCanvasLayer == null)
 			{
-				GD.PrintErr("UiAusblenden: Abbruch – keine gültige UI-Referenz");
 				return;
 			}
 		}
 
 		uiCanvasLayer.Visible = false;
-		GD.Print("UI ausgeblendet");
 	}
 
 	public void UiEinblenden()
 	{
 		if (uiCanvasLayer == null)
 		{
-			GD.PrintErr("UiEinblenden: uiCanvasLayer ist null, versuche erneut FindUI()");
+			// selbes Spiel wie beim Ausblenden zur Sicherheit - falls der Layer irgendwie entfernt werden sollte  
 			FindUI();
 			if (uiCanvasLayer == null)
 			{
-				GD.PrintErr("UiEinblenden: Abbruch – keine gültige UI-Referenz");
 				return;
 			}
 		}
-
 		uiCanvasLayer.Visible = true;
-		GD.Print("UI eingeblendet");
 	}
 }

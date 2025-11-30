@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 [gd_scene load_steps=10 format=3 uid="uid://mkk1cd41mlpr"]
 =======
-[gd_scene load_steps=11 format=3 uid="uid://mkk1cd41mlpr"]
+[gd_scene load_steps=14 format=3 uid="uid://mkk1cd41mlpr"]
 >>>>>>> d1adca0 (SlideDownMenu für beide Modi implementiert und UI Ein-/Ausblenden dynamisch gemacht für beide Modi)
 
 [ext_resource type="Script" uid="uid://cxoox5vn5nmqm" path="res://scripts/SimulationGameManager.cs" id="1_5p374"]
@@ -15,6 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://ymvtaea43a6k" path="res://assets/ui_icons/restart.svg" id="7_lrh4w"]
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="8_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="9_k7vyk"]
+[ext_resource type="Script" uid="uid://debdk623bhaon" path="res://scripts/TileEffectManager.cs" id="10_cd7hi"]
+[ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://scenes/tileSelectedParticels.tscn" id="11_kiwpe"]
+[ext_resource type="PackedScene" uid="uid://b3110xoh8hw2" path="res://scenes/tileOutlineScene.tscn" id="12_0b48g"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_85scv"]
 
@@ -195,6 +198,12 @@ layout_mode = 2
 texture_normal = ExtResource("9_k7vyk")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="TileEffectManager" type="Node3D" parent="."]
+script = ExtResource("10_cd7hi")
+selectedTileChimneyEffect = ExtResource("11_kiwpe")
+selectedTileOutline = ExtResource("12_0b48g")
+EffectHeight = 0.4
 
 [connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
 [connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
