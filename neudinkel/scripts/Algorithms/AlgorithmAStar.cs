@@ -222,7 +222,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		if (visitedNodes.Contains(currentNeighbours[currentNeighbourIndex]))
 		{
 			currentNeighbourIndex++;
-			return 7; // go to for loop
+			return 8; // go to for loop
 		}
 
 		return currentStep + 1;
@@ -286,7 +286,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, currentNeighbours[currentNeighbourIndex], neighbourFScore);
 
 		currentNeighbourIndex++;
-		return 7; // checkIfNeighbourVisited-index
+		return 8; // checkIfNeighbourVisited-index
 	}
 
 	// Heuristik für A* --> einfache Dreiecksberechnung
