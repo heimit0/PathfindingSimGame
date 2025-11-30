@@ -195,7 +195,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		}
 
 		// get next Knoten
-		currentNeighbours = currentNode.getNeighbouringCities(new List<GraphNode>());
+		currentNeighbours = currentNode.getNeighbouringCities(this.visitedNodes.ToArray());
 
 		foreach (GraphNode n in currentNeighbours)
 		{
