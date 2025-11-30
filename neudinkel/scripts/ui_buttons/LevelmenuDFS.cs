@@ -10,18 +10,21 @@ public partial class LevelmenuDFS : Control
 	private void _on_level_1_pressed()
 	{
 		Globals.nextLevel = "level1_dfs";
+		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DFS;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
 	}
 
 	private void _on_level_2_pressed()
 	{
 		Globals.nextLevel = "level2_dfs";
+		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DFS;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
 	}
 
 	private void _on_level_3_pressed()
 	{
 		Globals.nextLevel = "level3_dfs";
+		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DFS;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
 	}
 
