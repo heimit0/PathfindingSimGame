@@ -42,24 +42,31 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		}; //TODO kann verbessert werden
 
 		this.pseudoCodeSteps = new[] {
-			(0,"Initialisiere Priority Queue der unbesuchten Knoten"),
-			(1,"Initialisere Liste der besuchten Knoten"),
-			(2,"Setze die Kosten aller Knoten auf \\U+221E"),
-			(3,"Füge Startknoten zur Queue hinzu"),
-			(4,"Setzte den Wert des Startknoten auf Null"),
-			(5,"Während die Priority Queue nicht leer ist:"),
-			(6,"     Nehme den Knoten mit dem geringsten Kosten aus der Queue"),
-			(7,"     Füge diesen Knoten in die Liste der Besuchten Knoten hinzu"),
-			(8,"     Überprüfe ob dieser Knoten der Zielknoten ist, wenn ja beende den Algorithmus"),
-			(9,"     Berechne die Distanz vom Start zu diesem Knoten"),
-			(10,"     Überprüfe ob die Distanz zu diesem Nachbarn bereits bekannt ist"),
-			(11,"     Falls bekannt: überprüfe ob die neue Distanz besser ist"),
-			(12,"     Aktualisiere die Kosten des Nachbarn"),
-			(13,"     Aktualisiere den Vorgänger des Nachbarn"),
-			(14,"     Füge das Elternteil des Nachbarn hinzu"),
-			(15,"     Füge die Kosten des Nachbarn hinzu"),
-			(16,"     Füge den Nachbarn zur Priority Queue hinzu")
-
+			( 0, "unbesuchteKnoten = new PriorityQueue()"),
+			( 1, "besuchteKnoten = new List()"),
+			( 2, "distance[all nodes] = \\U+221E"),
+			( 3, "unbesuchteKnoten.add(startNode, 0)"),
+			( 4, "distance[startNode] = 0"),
+			( 4, "while (!unbesuchteKnoten.isEmpty()):"),
+			( 5, "    current = unbesuchteKnoten.dequeue()"),
+			( 6, "    besuchteKnoten.add(current)"),
+			( 7, "    if (current == targetNode):"),
+			(-1, "        Weg zu Ziel gefunden"),
+			( 7, "    "),
+			( 8, "    for (neighbor in current.neighbors):"),
+			( 9, "        tentativeDist = distance[current] + edgeCost(current, neighbor)"),
+			(10, "        if (distance[neighbor] != \\U+221E):"),
+			(11, "            if (tentativeDist < distance[neighbor]):"),
+			(12, "                distance[neighbor] = tentativeDist"),
+			(13, "                cameFrom[neighbor] = current"),
+			(11, "        "),
+			(14, "        else:"),
+			(15, "            cameFrom[neighbor] = current"),
+			(16, "            distance[neighbor] = tentativeDist"),
+			(17, "            unbesuchteKnoten.add(neighbor, tentativeDist)"),
+			( 8, "    "),
+			( 4, ""),
+			(-2, "Kein Weg gefunden")
 		};
 
 	}
