@@ -203,7 +203,7 @@ public partial class GraphNode : Node3D
 			if (visitedNeighbours.Contains(immediateNeighbour)) continue;
 			visitedNeighbours.Add(immediateNeighbour);
 
-			if (immediateNeighbour.getNeighboursUnsorted().Length > 2 && !neighbouringCities.Contains(immediateNeighbour))
+			if ((immediateNeighbour.getNeighboursUnsorted().Length > 2 || immediateNeighbour.getNeighboursUnsorted().Length == 1) && !neighbouringCities.Contains(immediateNeighbour))
 			{
 				neighbouringCities.Add(immediateNeighbour);
 				continue;
@@ -212,7 +212,7 @@ public partial class GraphNode : Node3D
 			// gucke den anderen nachbar an und guck, ob er ein Knoten ist
 			foreach (GraphNode n in immediateNeighbour.getNeighboursUnsorted())
 			{
-				if (!n.Equals(this) && !neighbouringCities.Contains(n) && n.getNeighboursUnsorted().Length > 2)
+				if (!visitedNeighbours.Contains(n) && !n.Equals(this) && !neighbouringCities.Contains(n) && (n.getNeighboursUnsorted().Length > 2 || n.getNeighboursUnsorted().Length == 1))
 				{
 					neighbouringCities.Add(n);
 					visitedNeighbours.Add(n);
@@ -225,6 +225,7 @@ public partial class GraphNode : Node3D
 			neighbouringCities.AddRange(currentResult);
 		}
 
+		if (neighbouringCities.Count > 0) neighbouringCities.Remove(this);
 		return neighbouringCities.ToArray().Length > 0 ? neighbouringCities.ToArray() : null;
 	}
 

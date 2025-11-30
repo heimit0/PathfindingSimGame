@@ -39,7 +39,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 			/* 14 */ addNeighbourParent,
 			/* 15 */ addNeighbourCost,
 			/* 16 */ addNeighbourToQueue
-		}; //TODO kann verbessert werden
+		}; // TODO kann verbessert werden
 
 		this.pseudoCodeSteps = new[] {
 			( 0, "unbesuchteKnoten = new PriorityQueue()"),
@@ -71,14 +71,13 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 
 	}
 
-
 	// PriorityQueue(node, calculatedDistance) mit der Startnode direkt in der queue
 	// diese wird nach und nach mit nachbarn gefüllt
 	private int initUnvisitedNodes(Graph g)
 	{
 		unvisitedNodes = new PriorityQueue<GraphNode, float>();
 		unvisitedNodes.Enqueue(startNode, 0);
-		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, startNode, 0);
+		// Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, startNode, 0);
 
 		return currentStep + 1;
 	}
@@ -138,6 +137,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int getBestNodeFromQueue(Graph g)
 	{
 		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
+		lastNode = currentNode;
 		currentNode = unvisitedNodes.Dequeue();
 		Events.Instance.EmitSignal(Events.SignalName.PopOpenQueue);
 		GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
@@ -181,8 +181,9 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	// for-loop start
 	private int calculteDistance(Graph g)
 	{
-		if (currentNeighbourIndex >= currentNeighbours.Length) return 3; // exit for-loop, jz normaler durchlauf
+		if (currentNeighbourIndex >= currentNeighbours.Length) return 5; // exit for-loop, jz normaler durchlauf
 	
+		GD.Print("distance from start to " + currentNode.getTilePosString() + " is: " + distanceFromStart[currentNode]);
 		currentNeighbourCost = distanceFromStart[currentNode] + edgeCost(currentNode, currentNeighbours[currentNeighbourIndex]);
 
 		return currentStep + 1;
@@ -194,11 +195,11 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		if (distanceFromStart[currentNeighbours[currentNeighbourIndex]] != float.MaxValue)
 		{
 			GD.Print("Distance from start: [" + currentNeighbours[currentNeighbourIndex].getTilePosString() + "] is known!");
-			return 9; // check for better distance
+			return 11; // check for better distance
 		}
 
 		GD.Print("Distance from start: [" + currentNeighbours[currentNeighbourIndex].getTilePosString() + "] is unknown! adding it...");
-		return 12; // add node to lists
+		return 16; // add node to lists
 	}
 
 	// falls die node bekannt ist, überprüfe, ob die
@@ -212,7 +213,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 
 		// gehe zum nächsten nachbarn
 		currentNeighbourIndex++;
-		return 7;
+		return 9;
 	}
 
 	// falls die derzeitige route besser ist, update den nachbarn
@@ -230,7 +231,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		cameFrom[currentNeighbours[currentNeighbourIndex]] = currentNode;
 
 		currentNeighbourIndex++;
-		return 7;
+		return 9;
 	}
 
 	// füge den nachbarn zur elternbeziehungsliste hinzu
@@ -253,17 +254,12 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	// füge den derzeitigen nachbarn zur PriorityQueue hinzu, um ihn später zu überprüfen
 	private int addNeighbourToQueue(Graph g)
 	{
+		distanceFromStart[currentNeighbours[currentNeighbourIndex]] = currentNeighbourCost;
 		unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex], currentNeighbourCost);
+		GD.Print("neighbourcost: " + currentNeighbourCost);
 		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, currentNeighbours[currentNeighbourIndex], currentNeighbourCost);
 
 		currentNeighbourIndex++;
-		return 7;
-	}
-
-	private float edgeCost(GraphNode from, GraphNode to)
-	{
-		// Verwendet den Kantentyp des Zielpunkts als Kosten
-		// Alternativ: Graph sollte Kantenwerte speichern
-		return (float)to.getStreetType();
+		return 9;
 	}
 }

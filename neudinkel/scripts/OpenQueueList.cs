@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public partial class OpenQueueList : NeudinkelItemList
 {
-
 	/*
 		Saves all GraphNodes with a given priority in the order added.
 		Keep sorted when inserting items.
@@ -62,7 +61,7 @@ public partial class OpenQueueList : NeudinkelItemList
 			list.Add(node);
 		}
 		this.InsertItem(newIndex    , node.getTilePosX().ToString(), null, false);
-		this.InsertItem(newIndex + 1, node.getTilePosX().ToString(), null, false);
+		this.InsertItem(newIndex + 1, node.getTilePosY().ToString(), null, false);
 		this.InsertItem(newIndex + 2, prio.ToString(), null, false);
 	}
 

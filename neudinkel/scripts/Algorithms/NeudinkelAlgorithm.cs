@@ -133,4 +133,22 @@ public abstract class NeudinkelAlgorithm
 			toHighlight.toggleHighlight(true);
 		}
     }
+
+	public float edgeCost(GraphNode from, GraphNode to)
+	{
+		// falls to = direkter Nachbar
+		foreach (GraphNode n in from.getNeighboursUnsorted())
+		{
+			if (n.Equals(to)) return (float) to.getStreetType();
+		}
+
+		float cost = 0.0f;
+
+		foreach (GraphNode n in from.getPathToNeighbouringCity(to))
+		{
+			cost += (float) n.getStreetType();
+		}
+
+		return cost;
+	}
 }
