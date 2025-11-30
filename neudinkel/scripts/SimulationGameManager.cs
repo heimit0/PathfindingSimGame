@@ -59,8 +59,6 @@ public partial class SimulationGameManager : GameManager
 	// NICHT DAS SIGNAL, extra funktion für abstraktion
 	public void doSearchForwardHelper(bool step)
 	{
-		GD.Print("before executing search step");
-
 		if (this.currentAlgorithm.currentStep == -1)
 		{
 			if (this.currentAlgorithm is NeudinkelAlgorithm)

@@ -196,7 +196,7 @@ public partial class Graph : Node3D
 
         foreach (GraphNode n in this.nodes)
         {
-            if (n.getNeighboursUnsorted().Length > 2) cities.Add(n);
+            if (n.getNeighboursUnsorted().Length > 2 || n.getNeighboursUnsorted().Length == 1) cities.Add(n);
         }
 
         return cities.ToArray();

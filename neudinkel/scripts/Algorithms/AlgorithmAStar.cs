@@ -291,24 +291,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		return getDistanceNodes(node, goalNode);
 	}
 
-	private float edgeCost(GraphNode from, GraphNode to)
-	{
-		// falls to = direkter Nachbar
-		foreach (GraphNode n in from.getNeighboursUnsorted())
-		{
-			if (n.Equals(to)) return (float) to.getStreetType();
-		}
-
-		float cost = 0.0f;
-
-		foreach (GraphNode n in from.getPathToNeighbouringCity(to))
-		{
-			cost += (float) n.getStreetType();
-		}
-
-		return cost;
-	}
-
 	private float getDistanceNodes(GraphNode node1, GraphNode node2)
 	{
 		float xDistance = node2.getTilePosX() - node1.getTilePosX();

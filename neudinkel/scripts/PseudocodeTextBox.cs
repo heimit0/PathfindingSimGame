@@ -15,6 +15,11 @@ public partial class PseudocodeTextBox : RichTextLabel
 
     public void onInitOrChangeAlgorithm(int algorithm)
     {
+        foreach (Label node in this.GetChildren())
+        {
+            node.QueueFree();
+        }
+
         this.pseudoCodeNodes = new Dictionary<Label, int>();
         if (this.gameManager.currentAlgorithm.pseudoCodeSteps == null) return;
 
