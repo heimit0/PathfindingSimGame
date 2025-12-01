@@ -115,6 +115,7 @@ public partial class GraphNode : Node3D
 		}
 
 		AddChild(tile);
+		loadCityConnectionsAssets();
 	}
 
 	private Node3D getStreetTile(int from, int to)
@@ -154,9 +155,30 @@ public partial class GraphNode : Node3D
 		return emptyTile;
 	}
 
-	public int getTilePosX()
+	private void loadCityConnectionsAssets()
 	{
-		return this.tilePosX;
+		List<Int32> connections = [];
+		for (int n = 0; n < neighbours.Length; n++)
+		{
+			if (neighbours[n] != null)
+			{
+				connections.Add(n);
+			}
+		}
+
+		if (connections.Count != 1 && connections.Count <= 2)
+		{
+			GD.PrintErr("Tried to add city connections assets on a non-city node!");
+			return;
+		}
+
+		foreach (int neighbourIndex in connections)
+		{
+			GraphNode neighbour = this.neighbours[neighbourIndex];
+			Node3D newConnection = (Node3D) ResourceLoader.Load<PackedScene>("assets/testing/connection_00_" + (int) neighbour.getStreetType() + ".tscn").Instantiate();
+			newConnection.RotateY((float) ((neighbourIndex * 60.0f) * (180.0f / Math.PI)));
+			this.AddChild(newConnection);
+		}
 	}
 
 	public int getTilePosY()
@@ -434,5 +456,10 @@ public partial class GraphNode : Node3D
 
 		// shouldnt happen
 		return null;
+	}
+
+	public int getTilePosX()
+	{
+		return this.tilePosX;
 	}
 }
