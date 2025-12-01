@@ -51,8 +51,8 @@ public partial class GameManager : Node3D
     [Signal]
     public delegate void SetStartNodeEventHandler(GraphNode node);
 
-    [Signal]
-    public delegate void setGoalNodeEventHandler(GraphNode node);
+	[Signal]
+	public delegate void SetGoalNodeEventHandler(GraphNode node);
 
     [Signal]
     public delegate void SetCameraPositionEventHandler(Vector2 pos);
@@ -61,11 +61,11 @@ public partial class GameManager : Node3D
     {
         prepScene("empty");
 
-        // signale
-        ToggleGamePhase += onToggleGamePhase;
-        SetStartNode += onSetStartNode;
-        setGoalNode += onSetGoalNode;
-    }
+		// signale
+		ToggleGamePhase += onToggleGamePhase;
+		SetStartNode += onSetStartNode;
+		SetGoalNode += onSetGoalNode;
+	}
 
     public override void _Process(double delta)
     {
