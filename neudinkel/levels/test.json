@@ -1,6 +1,8 @@
 {
 	"name":"Level",
 	"startPos":[2.0, 6.0],
+	"startTile": 0,
+	"endTile": 4,
 	"tiles":[
 		{
 			"posX":0,

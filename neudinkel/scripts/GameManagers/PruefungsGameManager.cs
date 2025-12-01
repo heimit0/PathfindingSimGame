@@ -5,7 +5,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 {
 
 	[Signal]
-	public delegate void TileSelectedEventHandler(int[] tilePos);
+	public delegate void TileSelectedEventHandler(Vector2I tilePos);
     private GraphSearchAlgorithm algo;
     public override void  _Ready()
     {
@@ -14,12 +14,16 @@ public partial class PruefungsGameManager : SimulationGameManager
 		SetGoalNode += onSetGoalNode;
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
-        string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "test" : Globals.nextLevel;
+
+        string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "level1_dijkstra" : Globals.nextLevel;
         algo = Globals.pruefungsAlgorithmus;
+
 		prepScene(levelToLoad);
 		onInitOrChangeAlgorithm((int)algo);
+
         initialSteps();
-		currentAlgorithm.currentNode.setHighlighted(true);
+		currentAlgorithm.startNode.setHighlighted(true);
+		currentAlgorithm.goalNode.setHighlighted(true);
 	}
 
     public override void _Process(double delta)
@@ -33,8 +37,6 @@ public partial class PruefungsGameManager : SimulationGameManager
 		GD.Print("Startile "+ this.currentAlgorithm.startNode.getTilePosString());
 		GD.Print("Goaltile: "+ this.currentAlgorithm.goalNode.getTilePosString());
 		
-		this.currentAlgorithm.goalNode.setHighlighted(true);
-
 		GD.Print("step 1");
 		this.currentAlgorithm.doSearchStep();
 		GD.Print("step 2");
@@ -44,14 +46,14 @@ public partial class PruefungsGameManager : SimulationGameManager
 	}
 
 
-	public void playerInteraction(int[] tilePos)
+	public void playerInteraction(Vector2I tilePos)
 	{
 		GD.Print("Player did smth");
 		currentAlgorithm.doSearchStep();
-		if(this.graph.getNode(tilePos[0], tilePos[1]) == currentAlgorithm.currentNode)
+		if(this.graph.getNode(tilePos.X, tilePos.Y) == currentAlgorithm.currentNode)
 		{
 			GD.Print("Correct Tile Clicked");
-			currentAlgorithm.currentNode.setHighlighted(true);
+			if (currentAlgorithm.currentNode != null) currentAlgorithm.currentNode.setHighlighted(true);
 		}
 		else
 		{
