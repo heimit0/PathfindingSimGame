@@ -6,7 +6,7 @@ using System.Globalization;
 public partial class BauGameManager : GameManager
 {
 	[Signal]
-	public delegate void TileSelectedEventHandler(int[] tilePos);
+	public delegate void TileSelectedEventHandler(Vector2I tilePos);
 
 	[Signal]
 	public delegate void ChangeTileStreetTypeEventHandler(int newStreetType);
@@ -59,9 +59,9 @@ public partial class BauGameManager : GameManager
 		}
 	}
 
-	public void onTileSelected(int[] tilePos)
+	public void onTileSelected(Vector2I tilePos)
 	{
-		NewTileGraphNode selectedGhostNode = this.graph.getGhostNode(tilePos[0], tilePos[1]);
+		NewTileGraphNode selectedGhostNode = this.graph.getGhostNode(tilePos.X, tilePos.Y);
 
 		if (selectedGhostNode != null)
 		{
@@ -69,7 +69,7 @@ public partial class BauGameManager : GameManager
 			return;
 		}
 
-		GraphNode newSelectedNode = this.graph.getNode(tilePos[0], tilePos[1]);
+		GraphNode newSelectedNode = this.graph.getNode(tilePos.X, tilePos.Y);
 
 		// wenn man in die luft klickt, sollen sich alle tiles aus der selection entfernen
 		if (newSelectedNode == null)
@@ -142,7 +142,7 @@ public partial class BauGameManager : GameManager
 		foreach (GraphNode n in this.selectedNodes) n.updateModel();
 
 		// deselect all
-		onTileSelected(new int[] { -10000, -10000 });
+		onTileSelected(new Vector2I(-10000, -10000));
 	}
 
 	public void onChangeToSimulationMode()

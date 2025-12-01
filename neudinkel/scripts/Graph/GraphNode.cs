@@ -237,20 +237,20 @@ public partial class GraphNode : Node3D
         return TileRelation.INVALID;
     }
 
-    public Vector2 getNeighbourPos(int direction)
+    public Vector2I getNeighbourPos(int direction)
     {
         switch (direction)
         {
-            case 0: return new Vector2(this.tilePosX + 1, this.tilePosY - 1);
-            case 1: return new Vector2(this.tilePosX + 1, this.tilePosY);
-            case 2: return new Vector2(this.tilePosX, this.tilePosY + 1);
-            case 3: return new Vector2(this.tilePosX - 1, this.tilePosY + 1);
-            case 4: return new Vector2(this.tilePosX - 1, this.tilePosY);
-            case 5: return new Vector2(this.tilePosX, this.tilePosY - 1);
+            case 0: return new Vector2I(this.tilePosX + 1, this.tilePosY - 1);
+            case 1: return new Vector2I(this.tilePosX + 1, this.tilePosY);
+            case 2: return new Vector2I(this.tilePosX, this.tilePosY + 1);
+            case 3: return new Vector2I(this.tilePosX - 1, this.tilePosY + 1);
+            case 4: return new Vector2I(this.tilePosX - 1, this.tilePosY);
+            case 5: return new Vector2I(this.tilePosX, this.tilePosY - 1);
         }
 
         // shouldnt happen
-        return Vector2.Inf;
+        return new Vector2I(-1000, -1000);
     }
 
     public void addNeighbour(GraphNode newNeighbour)
@@ -314,7 +314,7 @@ public partial class GraphNode : Node3D
     }
 
 	// Konvertiert eine Weltkoordinate in eine Neudinekl-Hexagon-Grid-Position
-    public static Vector2 convertPosToTilePos(Vector3 pos)
+    public static Vector2I convertPosToTilePos(Vector3 pos)
     {
         float preTilePosY = pos.Z / 0.86f;
         float preTilePosX = pos.X - 0.5f * preTilePosY;
@@ -327,7 +327,7 @@ public partial class GraphNode : Node3D
         float tilePosYFracture = preTilePosY - (float)Math.Round(preTilePosY);
         if (tilePosYFracture > 0.5) tilePosY++;
 
-        return new Vector2(tilePosX, tilePosY);
+        return new Vector2I(tilePosX, tilePosY);
     }
 
 	// hebt die Node visuell hervor, wenn highlight == true

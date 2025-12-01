@@ -19,7 +19,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		prepScene(levelToLoad);
 		onInitOrChangeAlgorithm((int)algo);
         initialSteps();
-		currentAlgorithm.currentNode.toggleHighlight(true);
+		currentAlgorithm.currentNode.setHighlighted(true);
 	}
 
     public override void _Process(double delta)
@@ -33,7 +33,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		GD.Print("Startile "+ this.currentAlgorithm.startNode.getTilePosString());
 		GD.Print("Goaltile: "+ this.currentAlgorithm.goalNode.getTilePosString());
 		
-		this.currentAlgorithm.goalNode.toggleHighlight(true);
+		this.currentAlgorithm.goalNode.setHighlighted(true);
 
 		GD.Print("step 1");
 		this.currentAlgorithm.doSearchStep();
@@ -51,7 +51,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		if(this.graph.getNode(tilePos[0], tilePos[1]) == currentAlgorithm.currentNode)
 		{
 			GD.Print("Correct Tile Clicked");
-			currentAlgorithm.currentNode.toggleHighlight(true);
+			currentAlgorithm.currentNode.setHighlighted(true);
 		}
 		else
 		{
