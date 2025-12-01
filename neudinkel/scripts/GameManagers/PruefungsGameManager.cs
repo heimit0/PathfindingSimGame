@@ -29,6 +29,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 		currentAlgorithm.doSearchStep();
 		currentAlgorithm.doSearchStep();
 		currentAlgorithm.doSearchStep();
+		GD.Print("Startile "+ currentAlgorithm.startNode.getTilePosString);
+		GD.Print("Goaltile: "+currentAlgorithm.goalNode.getTilePosString);
 	}
 
 
