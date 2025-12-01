@@ -52,7 +52,7 @@ public partial class GameManager : Node3D
 	public delegate void SetStartNodeEventHandler(GraphNode node);
 
 	[Signal]
-	public delegate void setGoalNodeEventHandler(GraphNode node);
+	public delegate void SetGoalNodeEventHandler(GraphNode node);
 
 	[Signal]
 	public delegate void SetCameraPositionEventHandler(Vector2 pos);

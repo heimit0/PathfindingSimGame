@@ -117,8 +117,8 @@ public partial class Graph : Node3D
 		// Weiter testen und dabei gleich das Start- und Endtile setzen
 		if (json.ContainsKey("startTile") && json.ContainsKey("endTile"))
 		{
-			startTile = json["startTile"];
-			endTile = json["endTile"];
+			startTile = (int)json["startTile"];
+			endTile = (int)json["endTile"];
 		}
 		else
 		{
