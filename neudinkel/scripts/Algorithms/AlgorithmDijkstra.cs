@@ -45,7 +45,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		this.pseudoCodeSteps = new[] {
 			( 0, "unbesuchteKnoten = new PriorityQueue()"),
 			( 1, "besuchteKnoten = new List()"),
-			( 2, "distance[all nodes] = \\U+221E"),
+			( 2, "distance[all nodes] = ∞"),
 			( 3, "unbesuchteKnoten.add(startNode, 0)"),
 			( 4, "distance[startNode] = 0"),
 			( 4, "while (!unbesuchteKnoten.isEmpty()):"),
@@ -56,7 +56,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 			( 7, "    "),
 			( 8, "    for (neighbor in current.neighbors):"),
 			( 9, "        tentativeDist = distance[current] + edgeCost(current, neighbor)"),
-			(10, "        if (distance[neighbor] != \\U+221E):"),
+			(10, "        if (distance[neighbor] != ∞):"),
 			(11, "            if (tentativeDist < distance[neighbor]):"),
 			(12, "                distance[neighbor] = tentativeDist"),
 			(13, "                cameFrom[neighbor] = current"),
