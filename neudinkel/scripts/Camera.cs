@@ -36,7 +36,7 @@ public partial class Camera : Camera3D
 		{
 			Vector2 diff = originMousePos - GetViewport().GetMousePosition();
 			bool allowTileSelection = false;
-			if (diff.Length() == 0){
+			if (diff.Length() < 5){
 				allowTileSelection = true;
 			}
 			if (eventMouseButton.GetButtonIndex() == MouseButton.Left && eventMouseButton.IsReleased() && allowTileSelection)
