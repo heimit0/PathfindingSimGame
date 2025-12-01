@@ -1,58 +1,64 @@
 using Godot;
-using Microsoft.VisualBasic;
 using System;
+using System.Text.Json;
+
+public class NeudinkelConfig
+{
+
+	// Persistente Variablen
+	public int progress{ get; set; }
+
+}
 
 public partial class Globals : Node
 {
 
-	public static Random rand{ get; set; }
-	
-	private static ConfigFile SaveFile;
-	private static String path = "";
+	public static readonly string configFilePath = "user://config.json";
 
 	//variablen
+	public static Random rand{ get; set; }
 	public static string nextLevel; // Gibt mit welches lvl File geladen werden soll
 	public static GraphSearchAlgorithm pruefungsAlgorithmus; //Gibt mit welcher Algorithmus bei der Pruefung genutzt wird
-
-	//Persistente variablen
-	public static int progress;
+	public static NeudinkelConfig config;
+	public static JsonSerializerOptions jsonOptions = new JsonSerializerOptions { WriteIndented = true };
 
 	public Globals()
 	{
-		SaveFile = new ConfigFile();
 		Globals.rand = new Random();
+		Globals.config = new NeudinkelConfig();
+
+		Globals.config.progress = 128;
+		Globals.saveGame();
+		Globals.loadGame();
 	}
 
-	public static void safeGame()
+	public static void saveGame()
 	{
-		if(SaveFile == null)
-		{
-			GD.Print("no safe file initialized");
-			return;
-		}
-	   
-		// SaveFile.SetValue("progress",""); 
+		string json;
+		FileAccess file;
 
-		//in File speichern (wird überschrieben, wenn existent)
-		SaveFile.Save("");
+		file = FileAccess.Open(configFilePath, FileAccess.ModeFlags.Write);
+
+		json = JsonSerializer.Serialize(Globals.config, jsonOptions);
+		file.StoreString(json);
+		file.Close();
 	}
 
 	public static void loadGame()
 	{
-		var score_data = new Godot.Collections.Dictionary();
+		string json;
+		FileAccess file;
 
-		//File laden
-		Error err = SaveFile.Load(path);
-
-		if(err != Error.Ok)
+		if (!FileAccess.FileExists(configFilePath))
 		{
+			Globals.config = new NeudinkelConfig();
 			return;
 		}
 
-		/**foreach(String progress in SaveFile.GetSections())
-		{
-			var progress = (int)SaveFile.GetValue(progress, "");
-		}**/
+		file = FileAccess.Open(configFilePath, FileAccess.ModeFlags.Read);
+		json = file.GetAsText();
+		Globals.config = JsonSerializer.Deserialize<NeudinkelConfig>(json);
+		file.Close();
 	}
 
 }
