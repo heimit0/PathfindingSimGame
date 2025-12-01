@@ -108,6 +108,7 @@ public partial class GraphNode : Node3D
 			int c = connections.Count < 2 ? 3 : 0;
 
 			tile = getCityTile(connections.Count + c);
+			loadCityConnectionsAssets();
 		}
 		else
 		{
@@ -115,7 +116,6 @@ public partial class GraphNode : Node3D
 		}
 
 		AddChild(tile);
-		loadCityConnectionsAssets();
 	}
 
 	private Node3D getStreetTile(int from, int to)
@@ -175,8 +175,8 @@ public partial class GraphNode : Node3D
 		foreach (int neighbourIndex in connections)
 		{
 			GraphNode neighbour = this.neighbours[neighbourIndex];
-			Node3D newConnection = (Node3D) ResourceLoader.Load<PackedScene>("assets/testing/connection_00_" + (int) neighbour.getStreetType() + ".tscn").Instantiate();
-			newConnection.RotateY((float) ((neighbourIndex * 60.0f) * (180.0f / Math.PI)));
+			Node3D newConnection = (Node3D) ResourceLoader.Load<PackedScene>("assets/tiles/connection_00_" + (int) neighbour.getStreetType() + ".tscn").Instantiate();
+			newConnection.RotateY((float) (( (int) getNeighbourType(this, neighbour) * 60.0f) * (180.0f / Math.PI)));
 			this.AddChild(newConnection);
 		}
 	}
