@@ -42,9 +42,6 @@ public partial class GameManager : Node3D
 	public GraphNode startNode { get; set; }
 	public GraphNode goalNode { get; set; }
 
-	// TODO(hsimosse oder gfriedr3): Welche Aufgaben muss der GameManager übernehmen?
-	// TODO(hsimosse oder gfriedr3): Welche Signale muss der GM empfangen können?
-
 	[Signal]
 	public delegate void ToggleGamePhaseEventHandler(bool isNewPhaseSimulationPhase);
 
@@ -108,7 +105,6 @@ public partial class GameManager : Node3D
 		this.AddChild(this.graph);
 		this.graph.fromJsonObject(json);
 
-		// TODO move to sim-modus
 		onSetStartNode(this.graph.getNode(0, 0));
 		onSetGoalNode(this.graph.getNode(2, 2));
 	}

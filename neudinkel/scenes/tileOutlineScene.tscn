@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3110xoh8hw2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ajbeb"]
+transparency = 1
+albedo_color = Color(1.3709568, 2.704346, 1.237618, 0.015686275)
+heightmap_scale = -1.649
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_x3y7h"]
+material = SubResource("StandardMaterial3D_ajbeb")
+flip_faces = true
+top_radius = 0.6
+bottom_radius = 0.6
+height = 0.3
+radial_segments = 6
+rings = 32
+cap_top = false
+cap_bottom = false
+
+[node name="TileOutlineScene" type="MeshInstance3D"]
+mesh = SubResource("CylinderMesh_x3y7h")
