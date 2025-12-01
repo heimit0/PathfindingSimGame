@@ -15,7 +15,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 		prepScene(levelToLoad); 
 		onInitOrChangeAlgorithm((int)algo);
         initialSteps();
-    }
+		currentAlgorithm.currentNode.toggleHighlight(true);
+	}
 
     public override void _Process(double delta)
 	{
@@ -35,6 +36,15 @@ public partial class PruefungsGameManager : SimulationGameManager
 	{
 		GD.Print("Player did smth");
 		currentAlgorithm.doSearchStep();
+		if(this.graph.getNode(tilePos[0], tilePos[1]) == currentAlgorithm.currentNode)
+		{
+			GD.Print("Correct Tile Clicked");
+			currentAlgorithm.currentNode.toggleHighlight(true);
+		}
+		else
+		{
+			GD.Print("Wrong Tile Clicked");
+		}
 
 	}
 
