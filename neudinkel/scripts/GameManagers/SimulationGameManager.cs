@@ -112,9 +112,12 @@ public partial class SimulationGameManager : GameManager
 	// int algorithm == -1 => gleichen Algorithmus nochmal, i.e. nur neustarten
 	public void onInitOrChangeAlgorithm(int algorithm)
 	{
+		GD.Print("start change algorithm");
+
 		// gleichen algorithmus nochmal, nur neustarten
 		if (algorithm == -1)
 		{
+			GD.Print("reset Algorithm");
 			if (this.currentAlgorithm is AlgorithmAStar)
 			{
 				this.currentAlgorithm = new AlgorithmAStar(this.graph, this.startNode, this.goalNode);
@@ -142,11 +145,19 @@ public partial class SimulationGameManager : GameManager
 				break;
 		}
 
+		GD.Print("start visualizing algorithm");
 		this.currentAlgorithm.visualize(this.graph);
 		onSetIsSimulationAutomatic(false);
 
 		GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
-		textBoxBox = GetNode<PseudocodeTextBox>("Simulationsmodus/UI/Pseudocodeblock/PseudocodeTextBox");
+		if(this is PruefungsGameManager)
+		{
+			textBoxBox = GetNode<PseudocodeTextBox>("Pruefungsmodus/UI/Pseudocodeblock/PseudocodeTextBox");
+		}else
+		{
+			textBoxBox = GetNode<PseudocodeTextBox>("Simulationsmodus/UI/Pseudocodeblock/PseudocodeTextBox");
+		}
 		textBoxBox.onInitOrChangeAlgorithm(algorithm);
+		GD.Print("Pseudocde done");
 	}
 }
