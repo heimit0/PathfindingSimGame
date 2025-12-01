@@ -64,7 +64,7 @@ public partial class GameManager : Node3D
 		// signale
 		ToggleGamePhase += onToggleGamePhase;
 		SetStartNode += onSetStartNode;
-		setGoalNode += onSetGoalNode;
+		SetGoalNode += onSetGoalNode;
 	}
 
 	public override void _Process(double delta)
