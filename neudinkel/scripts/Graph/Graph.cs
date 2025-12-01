@@ -84,8 +84,8 @@ public partial class Graph : Node3D
 		// List<GraphNode> result = new List<GraphNode>();
 		// foreach (object node in this.GetChildren())
 		// {
-		// 	if (node.GetType() == typeof(GraphNode))
-		// 		result.Add((GraphNode)node);
+		//	if (node.GetType() == typeof(GraphNode))
+		//		result.Add((GraphNode)node);
 		// }
 		// return result.ToArray();
 
@@ -102,11 +102,26 @@ public partial class Graph : Node3D
 	{
 		this.nodes = new List<GraphNode>();
 		GameManager gm = this.GetParent<GameManager>();
+		int startTile;
+		int endTile;
+		int i;
 
 		// Struktur des Root testen
 		if (!(json.ContainsKey("tiles") && json.ContainsKey("edges")))
 		{
 			GD.Print("fromJsonObject: Level-Objekt ist kaputt, es fehlen tiles und/oder edges :(");
+			return true;
+		}
+
+		// Weiter testen und dabei gleich das Start- und Endtile setzen
+		if (json.ContainsKey("startTile") && json.ContainsKey("endTile"))
+		{
+			startTile = json["startTile"];
+			endTile = json["endTile"];
+		}
+		else
+		{
+			GD.Print("fromJsonObject: Es fehlt das Start- oder End-Tile!");
 			return true;
 		}
 
@@ -117,6 +132,7 @@ public partial class Graph : Node3D
 			gm.EmitSignal(GameManager.SignalName.SetCameraPosition, new Vector2((float)startPos[0], (float)startPos[1]));
 		}
 
+		i = 0; // meh
 		foreach (JsonObject n in json["tiles"].AsArray())
 		{
 			GraphNode node = new GraphNode();
@@ -125,6 +141,10 @@ public partial class Graph : Node3D
 			// abomination.
 			node.setStreetType((StreetType)(int)n["type"]);
 			this.nodes.Add(node);
+			// sind wir ein start- bzw. endtile?
+			if (i == startTile) gm.EmitSignal(GameManager.SignalName.SetStartNode, node);
+			if (i == endTile) gm.EmitSignal(GameManager.SignalName.SetGoalNode, node);
+			i++;
 		}
 
 		foreach (JsonObject e in json["edges"].AsArray())
