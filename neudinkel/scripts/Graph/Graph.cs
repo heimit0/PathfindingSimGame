@@ -5,6 +5,7 @@ using System.Collections;
 using System.Text.Json.Nodes;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 
 /*
 	TODO:
@@ -151,7 +152,7 @@ public partial class Graph : Node3D
 	{
 		var saveFile = FileAccess.Open("res:///levels/baumodus_save.json", FileAccess.ModeFlags.Write);
 		Camera camera = (Camera) GetViewport().GetCamera3D();
-		string output = "{\"name\":\"baumodus_save\",\"startPos\":[" + camera.Position.X + "," + camera.Position.Z + "],\"tiles\":[";
+		string output = "{\"name\":\"baumodus_save\",\"startPos\":[" + camera.Position.X.ToString(CultureInfo.InvariantCulture) + "," + camera.Position.Z.ToString(CultureInfo.InvariantCulture) + "],\"tiles\":[";
 
 		// nodes
 		foreach (GraphNode n in this.nodes)
