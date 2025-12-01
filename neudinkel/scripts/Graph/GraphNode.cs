@@ -175,8 +175,14 @@ public partial class GraphNode : Node3D
 		foreach (int neighbourIndex in connections)
 		{
 			GraphNode neighbour = this.neighbours[neighbourIndex];
+
+			if (this.tilePosX == 0 && this.tilePosY == 0)
+			{
+				GD.Print(getNeighbourType(this, neighbour).ToString());
+			}
+
 			Node3D newConnection = (Node3D) ResourceLoader.Load<PackedScene>("assets/tiles/connection_00_" + (int) neighbour.getStreetType() + ".tscn").Instantiate();
-			newConnection.RotateY((float) (( (int) getNeighbourType(this, neighbour) * 60.0f) * (180.0f / Math.PI)));
+			newConnection.RotateY(Mathf.DegToRad(((int) getNeighbourType(this, neighbour) * -60.0f)));
 			this.AddChild(newConnection);
 		}
 	}
@@ -405,36 +411,17 @@ public partial class GraphNode : Node3D
 
 	public static TileRelation getNeighbourType(GraphNode middle, GraphNode neighbour)
 	{
-		int x = middle.getTilePosX() - neighbour.tilePosX;
-		int y = middle.getTilePosY() - neighbour.tilePosY;
+		int dx = middle.getTilePosX() - neighbour.tilePosX;
+		int dy = middle.getTilePosY() - neighbour.tilePosY;
 
-		// FIXME: Fix
-		/**if (Mathf.Sqrt( Mathf.pow(a.tilePosX - a.getTilePosY, 2) + Mathf.pow(a.tilePosY - tile.tilePosY, 2)) != 1) 
-		{
-			return TileRelation.INVALID;
-		}**/
-
-
-		//topright x negativ y positiv
-		//right x negativ y 0
-		//bottomright x 0 y negativ
-		//bottomleft x positiv y negativ
-		//left x positiv y 0
-		//topleft x 0 y posititv
-		if (x < 0 && y > 0)
-			return TileRelation.TOPRIGHT;
-		else if (x < 0 && y == 0)
-			return TileRelation.RIGHT;
-		else if (x == 0 && y < 0)
-			return TileRelation.BOTTOMRIGHT;
-		else if (x > 0 && y < 0)
-			return TileRelation.BOTTOMLEFT;
-		else if (x > 0 && y == 0)
-			return TileRelation.LEFT;
-		else if (x == 0 && y > 0)
-			return TileRelation.TOPLEFT;
-		else
-			return TileRelation.INVALID;
+		if (dx == -1 && dy == 1) return TileRelation.TOPRIGHT;
+		if (dx == -1 && dy == 0) return TileRelation.RIGHT;
+		if (dx == 0 && dy == -1) return TileRelation.BOTTOMRIGHT;
+		if (dx == 1 && dy == -1) return TileRelation.BOTTOMLEFT;
+		if (dx == 1 && dy == 0) return TileRelation.LEFT;
+		if (dx == 0 && dy == 1) return TileRelation.TOPLEFT;
+		
+		return TileRelation.INVALID;
 	}
 
 	public String getTilePosString()
