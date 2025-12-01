@@ -10,9 +10,13 @@ public partial class PruefungsGameManager : SimulationGameManager
     public override void  _Ready()
     {
 		TileSelected += playerInteraction;
+		SetStartNode += onSetStartNode;
+		SetGoalNode += onSetGoalNode;
+		DoSearchForward += onDoSearchForward;
+		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
         string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "test" : Globals.nextLevel;
         algo = Globals.pruefungsAlgorithmus;
-		prepScene(levelToLoad); 
+		prepScene(levelToLoad);
 		onInitOrChangeAlgorithm((int)algo);
         initialSteps();
 		currentAlgorithm.currentNode.toggleHighlight(true);
@@ -26,14 +30,17 @@ public partial class PruefungsGameManager : SimulationGameManager
 	//Macht bei allen Algorithmen die ersten initilaisierungs steps
 	public void initialSteps()
 	{
+		GD.Print("Startile "+ this.currentAlgorithm.startNode.getTilePosString());
+		GD.Print("Goaltile: "+ this.currentAlgorithm.goalNode.getTilePosString());
+		
+		this.currentAlgorithm.goalNode.toggleHighlight(true);
+
 		GD.Print("step 1");
-		currentAlgorithm.doSearchStep();
+		this.currentAlgorithm.doSearchStep();
 		GD.Print("step 2");
-		currentAlgorithm.doSearchStep();
+		this.currentAlgorithm.doSearchStep();
 		GD.Print("step 3");
-		currentAlgorithm.doSearchStep();
-		GD.Print("Startile "+ currentAlgorithm.startNode.getTilePosString());
-		GD.Print("Goaltile: "+currentAlgorithm.goalNode.getTilePosString());
+		this.currentAlgorithm.doSearchStep();
 	}
 
 
