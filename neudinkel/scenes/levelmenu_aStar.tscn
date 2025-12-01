@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://lruru8fkjqyt"]
+[gd_scene load_steps=5 format=3 uid="uid://lruru8fkjqyt"]
 
 [ext_resource type="Texture2D" uid="uid://bugu5vlgvm8hc" path="res://icon.svg" id="1_6sx50"]
 [ext_resource type="Script" uid="uid://cfs40l745o8xx" path="res://scripts/ui_buttons/LevelmenuAStar.cs" id="1_33xbi"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_d8yyi"]
+[ext_resource type="Script" uid="uid://btwp1hq3ogfmy" path="res://scripts/NeudinkelStarIndicator.cs" id="3_xfoot"]
 
 [node name="Control2" type="Control"]
 layout_mode = 3
@@ -52,16 +53,21 @@ alignment = 1
 position = Vector2(-275, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("1_6sx50")
+script = ExtResource("3_xfoot")
 
 [node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
 position = Vector2(0, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("1_6sx50")
+script = ExtResource("3_xfoot")
+starNum = 1
 
 [node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
 position = Vector2(275, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("1_6sx50")
+script = ExtResource("3_xfoot")
+starNum = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
