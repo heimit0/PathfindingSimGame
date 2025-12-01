@@ -38,18 +38,18 @@ public partial class PruefungsGameManager : SimulationGameManager
 		GD.Print("Goaltile: "+ this.currentAlgorithm.goalNode.getTilePosString());
 		
 		GD.Print("step 1");
-		this.currentAlgorithm.doSearchStep();
+		this.doSearchForwardHelper(true);
 		GD.Print("step 2");
-		this.currentAlgorithm.doSearchStep();
+		this.doSearchForwardHelper(true);
 		GD.Print("step 3");
-		this.currentAlgorithm.doSearchStep();
+		this.doSearchForwardHelper(true);
 	}
 
 
 	public void playerInteraction(Vector2I tilePos)
 	{
 		GD.Print("Player did smth");
-		currentAlgorithm.doSearchStep();
+		this.doSearchForwardHelper(true);
 		if(this.graph.getNode(tilePos.X, tilePos.Y) == currentAlgorithm.currentNode)
 		{
 			GD.Print("Correct Tile Clicked");
