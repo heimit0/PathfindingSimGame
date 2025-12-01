@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dph27y30ul1ss"]
+
+[ext_resource type="PackedScene" uid="uid://8w72ff4rrkyh" path="res://models/tiles/connection_00_4.fbx" id="1_ie7i4"]
+
+[node name="connection_00_4" instance=ExtResource("1_ie7i4")]

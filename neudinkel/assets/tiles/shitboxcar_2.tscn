@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsih6dwsttgng"]
+
+[ext_resource type="PackedScene" uid="uid://bu3lyrys3hjga" path="res://models/tiles/shitBoxCar_2.fbx" id="1_70p12"]
+
+[node name="shitBoxCar_2" instance=ExtResource("1_70p12")]
