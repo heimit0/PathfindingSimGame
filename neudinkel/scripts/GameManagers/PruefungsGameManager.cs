@@ -26,11 +26,14 @@ public partial class PruefungsGameManager : SimulationGameManager
 	//Macht bei allen Algorithmen die ersten initilaisierungs steps
 	public void initialSteps()
 	{
+		GD.Print("step 1");
 		currentAlgorithm.doSearchStep();
+		GD.Print("step 2");
 		currentAlgorithm.doSearchStep();
+		GD.Print("step 3");
 		currentAlgorithm.doSearchStep();
-		GD.Print("Startile "+ currentAlgorithm.startNode.getTilePosString);
-		GD.Print("Goaltile: "+currentAlgorithm.goalNode.getTilePosString);
+		GD.Print("Startile "+ currentAlgorithm.startNode.getTilePosString());
+		GD.Print("Goaltile: "+currentAlgorithm.goalNode.getTilePosString());
 	}
 
 
