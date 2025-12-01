@@ -300,8 +300,8 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 
 	private float getDistanceNodes(GraphNode node1, GraphNode node2)
 	{
-		float xDistance = node2.getTilePosX() - node1.getTilePosX();
-		float yDistance = node2.getTilePosY() - node1.getTilePosY();
+		float xDistance = node2.tilePosX - node1.tilePosX;
+		float yDistance = node2.tilePosY - node1.tilePosY;
 		float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
 		return distance;
 	}

@@ -1,10 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Dynamic;
-using System.Globalization;
-using System.Threading.Tasks;
+using System.Linq;
 
 /*
 	TODO:
@@ -13,440 +10,338 @@ using System.Threading.Tasks;
 		Batch Rendering - damit wir viele Tiles haben koennen
 */
 
-/// <summary>
-/// Alle moeglichen Typen fuer eine Strasse
-/// </summary>
 public enum StreetType
 {
-	//enum weist jedem member nen integer zu (0,1,2,...) die kann man manuel setzen
-	//und mit Typecasts abrufen (int)type gibt den int oder falls nötig (StreetType)int
-	//den typ nach kosten 
-	//Probleme enstehen wenn man paare casted die nicht enthalten sind
-	EMPTY = 0,
-	AUTOBAHN = 1,
-	LANSTRASSE = 2,
-	FELDWEG = 3,
-	SANDWEG = 4
+    EMPTY = 0,
+    AUTOBAHN = 1,
+    LANSTRASSE = 2,
+    FELDWEG = 3,
+    SANDWEG = 4
 };
 
 public partial class GraphNode : Node3D
 {
+    // Position im Neudinkel-Hexagon-Grid-System
+    public int tilePosX { get; set; }
+    public int tilePosY { get; set; }
 
-	/// <summary>
-	/// Position auf dem Grid in Tile-Koordinaten.
-	/// Dabei wird das hexagonale Grid auf ein rechteckiges
-	/// abgebildet. Jede Zeile ist also zur vorherigen
-	/// versetzt.
-	/// </summary>
-	public int tilePosX;
-	public int tilePosY;
+    // Array mit Länge 6, jeder Index = null oder GraphNode
+    public GraphNode[] neighbours { get; set; }
+    // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 
-	/// <summary>
-	/// Benachbarte Knoten.
-	/// Die Referenz ist hier eigentlich ueberfluessig, da aus dem
-	/// Verbindungspunkt ableitbar ist welcher Node angrenzt, aber naja.
-	/// </summary>
-	public GraphNode[] neighbours; // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
-	public Node3D tile;
-	public Node3D tileBase;
+    // city / road - sprite
+    public Node3D tile;
 
-	/// <summary>
-	/// zeigt ob node gehighlighted ist oder nich
-	/// </summary>
-	public bool highlighted { get; set; }
+    // base-sprite (gras)
+    public Node3D tileBase;
 
-	private StreetType streetType;
+    // hervorgehobn ja / nein
+    public bool highlighted;
+    public StreetType streetType { get; set; }
 
-	public GraphNode() : base()
-	{
-		neighbours = new GraphNode[6];
-	}
+	[Export]
+	public float highlightedYOffset = 0.25f;
 
-	public override void _Ready()
-	{
-		base._Ready();
-		this.tileBase = (Node3D)ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn").Instantiate();
-		this.AddChild(this.tileBase);
-		updateModel();
-		this.highlighted = false;
-	}
+    public override void _Ready()
+    {
+        this.neighbours = new GraphNode[6];
+        this.highlighted = false;
 
-	public override void _Process(double delta) { }
+        updateModel();
+    }
 
-	/// <summary>
-	/// Aktualisiert das gerenderte Modell je nach Status.
-	/// </summary>
-	public void updateModel()
-	{
-		if (this.GetChildren().Contains(tile)) this.RemoveChild(tile);
+    /// <summary>
+    /// Aktualisiert das gerenderte Modell je nach Status.
+    /// </summary>
+    public void updateModel()
+    {
+        // sicher ist sicher
+        if (this.GetChildren().Contains(tile)) this.RemoveChild(tile);
 
-		tile = new Node3D();
+        // base-sprite (gras)
+        this.tileBase = (Node3D)ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn").Instantiate();
+        this.AddChild(this.tileBase);
 
-		List<Int32> connections = [];
-		for (int n = 0; n < neighbours.Length; n++)
-		{
-			if (neighbours[n] != null)
-			{
-				connections.Add(n);
-			}
-		}
+		GraphNode[] _neighbours = this.getNeighbours();
 
-		// GD.Print(this.getTilePosString() + " has nei: " + connections.Count);
-		// string s = this.getTilePosString() + " has neis: [";
+        switch (_neighbours.Length)
+        {
+			// if empty tile
+            case 0:
+                this.tile = loadAsset("testtile00");
+                break;
+			// if city
+            case int n when n != 2:
+                int c = _neighbours.Length < 2 ? 3 : 0;
+                this.tile = loadAsset("city_0" + (_neighbours.Length + c) + "_" + "1");
+				loadCityConnectionsAssets();
+				break;
+			// if street
+			case 2:
+				this.tile = getStreetTileAsset(_neighbours[0], _neighbours[1]);
+				break;
+        }
 
-		// foreach (GraphNode n in this.neighbours) if (n != null) s += "(" + n.getTilePosString() + "), ";
+        this.AddChild(tile);
+    }
 
-		// s += "]";
-		// GD.Print(s);
+    private Node3D getStreetTileAsset(GraphNode n1, GraphNode n2)
+    {
+		int from = (int) getNeighbourType(this, n1);
+		int to = (int) getNeighbourType(this, n2);
 
-		if (connections.Count == 0)
-		{
-			tile = getEmptyTile();
-		}
-		else if (connections.Count != 2)
-		{
-			int c = connections.Count < 2 ? 3 : 0;
+        int diff = to - from;
+        int variation = Globals.rand.Next(1, 3);
 
-			tile = getCityTile(connections.Count + c);
-			loadCityConnectionsAssets();
-		}
-		else
-		{
-			tile = getStreetTile(connections[0], connections[1]);
-		}
+        if (diff > 3)
+        {
+            from = to;
+            diff = 6 - diff;
+        }
 
-		AddChild(tile);
-	}
-
-	private Node3D getStreetTile(int from, int to)
-	{
-		int diff = to - from;
-		int variation = Globals.rand.Next(1, 3);
-
-		if (diff > 3)
-		{
-			from = to;
-			diff = 6 - diff;
-		}
-
-		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/street" + (int)this.streetType + "_0" + diff + "_" + "1" + ".tscn"); // TODO: add variations
-		var streetModell = scene.Instantiate();
-		Node3D street = new();
-		street.AddChild(streetModell);
-		street.RotateY(Mathf.DegToRad(-60 * from));
+        Node3D street = loadAsset("street" + (int)this.streetType + "_0" + diff + "_" + "1");
+        street.RotateY(Mathf.DegToRad(-60 * from));
 		return street;
-	}
+    }
 
-	private Node3D getCityTile(int size)
+	// Verbindungsstücke von der Stadt zur nächsten Straße laden
+    private void loadCityConnectionsAssets()
+    {
+		GraphNode[] _neighbours = this.getNeighbours();
+
+        if (_neighbours.Length != 1 && _neighbours.Length <= 2)
+        {
+            GD.PrintErr("Tried to add city connections assets on a non-city node!");
+            return;
+        }
+
+        foreach (GraphNode n in _neighbours)
+        {
+            if (this.tilePosX == 0 && this.tilePosY == 0)
+            {
+                GD.Print(getNeighbourType(this, n).ToString());
+            }
+
+            Node3D newConnection = (Node3D)ResourceLoader.Load<PackedScene>("assets/tiles/connection_00_" + (int)n.streetType + ".tscn").Instantiate();
+            newConnection.RotateY(Mathf.DegToRad(((int)getNeighbourType(this, n) * -60.0f)));
+            this.AddChild(newConnection);
+        }
+    }
+
+	private Node3D loadAsset(string fileName)
 	{
-		var scene = ResourceLoader.Load<PackedScene>("assets/tiles/city_0" + size + "_" + "1" + ".tscn"); //TODO add variations
-		Node3D citytile = new Node3D();
-		var instantiatedcity = scene.Instantiate();
-		citytile.AddChild(instantiatedcity);
-		return citytile;
+        Node3D scene = (Node3D) ResourceLoader.Load<PackedScene>("assets/tiles/" + fileName + ".tscn").Instantiate(); // TODO: add variations
+		Node3D obj = new Node3D();
+		obj.AddChild(scene);
+		return obj;
 	}
 
-	private Node3D getEmptyTile()
-	{
-		var scene = ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn"); //TODO replace with actual empty tile
-		Node3D emptyTile = new Node3D();
-		var instanciated = scene.Instantiate();
-		emptyTile.AddChild(instanciated);
-		return emptyTile;
-	}
+	// suche alle anliegenden Knoten mit genau 1 oder > 2 Nachbarn
+    public GraphNode[] getNeighbouringCities(GraphNode[] visited)
+    {
+        List<GraphNode> heads = [];
+        foreach (GraphNode head in this.getNeighbours()) heads.Add(head);
+        List<GraphNode> visitedNodes = [this, .. heads, .. visited];
+        int numCitiesFound = 0;
 
-	private void loadCityConnectionsAssets()
-	{
-		List<Int32> connections = [];
-		for (int n = 0; n < neighbours.Length; n++)
-		{
-			if (neighbours[n] != null)
-			{
-				connections.Add(n);
-			}
-		}
+        while (numCitiesFound < heads.Count)
+        {
+            // c# bullshit
+            List<GraphNode> newHeads = [];
+            foreach (GraphNode head in heads)
+            {
+                newHeads.Add(head);
+            }
 
-		if (connections.Count != 1 && connections.Count <= 2)
-		{
-			GD.PrintErr("Tried to add city connections assets on a non-city node!");
-			return;
-		}
+            numCitiesFound = 0;
+            foreach (GraphNode head in heads)
+            {
+                // win condition
+                if (head.getNeighbours().Length == 1 || head.getNeighbours().Length > 2)
+                {
+                    numCitiesFound++;
+                    continue;
+                }
 
-		foreach (int neighbourIndex in connections)
-		{
-			GraphNode neighbour = this.neighbours[neighbourIndex];
+                foreach (GraphNode newHead in head.getNeighbours())
+                {
+                    // if not alter nachbar => nur neue nachbarn angucken
+                    if (!visitedNodes.Contains(newHead))
+                    {
+                        visitedNodes.Add(newHead);
+                        newHeads.Remove(head);
+                        newHeads.Add(newHead);
+                    }
+                    // if bereits gefundener Knoten
+                    else if (newHead.getNeighbours().Length == 1 || newHead.getNeighbours().Length > 2)
+                    {
+                        newHeads.Remove(head);
+                    }
+                }
+            }
 
-			if (this.tilePosX == 0 && this.tilePosY == 0)
-			{
-				GD.Print(getNeighbourType(this, neighbour).ToString());
-			}
+            heads = newHeads;
+        }
 
-			Node3D newConnection = (Node3D) ResourceLoader.Load<PackedScene>("assets/tiles/connection_00_" + (int) neighbour.getStreetType() + ".tscn").Instantiate();
-			newConnection.RotateY(Mathf.DegToRad(((int) getNeighbourType(this, neighbour) * -60.0f)));
-			this.AddChild(newConnection);
-		}
-	}
+        return heads.ToArray();
+    }
 
-	public int getTilePosY()
-	{
-		return this.tilePosY;
-	}
+    // Wir gehen davon aus, dass man weiß, dass es benachbarte Knoten gibt
+    // Außerdem muss ein Nachbar als Startpunkt übergeben werden
+    public GraphNode[] getPathToNeighbouringCity(GraphNode goalNode)
+    {
+        List<List<GraphNode>> paths = []; // bis zu 6 Pfade für jeden direkten Nachbarn von der Startnode
+        foreach (GraphNode head in this.getNeighbours()) paths.Add([head]); // pfade initialisieren
 
-	public StreetType getStreetType()
-	{
-		return streetType;
-	}
+        // nicht fragen bitte ~georg
+        for (int i = 0; i < 1000; i++)
+        {
+            foreach (List<GraphNode> path in paths)
+            {
+                // win condition
+                GraphNode head = path[path.Count - 1];
+                if (head.Equals(goalNode)) return path.ToArray();
 
-	public GraphNode[] getNeighbours()
-	{
-		return neighbours;
-	}
+                // jeden Pfad um 1 vom start weg erweitern
+                foreach (GraphNode newHead in head.getNeighbours())
+                {
+                    if (!newHead.Equals(this) && (path.Count < 2 || !newHead.Equals(path[path.Count - 2]))) path.Add(newHead);
+                }
+            }
+        }
 
-	public GraphNode[] getNeighbouringCities(GraphNode[] visited)
-	{
-		List<GraphNode> heads = [];
-		foreach (GraphNode head in this.getNeighboursUnsorted()) heads.Add(head);
-		List<GraphNode> visitedNodes = [this, .. heads, .. visited];
-		int numCitiesFound = 0;
+        GD.PrintErr("Es wurde versucht den Pfad zwischen zwei nicht direkt miteinander verbundenen Nodes zu erhalten!");
+        GD.PrintErr("startNode: " + this.getTilePosString());
+        GD.PrintErr(" goalNode: " + goalNode.getTilePosString());
 
-		while (numCitiesFound < heads.Count)
-		{
-			// c# bullshit
-			List<GraphNode> newHeads = [];
-			foreach (GraphNode head in heads)
-			{
-				newHeads.Add(head);
-			}
+        return null;
+    }
 
-			numCitiesFound = 0;
-			foreach (GraphNode head in heads)
-			{
-				// win condition
-				if (head.getNeighboursUnsorted().Length == 1 || head.getNeighboursUnsorted().Length > 2)
-				{
-					numCitiesFound++;
-					continue;
-				}
+    public GraphNode[] getNeighbours()
+    {
+        return this.neighbours.Where(n => n != null).ToArray();
+    }
 
-				foreach (GraphNode newHead in head.getNeighboursUnsorted())
-				{
-					// if not alter nachbar => nur neue nachbarn angucken
-					if (!visitedNodes.Contains(newHead))
-					{
-						visitedNodes.Add(newHead);
-						newHeads.Remove(head);
-						newHeads.Add(newHead);
-					}
-					// if bereits gefundener Knoten
-					else if (newHead.getNeighboursUnsorted().Length == 1 || newHead.getNeighboursUnsorted().Length > 2)
-					{
-						newHeads.Remove(head);
-					}
-				}
-			}
+    public static TileRelation getNeighbourType(GraphNode origin, GraphNode neighbour)
+    {
+        int dx = origin.tilePosX - neighbour.tilePosX;
+        int dy = origin.tilePosY - neighbour.tilePosY;
 
-			heads = newHeads;
-		}
+        if (dx == -1 && dy == 1) return TileRelation.TOPRIGHT;
+        if (dx == -1 && dy == 0) return TileRelation.RIGHT;
+        if (dx == 0 && dy == -1) return TileRelation.BOTTOMRIGHT;
+        if (dx == 1 && dy == -1) return TileRelation.BOTTOMLEFT;
+        if (dx == 1 && dy == 0) return TileRelation.LEFT;
+        if (dx == 0 && dy == 1) return TileRelation.TOPLEFT;
 
-		return heads.ToArray();
-	}
+        return TileRelation.INVALID;
+    }
 
-	// Wir gehen davon aus, dass man weiß, dass es benachbarte Knoten gibt
-	// Außerdem muss ein Nachbar als Startpunkt übergeben werden
-	public GraphNode[] getPathToNeighbouringCity(GraphNode goalNode)
-	{
-		List<List<GraphNode>> paths = []; // bis zu 6 Pfade für jeden direkten Nachbarn von der Startnode
-		foreach (GraphNode head in this.getNeighboursUnsorted()) paths.Add([head]); // pfade initialisieren
+    public Vector2 getNeighbourPos(int direction)
+    {
+        switch (direction)
+        {
+            case 0: return new Vector2(this.tilePosX + 1, this.tilePosY - 1);
+            case 1: return new Vector2(this.tilePosX + 1, this.tilePosY);
+            case 2: return new Vector2(this.tilePosX, this.tilePosY + 1);
+            case 3: return new Vector2(this.tilePosX - 1, this.tilePosY + 1);
+            case 4: return new Vector2(this.tilePosX - 1, this.tilePosY);
+            case 5: return new Vector2(this.tilePosX, this.tilePosY - 1);
+        }
 
-		// nicht fragen bitte ~georg
-		for (int i = 0; i < 1000; i++)
-		{
-			foreach (List<GraphNode> path in paths)
-			{
-				// win condition
-				GraphNode head = path[path.Count - 1];
-				if (head.Equals(goalNode)) return path.ToArray();
+        // shouldnt happen
+        return Vector2.Inf;
+    }
 
-				// jeden Pfad um 1 vom start weg erweitern
-				foreach (GraphNode newHead in head.getNeighboursUnsorted())
-				{
-					if (!newHead.Equals(this) && (path.Count < 2 || !newHead.Equals(path[path.Count - 2]))) path.Add(newHead);
-				}
-			}
-		}
+    public void addNeighbour(GraphNode newNeighbour)
+    {
+        if ((int)getNeighbourType(this, newNeighbour) == -1)
+        {
+            GD.Print("(" + newNeighbour.tilePosX + ", " + newNeighbour.tilePosY + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
+            return;
+        }
 
-		GD.PrintErr("Es wurde versucht den Pfad zwischen zwei nicht direkt miteinander verbundenen Nodes zu erhalten!");
-		GD.PrintErr("startNode: " + this.getTilePosString());
-		GD.PrintErr(" goalNode: " + goalNode.getTilePosString());
+        this.neighbours[(int)getNeighbourType(this, newNeighbour)] = newNeighbour;
+    }
 
-		return null;
-	}
+    public void removeNeighbour(GraphNode neighbour)
+    {
+        for (int i = 0; i < this.neighbours.Length; i++)
+        {
+            GraphNode current = this.neighbours[i];
+            if (current == null) continue;
 
-	/// <summary>
-	/// Fuegt einen Node als Nachbar hinzu.
-	/// </summary>
-	public void addNeighbor(GraphNode a)
-	{
-		if ((int)getNeighbourType(this, a) != -1)
-		{
-			this.neighbours[(int)getNeighbourType(this, a)] = a;
-		}
-		else
-		{
-			GD.Print("(" + a.getTilePosX() + ", " + a.getTilePosY() + ") ist kein gültiger Nachbarknoten für (" + this.tilePosX + ", " + this.tilePosY + ")");
-		}
-	}
+            // GD.Print(this.getTilePosString() + ": current = " + current.getTilePosString() + ", origin=" + n.getTilePosString());
+            if (current.Equals(neighbour))
+            {
+                GD.Print("neighbour " + this.neighbours[i].getTilePosString() + " removed from " + this.getTilePosString());
+                this.neighbours[i] = null;
+            }
+        }
 
-	public void removeNeighbour(GraphNode n)
-	{
-		for (int i = 0; i < this.neighbours.Length; i++)
-		{
-			GraphNode current = this.neighbours[i];
+        updateModel();
+    }
 
-			if (current == null) continue;
+    public void clearNeighbours()
+    {
+        // clear connection from neighbours to this
+        foreach (GraphNode n in this.getNeighbours())
+        {
+            n.removeNeighbour(this);
+        }
 
-			// GD.Print(this.getTilePosString() + ": current = " + current.getTilePosString() + ", origin=" + n.getTilePosString());
-			if (current.getTilePosX().Equals(n.getTilePosX()) && current.getTilePosY().Equals(n.getTilePosY()))
-			{
-				GD.Print("neighbour " + this.neighbours[i].getTilePosString() + " removed from " + this.getTilePosString());
-				this.neighbours[i] = null;
-			}
-		}
+        this.neighbours = new GraphNode[6];
+    }
 
-		updateModel();
-	}
+    public String getTilePosString()
+    {
+        return "(" + this.tilePosX + ", " + this.tilePosY + ")";
+    }
 
-	public void clearNeighbours()
-	{
-		// clear connection from neighbours to this
-		foreach (GraphNode n in this.getNeighboursUnsorted())
-		{
-			n.removeNeighbour(this);
-		}
+    public void setTilePos(int tilePosX, int tilePosY)
+    {
+        this.tilePosX = tilePosX;
+        this.tilePosY = tilePosY;
+        this.Position = convertTilePosToPos(tilePosX, tilePosY);
+    }
 
-		this.neighbours = new GraphNode[6];
-	}
+	// Konvertiert eine Neudinkel-Hexagon-Grid-Position zu einer Weltkoordinate
+    // tilePosY 0.86 Offset wegen der Geometrie der Tiles
+    // tilePosX 0.5 mal tilePosY Offset weil es Hexagone sind und die Zeilen versetzt sein muessen
+    public static Vector3 convertTilePosToPos(int tilePosX, int tilePosY)
+    {
+        return new Vector3(tilePosX + 0.5f * tilePosY, 0.0f, tilePosY * 0.86f);
+    }
 
-	// gibt nur die existierenden Nachbarn mit der TileRelation zurück
-	// für Algorithmen
-	public GraphNode[] getNeighboursUnsorted()
-	{
-		List<GraphNode> _neighbours = new List<GraphNode>();
+	// Konvertiert eine Weltkoordinate in eine Neudinekl-Hexagon-Grid-Position
+    public static Vector2 convertPosToTilePos(Vector3 pos)
+    {
+        float preTilePosY = pos.Z / 0.86f;
+        float preTilePosX = pos.X - 0.5f * preTilePosY;
 
-		for (int i = 0; i < this.neighbours.Length; i++)
-		{
-			if (this.neighbours[i] != null)
-			{
-				_neighbours.Add(this.neighbours[i]);
-			}
-		}
+        int tilePosX = (int)Math.Round(preTilePosX);
+        float tilePosXFracture = preTilePosX - (float)Math.Round(preTilePosX);
+        if (tilePosXFracture > 0.5) tilePosX++;
 
-		return _neighbours.ToArray();
-	}
+        int tilePosY = (int)Math.Round(preTilePosY);
+        float tilePosYFracture = preTilePosY - (float)Math.Round(preTilePosY);
+        if (tilePosYFracture > 0.5) tilePosY++;
 
-	/// <summary>
-	/// Setzt die TilePos-Variablen und updated dabei
-	/// die World-Position des Tiles.
-	/// </summary>
-	public void setTilePos(int tilePosX, int tilePosY)
-	{
-		this.tilePosX = tilePosX;
-		this.tilePosY = tilePosY;
-		this.Position = convertTilePosToPos(tilePosX, tilePosY);
-	}
+        return new Vector2(tilePosX, tilePosY);
+    }
 
-	public void setStreetType(StreetType t)
-	{
-		this.streetType = t; // updateMode() in BauGameManager
-	}
+	// hebt die Node visuell hervor, wenn highlight == true
+    public void setHighlighted(bool highlight)
+    {
+        if (!highlighted && highlight)
+        {
+            this.Position = this.Position + Vector3.Up * this.highlightedYOffset;
+        }
+        else if (highlighted && !highlight)
+        {
+            this.Position = this.Position - Vector3.Up * this.highlightedYOffset;
+        }
 
-	///<summary>
-	///tilePosY 0.86 Offset wegen der Geometrie der Tiles
-	///tilePosX 0.5 mal tilePosY Offset weil es Hexagone sind und die Zeilen versetzt sein muessen
-	///</summary>
-	public static Vector3 convertTilePosToPos(int tilePosX, int tilePosY)
-	{
-		return new Vector3(tilePosX + 0.5f * tilePosY, 0.0f, tilePosY * 0.86f);
-	}
-
-	///<summary>
-	///convertiert nach den gleichen regeln wie TilePosToPos nur andersrum
-	///</summary>
-	public static int[] convertPosToTilePos(Vector3 pos)
-	{
-		float preTilePosY = pos.Z / 0.86f;
-		float preTilePosX = pos.X - 0.5f * preTilePosY;
-		int tilePosX = (int)Math.Round(preTilePosX);
-		float tilePosXFracture = preTilePosX - (float)Math.Round(preTilePosX);
-		if (tilePosXFracture > 0.5)
-		{
-			tilePosX++;
-		}
-		int tilePosY = (int)Math.Round(preTilePosY);
-		float tilePosYFracture = preTilePosY - (float)Math.Round(preTilePosY);
-		if (tilePosYFracture > 0.5)
-		{
-			tilePosY++;
-		}
-
-		return new int[] { tilePosX, tilePosY };
-	}
-
-	public void toggleHighlight(bool highlight)
-	{
-		Vector3 pos = this.Position;
-		Vector3 relPos = new Vector3(0.0f, 0.25f, 0.0f);
-
-		if (!highlighted && highlight)
-		{
-			this.Position = pos + relPos;
-		}
-		else if (highlighted && !highlight)
-		{
-			this.Position = pos - relPos;
-		}
-
-		this.highlighted = highlight;
-	}
-
-	public static TileRelation getNeighbourType(GraphNode middle, GraphNode neighbour)
-	{
-		int dx = middle.getTilePosX() - neighbour.tilePosX;
-		int dy = middle.getTilePosY() - neighbour.tilePosY;
-
-		if (dx == -1 && dy == 1) return TileRelation.TOPRIGHT;
-		if (dx == -1 && dy == 0) return TileRelation.RIGHT;
-		if (dx == 0 && dy == -1) return TileRelation.BOTTOMRIGHT;
-		if (dx == 1 && dy == -1) return TileRelation.BOTTOMLEFT;
-		if (dx == 1 && dy == 0) return TileRelation.LEFT;
-		if (dx == 0 && dy == 1) return TileRelation.TOPLEFT;
-		
-		return TileRelation.INVALID;
-	}
-
-	public String getTilePosString()
-	{
-		return this.getTilePosX() + ", " + this.getTilePosY();
-	}
-
-	public int[] getNeighbourPos(int direction)
-	{
-		switch (direction)
-		{
-			case 0: return new int[] { this.tilePosX + 1, this.tilePosY - 1 };
-			case 1: return new int[] { this.tilePosX + 1, this.tilePosY };
-			case 2: return new int[] { this.tilePosX, this.tilePosY + 1 };
-			case 3: return new int[] { this.tilePosX - 1, this.tilePosY + 1 };
-			case 4: return new int[] { this.tilePosX - 1, this.tilePosY };
-			case 5: return new int[] { this.tilePosX, this.tilePosY - 1 };
-		}
-
-		// shouldnt happen
-		return null;
-	}
-
-	public int getTilePosX()
-	{
-		return this.tilePosX;
-	}
+        this.highlighted = highlight;
+    }
 }

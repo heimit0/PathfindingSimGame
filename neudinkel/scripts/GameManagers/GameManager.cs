@@ -51,8 +51,8 @@ public partial class GameManager : Node3D
     [Signal]
     public delegate void SetStartNodeEventHandler(GraphNode node);
 
-	[Signal]
-	public delegate void SetGoalNodeEventHandler(GraphNode node);
+    [Signal]
+    public delegate void SetGoalNodeEventHandler(GraphNode node);
 
     [Signal]
     public delegate void SetCameraPositionEventHandler(Vector2 pos);
@@ -61,11 +61,11 @@ public partial class GameManager : Node3D
     {
         prepScene("empty");
 
-		// signale
-		ToggleGamePhase += onToggleGamePhase;
-		SetStartNode += onSetStartNode;
-		SetGoalNode += onSetGoalNode;
-	}
+        // signale
+        ToggleGamePhase += onToggleGamePhase;
+        SetStartNode += onSetStartNode;
+        SetGoalNode += onSetGoalNode;
+    }
 
     public override void _Process(double delta)
     {
@@ -98,15 +98,16 @@ public partial class GameManager : Node3D
     public void loadLevel(string levelName)
     {
         JsonObject json;
-		FileAccess file;
+        FileAccess file;
 
-        try
+        if (FileAccess.FileExists("res:///levels/" + levelName + ".json"))
         {
             file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
         }
-        catch (Exception e)
+        else
         {
             file = FileAccess.Open("res:///levels/empty.json", FileAccess.ModeFlags.Read);
+
         }
 
         this.graph = new Graph();

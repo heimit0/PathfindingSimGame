@@ -43,7 +43,7 @@ public partial class Graph : Node3D
 			if (obj.GetType() == typeof(GraphNode))
 			{
 				GraphNode node = (GraphNode)obj;
-				if (node.getTilePosX() == tilePosX && node.getTilePosY() == tilePosY)
+				if (node.tilePosX == tilePosX && node.tilePosY == tilePosY)
 				{
 					return node;
 				}
@@ -70,7 +70,7 @@ public partial class Graph : Node3D
 			if (obj.GetType() == typeof(NewTileGraphNode))
 			{
 				NewTileGraphNode node = (NewTileGraphNode)obj;
-				if (node.getTilePosX() == x && node.getTilePosY() == y)
+				if (node.tilePosX == x && node.tilePosY == y)
 				{
 					return node;
 				}
@@ -140,7 +140,7 @@ public partial class Graph : Node3D
 			// wild dass C# das einfach so erlaubt...
 			node.setTilePos((int)n["posX"], (int)n["posY"]);
 			// abomination.
-			node.setStreetType((StreetType)(int)n["type"]);
+			node.streetType = (StreetType)(int)n["type"];
 			this.nodes.Add(node);
 			// sind wir ein start- bzw. endtile?
 			if (i == startTile) gm.EmitSignal(GameManager.SignalName.SetStartNode, node);
@@ -152,14 +152,15 @@ public partial class Graph : Node3D
 		{
 			GraphNode from = this.nodes[(int)e["from"]];
 			GraphNode to = this.nodes[(int)e["to"]];
+
 			if (from is null || to is null)
 			{
 				GD.Print("fromJsonObject: Falsche Referenz in einer Kante");
 				return true;
 			}
-			from.addNeighbor(to);
-			if ((bool)e["bi"] == true)
-				to.addNeighbor(from);
+
+			from.addNeighbour(to);
+			if ((bool)e["bi"] == true) to.addNeighbour(from);
 		}
 
 		foreach (GraphNode n in this.nodes)
@@ -177,7 +178,7 @@ public partial class Graph : Node3D
 		// nodes
 		foreach (GraphNode n in this.nodes)
 		{
-			output += "{\"posX\":" + n.getTilePosX() + ",\"posY\":" + n.getTilePosY() + ",\"type\":" + (int)n.getStreetType() + "},";
+			output += "{\"posX\":" + n.tilePosX + ",\"posY\":" + n.tilePosY + ",\"type\":" + (int) n.streetType + "},";
 		}
 
 		output = output.Substring(0, output.Length - 1); // remove last comma
@@ -189,7 +190,7 @@ public partial class Graph : Node3D
 		{
 			GraphNode n = this.nodes[i];
 
-			foreach (GraphNode neighbour in n.getNeighboursUnsorted())
+			foreach (GraphNode neighbour in n.getNeighbours())
 			{
 				// dumme extra for loop, weil edges in unserem json mit indizes gespeichert werden aaaauugh
 				for (int j = 0; j < this.nodes.Count; j++)
@@ -217,7 +218,7 @@ public partial class Graph : Node3D
 
 		foreach (GraphNode n in this.nodes)
 		{
-			if (n.getNeighboursUnsorted().Length > 2 || n.getNeighboursUnsorted().Length == 1) cities.Add(n);
+			if (n.getNeighbours().Length > 2 || n.getNeighbours().Length == 1) cities.Add(n);
 		}
 
 		return cities.ToArray();
@@ -232,8 +233,8 @@ public partial class Graph : Node3D
 	{
 		try
 		{
-			getNode(node1).addNeighbor(getNode(node2));
-			getNode(node2).addNeighbor(getNode(node1));
+			getNode(node1).addNeighbour(getNode(node2));
+			getNode(node2).addNeighbour(getNode(node1));
 		}
 		catch (NullReferenceException e)
 		{

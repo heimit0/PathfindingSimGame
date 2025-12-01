@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxx6fhmxsf463"]
+
+[ext_resource type="PackedScene" uid="uid://b3x36cuu1onu5" path="res://models/testing/test_hexagon.fbx" id="1_c1g27"]
+[ext_resource type="Material" uid="uid://by3sakro8wo77" path="res://models/textures/test_hexagon.tres" id="2_d5ur2"]
+
+[node name="test_hexagon" instance=ExtResource("1_c1g27")]
+
+[node name="test_hexagon" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_d5ur2")

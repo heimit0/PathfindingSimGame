@@ -82,7 +82,7 @@ public partial class TileEffectManager : Node3D
             {
                 if (tile is GraphNode node) // hier casten wir nochmals um sicherzustellen das es sich auch um GraphNodes handelt
                 {
-                    currentSelected.Add((node.getTilePosX(), node.getTilePosY())); // Position des Nodes hinzufügen zu currentSelected
+                    currentSelected.Add((node.tilePosX, node.tilePosY)); // Position des Nodes hinzufügen zu currentSelected
                 }
             }
         }
