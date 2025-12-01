@@ -3,3 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://bsgebacsf4ruf" path="res://models/tiles/street3_02_3.fbx" id="1_ov6yg"]
 
 [node name="street3_02_3" instance=ExtResource("1_ov6yg")]
+transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, 0, 0, 0)
