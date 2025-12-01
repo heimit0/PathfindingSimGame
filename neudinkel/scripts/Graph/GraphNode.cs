@@ -193,7 +193,7 @@ public partial class GraphNode : Node3D
         foreach (GraphNode head in this.getNeighbours()) paths.Add([head]); // pfade initialisieren
 
         // nicht fragen bitte ~georg
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 100; i++)
         {
             foreach (List<GraphNode> path in paths)
             {
@@ -204,7 +204,7 @@ public partial class GraphNode : Node3D
                 // jeden Pfad um 1 vom start weg erweitern
                 foreach (GraphNode newHead in head.getNeighbours())
                 {
-                    if (!newHead.Equals(this) && (path.Count < 2 || !newHead.Equals(path[path.Count - 2]))) path.Add(newHead);
+                    if (!newHead.Equals(this) && !path.Contains(newHead)) path.Add(newHead);
                 }
             }
         }
