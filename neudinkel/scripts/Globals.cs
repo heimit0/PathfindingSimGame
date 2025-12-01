@@ -13,6 +13,8 @@ public class NeudinkelConfig
 public partial class Globals : Node
 {
 
+	public static readonly string configFilePath = "user://config.json";
+
 	//variablen
 	public static Random rand{ get; set; }
 	public static string nextLevel; // Gibt mit welches lvl File geladen werden soll
@@ -25,6 +27,8 @@ public partial class Globals : Node
 		Globals.rand = new Random();
 		Globals.config = new NeudinkelConfig();
 
+		Globals.config.progress = 128;
+		Globals.saveGame();
 		Globals.loadGame();
 	}
 
@@ -33,11 +37,11 @@ public partial class Globals : Node
 		string json;
 		FileAccess file;
 
-		file = FileAccess.Open("user://config.json", FileAccess.ModeFlags.Write);
+		file = FileAccess.Open(configFilePath, FileAccess.ModeFlags.Write);
 
 		json = JsonSerializer.Serialize(Globals.config, jsonOptions);
-		GD.Print("Config wird geschrieben: " + json);
 		file.StoreString(json);
+		file.Close();
 	}
 
 	public static void loadGame()
@@ -45,15 +49,16 @@ public partial class Globals : Node
 		string json;
 		FileAccess file;
 
-		if (!FileAccess.FileExists("user:///config.json"))
+		if (!FileAccess.FileExists(configFilePath))
 		{
 			Globals.config = new NeudinkelConfig();
 			return;
 		}
 
-		file = FileAccess.Open("user:///config.json", FileAccess.ModeFlags.Read);
+		file = FileAccess.Open(configFilePath, FileAccess.ModeFlags.Read);
 		json = file.GetAsText();
 		Globals.config = JsonSerializer.Deserialize<NeudinkelConfig>(json);
+		file.Close();
 	}
 
 }
