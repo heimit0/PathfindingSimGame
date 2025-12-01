@@ -53,11 +53,15 @@ public partial class Camera : Camera3D
 				Vector3 ray = new Vector3(this.Position.X - clickPoint.X, this.Position.Y - clickPoint.Y, this.Position.Z - clickPoint.Z);
 				float castDistance = this.Position.Y / ray.Y;
 				Vector3 nullPos = this.Position - ray * castDistance;
-				Vector2 tilePos = GraphNode.convertPosToTilePos(nullPos);
+				Vector2I tilePos = GraphNode.convertPosToTilePos(nullPos);
 				GD.Print("Tile selected: [" + tilePos.X + ", " + tilePos.Y + "]");
 
 				GameManager gameManager = GetNode<GameManager>("/root/Node3D");
-				gameManager.EmitSignal("TileSelected", tilePos);
+
+				if (gameManager is BauGameManager || gameManager is PruefungsGameManager)
+				{
+					gameManager.EmitSignal("TileSelected", tilePos);
+				}
 			}
 		}
 	}

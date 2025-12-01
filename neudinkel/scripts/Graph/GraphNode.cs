@@ -26,7 +26,7 @@ public partial class GraphNode : Node3D
     public int tilePosY { get; set; }
 
     // Array mit Länge 6, jeder Index = null oder GraphNode
-    public GraphNode[] neighbours { get; set; }
+    public GraphNode[] neighbours { get; set; } = new GraphNode[6];
     // 0 obenrechts, 1 rechts, 2 rechtsunten, 3 linksunten, 4 links, 5 linksoben
 
     // city / road - sprite
@@ -39,14 +39,17 @@ public partial class GraphNode : Node3D
     public bool highlighted;
     public StreetType streetType { get; set; }
 
-	[Export]
-	public float highlightedYOffset = 0.25f;
+    [Export]
+    public float highlightedYOffset = 0.25f;
+
+    public GraphNode()
+    {
+        this.neighbours = new GraphNode[6];
+    }
 
     public override void _Ready()
     {
-        this.neighbours = new GraphNode[6];
         this.highlighted = false;
-
         updateModel();
     }
 
@@ -62,24 +65,24 @@ public partial class GraphNode : Node3D
         this.tileBase = (Node3D)ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn").Instantiate();
         this.AddChild(this.tileBase);
 
-		GraphNode[] _neighbours = this.getNeighbours();
+        GraphNode[] _neighbours = this.getNeighbours();
 
         switch (_neighbours.Length)
         {
-			// if empty tile
+            // if empty tile
             case 0:
                 this.tile = loadAsset("testtile00");
                 break;
-			// if city
+            // if city
             case int n when n != 2:
                 int c = _neighbours.Length < 2 ? 3 : 0;
                 this.tile = loadAsset("city_0" + (_neighbours.Length + c) + "_" + "1");
-				loadCityConnectionsAssets();
-				break;
-			// if street
-			case 2:
-				this.tile = getStreetTileAsset(_neighbours[0], _neighbours[1]);
-				break;
+                loadCityConnectionsAssets();
+                break;
+            // if street
+            case 2:
+                this.tile = getStreetTileAsset(_neighbours[0], _neighbours[1]);
+                break;
         }
 
         this.AddChild(tile);
@@ -87,8 +90,8 @@ public partial class GraphNode : Node3D
 
     private Node3D getStreetTileAsset(GraphNode n1, GraphNode n2)
     {
-		int from = (int) getNeighbourType(this, n1);
-		int to = (int) getNeighbourType(this, n2);
+        int from = (int)getNeighbourType(this, n1);
+        int to = (int)getNeighbourType(this, n2);
 
         int diff = to - from;
         int variation = Globals.rand.Next(1, 3);
@@ -101,13 +104,13 @@ public partial class GraphNode : Node3D
 
         Node3D street = loadAsset("street" + (int)this.streetType + "_0" + diff + "_" + "1");
         street.RotateY(Mathf.DegToRad(-60 * from));
-		return street;
+        return street;
     }
 
-	// Verbindungsstücke von der Stadt zur nächsten Straße laden
+    // Verbindungsstücke von der Stadt zur nächsten Straße laden
     private void loadCityConnectionsAssets()
     {
-		GraphNode[] _neighbours = this.getNeighbours();
+        GraphNode[] _neighbours = this.getNeighbours();
 
         if (_neighbours.Length != 1 && _neighbours.Length <= 2)
         {
@@ -117,26 +120,21 @@ public partial class GraphNode : Node3D
 
         foreach (GraphNode n in _neighbours)
         {
-            if (this.tilePosX == 0 && this.tilePosY == 0)
-            {
-                GD.Print(getNeighbourType(this, n).ToString());
-            }
-
             Node3D newConnection = (Node3D)ResourceLoader.Load<PackedScene>("assets/tiles/connection_00_" + (int)n.streetType + ".tscn").Instantiate();
             newConnection.RotateY(Mathf.DegToRad(((int)getNeighbourType(this, n) * -60.0f)));
             this.AddChild(newConnection);
         }
     }
 
-	private Node3D loadAsset(string fileName)
-	{
-        Node3D scene = (Node3D) ResourceLoader.Load<PackedScene>("assets/tiles/" + fileName + ".tscn").Instantiate(); // TODO: add variations
-		Node3D obj = new Node3D();
-		obj.AddChild(scene);
-		return obj;
-	}
+    private Node3D loadAsset(string fileName)
+    {
+        Node3D scene = (Node3D)ResourceLoader.Load<PackedScene>("assets/tiles/" + fileName + ".tscn").Instantiate(); // TODO: add variations
+        Node3D obj = new Node3D();
+        obj.AddChild(scene);
+        return obj;
+    }
 
-	// suche alle anliegenden Knoten mit genau 1 oder > 2 Nachbarn
+    // suche alle anliegenden Knoten mit genau 1 oder > 2 Nachbarn
     public GraphNode[] getNeighbouringCities(GraphNode[] visited)
     {
         List<GraphNode> heads = [];
@@ -305,7 +303,7 @@ public partial class GraphNode : Node3D
         this.Position = convertTilePosToPos(tilePosX, tilePosY);
     }
 
-	// Konvertiert eine Neudinkel-Hexagon-Grid-Position zu einer Weltkoordinate
+    // Konvertiert eine Neudinkel-Hexagon-Grid-Position zu einer Weltkoordinate
     // tilePosY 0.86 Offset wegen der Geometrie der Tiles
     // tilePosX 0.5 mal tilePosY Offset weil es Hexagone sind und die Zeilen versetzt sein muessen
     public static Vector3 convertTilePosToPos(int tilePosX, int tilePosY)
@@ -313,7 +311,7 @@ public partial class GraphNode : Node3D
         return new Vector3(tilePosX + 0.5f * tilePosY, 0.0f, tilePosY * 0.86f);
     }
 
-	// Konvertiert eine Weltkoordinate in eine Neudinekl-Hexagon-Grid-Position
+    // Konvertiert eine Weltkoordinate in eine Neudinekl-Hexagon-Grid-Position
     public static Vector2I convertPosToTilePos(Vector3 pos)
     {
         float preTilePosY = pos.Z / 0.86f;
@@ -330,7 +328,7 @@ public partial class GraphNode : Node3D
         return new Vector2I(tilePosX, tilePosY);
     }
 
-	// hebt die Node visuell hervor, wenn highlight == true
+    // hebt die Node visuell hervor, wenn highlight == true
     public void setHighlighted(bool highlight)
     {
         if (!highlighted && highlight)

@@ -102,12 +102,12 @@ public partial class GameManager : Node3D
 
         if (FileAccess.FileExists("res:///levels/" + levelName + ".json"))
         {
+			GD.Print("Loading level: " + levelName);
             file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
         }
         else
         {
             file = FileAccess.Open("res:///levels/empty.json", FileAccess.ModeFlags.Read);
-
         }
 
         this.graph = new Graph();
