@@ -83,7 +83,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		this.pseudoCodeSteps = new[] {
 			( 0, "unbesuchteKnoten = new PriorityQueue()"),
 			( 1, "besuchteKnoten = new List()"),
-			( 2, "gScore[all nodes] = \\U+221E"),
+			( 2, "gScore[all nodes] = ∞"),
 			( 3, "unbesuchteKnoten.add(startNode)"),
 			( 3, "gScore[startNode] = 0"),
 			( 3, "while (!unbesuchteKnoten.isEmpty()):"),
