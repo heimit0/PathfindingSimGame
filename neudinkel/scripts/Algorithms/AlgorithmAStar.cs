@@ -143,6 +143,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		foreach (GraphNode node in graph.getCities())
 		{
 			totalCost[node] = float.MaxValue;
+			initShowCost(node);
 		}
 
 		return currentStep + 1;
@@ -232,7 +233,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	private int calcTentativeG(Graph g)
 	{
 		tentativeG = totalCost[currentNode] + edgeCost(currentNode, currentNeighbours[currentNeighbourIndex]);
-
+		
 		return currentStep + 1;
 	}
 
@@ -255,7 +256,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	private int updateNeighbourTotalCost(Graph g)
 	{
 		totalCost[currentNeighbours[currentNeighbourIndex]] = tentativeG;
-
+		updateCost(currentNeighbours[currentNeighbourIndex],LabelMode.TOTALCOST,tentativeG);
 		return currentStep + 1;
 	}
 
@@ -274,7 +275,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	private int calcNeighbourFScore(Graph g)
 	{
 		neighbourFScore = tentativeG + heuristic(currentNeighbours[currentNeighbourIndex]);
-
+		updateCost(currentNeighbours[currentNeighbourIndex],LabelMode.FSCORE,neighbourFScore);
 		return this.currentStep + 1;
 	}
 
@@ -292,7 +293,9 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	// Heuristik für A* --> einfache Dreiecksberechnung
 	private float heuristic(GraphNode node)
 	{
-		return getDistanceNodes(node, goalNode);
+		float heuristics = getDistanceNodes(node, goalNode);
+		updateCost(node,LabelMode.HEURISTICS,heuristics);
+		return heuristics;
 	}
 
 	private float getDistanceNodes(GraphNode node1, GraphNode node2)
@@ -302,4 +305,69 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
 		return distance;
 	}
+	
+	private void initShowCost(GraphNode node)
+	{
+		Label3D costLabel = new Label3D();
+		costLabel.Text = "t: ∞";
+		costLabel.Position = costLabel.Position + new Vector3(0f,0.80f,0f);
+		costLabel.Name = "CostLabel";
+		node.AddChild(costLabel);
+		Label3D fScoreLabel = new Label3D();
+		fScoreLabel.Text = "f: 0";
+		fScoreLabel.Position = fScoreLabel.Position + new Vector3(0f,0.65f,0f);
+		fScoreLabel.Name = "fScoreLabel";
+		node.AddChild(fScoreLabel);
+		Label3D TentGLabel = new Label3D();
+		TentGLabel.Text = "h: 0";
+		TentGLabel.Position = TentGLabel.Position + new Vector3(0f,0.50f,0f);
+		TentGLabel.Name = "TentGLabel";
+		node.AddChild(TentGLabel);
+	}
+	private void updateCost(GraphNode node,LabelMode mode,float uValue)
+	{
+		Label3D uLabel = new Label3D();
+		Label3D costLabel = new Label3D();
+		Label3D fScoreLabel = new Label3D();
+		Label3D TentGLabel = new Label3D();
+		foreach (object obj in node.GetChildren())
+		{
+			if (obj.GetType() == typeof(Label3D))
+			{
+				uLabel = (Label3D)obj;
+				switch(uLabel.Name)
+				{
+					case "TentGLabel":  TentGLabel = uLabel; break;
+					case "fScoreLabel": fScoreLabel = uLabel;break;
+					case "CostLabel": costLabel = uLabel;break;
+					default: break;
+				}
+			}
+		}
+		switch(mode)
+		{
+			case (LabelMode)0: updateCostHeuristics(TentGLabel,uValue); break;
+			case (LabelMode)1: updateCostFScore(fScoreLabel,uValue);break;
+			case (LabelMode)2: updateCostTotalCost(costLabel,uValue);break;
+			default: break;
+		}
+	}
+	private void updateCostHeuristics(Label3D costLabel, float uValue)
+	{
+		costLabel.Text = "h: "+Math.Round(uValue,2).ToString();
+	}
+	private void updateCostFScore(Label3D costLabel, float uValue)
+	{
+		costLabel.Text = "f: "+Math.Round(uValue,2).ToString();
+	}
+	private void updateCostTotalCost(Label3D costLabel, float uValue)
+	{
+		costLabel.Text = "t: "+Math.Round(uValue,2).ToString();
+	}
 }
+public enum LabelMode
+{
+HEURISTICS = 0,
+FSCORE = 1,
+TOTALCOST = 2,
+};
