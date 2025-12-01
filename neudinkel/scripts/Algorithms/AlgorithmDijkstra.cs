@@ -92,7 +92,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int setStartNodeValueToZero(Graph g)
 	{
 		distanceFromStart[startNode] = 0f;
-
+		updateCost(startNode);
 		return currentStep +1;
 	}
 
@@ -113,6 +113,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		foreach (GraphNode node in graph.getCities())
 		{
 			distanceFromStart[node] = float.MaxValue;
+			showCost(node);
 		}
 
 		
@@ -186,6 +187,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	
 		GD.Print("distance from start to " + currentNode.getTilePosString() + " is: " + distanceFromStart[currentNode]);
 		currentNeighbourCost = distanceFromStart[currentNode] + edgeCost(currentNode, currentNeighbours[currentNeighbourIndex]);
+		
 
 		return currentStep + 1;
 	}
@@ -221,7 +223,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int updateNeighbourCost(Graph g)
 	{
 		distanceFromStart[currentNeighbours[currentNeighbourIndex]] = currentNeighbourCost;
-
+		updateCost(currentNeighbours[currentNeighbourIndex]);
 		return currentStep + 1;
 	}
 
@@ -248,7 +250,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	{
 		// nur update, weil alle schon initialisiert sind (infinity)
 		distanceFromStart[currentNeighbours[currentNeighbourIndex]] = currentNeighbourCost;
-
+		updateCost(currentNeighbours[currentNeighbourIndex]);
 		return currentStep + 1;
 	}
 
@@ -256,11 +258,44 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int addNeighbourToQueue(Graph g)
 	{
 		distanceFromStart[currentNeighbours[currentNeighbourIndex]] = currentNeighbourCost;
+		updateCost(currentNeighbours[currentNeighbourIndex]);
 		unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex], currentNeighbourCost);
 		GD.Print("neighbourcost: " + currentNeighbourCost);
 		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, currentNeighbours[currentNeighbourIndex], currentNeighbourCost);
 
 		currentNeighbourIndex++;
 		return 9;
+	}
+	
+	private void showCost(GraphNode node)
+	{
+		float cost = this.distanceFromStart[node];
+		Label3D costLabel = new Label3D();
+		costLabel.Position = costLabel.Position + new Vector3(0f,0.5f,0f);
+		if(cost < 1000000f)
+		{
+			costLabel.Text = cost.ToString();
+		}
+		else
+		{
+			costLabel.Text = "∞";
+		}
+		
+		
+		costLabel.Name = "CostLabel";
+		node.AddChild(costLabel);
+	}
+	private void updateCost(GraphNode node)
+	{
+		Label3D costLabel = new Label3D();
+		float cost = this.distanceFromStart[node];
+		foreach (object obj in node.GetChildren())
+		{
+			if (obj.GetType() == typeof(Label3D))
+			{
+				costLabel = (Label3D)obj;
+			}
+		}
+		costLabel.Text = cost.ToString();
 	}
 }
