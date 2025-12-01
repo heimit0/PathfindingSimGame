@@ -15,13 +15,14 @@ public partial class Camera : Camera3D
 	[Export]
 	public float scrollSpeed = 0.2f;
 
-	private double test;
+	
 	private bool isDragging = false;
 	private Vector3 originPos;
 	private float scrollInput = 0.0f;
 	private Vector2 originMousePos;
 	private Vector3 scrollToPosition;
 	private bool scrolling = false;
+	
 
 	public override void _Ready()
 	{
@@ -33,9 +34,15 @@ public partial class Camera : Camera3D
 	{
 		if (@event is InputEventMouseButton eventMouseButton)
 		{
-			if (eventMouseButton.GetButtonIndex() == MouseButton.Right && eventMouseButton.IsReleased())
+			Vector2 diff = originMousePos - GetViewport().GetMousePosition();
+			bool allowTileSelection = false;
+			if (diff.Length() < 5){
+				allowTileSelection = true;
+			}
+			if (eventMouseButton.GetButtonIndex() == MouseButton.Left && eventMouseButton.IsReleased() && allowTileSelection)
 			{
-
+				
+				
 				Vector2 mousePos = eventMouseButton.Position;
 				//Deadzone in top-right corner
 				if (isMouseInUIDeadzone(mousePos))
@@ -47,7 +54,7 @@ public partial class Camera : Camera3D
 				float castDistance = this.Position.Y / ray.Y;
 				Vector3 nullPos = this.Position - ray * castDistance;
 				int[] tilePos = GraphNode.convertPosToTilePos(nullPos);
-				// GD.Print("Tile selected: [" + tilePos[0] + ", " + tilePos[1] + "]");
+				GD.Print("Tile selected: [" + tilePos[0] + ", " + tilePos[1] + "]");
 
 				GameManager gameManager = GetNode<GameManager>("/root/Node3D");
 				gameManager.EmitSignal("TileSelected", tilePos);
@@ -57,9 +64,9 @@ public partial class Camera : Camera3D
 
 	public override void _Process(double delta)
 	{
+		
 		if (Input.IsActionPressed("mouse_drag"))
 		{
-
 			if (!isDragging)
 			{
 				isDragging = true;
@@ -71,6 +78,7 @@ public partial class Camera : Camera3D
 
 		if (Input.IsActionJustReleased("mouse_drag"))
 			isDragging = false;
+			
 
 		if (isDragging)
 		{
@@ -177,4 +185,3 @@ public partial class Camera : Camera3D
 	}
 
 }
-
