@@ -154,7 +154,14 @@ public abstract class NeudinkelAlgorithm
 
 		float cost = 0.0f;
 
-		foreach (GraphNode n in from.getPathToNeighbouringCity(to))
+		var pathToNeighbour = from.getPathToNeighbouringCity(to);
+		if (pathToNeighbour == null)
+		{
+			GD.PrintErr("Kein Pfad zwischen " + from.getTilePosString() + " und " + to.getTilePosString() + " gefunden!");
+			return float.MaxValue;
+		}
+
+		foreach (GraphNode n in pathToNeighbour)
 		{
 			cost += (float) n.getStreetType();
 		}

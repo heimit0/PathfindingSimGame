@@ -44,8 +44,8 @@ public partial class Camera : Camera3D
 				
 				
 				Vector2 mousePos = eventMouseButton.Position;
-				//Deadzone in top-right corner
-				if (isMouseInUIDeadzone(mousePos))
+				
+				if (isMouseInUIDeadzone(mousePos)) //UI pos based Deadzone
 					return;
 
 

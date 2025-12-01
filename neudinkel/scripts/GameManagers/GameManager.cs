@@ -113,9 +113,6 @@ public partial class GameManager : Node3D
         json = JsonNode.Parse(file.GetAsText()).AsObject();
         this.AddChild(this.graph);
         this.graph.fromJsonObject(json);
-
-        onSetStartNode(this.graph.getNode(0, 0));
-        onSetGoalNode(this.graph.getNode(2, 2));
     }
 
     public void onToggleGamePhase(bool isNewPhaseSimulationPhase)
@@ -134,6 +131,7 @@ public partial class GameManager : Node3D
 
     public void onSetStartNode(GraphNode node)
     {
+		
         this.startNode = node;
     }
 
