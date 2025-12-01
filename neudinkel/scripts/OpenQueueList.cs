@@ -60,8 +60,8 @@ public partial class OpenQueueList : NeudinkelItemList
 		{
 			list.Add(node);
 		}
-		this.InsertItem(newIndex    , node.getTilePosX().ToString(), null, false);
-		this.InsertItem(newIndex + 1, node.getTilePosY().ToString(), null, false);
+		this.InsertItem(newIndex    , node.tilePosX.ToString(), null, false);
+		this.InsertItem(newIndex + 1, node.tilePosY.ToString(), null, false);
 		this.InsertItem(newIndex + 2, prio.ToString(), null, false);
 	}
 

@@ -39,7 +39,7 @@ public partial class BauGameManager : GameManager
 
 	public void checkForAllEmptyNeighbours(GraphNode n)
 	{
-		int _x = n.getTilePosX(), _y = n.getTilePosY();
+		int _x = n.tilePosX, _y = n.tilePosY;
 
 		checkForEmptyNeighbour(_x - 1, _y);
 		checkForEmptyNeighbour(_x, _y - 1);
@@ -76,7 +76,7 @@ public partial class BauGameManager : GameManager
 		{
 			foreach (GraphNode n in this.selectedNodes)
 			{
-				this.graph.getNode(n.getTilePosX(), n.getTilePosY()).toggleHighlight(false);
+				this.graph.getNode(n.tilePosX, n.tilePosY).setHighlighted(false);
 			}
 
 			this.selectedNodes.Clear();
@@ -92,12 +92,12 @@ public partial class BauGameManager : GameManager
 				if (newSelectedNode.Equals(n))
 				{
 					// falls ja: wieder entfernen
-					newSelectedNode.toggleHighlight(false);
+					newSelectedNode.setHighlighted(false);
 					this.selectedNodes.Remove(n);
 				}
 			}
 
-			newSelectedNode.toggleHighlight(true);
+			newSelectedNode.setHighlighted(true);
 			this.selectedNodes.Add(newSelectedNode);
 		}
 	}
@@ -127,10 +127,10 @@ public partial class BauGameManager : GameManager
 			foreach (GraphNode n2 in this.selectedNodes)
 			{
 				// if its a neighbour
-				if (Math.Abs(n1.getTilePosX() - n2.getTilePosX()) == 1 && n1.getTilePosY() == n2.getTilePosY() ||
-					(Math.Abs(n1.getTilePosY() - n2.getTilePosY()) == 1 && n1.getTilePosX() == n2.getTilePosX()) ||
-					(n1.getTilePosX() - 1 == n2.getTilePosX() && n1.getTilePosY() + 1 == n2.getTilePosY()) ||
-					(n1.getTilePosX() + 1 == n2.getTilePosX() && n1.getTilePosY() - 1 == n2.getTilePosY()))
+				if (Math.Abs(n1.tilePosX - n2.tilePosX) == 1 && n1.tilePosY == n2.tilePosY ||
+					(Math.Abs(n1.tilePosY - n2.tilePosY) == 1 && n1.tilePosX == n2.tilePosX) ||
+					(n1.tilePosX - 1 == n2.tilePosX && n1.tilePosY + 1 == n2.tilePosY) ||
+					(n1.tilePosX + 1 == n2.tilePosX && n1.tilePosY - 1 == n2.tilePosY))
 				{
 					this.graph.addRelation(n1, n2);
 				}
@@ -138,7 +138,7 @@ public partial class BauGameManager : GameManager
 		}
 
 		// erst alle streetTypes setzen, dann alle models updaten, um verwirrung zu vermeiden
-		foreach (GraphNode n in this.selectedNodes) n.setStreetType((StreetType)newStreetType);
+		foreach (GraphNode n in this.selectedNodes) n.streetType = (StreetType)newStreetType;
 		foreach (GraphNode n in this.selectedNodes) n.updateModel();
 
 		// deselect all
@@ -149,7 +149,6 @@ public partial class BauGameManager : GameManager
 	{
 		// save state
 		this.graph.toJsonFile();
-
 		GetTree().ChangeSceneToFile("res://scenes/Simulationsmodus.tscn");
 	}
 }

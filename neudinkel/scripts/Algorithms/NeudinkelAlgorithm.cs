@@ -105,26 +105,26 @@ public abstract class NeudinkelAlgorithm
 		{
 			GD.Print("Showing best path...");
 			// erst alle ausschalten
-			foreach (GraphNode n in g.getNodes()) n.toggleHighlight(false);
+			foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
 
 			GraphNode _currentNode = this.goalNode;
 
 			while (cameFrom.ContainsKey(_currentNode))
 			{
-				_currentNode.toggleHighlight(true);
+				_currentNode.setHighlighted(true);
 				_currentNode = cameFrom[_currentNode];
 				GD.Print(_currentNode.getTilePosString());
 			}
 
-			_currentNode.toggleHighlight(true);
+			_currentNode.setHighlighted(true);
 			return;
 		}
 
-		foreach (GraphNode n in g.getNodes()) n.toggleHighlight(false);
+		foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
 
 		// 1. Schritt ignorieren
 		if (currentNode == null) return;
-		currentNode.toggleHighlight(true);
+		currentNode.setHighlighted(true);
 		if (lastNode == null) return;
 
 		// GD.Print("visualize current: " + currentNode.getTilePosString());
@@ -134,22 +134,22 @@ public abstract class NeudinkelAlgorithm
 
 		if (currentNode.getPathToNeighbouringCity(lastNode) == null)
 		{
-			lastNode.toggleHighlight(true);
+			lastNode.setHighlighted(true);
 			return;
 		}
 
 		foreach (GraphNode toHighlight in currentNode.getPathToNeighbouringCity(lastNode))
 		{
-			toHighlight.toggleHighlight(true);
+			toHighlight.setHighlighted(true);
 		}
 	}
 
 	public float edgeCost(GraphNode from, GraphNode to)
 	{
 		// falls to = direkter Nachbar
-		foreach (GraphNode n in from.getNeighboursUnsorted())
+		foreach (GraphNode n in from.getNeighbours())
 		{
-			if (n.Equals(to)) return (float) to.getStreetType();
+			if (n.Equals(to)) return (float) to.streetType;
 		}
 
 		float cost = 0.0f;
@@ -163,7 +163,7 @@ public abstract class NeudinkelAlgorithm
 
 		foreach (GraphNode n in pathToNeighbour)
 		{
-			cost += (float) n.getStreetType();
+			cost += (float) n.streetType;
 		}
 
 		return cost;

@@ -32,7 +32,7 @@ public partial class NewTileGraphNode : Node3D
 		// add real node
 		GraphNode node = new GraphNode();
 		node.setTilePos(this.tilePosX, this.tilePosY);
-		node.setStreetType(0);
+		node.streetType = 0;
 		this.GetParent().AddChild(node);
 
 		// add new ghost nodes
