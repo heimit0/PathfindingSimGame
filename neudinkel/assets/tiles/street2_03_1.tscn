@@ -1,5 +1,5 @@
 [gd_scene load_steps=2 format=3 uid="uid://u8p0ngbg1qf3"]
 
-[ext_resource type="PackedScene" uid="uid://c25vothp85org" path="res://models/tiles/street2_03_1.fbx" id="1_m0gr1"]
+[ext_resource type="PackedScene" uid="uid://c25vothp85org" path="res://models/tiles/street2_03_1.fbx" id="1_cyx6b"]
 
-[node name="street2_03_1" instance=ExtResource("1_m0gr1")]
+[node name="street2_03_1" instance=ExtResource("1_cyx6b")]

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0sox7mqkc2q"]
+
+[ext_resource type="PackedScene" uid="uid://c1qmkhfb3pbo2" path="res://models/tiles/street2_02_2.fbx" id="1_gl310"]
+
+[node name="street2_02_2" instance=ExtResource("1_gl310")]
