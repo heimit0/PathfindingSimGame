@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 /*
 	TODO:
-		Raycasting/Auswahl - zum Auswaehlen der Tiles per Maus (vielleicht auch im Graph?)
 		Marker - zum Hervorheben der ausgewaehlten Tile
 		Variationen - zufaellige Auswahl einer Tile-Variation
 		Batch Rendering - damit wir viele Tiles haben koennen
@@ -112,24 +111,6 @@ public partial class GraphNode : Node3D
 		}
 		else
 		{
-			// StreetType streetType = StreetType.EMPTY;
-			// bool isDifferentStreetType = false;
-
-			// foreach (GraphNode n in this.getNeighboursUnsorted())
-			// {
-			// 	if (n == null) continue;
-			//     if ((int)streetType != 0 && (int)streetType != (int)n.getStreetType())
-			//     {
-			//         isDifferentStreetType = true;
-			//         GD.Print("diff street type: " + (int) streetType + ", " + (int) n.getStreetType());
-			//         GD.Print(this.getTilePosString() + " :: " + n.getTilePosString());
-			//     }
-			//     streetType = n.getStreetType();
-			// }
-
-
-			// TODO idk
-			// tile = isDifferentStreetType ? getCityTile(3) : getStreetTile(connections[0], connections[1]);
 			tile = getStreetTile(connections[0], connections[1]);
 		}
 
@@ -278,8 +259,6 @@ public partial class GraphNode : Node3D
 	/// </summary>
 	public void addNeighbor(GraphNode a)
 	{
-		// TODO(jbrause): Pruefen ob wir WIRKLICH einen Nachbarknoten haben
-		// TODO(jbrause oder mkolb2): Bestimmten um welchen Nachbarn es sich handelt auslagern in statische Hilfsmethode
 		if ((int)getNeighbourType(this, a) != -1)
 		{
 			this.neighbours[(int)getNeighbourType(this, a)] = a;
