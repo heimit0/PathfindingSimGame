@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://br41h555e804j"]
 
+[ext_resource type="Script" uid="uid://cfs40l745o8xx" path="res://scripts/ui_buttons/LevelmenuAStar.cs" id="1_853xr"]
 [ext_resource type="Texture2D" uid="uid://bugu5vlgvm8hc" path="res://icon.svg" id="1_iv0r7"]
-[ext_resource type="Script" uid="uid://c3tu4t2xseadv" path="res://scripts/ui_buttons/LevelmenuDFS.cs" id="1_q6u2p"]
 [ext_resource type="Script" uid="uid://btwp1hq3ogfmy" path="res://scripts/NeudinkelStarIndicator.cs" id="3_853xr"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_bahds"]
 
@@ -12,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_q6u2p")
+script = ExtResource("1_853xr")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -25,7 +25,7 @@ offset_right = 286.5
 offset_bottom = 91.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 66
-text = "DFS"
+text = "A*"
 horizontal_alignment = 1
 vertical_alignment = 1
 
