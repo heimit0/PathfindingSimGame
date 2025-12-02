@@ -5,21 +5,27 @@ using System.Collections.Generic;
 public partial class OpenQueueList : NeudinkelItemList
 {
 	/*
-		Saves all GraphNodes with a given priority in the order added.
-		Keep sorted when inserting items.
+		Speichert im Grunde eine Map, welche eine eine Prioritaet (float) auf
+		eine Liste an GraphNodes welche diese Prioritaet haben mapped.
 	*/
 	List<(float, List<GraphNode>)> items;
 
 	public override void _Ready()
 	{
 		this.items = new List<(float, List<GraphNode>)>();
-		// Ensure no one can mess this up
+		// Ensure no one can mess this up in the UI
 		this.MaxColumns = 3;
 
 		Events.Instance.PushOpenQueue += onPushOpenQueue;
 		Events.Instance.PopOpenQueue += onPopOpenQueue;
 	}
 
+	/// <summary>
+	/// Signal-Handler.
+	/// Emuliert die Funktionsweise einer Priority-Queue.
+	/// Neu eingefuegte GraphNodes werden anhand ihrer Prioritaet gruppiert.
+	/// Dabei sind die Prioritaeten selbst aufsteigend sortiert.
+	/// </summary>
 	public void onPushOpenQueue(GraphNode node, float prio)
 	{
 		List <GraphNode> list = null;
@@ -65,6 +71,10 @@ public partial class OpenQueueList : NeudinkelItemList
 		this.InsertItem(newIndex + 2, prio.ToString(), null, false);
 	}
 
+	/// <summary>
+	/// Entfernt das "oberste" Element der Queue.
+	/// Trivial, da bereits sortiert.
+	/// </summary>
 	public void onPopOpenQueue()
 	{
 		if (this.items.Count > 0)
