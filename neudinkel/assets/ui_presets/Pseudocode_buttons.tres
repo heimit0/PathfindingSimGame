@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bw3vapxj2vlks"]
+
+[ext_resource type="StyleBox" uid="uid://cc4ewqduraq75" path="res://assets/ui_presets/Pseudocode_buttons_default.tres" id="1_cjqyk"]
+
+[resource]
+Button/styles/focus = ExtResource("1_cjqyk")
+Button/styles/hover = null
+Button/styles/normal = ExtResource("1_cjqyk")
+Button/styles/pressed = null

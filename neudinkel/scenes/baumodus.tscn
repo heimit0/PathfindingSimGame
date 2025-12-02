@@ -1,6 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://cja2otsjks3ig"]
+[gd_scene load_steps=20 format=3 uid="uid://cja2otsjks3ig"]
 
-[ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/BauGameManager.cs" id="1_sfl2l"]
+[ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/GameManagers/BauGameManager.cs" id="1_sfl2l"]
 [ext_resource type="Texture2D" uid="uid://ctx4brr3q6rko" path="res://assets/ui_icons/tile_highway.png" id="2_bn8a6"]
 [ext_resource type="Script" uid="uid://cvxkbvleegjuu" path="res://scripts/ui_buttons/ButtonOutline.cs" id="2_gt6qh"]
 [ext_resource type="Shader" uid="uid://corpeq40kesgw" path="res://assets/shaders/button_outline.gdshader" id="2_yojgw"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://debdk623bhaon" path="res://scripts/TileEffectManager.cs" id="15_w7ehh"]
 [ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://scenes/tileSelectedParticels.tscn" id="16_0gjdt"]
 [ext_resource type="PackedScene" uid="uid://b3110xoh8hw2" path="res://scenes/tileOutlineScene.tscn" id="17_4c4u4"]
+[ext_resource type="Environment" uid="uid://c5qmbihjvg44j" path="res://assets/ui_presets/background.tres" id="18_4c4u4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0prej"]
 shader = ExtResource("2_yojgw")
@@ -133,12 +134,6 @@ tooltip_text = "Setzt Endpunkt"
 disabled = true
 text = "Ende"
 
-[connection signal="pressed" from="Baumodus/UI/Strasentypen/Autobahn" to="." method="onChangeStreetType" binds= [1]]
-[connection signal="pressed" from="Baumodus/UI/Strasentypen/Landstrase" to="." method="onChangeStreetType" binds= [2]]
-[connection signal="pressed" from="Baumodus/UI/Strasentypen/Feldweg" to="." method="onChangeStreetType" binds= [3]]
-[connection signal="pressed" from="Baumodus/UI/Strasentypen/Sandweg" to="." method="onChangeStreetType" binds= [4]]
-[connection signal="pressed" from="Baumodus/UI/Strasentypen/Leer" to="." method="onChangeStreetType" binds= [0]]
-[connection signal="pressed" from="Baumodus/UI/BauModusBox/Baumodus" to="." method="onChangeToSimulationMode"]
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
@@ -164,4 +159,13 @@ selectedTileChimneyEffect = ExtResource("16_0gjdt")
 selectedTileOutline = ExtResource("17_4c4u4")
 EffectHeight = 0.4
 
+[node name="Background" type="WorldEnvironment" parent="."]
+environment = ExtResource("18_4c4u4")
+
+[connection signal="pressed" from="Baumodus/UI/Strasentypen/Autobahn" to="." method="onChangeStreetType" binds= [1]]
+[connection signal="pressed" from="Baumodus/UI/Strasentypen/Landstrase" to="." method="onChangeStreetType" binds= [2]]
+[connection signal="pressed" from="Baumodus/UI/Strasentypen/Feldweg" to="." method="onChangeStreetType" binds= [3]]
+[connection signal="pressed" from="Baumodus/UI/Strasentypen/Sandweg" to="." method="onChangeStreetType" binds= [4]]
+[connection signal="pressed" from="Baumodus/UI/Strasentypen/Leer" to="." method="onChangeStreetType" binds= [0]]
+[connection signal="pressed" from="Baumodus/UI/BauModusBox/Baumodus" to="." method="onChangeToSimulationMode"]
 [connection signal="pressed" from="ToggleButtonBox/ToggleButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]

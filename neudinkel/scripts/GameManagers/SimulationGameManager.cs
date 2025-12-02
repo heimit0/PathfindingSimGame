@@ -152,10 +152,10 @@ public partial class SimulationGameManager : GameManager
 		GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
 		if(this is PruefungsGameManager)
 		{
-			textBoxBox = GetNode<PseudocodeTextBox>("Pruefungsmodus/UI/Pseudocodeblock/PseudocodeTextBox");
+			textBoxBox = GetNode<PseudocodeTextBox>("Pruefungsmodus/UI/PseudocodeBlock/PseudocodePanel/PseudocodeTextBox");
 		}else
 		{
-			textBoxBox = GetNode<PseudocodeTextBox>("Simulationsmodus/UI/Pseudocodeblock/PseudocodeTextBox");
+			textBoxBox = GetNode<PseudocodeTextBox>("Simulationsmodus/UI/PseudocodeBlock/PseudocodePanel/PseudocodeTextBox");
 		}
 		textBoxBox.onInitOrChangeAlgorithm(algorithm);
 		GD.Print("Pseudocde done");
