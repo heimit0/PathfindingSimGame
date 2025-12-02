@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d4l2g3urlpx3q"]
+[gd_scene load_steps=12 format=3 uid="uid://d4l2g3urlpx3q"]
 
 [ext_resource type="Script" uid="uid://dpdiys1tq75u1" path="res://scripts/GameManagers/PruefungsGameManager.cs" id="1_70lit"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_7rp0e"]
