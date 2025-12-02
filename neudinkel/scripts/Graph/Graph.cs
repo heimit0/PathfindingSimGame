@@ -143,8 +143,8 @@ public partial class Graph : Node3D
             node.streetType = (StreetType)(int)n["type"];
             this.nodes.Add(node);
             // sind wir ein start- bzw. endtile?
-            if (i == startTile) gm.EmitSignal(GameManager.SignalName.SetStartNode, node);
-            if (i == endTile) gm.EmitSignal(GameManager.SignalName.SetGoalNode, node);
+            if (i == startTile) gm.startNode = node;
+            if (i == endTile) gm.goalNode = node;
             i++;
         }
 
@@ -175,16 +175,24 @@ public partial class Graph : Node3D
     {
         var saveFile = FileAccess.Open("res:///levels/baumodus_save.json", FileAccess.ModeFlags.Write);
         Camera camera = (Camera)GetViewport().GetCamera3D();
-        string output = "{\"name\":\"baumodus_save\",\"startPos\":[" + camera.Position.X.ToString(CultureInfo.InvariantCulture) + "," + camera.Position.Z.ToString(CultureInfo.InvariantCulture) + "],\"startTile\":0,\"endTile\":1,\"tiles\":[";
+        BauGameManager gameManager = GetNode<BauGameManager>("/root/Node3D"); // TODO fix
+        string output = "{\"name\":\"baumodus_save\",\"startPos\":[" + camera.Position.X.ToString(CultureInfo.InvariantCulture) + "," + camera.Position.Z.ToString(CultureInfo.InvariantCulture) + "],\"tiles\":[";
+        int startNodeIndex = -1, goalNodeIndex = -1;
+		int m = 0;
 
         // nodes
         foreach (GraphNode n in this.nodes)
         {
+			if (n.Equals(gameManager.startNode)) startNodeIndex = m;
+			if (n.Equals(gameManager.goalNode)) goalNodeIndex = m;
+
             output += "{\"posX\":" + n.tilePosX + ",\"posY\":" + n.tilePosY + ",\"type\":" + (int)n.streetType + "},";
-        }
+			m++;
+		}
+
 
         output = output.Substring(0, output.Length - 1); // remove last comma
-        output += "],\"edges\":[";
+        output += "],\"startTile\":" + startNodeIndex + ",\"endTile\":" + goalNodeIndex + ",\"edges\":[";
         bool hasEdges = false;
 
         // relations
@@ -265,7 +273,7 @@ public partial class Graph : Node3D
         coordLabel.RenderPriority = 100;
         coordLabel.NoDepthTest = true;
         coordLabel.FontSize = 20;
-		coordLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
+        coordLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
         n.AddChild(coordLabel);
     }
 

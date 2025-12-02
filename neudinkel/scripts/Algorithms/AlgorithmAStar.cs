@@ -309,16 +309,19 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	private void initShowCost(GraphNode node)
 	{
 		Label3D costLabel = new Label3D();
+		costLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 		costLabel.Text = "t: ∞";
-		costLabel.Position = costLabel.Position + new Vector3(0f,0.80f,0f);
+		costLabel.Position = costLabel.Position + new Vector3(0f,0.9f,0f);
 		costLabel.Name = "CostLabel";
 		node.AddChild(costLabel);
 		Label3D fScoreLabel = new Label3D();
+		fScoreLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 		fScoreLabel.Text = "f: 0";
-		fScoreLabel.Position = fScoreLabel.Position + new Vector3(0f,0.65f,0f);
+		fScoreLabel.Position = fScoreLabel.Position + new Vector3(0f,0.7f,0f);
 		fScoreLabel.Name = "fScoreLabel";
 		node.AddChild(fScoreLabel);
 		Label3D TentGLabel = new Label3D();
+		TentGLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 		TentGLabel.Text = "h: 0";
 		TentGLabel.Position = TentGLabel.Position + new Vector3(0f,0.50f,0f);
 		TentGLabel.Name = "TentGLabel";

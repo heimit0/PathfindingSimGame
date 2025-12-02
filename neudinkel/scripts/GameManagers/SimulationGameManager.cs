@@ -37,6 +37,8 @@ public partial class SimulationGameManager : GameManager
 
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
+        SetStartNode += onSetStartNode;
+        SetGoalNode += onSetGoalNode;
 	}
 
 	public override void _Process(double delta)

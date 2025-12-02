@@ -61,4 +61,16 @@ public partial class Globals : Node
 		file.Close();
 	}
 
+	public static void openSimpleInfoModal(Node origin, String text)
+	{
+		PopupPanel modal = new PopupPanel();
+		origin.AddChild(modal);
+		
+		Label lbl = new Label();
+		lbl.Text = text;
+
+		modal.AddChild(lbl);
+		modal.PopupCentered();
+	}
+
 }

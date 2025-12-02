@@ -102,7 +102,7 @@ public partial class GameManager : Node3D
 
         if (FileAccess.FileExists("res:///levels/" + levelName + ".json"))
         {
-			GD.Print("Loading level: " + levelName);
+            GD.Print("Loading level: " + levelName);
             file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
         }
         else
@@ -132,12 +132,13 @@ public partial class GameManager : Node3D
 
     public void onSetStartNode(GraphNode node)
     {
-		
+        GD.Print("onSetStartNode");
         this.startNode = node;
     }
 
     public void onSetGoalNode(GraphNode node)
     {
+        GD.Print("onSetGoalNode");
         this.goalNode = node;
     }
 
