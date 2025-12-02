@@ -2,18 +2,6 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public class NeudinkelAngorithmPseudoCodeEntry
-{
-    public int stepsIndex { get; set; }
-    public String content { get; set; }
-
-    public NeudinkelAngorithmPseudoCodeEntry(int stepsIndex, String content)
-    {
-        this.stepsIndex = stepsIndex;
-        this.content = content;
-    }
-}
-
 /// <summary>
 /// Elternklasse aller Suchalgorithmen.
 /// </summary>
@@ -176,6 +164,10 @@ public abstract class NeudinkelAlgorithm
             cost += (float)n.streetType;
         }
 
-        return cost;
-    }
+		return cost;
+	}
+
+	public abstract void fastForwardTillNewCurrentNode();
+
+
 }

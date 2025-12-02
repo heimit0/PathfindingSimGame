@@ -4,9 +4,13 @@ using System;
 public partial class PruefungsGameManager : SimulationGameManager
 {
 
+	private GraphNode checkPointNode;
+
 	[Signal]
 	public delegate void TileSelectedEventHandler(Vector2I tilePos);
     private GraphSearchAlgorithm algo;
+
+	private int correctStepCounterSinceLastSave;
     public override void  _Ready()
     {
 		TileSelected += playerInteraction;
@@ -15,7 +19,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
 
-        string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "level1_dijkstra" : Globals.nextLevel;
+        string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "empty" : Globals.nextLevel;
         algo = Globals.pruefungsAlgorithmus;
 
 		prepScene(levelToLoad);
@@ -43,9 +47,11 @@ public partial class PruefungsGameManager : SimulationGameManager
 		this.doSearchForwardHelper(true);
 		GD.Print("step 3");
 		this.doSearchForwardHelper(true);
+		saveCheckpoint();
+		correctStepCounterSinceLastSave = 0;
 	}
 
-
+	//Code um Spielerclick zu behandeln
 	public void playerInteraction(Vector2I tilePos)
 	{
 		GD.Print("Player did smth");
@@ -53,15 +59,43 @@ public partial class PruefungsGameManager : SimulationGameManager
 		if(this.graph.getNode(tilePos.X, tilePos.Y) == currentAlgorithm.currentNode)
 		{
 			GD.Print("Correct Tile Clicked");
+			correctStepCounterSinceLastSave++;
+			if(correctStepCounterSinceLastSave>=3)
+			{
+				correctStepCounterSinceLastSave = 0;
+				saveCheckpoint();
+			}
 			if (currentAlgorithm.currentNode != null) currentAlgorithm.currentNode.setHighlighted(true);
 		}
 		else
 		{
-			GD.Print("Wrong Tile Clicked");
+			GD.Print("Wrong Tile Clicked, Returning to Checkpoint");
+			returnToCheckpoint();
 		}
 
 	}
 
+	//Speichert aktuelle Node in CheckpointNode
+	public void saveCheckpoint()
+	{
+		checkPointNode = currentAlgorithm.currentNode;
+	}
 
+	// Laedt den Algorithus neu und schreitet bis zum Checkpoint nach vorne
+	public int returnToCheckpoint()
+	{
+		GD.Print("Start resetting Algorithm");
+		onInitOrChangeAlgorithm(-1);
+		int allowedNumberOfSteps = 1000000;
+		int failsafe = 0;
+		while(currentAlgorithm.currentNode != checkPointNode && failsafe < allowedNumberOfSteps)
+		{
+			this.doSearchForwardHelper(true);
+			failsafe++;
+		}
+		if(checkPointNode == currentAlgorithm.currentNode)
+		return 1;
 
+		return -1;
+	}
 }

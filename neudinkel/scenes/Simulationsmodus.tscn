@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cxoox5vn5nmqm" path="res://scripts/GameManagers/SimulationGameManager.cs" id="1_5p374"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_5p374"]
-[ext_resource type="Script" uid="uid://dvdhi6nlj2t8q" path="res://scripts/OpenQueueList.cs" id="3_7whdq"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_rdpdv"]
 [ext_resource type="Texture2D" uid="uid://brl867djglgi3" path="res://assets/ui_icons/play.svg" id="4_7whdq"]
 [ext_resource type="Script" uid="uid://d1bqfncmscmb2" path="res://scripts/ui_buttons/BaumodusUndSimulationsButtons.cs" id="4_ud2kt"]
@@ -11,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ymvtaea43a6k" path="res://assets/ui_icons/restart.svg" id="7_lrh4w"]
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="8_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="9_k7vyk"]
+[ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="9_lrh4w"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_85scv"]
 
@@ -87,20 +87,6 @@ theme_override_colors/default_color = Color(1, 1, 1, 1)
 scroll_active = false
 script = ExtResource("2_5p374")
 
-[node name="Info" type="Panel" parent="Simulationsmodus/UI"]
-offset_left = 912.0
-offset_top = 144.0
-offset_right = 1136.0
-offset_bottom = 544.0
-
-[node name="ItemList" type="ItemList" parent="Simulationsmodus/UI/Info"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 32.0
-offset_right = 208.0
-offset_bottom = 384.0
-script = ExtResource("3_7whdq")
-
 [node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus/UI"]
 anchors_preset = 1
 anchor_left = 1.0
@@ -167,6 +153,8 @@ theme_override_font_sizes/font_size = 30
 text = "
 "
 icon = ExtResource("7_lrh4w")
+
+[node name="Info" parent="Simulationsmodus/UI" instance=ExtResource("9_lrh4w")]
 
 [node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus"]
 layout_mode = 1

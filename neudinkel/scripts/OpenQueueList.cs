@@ -15,6 +15,8 @@ public partial class OpenQueueList : NeudinkelItemList
 		this.items = new List<(float, List<GraphNode>)>();
 		// Ensure no one can mess this up in the UI
 		this.MaxColumns = 3;
+		this.SameColumnWidth = true;
+		this.FixedColumnWidth = 58;
 
 		Events.Instance.PushOpenQueue += onPushOpenQueue;
 		Events.Instance.PopOpenQueue += onPopOpenQueue;

@@ -161,4 +161,12 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		return 5; /* forEveryNeighbour */
 	}
 
+	public override void fastForwardTillNewCurrentNode()
+	{
+		while(currentStep != 4)
+		{
+			this.doSearchStep();
+		}
+	}
+
 }

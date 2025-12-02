@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpjrofls0eln3"]
+
+[ext_resource type="Script" uid="uid://dvdhi6nlj2t8q" path="res://scripts/OpenQueueList.cs" id="1_kvkmi"]
+
+[node name="Info" type="Panel"]
+offset_left = 912.0
+offset_top = 144.0
+offset_right = 1136.0
+offset_bottom = 544.0
+
+[node name="ItemList" type="ItemList" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 208.0
+offset_bottom = 384.0
+auto_width = true
+same_column_width = true
+script = ExtResource("1_kvkmi")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 208.0
+offset_bottom = 46.0
+bbcode_enabled = true
+text = "[fill] X  Y  Prio  [/fill]"
+fit_content = true
