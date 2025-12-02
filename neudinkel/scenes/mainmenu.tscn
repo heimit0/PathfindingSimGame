@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cmoc8fo8iyfqp"]
 
-[ext_resource type="Texture2D" uid="uid://dkilv13pdcd33" path="res://icon.svg" id="1_5mbse"]
 [ext_resource type="Script" uid="uid://c48nvxgn3oi8v" path="res://scripts/ui_buttons/Mainmenu.cs" id="1_natt5"]
-[ext_resource type="FontFile" uid="uid://cyk2vwfyjscxt" path="res://assets/ui_presets/SairaCondensed-Medium.ttf" id="2_3vvtq"]
+[ext_resource type="FontFile" uid="uid://ckt7xray770d5" path="res://assets/ui_presets/SairaCondensed-Medium.ttf" id="2_3vvtq"]
+[ext_resource type="Texture2D" uid="uid://dqbvgu7k317eu" path="res://assets/ui_icons/leerer-stern.svg" id="3_3vvtq"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="4_s5g8n"]
 
 [node name="MainMenu" type="Control"]
@@ -53,17 +53,17 @@ size_flags_vertical = 4
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
 position = Vector2(-216.5, -40.5)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_5mbse")
+texture = ExtResource("3_3vvtq")
 
 [node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
-position = Vector2(-132.5, -40.5)
+position = Vector2(-130, -40.5)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_5mbse")
+texture = ExtResource("3_3vvtq")
 
 [node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
 position = Vector2(-47.5, -39.5)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_5mbse")
+texture = ExtResource("3_3vvtq")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
