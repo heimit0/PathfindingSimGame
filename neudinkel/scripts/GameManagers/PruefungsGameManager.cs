@@ -75,7 +75,6 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 	}
 
-
 	//Speichert aktuelle Node in CheckpointNode
 	public void saveCheckpoint()
 	{
@@ -91,14 +90,12 @@ public partial class PruefungsGameManager : SimulationGameManager
 		int failsafe = 0;
 		while(currentAlgorithm.currentNode != checkPointNode && failsafe < allowedNumberOfSteps)
 		{
-			currentAlgorithm.doSearchStep();
+			this.doSearchForwardHelper(true);
 			failsafe++;
 		}
 		if(checkPointNode == currentAlgorithm.currentNode)
 		return 1;
+
 		return -1;
 	}
-
-
-
 }

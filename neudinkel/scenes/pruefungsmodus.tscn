@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://d4l2g3urlpx3q"]
 
-[ext_resource type="Script" path="res://scripts/GameManagers/PruefungsGameManager.cs" id="1_70lit"]
+[ext_resource type="Script" uid="uid://dpdiys1tq75u1" path="res://scripts/GameManagers/PruefungsGameManager.cs" id="1_70lit"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_7rp0e"]
-[ext_resource type="Script" uid="uid://dvdhi6nlj2t8q" path="res://scripts/OpenQueueList.cs" id="3_c5eov"]
+[ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="3_70lit"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_85scv"]
 
@@ -79,19 +79,7 @@ theme_override_colors/default_color = Color(1, 1, 1, 1)
 scroll_active = false
 script = ExtResource("2_7rp0e")
 
-[node name="Info" type="Panel" parent="Pruefungsmodus/UI"]
-offset_left = 912.0
-offset_top = 144.0
-offset_right = 1136.0
-offset_bottom = 544.0
-
-[node name="ItemList" type="ItemList" parent="Pruefungsmodus/UI/Info"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 32.0
-offset_right = 208.0
-offset_bottom = 384.0
-script = ExtResource("3_c5eov")
+[node name="Info" parent="Pruefungsmodus/UI" instance=ExtResource("3_70lit")]
 
 [connection signal="pressed" from="Pruefungsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
 [connection signal="pressed" from="Pruefungsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
