@@ -147,8 +147,71 @@ public partial class BauGameManager : GameManager
 
 	public void onChangeToSimulationMode()
 	{
+		if (this.startNode == null || this.goalNode == null || this.startNode.Equals(this.goalNode))
+		{
+			GD.Print("Start- or goalNode not set or both equal (shouldn't happen)! Aborting...");
+			Globals.openSimpleInfoModal(this, "Start- oder Endknoten wurden nicht gewählt!");
+			return;
+		}
+
 		// save state
 		this.graph.toJsonFile();
 		GetTree().ChangeSceneToFile("res://scenes/Simulationsmodus.tscn");
+	}
+
+	public void baumodusSetStartNode()
+	{
+		if (this.selectedNodes.Count != 1)
+		{
+			GD.Print("Warning: tried to set startnode, but more than one tile was selected!");
+			Globals.openSimpleInfoModal(this, "Bitte nur eine Node auswählen um Startnode zu setzen!");
+			return;
+		}
+
+		if (this.goalNode != null && this.selectedNodes[0].Equals(this.goalNode))
+		{
+			GD.Print("Tried to set the startNode the same as goalNode! Aborting...");
+			Globals.openSimpleInfoModal(this, "Startnode kann nicht Zielnode sein!");
+			return;
+		}
+
+		if (this.selectedNodes[0].getNeighbours().Length == 2)
+		{
+			GD.Print("Tried to select Streetnode as startNode! Aborting...");
+			Globals.openSimpleInfoModal(this, "Ausgewählte Node ist keine Stadt!");
+			return;
+		}
+
+		this.startNode = this.selectedNodes[0];
+		GD.Print("Setting start node at: " + this.startNode.getTilePosString());
+		this.onTileSelected(new Vector2I(-10000, -10000)); // deselect all
+	}
+
+	public void baumodusSetGoalNode()
+	{
+		if (this.selectedNodes.Count != 1)
+		{
+			GD.Print("Warning: tried to set goalnode, but more than one tile was selected!");
+			Globals.openSimpleInfoModal(this, "Bitte nur eine Node auswählen um Zielnode zu setzen!");
+			return;
+		}
+
+		if (this.startNode != null && this.selectedNodes[0].Equals(this.startNode))
+		{
+			GD.Print("Tried to set the startNode the same as goalNode! Aborting...");
+			Globals.openSimpleInfoModal(this, "Zielnode kann nicht Startnode sein!");
+			return;
+		}
+
+		if (this.selectedNodes[0].getNeighbours().Length == 2)
+		{
+			GD.Print("Tried to select Streetnode as startNode! Aborting...");
+			Globals.openSimpleInfoModal(this, "Ausgewählte Node ist keine Stadt!");
+			return;
+		}
+
+		this.goalNode = this.selectedNodes[0];
+		GD.Print("Setting goal node at: " + this.goalNode.getTilePosString());
+		this.onTileSelected(new Vector2I(-10000, -10000)); // deselect all
 	}
 }
