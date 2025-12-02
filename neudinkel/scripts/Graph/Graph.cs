@@ -166,6 +166,8 @@ public partial class Graph : Node3D
 		foreach (GraphNode n in this.nodes)
 			this.AddChild(n);
 
+		initCoordsNodes();
+
 		return false;
 	}
 
@@ -242,4 +244,30 @@ public partial class Graph : Node3D
 			GD.PrintErr(e.StackTrace);
 		}
 	}
+
+
+	public void initCoordsNodes(){
+        foreach(GraphNode n in nodes)
+		{
+			
+			initCoordsNode(n);
+		}
+		
+	}
+
+	public void initCoordsNode(GraphNode n)
+	{
+		if(n.getNeighbours().Length == 0) return;
+		Label3D costLabel = new Label3D();
+		costLabel.Text = "X: "+n.tilePosX +"  Y: "+ n.tilePosY;
+		costLabel.Position = costLabel.Position + new Vector3(0.0f,0.3f,0.3f);
+		costLabel.Name = "CoordsLabel";
+		costLabel.FontSize = 20;
+		n.AddChild(costLabel);
+	}
+
+
 }
+		
+	
+

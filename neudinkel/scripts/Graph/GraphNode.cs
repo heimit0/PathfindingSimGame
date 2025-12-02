@@ -342,4 +342,7 @@ public partial class GraphNode : Node3D
 
         this.highlighted = highlight;
     }
+
+
+
 }
