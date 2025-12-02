@@ -256,7 +256,7 @@ public partial class Graph : Node3D
 
     public void initCoordsNodes()
     {
-        foreach (GraphNode n in nodes)
+        foreach (GraphNode n in getCities())
         {
             initCoordsNode(n);
         }
@@ -265,7 +265,6 @@ public partial class Graph : Node3D
 
     public void initCoordsNode(GraphNode n)
     {
-        if (n.getNeighbours().Length == 0) return;
         Label3D coordLabel = new Label3D();
         coordLabel.Text = "X: " + n.tilePosX + "  Y: " + n.tilePosY;
         coordLabel.Position = coordLabel.Position + new Vector3(0.0f, 0.3f, 0.3f);
