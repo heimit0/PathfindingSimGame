@@ -50,7 +50,7 @@ size_flags_vertical = 4
 alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
-position = Vector2(-275, -40)
+position = Vector2(-240, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("1_iv0r7")
 script = ExtResource("3_853xr")
@@ -65,7 +65,7 @@ algorithm = 2
 starNum = 1
 
 [node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
-position = Vector2(275, -40)
+position = Vector2(240, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("1_iv0r7")
 script = ExtResource("3_853xr")

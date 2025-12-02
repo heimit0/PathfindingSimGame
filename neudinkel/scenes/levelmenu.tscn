@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0f6gmgtyw2ru"]
+[gd_scene load_steps=6 format=3 uid="uid://b0f6gmgtyw2ru"]
 
 [ext_resource type="Script" uid="uid://bvjx8h2ld50bf" path="res://scripts/ui_buttons/Levelmenu.cs" id="1_3ooxb"]
-[ext_resource type="Texture2D" uid="uid://bugu5vlgvm8hc" path="res://icon.svg" id="1_5tdid"]
+[ext_resource type="Texture2D" uid="uid://maoyinoxx3hy" path="res://assets/ui_icons/voller-stern.svg" id="2_g70gg"]
+[ext_resource type="Texture2D" uid="uid://b8sticmids716" path="res://assets/ui_icons/goldener-leerer-stern.svg" id="3_hxwgv"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_lajna"]
+[ext_resource type="Texture2D" uid="uid://crkiaqxky0jm5" path="res://assets/ui_icons/goldener-voller-stern.svg" id="4_n7xbm"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -49,19 +51,19 @@ size_flags_vertical = 4
 alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
-position = Vector2(-275, -40)
+position = Vector2(-280, -40)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_5tdid")
+texture = ExtResource("2_g70gg")
 
 [node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
 position = Vector2(0, -40)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_5tdid")
+texture = ExtResource("3_hxwgv")
 
 [node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
-position = Vector2(275, -40)
+position = Vector2(280, -40)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_5tdid")
+texture = ExtResource("4_n7xbm")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
