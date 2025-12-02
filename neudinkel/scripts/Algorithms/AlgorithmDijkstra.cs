@@ -298,4 +298,13 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		}
 		costLabel.Text = cost.ToString();
 	}
+
+	public override void fastForwardTillNewCurrentNode()
+	{
+		while(currentStep != 6)
+		{
+			this.doSearchStep();
+		}
+	}
+
 }

@@ -164,6 +164,10 @@ public abstract class NeudinkelAlgorithm
             cost += (float)n.streetType;
         }
 
-        return cost;
-    }
+		return cost;
+	}
+
+	public abstract void fastForwardTillNewCurrentNode();
+
+
 }

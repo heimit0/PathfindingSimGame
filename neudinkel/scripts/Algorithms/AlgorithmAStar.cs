@@ -364,6 +364,17 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	{
 		costLabel.Text = "t: "+Math.Round(uValue,2).ToString();
 	}
+
+
+	public override void fastForwardTillNewCurrentNode()
+	{
+		while(currentStep != 5)
+		{
+			this.doSearchStep();
+		}
+	}
+
+
 }
 public enum LabelMode
 {
@@ -371,3 +382,5 @@ HEURISTICS = 0,
 FSCORE = 1,
 TOTALCOST = 2,
 };
+
+

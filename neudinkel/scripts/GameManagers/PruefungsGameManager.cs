@@ -19,7 +19,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
 
-        string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "level1_dijkstra" : Globals.nextLevel;
+        string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "empty" : Globals.nextLevel;
         algo = Globals.pruefungsAlgorithmus;
 
 		prepScene(levelToLoad);
@@ -51,7 +51,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		correctStepCounterSinceLastSave = 0;
 	}
 
-
+	//Code um Spielerclick zu behandeln
 	public void playerInteraction(Vector2I tilePos)
 	{
 		GD.Print("Player did smth");
@@ -76,13 +76,13 @@ public partial class PruefungsGameManager : SimulationGameManager
 	}
 
 
-
+	//Speichert aktuelle Node in CheckpointNode
 	public void saveCheckpoint()
 	{
 		checkPointNode = currentAlgorithm.currentNode;
 	}
 
-
+	// Laedt den Algorithus neu und schreitet bis zum Checkpoint nach vorne
 	public int returnToCheckpoint()
 	{
 		GD.Print("Start resetting Algorithm");
