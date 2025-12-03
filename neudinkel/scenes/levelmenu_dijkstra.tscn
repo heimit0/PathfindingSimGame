@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://bugu5vlgvm8hc" path="res://icon.svg" id="1_f677i"]
 [ext_resource type="Script" uid="uid://c30am2j8a0dv7" path="res://scripts/ui_buttons/LevelmenuDijkstra.cs" id="1_ircpt"]
-[ext_resource type="Texture2D" uid="uid://dqbvgu7k317eu" path="res://assets/ui_icons/leerer-stern.svg" id="2_kb2qs"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_kb2qs"]
 [ext_resource type="Script" uid="uid://btwp1hq3ogfmy" path="res://scripts/NeudinkelStarIndicator.cs" id="3_vdkgo"]
 

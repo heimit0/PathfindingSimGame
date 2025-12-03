@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cxoox5vn5nmqm" path="res://scripts/GameManagers/SimulationGameManager.cs" id="1_5p374"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_5p374"]
+[ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="2_cd7hi"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_rdpdv"]
 [ext_resource type="Texture2D" uid="uid://brl867djglgi3" path="res://assets/ui_icons/play.svg" id="4_7whdq"]
 [ext_resource type="Script" uid="uid://d1bqfncmscmb2" path="res://scripts/ui_buttons/BaumodusUndSimulationsButtons.cs" id="4_ud2kt"]
@@ -13,7 +14,150 @@
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="9_lrh4w"]
 [ext_resource type="PackedScene" uid="uid://0suca4eb3eh" path="res://scenes/LevelLadenModal.tscn" id="10_cd7hi"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_85scv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0b48g"]
+bg_color = Color(0.29, 0.29, 0.29, 0.39215687)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="CSharpScript" id="CSharpScript_70lit"]
+script/source = "using Godot;
+using System;
+
+
+public partial class PseudocodeBlock : Panel
+{
+	public override void _Ready()
+	{
+		GetNode<Button>(\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/Dijkstra\").Pressed += () => OnAlgorithmButtonPressed(\"Dijkstra\");
+		GetNode<Button>(\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/A*\").Pressed += () => OnAlgorithmButtonPressed(\"A*\");
+		GetNode<Button>(\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/DFS\").Pressed += () => OnAlgorithmButtonPressed(\"DFS\");
+	}
+
+	private void OnAlgorithmButtonPressed(string buttonName)
+	{
+		var btn = GetNode<Button>($\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/{buttonName}\");
+
+		// Get the button’s color (Modulate is easiest)
+		Color newColor = btn.Modulate;
+
+		// Change this panel’s border color
+		var style = GetThemeStylebox(\"panel\") as StyleBoxFlat;
+		if (style != null)
+		{
+			style.BorderColor = newColor;
+		}
+	}
+}
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrh4w"]
+bg_color = Color(0.9, 0.27, 0.27, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wl7tl"]
+bg_color = Color(0.9019608, 0.27058825, 0.27058825, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivnlw"]
+bg_color = Color(0.9, 0.45, 0.45, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8kv3"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cd7hi"]
+bg_color = Color(0.22500001, 0.75, 0.22500001, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70lit"]
+bg_color = Color(0.22352941, 0.7490196, 0.22352941, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aeye2"]
+bg_color = Color(0.375, 0.75, 0.375, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ksohj"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kiwpe"]
+bg_color = Color(0.17999998, 0.17999998, 0.9, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2nx8p"]
+bg_color = Color(0.18039216, 0.18039216, 0.9019608, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x247t"]
+bg_color = Color(0.35999995, 0.35999995, 0.9, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qomti"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_st3as"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_5p374")
@@ -32,58 +176,101 @@ grow_vertical = 2
 
 [node name="UI" type="CanvasLayer" parent="Simulationsmodus"]
 
-[node name="Pseudocodeblock" type="TextureRect" parent="Simulationsmodus/UI"]
-self_modulate = Color(0.101961, 0.101961, 0.101961, 0.301961)
+[node name="PseudocodeBlock" type="Panel" parent="Simulationsmodus/UI"]
+material = ExtResource("2_cd7hi")
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 24.0
-offset_top = -314.0
-offset_right = 374.0
-offset_bottom = 225.0
+offset_left = 15.0
+offset_top = -270.0
+offset_right = 375.0
+offset_bottom = 270.0
 grow_vertical = 2
-pivot_offset = Vector2(0, 250)
-texture = SubResource("CanvasTexture_85scv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0b48g")
+script = SubResource("CSharpScript_70lit")
 
-[node name="TextDisplayAndAlgorithmSelection" type="VBoxContainer" parent="Simulationsmodus/UI/Pseudocodeblock"]
-layout_mode = 0
-offset_left = 65.0
-offset_right = 65.0
-offset_bottom = 40.0
+[node name="TextDisplayAndAlgorithmSelection" type="VBoxContainer" parent="Simulationsmodus/UI/PseudocodeBlock"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -116.5
+offset_top = 5.0
+offset_right = 116.5
+offset_bottom = 79.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
 
-[node name="TextDisplay" type="Label" parent="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection"]
+[node name="TextDisplay" type="Label" parent="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 29
 text = "Pseudocode"
 horizontal_alignment = 1
 
-[node name="AlgortihmButtons" type="HBoxContainer" parent="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection"]
+[node name="AlgortihmButtons" type="HBoxContainer" parent="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection"]
 layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="Dijkstra" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
+[node name="Dijkstra" type="Button" parent="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
+custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_lrh4w")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wl7tl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ivnlw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_n8kv3")
 text = "Dijkstra"
 
-[node name="A*" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
+[node name="A*" type="Button" parent="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
+custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_cd7hi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_70lit")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aeye2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ksohj")
 text = "A*"
 
-[node name="DFS" type="Button" parent="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
+[node name="DFS" type="Button" parent="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
+custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_kiwpe")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2nx8p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_x247t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_qomti")
 text = "DFS
 "
 
-[node name="PseudocodeTextBox" type="RichTextLabel" parent="Simulationsmodus/UI/Pseudocodeblock"]
-layout_mode = 0
-offset_left = 13.0
-offset_top = 79.0
-offset_right = 334.0
-offset_bottom = 522.282
-scale = Vector2(1, 1.00162)
+[node name="PseudocodePanel" type="Panel" parent="Simulationsmodus/UI/PseudocodeBlock"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -170.0
+offset_top = -460.0
+offset_right = 170.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_st3as")
+
+[node name="PseudocodeTextBox" type="RichTextLabel" parent="Simulationsmodus/UI/PseudocodeBlock/PseudocodePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -167.5
+offset_top = -222.5
+offset_right = 167.5
+offset_bottom = 222.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 scroll_active = false
 script = ExtResource("2_5p374")
@@ -190,9 +377,9 @@ texture_normal = ExtResource("9_k7vyk")
 ignore_texture_size = true
 stretch_mode = 5
 
-[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
-[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
-[connection signal="pressed" from="Simulationsmodus/UI/Pseudocodeblock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
+[connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
+[connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
+[connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
 [connection signal="toggled" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onToggleGamePhase"]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/LevelLaden" to="." method="onLevelLaden"]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]

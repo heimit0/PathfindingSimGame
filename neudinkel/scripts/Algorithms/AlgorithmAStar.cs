@@ -313,18 +313,30 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		costLabel.Text = "t: ∞";
 		costLabel.Position = costLabel.Position + new Vector3(0f,0.9f,0f);
 		costLabel.Name = "CostLabel";
+		costLabel.RenderPriority = 100;
+        costLabel.NoDepthTest = true;
+        costLabel.FontSize = 20;
+        costLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 		node.AddChild(costLabel);
 		Label3D fScoreLabel = new Label3D();
 		fScoreLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 		fScoreLabel.Text = "f: 0";
 		fScoreLabel.Position = fScoreLabel.Position + new Vector3(0f,0.7f,0f);
 		fScoreLabel.Name = "fScoreLabel";
+		fScoreLabel.RenderPriority = 100;
+        fScoreLabel.NoDepthTest = true;
+        fScoreLabel.FontSize = 20;
+        fScoreLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 		node.AddChild(fScoreLabel);
 		Label3D TentGLabel = new Label3D();
 		TentGLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 		TentGLabel.Text = "h: 0";
 		TentGLabel.Position = TentGLabel.Position + new Vector3(0f,0.50f,0f);
 		TentGLabel.Name = "TentGLabel";
+		TentGLabel.RenderPriority = 100;
+        TentGLabel.NoDepthTest = true;
+        TentGLabel.FontSize = 20;
+        TentGLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 		node.AddChild(TentGLabel);
 	}
 	private void updateCost(GraphNode node,LabelMode mode,float uValue)

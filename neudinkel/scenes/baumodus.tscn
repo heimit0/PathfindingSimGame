@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://debdk623bhaon" path="res://scripts/TileEffectManager.cs" id="15_w7ehh"]
 [ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://scenes/tileSelectedParticels.tscn" id="16_0gjdt"]
 [ext_resource type="PackedScene" uid="uid://b3110xoh8hw2" path="res://scenes/tileOutlineScene.tscn" id="17_4c4u4"]
+[ext_resource type="Environment" uid="uid://c5qmbihjvg44j" path="res://assets/ui_presets/background.tres" id="18_4c4u4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0prej"]
 shader = ExtResource("2_yojgw")
