@@ -11,7 +11,6 @@ public partial class BauGameManager : GameManager
 	[Signal]
 	public delegate void ChangeTileStreetTypeEventHandler(int newStreetType);
 
-
 	public List<GraphNode> selectedNodes { get; set; }
 
 	public override void _Ready()
@@ -155,7 +154,7 @@ public partial class BauGameManager : GameManager
 		}
 
 		// save state
-		this.graph.toJsonFile();
+		this.graph.toJsonFile("baumodus_save");
 		GetTree().ChangeSceneToFile("res://scenes/Simulationsmodus.tscn");
 	}
 
@@ -213,5 +212,28 @@ public partial class BauGameManager : GameManager
 		this.goalNode = this.selectedNodes[0];
 		GD.Print("Setting goal node at: " + this.goalNode.getTilePosString());
 		this.onTileSelected(new Vector2I(-10000, -10000)); // deselect all
+	}
+
+	// speichern dialog öffnen und level speichern
+	public void initLevelSpeichern()
+	{
+		if (this.startNode == null || this.goalNode == null || this.startNode.Equals(this.goalNode))
+		{
+			GD.Print("Start- or goalNode not set or both equal (shouldn't happen)! Aborting...");
+			Globals.openSimpleInfoModal(this, "Start- oder Endknoten wurden nicht gewählt!");
+			return;
+		}
+
+		SpeichernPopup popup = GetNode<SpeichernPopup>("Baumodus/UI/SpeichernPopup");
+		popup.Submitted += actuallySpeichern;
+		popup.Open();
+
+		// reset baumodus
+	}
+
+	public void actuallySpeichern(string name)
+	{
+		// save state
+		this.graph.toJsonFile(name);
 	}
 }

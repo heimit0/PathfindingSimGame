@@ -162,4 +162,11 @@ public partial class SimulationGameManager : GameManager
 		textBoxBox.onInitOrChangeAlgorithm(algorithm);
 		GD.Print("Pseudocde done");
 	}
+
+	public void onLevelLaden()
+	{
+		LadenPopup popup = GetNode<LadenPopup>("Simulationsmodus/UI/LadenPopup");
+		// popup.Submitted += actuallySpeichern;
+		popup.Open();
+	}
 }
