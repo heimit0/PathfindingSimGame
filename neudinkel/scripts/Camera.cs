@@ -15,36 +15,41 @@ public partial class Camera : Camera3D
 	[Export]
 	public float scrollSpeed = 0.2f;
 
-	
 	private bool isDragging = false;
 	private Vector3 originPos;
 	private float scrollInput = 0.0f;
 	private Vector2 originMousePos;
 	private Vector3 scrollToPosition;
 	private bool scrolling = false;
-	
+	public bool isUserInputEnabled { get; set; }
+
+	[Signal]
+	public delegate void setIsUserInputEnabledEventHandler(bool enabled);
 
 	public override void _Ready()
 	{
 		// FIXME: TERRIBLE HACK
 		this.GetParent<GameManager>().SetCameraPosition += onSetCameraPosition;
+		this.isUserInputEnabled = true;
+		setIsUserInputEnabled += enabled => this.isUserInputEnabled = enabled;
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event is InputEventMouseButton eventMouseButton)
+		if (@event is InputEventMouseButton eventMouseButton && isUserInputEnabled)
 		{
 			Vector2 diff = originMousePos - GetViewport().GetMousePosition();
 			bool allowTileSelection = false;
-			if (diff.Length() < 5){
+			if (diff.Length() < 5)
+			{
 				allowTileSelection = true;
 			}
 			if (eventMouseButton.GetButtonIndex() == MouseButton.Left && eventMouseButton.IsReleased() && allowTileSelection)
 			{
-				
-				
+
+
 				Vector2 mousePos = eventMouseButton.Position;
-				
+
 				if (isMouseInUIDeadzone(mousePos)) //UI pos based Deadzone
 					return;
 
@@ -68,7 +73,8 @@ public partial class Camera : Camera3D
 
 	public override void _Process(double delta)
 	{
-		
+		if (!isUserInputEnabled) return;
+
 		if (Input.IsActionPressed("mouse_drag"))
 		{
 			if (!isDragging)
@@ -82,7 +88,7 @@ public partial class Camera : Camera3D
 
 		if (Input.IsActionJustReleased("mouse_drag"))
 			isDragging = false;
-			
+
 
 		if (isDragging)
 		{
@@ -135,6 +141,7 @@ public partial class Camera : Camera3D
 		}
 
 	}
+
 	private void setScroll(float scrollDirection)
 	{
 		scrollInput = scrollDirection;
@@ -153,13 +160,12 @@ public partial class Camera : Camera3D
 		this.Position = new Vector3(pos.X, this.Position.Y, pos.Y);
 	}
 
-
 	private bool isMouseInUIDeadzone(Vector2 mousePos)
 	{
 		// Get all buttons in the current scene
 		var buttons = GetTree().Root.GetNode("Node3D").FindChildren("*", "Button", true, false);
 		var textureButtons = GetTree().Root.GetNode("Node3D").FindChildren("*", "TextureButton", true, false);
-	
+
 		// Check TextureButtons
 		foreach (var btn in textureButtons)
 		{
@@ -172,7 +178,7 @@ public partial class Camera : Camera3D
 				}
 			}
 		}
-	
+
 		// Check regular Buttons
 		foreach (var btn in buttons)
 		{

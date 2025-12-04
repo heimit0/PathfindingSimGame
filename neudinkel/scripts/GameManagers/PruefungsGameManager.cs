@@ -8,7 +8,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 	[Signal]
 	public delegate void TileSelectedEventHandler(Vector2I tilePos);
-    private GraphSearchAlgorithm algo;
+	private GraphSearchAlgorithm algo;
 
 	private int correctStepCounterSinceLastSave;
 	private int wrongStepCounter;
@@ -20,18 +20,18 @@ public partial class PruefungsGameManager : SimulationGameManager
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
 
-        string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "empty" : Globals.nextLevel;
-        algo = Globals.pruefungsAlgorithmus;
+		string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "empty" : Globals.nextLevel;
+		algo = Globals.pruefungsAlgorithmus;
 
 		prepScene(levelToLoad);
 		onInitOrChangeAlgorithm((int)algo);
 
-        initialSteps();
+		initialSteps();
 		currentAlgorithm.startNode.setHighlighted(true);
 		currentAlgorithm.goalNode.setHighlighted(true);
 	}
 
-    public override void _Process(double delta)
+	public override void _Process(double delta)
 	{
 		base._Process(delta);
 	}

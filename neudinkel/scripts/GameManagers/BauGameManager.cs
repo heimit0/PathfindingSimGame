@@ -13,14 +13,30 @@ public partial class BauGameManager : GameManager
 
 	public List<GraphNode> selectedNodes { get; set; }
 
+	public LadenPopup ladenPopup { get; set; }
+
 	public override void _Ready()
 	{
-		prepScene("baumodus_save");
+		if (Globals.baumodusInitLevel == null)
+		{
+			prepScene("baumodus_save");
+		}
+		else
+		{
+			prepScene(Globals.baumodusInitLevel);
+			Globals.baumodusInitLevel = null;
+		}
+
 		addNewTileTiles();
 		this.selectedNodes = new List<GraphNode>();
 
 		TileSelected += onTileSelected;
 		ChangeTileStreetType += onChangeStreetType;
+
+		this.ladenPopup = GetNode<LadenPopup>("Baumodus/UI/LadenPopup");
+		this.ladenPopup.Submitted += filename => loadNewLevel(filename);
+		this.ladenPopup.PopupHide += toggleCameraIsUserInputEnabled;
+		this.ladenPopup.Hide();
 	}
 
 	public override void _Process(double delta)
@@ -253,5 +269,36 @@ public partial class BauGameManager : GameManager
 	{
 		// save state
 		this.graph.toJsonFile(name);
+	}
+
+	public void onLevelLaden()
+	{
+		this.ladenPopup = GetNode<LadenPopup>("Baumodus/UI/LadenPopup");
+		// popup.Submitted += actuallySpeichern;
+		this.ladenPopup.Open();
+
+		toggleCameraIsUserInputEnabled();
+	}
+
+	private void toggleCameraIsUserInputEnabled()
+	{
+		Camera3D camera = GetViewport().GetCamera3D();
+		(camera as Camera).EmitSignal(Camera.SignalName.setIsUserInputEnabled, (camera as Camera).isUserInputEnabled);
+	}
+
+	public void loadNewLevel(string filename)
+	{
+		// foreach (Node child in this.GetChildren())
+		// {
+		//     if (child is Camera3D || child is DirectionalLight3D || child is Graph)
+		//     {
+		//         this.RemoveChild(child);
+		//         child.QueueFree();
+		//     }
+		// }
+
+		// prepScene(filename);
+		Globals.baumodusInitLevel = filename;
+		GetTree().ChangeSceneToFile("res://scenes/baumodus.tscn");
 	}
 }

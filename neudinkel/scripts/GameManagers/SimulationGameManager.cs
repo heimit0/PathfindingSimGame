@@ -37,8 +37,8 @@ public partial class SimulationGameManager : GameManager
 
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
-        SetStartNode += onSetStartNode;
-        SetGoalNode += onSetGoalNode;
+		SetStartNode += onSetStartNode;
+		SetGoalNode += onSetGoalNode;
 	}
 
 	public override void _Process(double delta)
@@ -104,7 +104,9 @@ public partial class SimulationGameManager : GameManager
 				this.isSimulationAutomatic = true;
 				executeAutomaticAlgorithmStepsAsync();
 			}
-		} else {
+		}
+		else
+		{
 			this.isSimulationAutomatic = false;
 		}
 		GD.Print("isSimulationAutomatic is now: " + this.isSimulationAutomatic.ToString());
@@ -153,22 +155,16 @@ public partial class SimulationGameManager : GameManager
 		onSetIsSimulationAutomatic(false);
 
 		GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
-		if(this is PruefungsGameManager)
+		if (this is PruefungsGameManager)
 		{
 			textBoxBox = GetNode<PseudocodeTextBox>("Pruefungsmodus/UI/PseudocodeBlock/PseudocodePanel/PseudocodeTextBox");
-		}else
+		}
+		else
 		{
 			textBoxBox = GetNode<PseudocodeTextBox>("Simulationsmodus/UI/PseudocodeBlock/PseudocodePanel/PseudocodeTextBox");
 		}
 		textBoxBox.onInitOrChangeAlgorithm(algorithm);
 		GD.Print("Pseudocde done");
-	}
-
-	public void onLevelLaden()
-	{
-		LadenPopup popup = GetNode<LadenPopup>("Simulationsmodus/UI/LadenPopup");
-		// popup.Submitted += actuallySpeichern;
-		popup.Open();
 	}
 
 	public void onChangeToBauMode()
