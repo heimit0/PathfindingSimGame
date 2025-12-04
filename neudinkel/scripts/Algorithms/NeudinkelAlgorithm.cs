@@ -88,12 +88,13 @@ public abstract class NeudinkelAlgorithm
 
     public new void visualize(Graph g)
     {
+        // erst alle ausschalten
+        foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
+
         // Zielweg anzeigen
         if (currentStep == -1)
         {
             GD.Print("Showing best path...");
-            // erst alle ausschalten
-            foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
 
             GraphNode _currentNode = this.goalNode;
 
@@ -120,8 +121,6 @@ public abstract class NeudinkelAlgorithm
             return;
         }
 
-        foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
-
         // 1. Schritt ignorieren
         if (currentNode is null) return;
         currentNode.setHighlighted(true);
@@ -135,6 +134,7 @@ public abstract class NeudinkelAlgorithm
 
         foreach (GraphNode toHighlight in currentNode.getPathToNeighbouringCity(lastNode))
         {
+            GD.Print("highlighting node: " + toHighlight.getTilePosString());
             toHighlight.setHighlighted(true);
         }
     }
@@ -161,10 +161,10 @@ public abstract class NeudinkelAlgorithm
             cost += (float)n.streetType;
         }
 
-		return cost;
-	}
+        return cost;
+    }
 
-
+    public abstract void fastForwardTillNewCurrentNode();
 
 
 }
