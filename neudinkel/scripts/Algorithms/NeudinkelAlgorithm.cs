@@ -9,28 +9,29 @@ using Godot;
 public abstract class NeudinkelAlgorithm
 {
 
-    public Graph graph { get; set; }
-    public GraphNode startNode { get; set; }
-    public GraphNode goalNode { get; set; }
-    public GraphNode currentNode { get; set; }
-    public GraphNode lastNode { get; set; }
-    public Dictionary<GraphNode, GraphNode> cameFrom { get; set; }
+	public Graph graph { get; set; }
+	public GraphNode startNode { get; set; }
+	public GraphNode goalNode { get; set; }
+	public GraphNode currentNode { get; set; }
+	public GraphNode lastNode { get; set; }
+	public Dictionary<GraphNode, GraphNode> cameFrom { get; set; }
 
 
-    // noch nicht besuchte Nodes
-    public PriorityQueue<GraphNode, float> unvisitedNodes;
-    // bereits besuchte Nodes
-    public HashSet<GraphNode> visitedNodes;
-    // tatsächliche, bekannte Kosten pro Node zum Start
-    public Dictionary<GraphNode, float> distanceFromStart;
-    public Func<Graph, int>[] steps; // gibt den nächsten schritt zurück
-    public (int stepIndex, string content)[] pseudoCodeSteps; // mappt von einem index aus den steps auf den pseudocode
-    public int currentStep { get; set; }
-    // der breakpoint für die forward taste
-    public int breakpoint;
+	// noch nicht besuchte Nodes
+	public PriorityQueue<GraphNode, float> unvisitedNodes;
+	// bereits besuchte Nodes
+	public HashSet<GraphNode> visitedNodes;
+	// tatsächliche, bekannte Kosten pro Node zum Start
+	public Dictionary<GraphNode, float> distanceFromStart;
+	public Func<Graph, int>[] steps; // gibt den nächsten schritt zurück
+	public (int stepIndex, string content)[] pseudoCodeSteps; // mappt von einem index aus den steps auf den pseudocode
+	public int currentStep { get; set; }
+	// der breakpoint für die forward taste
+	public int breakpoint;
+	private HashSet<GraphNode> highlightedNeighbours = new HashSet<GraphNode>();
 
 
-    /*
+	/*
 		Zum Implementieren eines Suchalgorithmus muessen zuerst die einzelnen
 		Schritte als separate Funktionen geschrieben werden (Prototyp siehe Typ
 		von steps).
@@ -42,49 +43,49 @@ public abstract class NeudinkelAlgorithm
 	*/
 
 
-    /// <summary>
-    /// Ruft den aktuell naechsten Schritt auf und informiert die UI.
-    /// </summary>
-    public int doSearchStep()
-    {
-        if (currentStep < 0)
-        {
-            GD.Print("Der Algorithmus sollte nicht mehr laufen! Er ist bereits beendet!");
-            return currentStep;
-        }
+	/// <summary>
+	/// Ruft den aktuell naechsten Schritt auf und informiert die UI.
+	/// </summary>
+	public int doSearchStep()
+	{
+		if (currentStep < 0)
+		{
+			GD.Print("Der Algorithmus sollte nicht mehr laufen! Er ist bereits beendet!");
+			return currentStep;
+		}
 
-        try
-        {
-            currentStep = steps[currentStep].Invoke(this.graph);
-        }
-        catch (Exception e)
-        {
-            GD.PrintErr(e.GetBaseException());
-        }
+		try
+		{
+			currentStep = steps[currentStep].Invoke(this.graph);
+		}
+		catch (Exception e)
+		{
+			GD.PrintErr(e.GetBaseException());
+		}
 
-        if (currentStep == -1)
-        {
-            GD.Print("Der beste Pfad wurde gefunden!");
-        }
-        else if (currentStep == -2)
-        {
-            GD.Print("Es konnte kein Pfad gefunden werden!");
-        }
+		if (currentStep == -1)
+		{
+			GD.Print("Der beste Pfad wurde gefunden!");
+		}
+		else if (currentStep == -2)
+		{
+			GD.Print("Es konnte kein Pfad gefunden werden!");
+		}
 
-        return currentStep;
-    }
+		return currentStep;
+	}
 
-    /// <summary>
-    /// Fuehrt Einzelschritte aus bis der im Code festgelegte Breakpoint erreicht ist.
-    /// </summary>
-    public int doSearchForward()
-    {
-        do
-            doSearchStep();
-        while (currentStep != breakpoint && currentStep >= 0);
+	/// <summary>
+	/// Fuehrt Einzelschritte aus bis der im Code festgelegte Breakpoint erreicht ist.
+	/// </summary>
+	public int doSearchForward()
+	{
+		do
+			doSearchStep();
+		while (currentStep != breakpoint && currentStep >= 0);
 
-        return currentStep;
-    }
+		return currentStep;
+	}
 
     public new void visualize(Graph g)
     {
@@ -96,19 +97,19 @@ public abstract class NeudinkelAlgorithm
         {
             GD.Print("Showing best path...");
 
-            GraphNode _currentNode = this.goalNode;
+			GraphNode _currentNode = this.goalNode;
 
-            while (cameFrom.ContainsKey(_currentNode))
-            {
-                _currentNode.setHighlighted(true);
+			while (cameFrom.ContainsKey(_currentNode))
+			{
+				_currentNode.setHighlighted(true);
 
-                foreach (GraphNode n in _currentNode.getPathToNeighbouringCity(cameFrom[_currentNode]))
-                {
-                    n.setHighlighted(true);
-                }
+				foreach (GraphNode n in _currentNode.getPathToNeighbouringCity(cameFrom[_currentNode]))
+				{
+					n.setHighlighted(true);
+				}
 
-                _currentNode = cameFrom[_currentNode];
-            }
+				_currentNode = cameFrom[_currentNode];
+			}
 
             if(_currentNode.getPathToNeighbouringCity(startNode) is null) return;
 
@@ -117,49 +118,59 @@ public abstract class NeudinkelAlgorithm
                 n.setHighlighted(true);
             }
 
-            _currentNode.setHighlighted(true);
-            return;
-        }
+			_currentNode.setHighlighted(true);
+			return;
+		}
 
-        // 1. Schritt ignorieren
-        if (currentNode is null) return;
-        currentNode.setHighlighted(true);
-        if (lastNode is null) return;
+		foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
+		highlightedNeighbours = new HashSet<GraphNode>();
+		// 1. Schritt ignorieren
+		if (currentNode is null) return;
+		currentNode.setHighlighted(true);
+		if (lastNode is null) return;
 
-        if (currentNode.getPathToNeighbouringCity(lastNode) is null)
-        {
-            lastNode.setHighlighted(true);
-            return;
-        }
+		if (lastNode is null) return;
 
-        foreach (GraphNode toHighlight in currentNode.getPathToNeighbouringCity(lastNode))
-        {
-            GD.Print("highlighting node: " + toHighlight.getTilePosString());
-            toHighlight.setHighlighted(true);
-        }
-    }
+		if (currentNode.getPathToNeighbouringCity(lastNode) is null)
+		{
+			lastNode.setHighlighted(true);
+			return;
+		}
 
-    public float edgeCost(GraphNode from, GraphNode to)
-    {
-        // falls to = direkter Nachbar
-        foreach (GraphNode n in from.getNeighbours())
-        {
-            if (n.Equals(to)) return (float)to.streetType;
-        }
+		foreach (GraphNode toHighlight in currentNode.getPathToNeighbouringCity(lastNode))
+		{
+			toHighlight.setHighlighted(true);
+		}
+	}
+	
+	public void visualizeNeighbours(Graph g,GraphNode node)
+	{
+		highlightedNeighbours.Add(node);
+		foreach (GraphNode n in highlightedNeighbours) n.setHighlighted(false);
+		node.setHighlighted(true);
+	}
 
-        float cost = 0.0f;
+	public float edgeCost(GraphNode from, GraphNode to)
+	{
+		// falls to = direkter Nachbar
+		foreach (GraphNode n in from.getNeighbours())
+		{
+			if (n.Equals(to)) return (float)to.streetType;
+		}
 
-        var pathToNeighbour = from.getPathToNeighbouringCity(to);
-        if (pathToNeighbour == null)
-        {
-            GD.PrintErr("Kein Pfad zwischen " + from.getTilePosString() + " und " + to.getTilePosString() + " gefunden!");
-            return float.MaxValue;
-        }
+		float cost = 0.0f;
 
-        foreach (GraphNode n in pathToNeighbour)
-        {
-            cost += (float)n.streetType;
-        }
+		var pathToNeighbour = from.getPathToNeighbouringCity(to);
+		if (pathToNeighbour == null)
+		{
+			GD.PrintErr("Kein Pfad zwischen " + from.getTilePosString() + " und " + to.getTilePosString() + " gefunden!");
+			return float.MaxValue;
+		}
+
+		foreach (GraphNode n in pathToNeighbour)
+		{
+			cost += (float)n.streetType;
+		}
 
         return cost;
     }
