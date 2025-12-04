@@ -163,8 +163,4 @@ public abstract class NeudinkelAlgorithm
 
         return cost;
     }
-
-    public abstract void fastForwardTillNewCurrentNode();
-
-
 }
