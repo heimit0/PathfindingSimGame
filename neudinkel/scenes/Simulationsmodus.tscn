@@ -263,7 +263,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Wechselt zwischen Baumodus und Simulationsmodus"
 theme_override_font_sizes/font_size = 30
-toggle_mode = true
 text = " Baumodus "
 script = ExtResource("4_ud2kt")
 
@@ -348,7 +347,7 @@ stretch_mode = 5
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
-[connection signal="toggled" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onToggleGamePhase"]
+[connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onChangeToBauMode"]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/LevelLaden" to="." method="onLevelLaden"]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/NextSearchStepButton" to="." method="onDoSearchForward" binds= [true]]

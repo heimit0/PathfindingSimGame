@@ -62,7 +62,6 @@ public partial class GameManager : Node3D
         prepScene("empty");
 
         // signale
-        ToggleGamePhase += onToggleGamePhase;
         SetStartNode += onSetStartNode;
         SetGoalNode += onSetGoalNode;
     }
@@ -114,20 +113,6 @@ public partial class GameManager : Node3D
         json = JsonNode.Parse(file.GetAsText()).AsObject();
         this.AddChild(this.graph);
         this.graph.fromJsonObject(json);
-    }
-
-    public void onToggleGamePhase(bool isNewPhaseSimulationPhase)
-    {
-        // TODO change scene, when changing modi
-
-        // if Baumodus => Simulationsmodus
-        // if ((int)this.gamePhase == 0 && isNewPhaseSimulationPhase)
-        // {
-        //     EmitSignal(SignalName.InitOrChangeAlgorithm, (int)ENeudinkelAlgorithm.ASTAR);
-        // }
-
-        // this.gamePhase = isNewPhaseSimulationPhase ? GamePhase.SIMULATION : GamePhase.BUILDING;
-        // GD.Print("GamePhase changed to: " + this.gamePhase.ToString());
     }
 
     public void onSetStartNode(GraphNode node)
