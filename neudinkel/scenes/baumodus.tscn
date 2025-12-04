@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cja2otsjks3ig"]
+[gd_scene load_steps=23 format=3 uid="uid://cja2otsjks3ig"]
 
 [ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/GameManagers/BauGameManager.cs" id="1_sfl2l"]
 [ext_resource type="Texture2D" uid="uid://ctx4brr3q6rko" path="res://assets/ui_icons/tile_highway.png" id="2_bn8a6"]
@@ -19,6 +19,12 @@
 [ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="16_p5ppk"]
 [ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://assets/ui_effect_scenes/tileSelectedParticels.tscn" id="18_jd0uw"]
 [ext_resource type="PackedScene" uid="uid://w8iwl0w0od67" path="res://assets/ui_effect_scenes/tileVisited.tscn" id="19_p5ppk"]
+[ext_resource type="Script" uid="uid://d1bqfncmscmb2" path="res://scripts/ui_buttons/BaumodusUndSimulationsButtons.cs" id="13_jd0uw"]
+[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="13_pmco5"]
+[ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="14_uq815"]
+[ext_resource type="PackedScene" uid="uid://0suca4eb3eh" path="res://scenes/LevelLadenModal.tscn" id="15_p5ppk"]
+[ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://scenes/tileSelectedParticels.tscn" id="16_0gjdt"]
+[ext_resource type="PackedScene" uid="uid://b3110xoh8hw2" path="res://scenes/tileOutlineScene.tscn" id="17_4c4u4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0prej"]
 shader = ExtResource("2_yojgw")
@@ -127,6 +133,15 @@ theme_override_styles/hover = ExtResource("8_ae4ts")
 theme_override_styles/focus = ExtResource("9_sbvyt")
 text = " Speichern "
 
+[node name="LevelLaden" type="Button" parent="Baumodus/UI/BauModusBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Wechselt zwischen Baumodus und Simulationsmodus"
+theme = ExtResource("13_pmco5")
+theme_override_font_sizes/font_size = 30
+text = " Level Laden "
+script = ExtResource("13_jd0uw")
+
 [node name="StartUndEndNode" type="HBoxContainer" parent="Baumodus/UI"]
 offset_left = 33.0
 offset_top = 573.0
@@ -144,6 +159,8 @@ tooltip_text = "Setzt Endpunkt"
 text = "Ende"
 
 [node name="SpeichernPopup" parent="Baumodus/UI" instance=ExtResource("13_4c4u4")]
+
+[node name="LadenPopup" parent="Baumodus/UI" instance=ExtResource("15_p5ppk")]
 
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5
@@ -196,6 +213,7 @@ EffectHeight = 0.4
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Leer" to="." method="onChangeStreetType" binds= [0]]
 [connection signal="pressed" from="Baumodus/UI/BauModusBox/Baumodus" to="." method="onChangeToSimulationMode"]
 [connection signal="pressed" from="Baumodus/UI/BauModusBox/Speichern" to="." method="initLevelSpeichern"]
+[connection signal="pressed" from="Baumodus/UI/BauModusBox/LevelLaden" to="." method="onLevelLaden"]
 [connection signal="pressed" from="Baumodus/UI/StartUndEndNode/Start" to="." method="baumodusSetStartNode"]
 [connection signal="pressed" from="Baumodus/UI/StartUndEndNode/Ende" to="." method="baumodusSetGoalNode"]
 [connection signal="pressed" from="ToggleButtonBox/ToggleButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]

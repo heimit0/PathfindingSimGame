@@ -188,8 +188,13 @@ public partial class GraphNode : Node3D
     // Außerdem muss ein Nachbar als Startpunkt übergeben werden
     public GraphNode[] getPathToNeighbouringCity(GraphNode goalNode)
     {
+        Dictionary<GraphNode, GraphNode> cameFrom = [];
         List<List<GraphNode>> paths = []; // bis zu 6 Pfade für jeden direkten Nachbarn von der Startnode
-        foreach (GraphNode head in this.getNeighbours()) paths.Add([head]); // pfade initialisieren
+        foreach (GraphNode head in this.getNeighbours())
+		{
+			paths.Add([head]); // pfade initialisieren
+			cameFrom.Add(head, this);
+		}
 
         // nicht fragen bitte ~georg
         for (int i = 0; i < 1000; i++)
@@ -198,12 +203,29 @@ public partial class GraphNode : Node3D
             {
                 // win condition
                 GraphNode head = path[path.Count - 1];
-                if (head.Equals(goalNode)) return path.ToArray();
+                if (head.Equals(goalNode))
+                {
+                    // pfad rückwirkend erstellen
+                    List<GraphNode> finalPath = [];
+
+                    while (cameFrom.ContainsKey(head))
+                    {
+                        finalPath.Add(head);
+						GD.Print("final path has: " + head.getTilePosString());
+                        head = cameFrom[head];
+                    }
+                    return finalPath.ToArray();
+                }
 
                 // jeden Pfad um 1 vom start weg erweitern
                 foreach (GraphNode newHead in head.getNeighbours())
                 {
-                    if (!newHead.Equals(this) && !path.Contains(newHead)) path.Add(newHead);
+                    if (!newHead.Equals(this) && !path.Contains(newHead))
+                    {
+                        path.Add(newHead);
+                        cameFrom.Add(newHead, head);
+						GD.Print(newHead.getTilePosString() + " came from " + head.getTilePosString());
+                    }
                 }
             }
         }

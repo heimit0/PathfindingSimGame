@@ -88,12 +88,13 @@ public abstract class NeudinkelAlgorithm
 
     public new void visualize(Graph g)
     {
+        // erst alle ausschalten
+        foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
+
         // Zielweg anzeigen
         if (currentStep == -1)
         {
             GD.Print("Showing best path...");
-            // erst alle ausschalten
-            foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
 
             GraphNode _currentNode = this.goalNode;
 
@@ -109,6 +110,8 @@ public abstract class NeudinkelAlgorithm
                 _currentNode = cameFrom[_currentNode];
             }
 
+            if(_currentNode.getPathToNeighbouringCity(startNode) is null) return;
+
             foreach (GraphNode n in _currentNode.getPathToNeighbouringCity(startNode))
             {
                 n.setHighlighted(true);
@@ -118,19 +121,12 @@ public abstract class NeudinkelAlgorithm
             return;
         }
 
-        foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
-
         // 1. Schritt ignorieren
-        if (currentNode == null) return;
+        if (currentNode is null) return;
         currentNode.setHighlighted(true);
-        if (lastNode == null) return;
+        if (lastNode is null) return;
 
-        // GD.Print("visualize current: " + currentNode.getTilePosString());
-        // GD.Print("visualize    goal: " + lastNode.getTilePosString());
-
-        if (lastNode == null) return;
-
-        if (currentNode.getPathToNeighbouringCity(lastNode) == null)
+        if (currentNode.getPathToNeighbouringCity(lastNode) is null)
         {
             lastNode.setHighlighted(true);
             return;
@@ -138,6 +134,7 @@ public abstract class NeudinkelAlgorithm
 
         foreach (GraphNode toHighlight in currentNode.getPathToNeighbouringCity(lastNode))
         {
+            GD.Print("highlighting node: " + toHighlight.getTilePosString());
             toHighlight.setHighlighted(true);
         }
     }
@@ -164,10 +161,6 @@ public abstract class NeudinkelAlgorithm
             cost += (float)n.streetType;
         }
 
-		return cost;
-	}
-
-	public abstract void fastForwardTillNewCurrentNode();
-
-
+        return cost;
+    }
 }

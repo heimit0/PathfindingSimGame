@@ -60,6 +60,9 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		cameFrom = [];
 		totalCost = [];
 
+		// Entferne alte Labels von vorherigen Instanzen
+		removeAllLabels();
+
 		// Schritte-Array (nur Submethoden)
 		this.steps = new Func<Graph, int>[] {
 			/*  0 */ initUnvisitedNodes,
@@ -107,6 +110,35 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 			( 3, ""),
 			(-2, "Kein Weg gefunden")
 		};
+	}
+
+	private void removeAllLabels()
+	{
+		if (graph == null) return;
+
+		foreach (GraphNode node in graph.getCities())
+		{
+			// Sammle alle Labels, die entfernt werden sollen
+			List<Label3D> labelsToRemove = new List<Label3D>();
+
+			foreach (Node child in node.GetChildren())
+			{
+				if (child is Label3D label)
+				{
+					if (label.Name == "CostLabel" || label.Name == "fScoreLabel" || label.Name == "TentGLabel")
+					{
+						labelsToRemove.Add(label);
+					}
+				}
+			}
+
+			// Entferne alle gefundenen Labels
+			foreach (Label3D label in labelsToRemove)
+			{
+				node.RemoveChild(label);
+				label.QueueFree();
+			}
+		}
 	}
 
 	// PriorityQueue(node, approximated_distance) mit der Startnode direkt in der queue
@@ -330,7 +362,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		node.AddChild(fScoreLabel);
 		Label3D TentGLabel = new Label3D();
 		TentGLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
-		TentGLabel.Text = "h: 0";
+		TentGLabel.Text = "g: 0";
 		TentGLabel.Position = TentGLabel.Position + new Vector3(0f,0.50f,0f);
 		TentGLabel.Name = "TentGLabel";
 		TentGLabel.RenderPriority = 100;
@@ -379,17 +411,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	{
 		costLabel.Text = "t: "+Math.Round(uValue,2).ToString();
 	}
-
-
-	public override void fastForwardTillNewCurrentNode()
-	{
-		while(currentStep != 5)
-		{
-			this.doSearchStep();
-		}
-	}
-
-
 }
 public enum LabelMode
 {

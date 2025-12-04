@@ -6,7 +6,7 @@ public class NeudinkelConfig
 {
 
 	// Persistente Variablen
-	public int progress{ get; set; }
+	public int progress { get; set; }
 
 }
 
@@ -16,11 +16,13 @@ public partial class Globals : Node
 	public static readonly string configFilePath = "user://config.json";
 
 	//variablen
-	public static Random rand{ get; set; }
+	public static Random rand { get; set; }
 	public static string nextLevel; // Gibt mit welches lvl File geladen werden soll
 	public static GraphSearchAlgorithm pruefungsAlgorithmus; //Gibt mit welcher Algorithmus bei der Pruefung genutzt wird
 	public static NeudinkelConfig config;
 	public static JsonSerializerOptions jsonOptions = new JsonSerializerOptions { WriteIndented = true };
+
+	public static string baumodusInitLevel { get; set; } // null, falls der baumodus kein level vorladen soll, andernfalls der dateiname (ohne .json)
 
 	public Globals()
 	{
@@ -65,7 +67,7 @@ public partial class Globals : Node
 	{
 		PopupPanel modal = new PopupPanel();
 		origin.AddChild(modal);
-		
+
 		Label lbl = new Label();
 		lbl.Text = text;
 

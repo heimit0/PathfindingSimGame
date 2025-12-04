@@ -22,6 +22,8 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		this.cameFrom = new Dictionary<GraphNode, GraphNode>();
 		this.distanceFromStart = new Dictionary<GraphNode, float>();
 
+		removeAllLabels();
+
 		this.steps = new Func<Graph, int>[] {
 			/*  0 */ initUnvisitedNodes,
 			/*  1 */ initVisitedNodes,
@@ -72,9 +74,38 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 
 	}
 
-	// PriorityQueue(node, calculatedDistance) mit der Startnode direkt in der queue
-	// diese wird nach und nach mit nachbarn gefüllt
-	private int initUnvisitedNodes(Graph g)
+    private void removeAllLabels()
+    {
+        if (graph == null) return;
+
+		foreach (GraphNode node in graph.getCities())
+		{
+			// Sammle alle Labels, die entfernt werden sollen
+			List<Label3D> labelsToRemove = new List<Label3D>();
+
+			foreach (Node child in node.GetChildren())
+			{
+				if (child is Label3D label)
+				{
+					if (label.Name == "CostLabel" || label.Name == "fScoreLabel" || label.Name == "TentGLabel")
+					{
+						labelsToRemove.Add(label);
+					}
+				}
+			}
+
+			// Entferne alle gefundenen Labels
+			foreach (Label3D label in labelsToRemove)
+			{
+				node.RemoveChild(label);
+				label.QueueFree();
+			}
+		}
+    }
+
+    // PriorityQueue(node, calculatedDistance) mit der Startnode direkt in der queue
+    // diese wird nach und nach mit nachbarn gefüllt
+    private int initUnvisitedNodes(Graph g)
 	{
 		unvisitedNodes = new PriorityQueue<GraphNode, float>();
 		unvisitedNodes.Enqueue(startNode, 0);
@@ -115,8 +146,6 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 			distanceFromStart[node] = float.MaxValue;
 			showCost(node);
 		}
-
-		
 
 		return currentStep + 1;
 	}
@@ -302,13 +331,4 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		}
 		costLabel.Text = cost.ToString();
 	}
-
-	public override void fastForwardTillNewCurrentNode()
-	{
-		while(currentStep != 6)
-		{
-			this.doSearchStep();
-		}
-	}
-
 }

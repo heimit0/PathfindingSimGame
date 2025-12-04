@@ -13,7 +13,13 @@
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="8_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="9_k7vyk"]
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="9_lrh4w"]
-[ext_resource type="PackedScene" uid="uid://0suca4eb3eh" path="res://scenes/LevelLadenModal.tscn" id="10_cd7hi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0b48g"]
+bg_color = Color(0.29, 0.29, 0.29, 0.39215687)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrh4w"]
 bg_color = Color(0.9, 0.27, 0.27, 1)
@@ -149,7 +155,7 @@ offset_top = -270.0
 offset_right = 375.0
 offset_bottom = 270.0
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("3_0b48g")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0b48g")
 
 [node name="TextDisplayAndAlgorithmSelection" type="VBoxContainer" parent="Simulationsmodus/UI/PseudocodeBlock"]
 layout_mode = 1
@@ -257,17 +263,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Wechselt zwischen Baumodus und Simulationsmodus"
 theme_override_font_sizes/font_size = 30
-toggle_mode = true
 text = " Baumodus "
-script = ExtResource("4_ud2kt")
-
-[node name="LevelLaden" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ObenRechts"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Wechselt zwischen Baumodus und Simulationsmodus"
-theme_override_font_sizes/font_size = 30
-toggle_mode = true
-text = " Level Laden "
 script = ExtResource("4_ud2kt")
 
 [node name="ButtonsStep" type="HBoxContainer" parent="Simulationsmodus/UI/ButtonsTopRight"]
@@ -327,8 +323,6 @@ grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
 
-[node name="LadenPopup" parent="Simulationsmodus/UI" instance=ExtResource("10_cd7hi")]
-
 [node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus"]
 layout_mode = 1
 
@@ -354,8 +348,7 @@ stretch_mode = 5
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
-[connection signal="toggled" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onToggleGamePhase"]
-[connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/LevelLaden" to="." method="onLevelLaden"]
+[connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onChangeToBauMode"]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/NextSearchStepButton" to="." method="onDoSearchForward" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/IterateButton" to="." method="onDoSearchForward" binds= [false]]

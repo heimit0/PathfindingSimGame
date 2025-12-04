@@ -16,6 +16,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
 z_as_relative = false
 layout_mode = 2
 size_flags_horizontal = 4
