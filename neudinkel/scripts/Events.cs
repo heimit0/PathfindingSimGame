@@ -14,6 +14,9 @@ public partial class Events : Node
 	[Signal]
 	public delegate void PopOpenQueueEventHandler();
 
+	[Signal]
+	public delegate void ClearOpenQueueEventHandler();
+
 	public static Events Instance { get; private set; }
 
 	public override void _Ready()
