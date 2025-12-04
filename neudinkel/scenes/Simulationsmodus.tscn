@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://mkk1cd41mlpr"]
+[gd_scene load_steps=28 format=3 uid="uid://mkk1cd41mlpr"]
 
 [ext_resource type="Script" uid="uid://cxoox5vn5nmqm" path="res://scripts/GameManagers/SimulationGameManager.cs" id="1_5p374"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_5p374"]
@@ -14,37 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="9_k7vyk"]
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="9_lrh4w"]
 [ext_resource type="PackedScene" uid="uid://0suca4eb3eh" path="res://scenes/LevelLadenModal.tscn" id="10_cd7hi"]
-
-[sub_resource type="CSharpScript" id="CSharpScript_70lit"]
-script/source = "using Godot;
-using System;
-
-
-public partial class PseudocodeBlock : Panel
-{
-	public override void _Ready()
-	{
-		GetNode<Button>(\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/Dijkstra\").Pressed += () => OnAlgorithmButtonPressed(\"Dijkstra\");
-		GetNode<Button>(\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/A*\").Pressed += () => OnAlgorithmButtonPressed(\"A*\");
-		GetNode<Button>(\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/DFS\").Pressed += () => OnAlgorithmButtonPressed(\"DFS\");
-	}
-
-	private void OnAlgorithmButtonPressed(string buttonName)
-	{
-		var btn = GetNode<Button>($\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/{buttonName}\");
-
-		// Get the button’s color (Modulate is easiest)
-		Color newColor = btn.Modulate;
-
-		// Change this panel’s border color
-		var style = GetThemeStylebox(\"panel\") as StyleBoxFlat;
-		if (style != null)
-		{
-			style.BorderColor = newColor;
-		}
-	}
-}
-"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrh4w"]
 bg_color = Color(0.9, 0.27, 0.27, 1)
@@ -180,8 +149,6 @@ offset_top = -270.0
 offset_right = 375.0
 offset_bottom = 270.0
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("3_0b48g")
-script = SubResource("CSharpScript_70lit")
 theme_override_styles/panel = ExtResource("3_0b48g")
 
 [node name="TextDisplayAndAlgorithmSelection" type="VBoxContainer" parent="Simulationsmodus/UI/PseudocodeBlock"]
