@@ -132,14 +132,14 @@ expand_margin_bottom = 3.0
 [node name="LadenPopup" type="PopupPanel"]
 oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(250, 160)
+size = Vector2i(250, 150)
 visible = true
 theme_override_styles/panel = SubResource("StyleBoxFlat_yioj3")
 script = ExtResource("1_qk32f")
 
 [node name="Hintergrund" type="PanelContainer" parent="."]
 offset_right = 250.0
-offset_bottom = 160.0
+offset_bottom = 150.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2d3uh")
 
 [node name="Wolken" type="PanelContainer" parent="Hintergrund"]
@@ -156,7 +156,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -125.0
 offset_right = 125.0
-offset_bottom = 160.0
+offset_bottom = 150.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -172,6 +172,25 @@ layout_mode = 2
 theme = ExtResource("3_463ae")
 theme_override_font_sizes/font_size = 20
 text = "Level auswählen:"
+
+[node name="successMessage" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("3_463ae")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 15
+text = "Das Level wurde 
+erfolgreich geladen!"
+horizontal_alignment = 1
+
+[node name="errorMessage" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("3_463ae")
+theme_override_colors/font_color = Color(1, 0.047058824, 0, 1)
+theme_override_font_sizes/font_size = 15
+text = "Es gab einen Fehler beim Leveladen."
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
