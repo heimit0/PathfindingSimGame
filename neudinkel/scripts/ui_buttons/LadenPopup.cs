@@ -5,25 +5,33 @@ public partial class LadenPopup : PopupMenu
 {
     public event Action<string>? Submitted;
 
+    public override void _Ready()
+    {
+        IndexPressed += onItemSelected;
+        HideOnItemSelection = false;
+    }
+
     public void Open()
     {
+		Clear();
+
         foreach (string filename in LevelLoadList.getFileNames())
         {
             AddItem(filename);
         }
 
-        Size = new Vector2I(Size.X, 500);
+        MaxSize = new Vector2I(250, 500);
         Show();
         MoveToCenter();
     }
 
-    public void onLaden()
+    private void onItemSelected(long index)
     {
-        Hide();
-    }
+        string content = this.GetItemText((int)index);
 
-    public void onAbbrechen()
-    {
-        Hide();
+		if (content.Contains(".json")) content = content.Split(".")[0];
+
+        Submitted?.Invoke(content);
+		Hide();
     }
 }
