@@ -119,6 +119,13 @@ public partial class BauGameManager : GameManager
 			if (newStreetType == (int)StreetType.EMPTY)
 			{
 				// skip all, remove all neighbours
+				// but clear neighbours end/start state beforehand to prevent dangling stuff
+				// when turning them into street tiles
+				foreach (GraphNode n2 in n1.getNeighbours())
+				{
+					if (this.startNode == n2) this.startNode = null;
+					if (this.goalNode == n2) this.goalNode = null;
+				}
 				n1.clearNeighbours();
 				continue;
 			}
@@ -132,6 +139,17 @@ public partial class BauGameManager : GameManager
 					(n1.tilePosX + 1 == n2.tilePosX && n1.tilePosY - 1 == n2.tilePosY))
 				{
 					this.graph.addRelation(n1, n2);
+					 // Special state resetting, probably a bit too much, but time is running out at ths point
+					foreach (GraphNode n3 in n1.getNeighbours())
+					{
+						if (this.startNode == n3) this.startNode = null;
+						if (this.goalNode == n3) this.goalNode = null;
+					}
+					foreach (GraphNode n3 in n2.getNeighbours())
+					{
+						if (this.startNode == n3) this.startNode = null;
+						if (this.goalNode == n3) this.goalNode = null;
+					}
 				}
 			}
 		}
