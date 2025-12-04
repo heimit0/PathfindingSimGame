@@ -2,8 +2,8 @@ using Godot;
 
 public partial class SlideDownMenuBauModus : Node
 {
-    [Export] public NodePath toggleButtonPath = "./ToggleButton";
-    [Export] public string slideDownMenuPath = "res://assets/ui_offcanvas_scenes/slidedownmenuBaumodus.tscn";
+    [Export] public NodePath toggleButtonPath;
+    [Export] public NodePath slideDownMenuPath; // Pfad zum bereits vorhandenen Menü-Control
     [Export] public float animationTime = 0.5f;
     [Export] public float fadeWaitTime = 0.02f; // Wartezeit bevor Button erscheint
     [Export] public float fadeDurationTime = 2.6f; // Einblendegeschwindigkeit 
@@ -17,7 +17,6 @@ public partial class SlideDownMenuBauModus : Node
 
     public override void _Ready()
     {
-
         // Button beim starten suchen - falls nicht vorhanden spucken wir einen Fehler aus 
         menuToggleButton = GetNodeOrNull<TextureButton>(toggleButtonPath);
         if (menuToggleButton == null)
@@ -26,41 +25,23 @@ public partial class SlideDownMenuBauModus : Node
             return;
         }
 
-        menuToggleButton.Pressed += OnOpenButtonPressed;
-    }
-
-    private void OnOpenButtonPressed()
-    {
-        // Falls Menü schon da ist nicht nochmal ausfahren 
+        // Bereits in der Szene vorhandenes Menü holen
+        slideDownMenu = GetNodeOrNull<Control>(slideDownMenuPath);
         if (slideDownMenu == null)
-            ShowMenu();
-    }
-
-    private void ShowMenu()
-    {
-
-        // Menu aus sein Szene laden 
-        var menuScene = ResourceLoader.Load<PackedScene>(slideDownMenuPath);
-        if (menuScene == null)
         {
-            GD.PushError("SlideDownMenu konnte nicht geladen werden.");
+            GD.PushError("SlideDownMenu konnte nicht gefunden werden.");
             return;
         }
 
-        // Menu instanzieren und anhängen 
-        slideDownMenu = menuScene.Instantiate<Control>();
-        AddChild(slideDownMenu);
-
-        // Button ausblenden
-        menuToggleButton.Visible = false;
-        
-        // Setup am Ende des Frames aufrufen
+        // Setup für das Menü durchführen
         CallDeferred("Setup");
+
+        // Toggle-Button verbinden
+        menuToggleButton.Pressed += OnOpenButtonPressed;
     }
 
     private void Setup()
     {
-
         // Falls das Menü null ist springen wir gleich wieder raus 
         if (slideDownMenu == null)
             return;
@@ -81,6 +62,11 @@ public partial class SlideDownMenuBauModus : Node
         color.A = 1f;
         slideDownMenu.Modulate = color;
 
+        // Menü initial versteckt (oben außerhalb des Sichtbereichs)
+        slideDownMenu.Position = new Vector2(
+            slideDownMenu.Position.X,
+            slideDownMenuTopEdgeYPos
+        );
 
         // Button holen der das Menü wieder nach oben fährt 
         var hideButton = slideDownMenu.GetNodeOrNull<TextureButton>(
@@ -98,7 +84,29 @@ public partial class SlideDownMenuBauModus : Node
             GD.PushWarning("Hide Button nicht gefunden");
             slideDownMenu.PrintTreePretty();
         }
+    }
 
+    private void OnOpenButtonPressed()
+    {
+        // Menü anzeigen
+        ShowMenu();
+    }
+
+    private void ShowMenu()
+    {
+        if (slideDownMenu == null)
+        {
+            GD.PushError("SlideDownMenu ist nicht gesetzt.");
+            return;
+        }
+
+        // Menü sichtbar machen
+        slideDownMenu.Visible = true;
+
+        // Button ausblenden
+        menuToggleButton.Visible = false;
+
+        // Animation starten
         AnimateDown();
     }
 
@@ -114,12 +122,9 @@ public partial class SlideDownMenuBauModus : Node
 
     public void HideMenu()
     {
-
-
         if (slideDownMenu == null)
             return;
 
-        
         // selbes Spiel wie beim runter bewegen 
         _tween?.Kill();
         _tween = CreateTween();
@@ -129,11 +134,10 @@ public partial class SlideDownMenuBauModus : Node
               .SetTrans(Tween.TransitionType.Quad)
               .SetEase(Tween.EaseType.In);
         
-        // Menü entfernen
+        // Menü verstecken (aber nicht löschen)
         _tween.TweenCallback(Callable.From(() =>
         {
-            slideDownMenu.QueueFree();
-            slideDownMenu = null;
+            slideDownMenu.Visible = false;
         }));
         
         // Warten bis wir den Button wieder anzeigen 
@@ -162,6 +166,5 @@ public partial class SlideDownMenuBauModus : Node
         buttonTween.TweenProperty(menuToggleButton, "modulate:a", 1f, fadeDurationTime)
                    .SetTrans(Tween.TransitionType.Linear)
                    .SetEase(Tween.EaseType.InOut);
-        
     }
 }

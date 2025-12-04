@@ -25,6 +25,7 @@ public partial class BauGameManager : GameManager
 		{
 			prepScene(Globals.baumodusInitLevel);
 			Globals.baumodusInitLevel = null;
+			Globals.openSimpleInfoModal(this, "Level geladen", 2);
 		}
 
 		addNewTileTiles();
@@ -183,7 +184,7 @@ public partial class BauGameManager : GameManager
 		if (this.startNode == null || this.goalNode == null || this.startNode.Equals(this.goalNode))
 		{
 			GD.Print("Start- or goalNode not set or both equal (shouldn't happen)! Aborting...");
-			Globals.openSimpleInfoModal(this, "Start- oder Endknoten wurden nicht gewählt!");
+			Globals.openSimpleInfoModal(this, "Start- oder Endknoten wurden nicht gewählt!", 2);
 			return;
 		}
 
@@ -197,21 +198,21 @@ public partial class BauGameManager : GameManager
 		if (this.selectedNodes.Count != 1)
 		{
 			GD.Print("Warning: tried to set startnode, but more than one tile was selected!");
-			Globals.openSimpleInfoModal(this, "Bitte nur eine Node auswählen um Startnode zu setzen!");
+			Globals.openSimpleInfoModal(this, "Bitte nur eine Node auswählen um Startnode zu setzen!", 2);
 			return;
 		}
 
 		if (this.goalNode != null && this.selectedNodes[0].Equals(this.goalNode))
 		{
 			GD.Print("Tried to set the startNode the same as goalNode! Aborting...");
-			Globals.openSimpleInfoModal(this, "Startnode kann nicht Zielnode sein!");
+			Globals.openSimpleInfoModal(this, "Startnode kann nicht Zielnode sein!", 2);
 			return;
 		}
 
 		if (this.selectedNodes[0].getNeighbours().Length == 2)
 		{
 			GD.Print("Tried to select Streetnode as startNode! Aborting...");
-			Globals.openSimpleInfoModal(this, "Ausgewählte Node ist keine Stadt!");
+			Globals.openSimpleInfoModal(this, "Ausgewählte Node ist keine Stadt!", 2);
 			return;
 		}
 
@@ -225,21 +226,21 @@ public partial class BauGameManager : GameManager
 		if (this.selectedNodes.Count != 1)
 		{
 			GD.Print("Warning: tried to set goalnode, but more than one tile was selected!");
-			Globals.openSimpleInfoModal(this, "Bitte nur eine Node auswählen um Zielnode zu setzen!");
+			Globals.openSimpleInfoModal(this, "Bitte nur eine Node auswählen um Zielnode zu setzen!", 2);
 			return;
 		}
 
 		if (this.startNode != null && this.selectedNodes[0].Equals(this.startNode))
 		{
 			GD.Print("Tried to set the startNode the same as goalNode! Aborting...");
-			Globals.openSimpleInfoModal(this, "Zielnode kann nicht Startnode sein!");
+			Globals.openSimpleInfoModal(this, "Zielnode kann nicht Startnode sein!", 2);
 			return;
 		}
 
 		if (this.selectedNodes[0].getNeighbours().Length == 2)
 		{
 			GD.Print("Tried to select Streetnode as startNode! Aborting...");
-			Globals.openSimpleInfoModal(this, "Ausgewählte Node ist keine Stadt!");
+			Globals.openSimpleInfoModal(this, "Ausgewählte Node ist keine Stadt!", 2);
 			return;
 		}
 
@@ -254,7 +255,7 @@ public partial class BauGameManager : GameManager
 		if (this.startNode == null || this.goalNode == null || this.startNode.Equals(this.goalNode))
 		{
 			GD.Print("Start- or goalNode not set or both equal (shouldn't happen)! Aborting...");
-			Globals.openSimpleInfoModal(this, "Start- oder Endknoten wurden nicht gewählt!");
+			Globals.openSimpleInfoModal(this, "Start- oder Endknoten wurden nicht gewählt!", 2);
 			return;
 		}
 
@@ -269,6 +270,7 @@ public partial class BauGameManager : GameManager
 	{
 		// save state
 		this.graph.toJsonFile(name);
+		Globals.openSimpleInfoModal(this, "Level gespeichert", 2);
 	}
 
 	public void onLevelLaden()
@@ -278,6 +280,7 @@ public partial class BauGameManager : GameManager
 		this.ladenPopup.Open();
 
 		toggleCameraIsUserInputEnabled();
+		Globals.openSimpleInfoModal(this, "Level geladen", 2);
 	}
 
 	private void toggleCameraIsUserInputEnabled()
@@ -288,16 +291,6 @@ public partial class BauGameManager : GameManager
 
 	public void loadNewLevel(string filename)
 	{
-		// foreach (Node child in this.GetChildren())
-		// {
-		//     if (child is Camera3D || child is DirectionalLight3D || child is Graph)
-		//     {
-		//         this.RemoveChild(child);
-		//         child.QueueFree();
-		//     }
-		// }
-
-		// prepScene(filename);
 		Globals.baumodusInitLevel = filename;
 		GetTree().ChangeSceneToFile("res://scenes/baumodus.tscn");
 	}

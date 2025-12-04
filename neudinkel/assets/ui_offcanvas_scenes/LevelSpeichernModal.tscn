@@ -192,25 +192,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_bhh7n")
 
-[node name="SuccessMessage" type="Label" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_y8a6b")
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_font_sizes/font_size = 15
-text = "Das Level wurde 
-erfolgreich gespeichert!"
-horizontal_alignment = 1
-
-[node name="errorMessage" type="Label" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_y8a6b")
-theme_override_colors/font_color = Color(1, 0.047058824, 0, 1)
-theme_override_font_sizes/font_size = 15
-text = "Es gab einen Fehler beim Leveladen."
-horizontal_alignment = 1
-
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20

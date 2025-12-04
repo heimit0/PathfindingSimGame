@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dj3bkwemxv6h"]
+[gd_scene load_steps=12 format=3 uid="uid://c2hlq7fiou1kh"]
 
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="1_1bj23"]
 [ext_resource type="Script" uid="uid://beaukoodhtrmg" path="res://scripts/ui_buttons/BackToMainmenu.cs" id="2_4r5h7"]
@@ -40,6 +40,21 @@ expand_margin_left = 2.0
 expand_margin_top = 3.0
 expand_margin_right = 2.0
 expand_margin_bottom = 3.0
+
+[sub_resource type="CSharpScript" id="CSharpScript_1bj23"]
+script/source = "using Godot;
+using System;
+
+public partial class Laden : TextureButton
+{
+	public void onLevelLaden()
+	{
+		LadenPopup popup = GetNode<LadenPopup>(\"Simulationsmodus/UI/LadenPopup\");
+		// popup.Submitted += actuallySpeichern;
+		popup.Open();
+	}
+}
+"
 
 [node name="SlideDownMenu" type="Control"]
 layout_mode = 3
@@ -125,6 +140,7 @@ size_flags_horizontal = 4
 texture_normal = ExtResource("7_fuw5e")
 ignore_texture_size = true
 stretch_mode = 5
+script = SubResource("CSharpScript_1bj23")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -141,5 +157,4 @@ stretch_mode = 5
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/Zum Hauptmenü" to="HBoxContainer/VBoxContainer/Zum Hauptmenü" method="OnBacktomenuPressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/UiToggleContainer/UI einblenden" to="HBoxContainer/VBoxContainer/UiToggleContainer" method="UiEinblenden"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/UiToggleContainer/UI ausblenden" to="HBoxContainer/VBoxContainer/UiToggleContainer" method="UiAusblenden"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/UiToggleContainer/Speichern" to="HBoxContainer/VBoxContainer/UiToggleContainer" method="UiEinblenden"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/UiToggleContainer/Laden" to="HBoxContainer/VBoxContainer/UiToggleContainer" method="UiEinblenden"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/UiToggleContainer/Laden" to="HBoxContainer/VBoxContainer/UiToggleContainer/Laden" method="onLevelLaden"]

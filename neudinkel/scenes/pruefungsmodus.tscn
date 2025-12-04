@@ -3,10 +3,17 @@
 [ext_resource type="Script" uid="uid://dpdiys1tq75u1" path="res://scripts/GameManagers/PruefungsGameManager.cs" id="1_70lit"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_7rp0e"]
 [ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="2_70lit"]
+[ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="2_70lit"]
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="3_70lit"]
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="5_qomti"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="6_st3as"]
-[ext_resource type="StyleBox" uid="uid://uaef6xta4jcb" path="res://assets/ui_presets/PanelBackground.tres" id="3_x247t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0b48g"]
+bg_color = Color(0.29, 0.29, 0.29, 0.39215687)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_st3as"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -42,7 +49,6 @@ offset_top = -270.0
 offset_right = 375.0
 offset_bottom = 270.0
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("3_x247t")
 
 [node name="TextDisplayAndAlgorithmSelection" type="VBoxContainer" parent="Pruefungsmodus/UI/PseudocodeBlock"]
 layout_mode = 1
@@ -143,3 +149,4 @@ offset_top = 4.0
 offset_right = 177.0
 offset_bottom = 96.0
 horizontal_alignment = 1
+[connection signal="pressed" from="ToggleButtonBox/TextureButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]
