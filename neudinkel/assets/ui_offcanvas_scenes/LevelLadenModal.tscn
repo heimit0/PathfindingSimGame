@@ -1,13 +1,17 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7dx1gmtko686"]
+[gd_scene load_steps=16 format=3 uid="uid://bf6g670xowhx0"]
 
 [ext_resource type="Script" uid="uid://p08l8rqp6kcq" path="res://scripts/ui_buttons/LadenPopup.cs" id="1_xj4wj"]
-[ext_resource type="Texture2D" path="res://models/textures/wolkenv2rc.png" id="2_xj4wj"]
+[ext_resource type="Texture2D" uid="uid://bq7xsl40bb5b6" path="res://models/textures/wolkenv2rc.png" id="2_xj4wj"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_463ae"]
+[ext_resource type="Script" uid="uid://chfeg5i8nqoag" path="res://scripts/LevelLoadList.cs" id="4_xj4wj"]
 [ext_resource type="Script" uid="uid://chfeg5i8nqoag" path="res://scripts/LevelLoadList.cs" id="4_xj4wj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs71l"]
 bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs71l"]
+bg_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1ve1"]
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1ve1"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 1
@@ -26,8 +30,13 @@ corner_detail = 20
 texture = ExtResource("2_xj4wj")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xj4wj"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bs71l"]
 texture = ExtResource("2_xj4wj")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xj4wj"]
+texture = ExtResource("2_xj4wj")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42ovf"]
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42ovf"]
 bg_color = Color(0, 0, 0, 0.48235294)
 border_color = Color(0, 0, 0, 0.48235294)
@@ -37,6 +46,7 @@ corner_radius_top_right = 9
 corner_radius_bottom_right = 9
 corner_radius_bottom_left = 9
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1oo0"]
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1oo0"]
 bg_color = Color(1, 1, 1, 0.14117648)
 border_width_left = 1
@@ -54,6 +64,7 @@ expand_margin_right = 5.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogdx3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogdx3"]
 bg_color = Color(0.6039216, 0.6039216, 0.6039216, 0.4862745)
 border_width_left = 1
 border_width_top = 1
@@ -69,6 +80,7 @@ expand_margin_top = 3.0
 expand_margin_right = 6.0
 expand_margin_bottom = 3.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnbli"]
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnbli"]
 bg_color = Color(0.6039216, 0.6039216, 0.6039216, 0.4862745)
 border_width_left = 1
@@ -86,6 +98,7 @@ expand_margin_right = 6.0
 expand_margin_bottom = 3.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_052n5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_052n5"]
 bg_color = Color(1, 1, 1, 0.14117648)
 border_width_left = 1
 border_width_top = 1
@@ -101,6 +114,7 @@ expand_margin_top = 2.0
 expand_margin_right = 5.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnf5h"]
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnf5h"]
 bg_color = Color(0.6039216, 0.6039216, 0.6039216, 0.4862745)
 border_width_left = 1
@@ -118,6 +132,7 @@ expand_margin_right = 6.0
 expand_margin_bottom = 3.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oy3jq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oy3jq"]
 bg_color = Color(0.6039216, 0.6039216, 0.6039216, 0.4862745)
 border_width_left = 1
 border_width_top = 1
@@ -134,10 +149,13 @@ expand_margin_right = 6.0
 expand_margin_bottom = 3.0
 
 [node name="LadenPopup" type="PopupMenu"]
+[node name="LadenPopup" type="PopupMenu"]
 oversampling_override = 1.0
 initial_position = 2
 size = Vector2i(250, 150)
 visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_bs71l")
+script = ExtResource("1_xj4wj")
 theme_override_styles/panel = SubResource("StyleBoxFlat_bs71l")
 script = ExtResource("1_xj4wj")
 
@@ -158,9 +176,16 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_bs71l")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_xj4wj")
 script = ExtResource("4_xj4wj")
+theme_override_styles/panel = SubResource("StyleBoxTexture_bs71l")
+
+[node name="ItemList2" type="ItemList" parent="Hintergrund"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_xj4wj")
+script = ExtResource("4_xj4wj")
 
 [node name="Overlay" type="PanelContainer" parent="Hintergrund"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_42ovf")
 theme_override_styles/panel = SubResource("StyleBoxFlat_42ovf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -192,12 +217,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
+theme_override_constants/separation = 10
 alignment = 1
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 alignment = 1
 
+[node name="Description" type="Label" parent="VBoxContainer/VBoxContainer2/HBoxContainer2"]
 [node name="Description" type="Label" parent="VBoxContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("3_463ae")

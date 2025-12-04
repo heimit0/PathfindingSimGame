@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://mkk1cd41mlpr"]
+[gd_scene load_steps=29 format=3 uid="uid://mkk1cd41mlpr"]
 
 [ext_resource type="Script" uid="uid://cxoox5vn5nmqm" path="res://scripts/GameManagers/SimulationGameManager.cs" id="1_5p374"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_5p374"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="8_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="9_k7vyk"]
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="9_lrh4w"]
+[ext_resource type="PackedScene" uid="uid://bf6g670xowhx0" path="res://assets/ui_offcanvas_scenes/LevelLadenModal.tscn" id="11_kiwpe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0b48g"]
 bg_color = Color(0.29, 0.29, 0.29, 0.39215687)
@@ -309,6 +310,8 @@ text = "
 icon = ExtResource("7_lrh4w")
 
 [node name="Info" parent="Simulationsmodus/UI" instance=ExtResource("9_lrh4w")]
+
+[node name="LadenPopup" parent="Simulationsmodus/UI" instance=ExtResource("11_kiwpe")]
 
 [node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus"]
 layout_mode = 1

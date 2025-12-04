@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d3etyv5apag5g" path="res://assets/ui_icons/speichern.svg" id="6_wxmtt"]
 [ext_resource type="Texture2D" path="res://assets/ui_icons/laden.svg" id="7_fuw5e"]
 [ext_resource type="Texture2D" uid="uid://bwb1qbn6rp1ek" path="res://assets/ui_icons/arrow-up.svg" id="8_jc5kd"]
-[ext_resource type="Script" path="res://scripts/ui_buttons/Laden.cs" id="9_qvarm"]
+[ext_resource type="Script" uid="uid://cxsolv1aw550c" path="res://scripts/ui_buttons/Laden.cs" id="9_qvarm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxlxb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

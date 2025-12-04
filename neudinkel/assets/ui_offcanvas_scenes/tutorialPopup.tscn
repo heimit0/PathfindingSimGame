@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://uvgca7rvqf0d"]
+[gd_scene load_steps=2 format=3 uid="uid://b6acmjxqngq3f"]
 
-[ext_resource type="Texture2D" path="res://models/textures/3dwolken.png" id="1_mgrk0"]
+[ext_resource type="Texture2D" uid="uid://cqutqulw2v73y" path="res://models/textures/3dwolken.png" id="1_mgrk0"]
 
 [node name="PopupPanel" type="PopupPanel"]
 oversampling_override = 1.0

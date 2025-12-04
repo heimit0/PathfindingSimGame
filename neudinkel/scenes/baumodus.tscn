@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cja2otsjks3ig"]
+[gd_scene load_steps=32 format=3 uid="uid://cja2otsjks3ig"]
 
 [ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/GameManagers/BauGameManager.cs" id="1_sfl2l"]
 [ext_resource type="Texture2D" uid="uid://ctx4brr3q6rko" path="res://assets/ui_icons/tile_highway.png" id="2_bn8a6"]
@@ -19,11 +19,52 @@
 [ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="16_p5ppk"]
 [ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://assets/ui_effect_scenes/tileSelectedParticels.tscn" id="18_jd0uw"]
 [ext_resource type="PackedScene" uid="uid://w8iwl0w0od67" path="res://assets/ui_effect_scenes/tileVisited.tscn" id="19_p5ppk"]
+[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="20_b6kbm"]
+[ext_resource type="Script" uid="uid://beaukoodhtrmg" path="res://scripts/ui_buttons/BackToMainmenu.cs" id="21_awm26"]
+[ext_resource type="Script" uid="uid://cot7lwkd2p4ih" path="res://scripts/ui_buttons/UiToggle.cs" id="22_3th2j"]
+[ext_resource type="Texture2D" uid="uid://g0gk4fuh2m62" path="res://assets/ui_icons/eye.svg" id="23_gj26j"]
+[ext_resource type="Texture2D" uid="uid://naxfdre3bowg" path="res://assets/ui_icons/eye-closed.svg" id="24_vi4fd"]
+[ext_resource type="Texture2D" uid="uid://d3etyv5apag5g" path="res://assets/ui_icons/speichern.svg" id="25_d8yt2"]
+[ext_resource type="Texture2D" uid="uid://o6epvumrps7k" path="res://assets/ui_icons/laden.svg" id="26_c3ybu"]
+[ext_resource type="Script" uid="uid://cxsolv1aw550c" path="res://scripts/ui_buttons/Laden.cs" id="27_1nbkt"]
+[ext_resource type="Texture2D" uid="uid://bwb1qbn6rp1ek" path="res://assets/ui_icons/arrow-up.svg" id="28_5k3u4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0prej"]
 shader = ExtResource("2_yojgw")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/thickness = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54rl7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 1.0
+expand_margin_top = 2.0
+expand_margin_right = 1.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mdgsc"]
+bg_color = Color(0.65882355, 0.65882355, 0.65882355, 0.25882354)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 2.0
+expand_margin_top = 3.0
+expand_margin_right = 2.0
+expand_margin_bottom = 3.0
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_sfl2l")
@@ -166,10 +207,14 @@ offset_bottom = 40.0
 grow_horizontal = 2
 alignment = 1
 script = ExtResource("14_jd0uw")
+toggleButtonPath = NodePath("ToggleButton")
+slideDownMenuPath = NodePath("../SlideDownMenuBaumodus")
 
 [node name="ToggleButton" type="TextureButton" parent="ToggleButtonBox"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("13_axwq4")
 ignore_texture_size = true
 stretch_mode = 5
@@ -180,9 +225,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -32.5
-offset_top = -40.0
-offset_right = 32.5
+offset_left = -15.0
+offset_top = -30.0
+offset_right = 15.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 10
@@ -204,6 +249,106 @@ script = ExtResource("15_w7ehh")
 selectedTileChimneyEffect = ExtResource("16_0gjdt")
 EffectHeight = 0.4
 
+[node name="SlideDownMenuBaumodus" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SlideDownMenuBaumodus"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.5
+offset_top = -112.0
+offset_right = 77.5
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(0, -10)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SlideDownMenuBaumodus/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="Zum Hauptmenü" type="Button" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("20_b6kbm")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxFlat_54rl7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mdgsc")
+text = "Zum Hauptmenü
+"
+script = ExtResource("21_awm26")
+
+[node name="UiToggleContainer" type="HBoxContainer" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("22_3th2j")
+
+[node name="UI einblenden" type="TextureButton" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("23_gj26j")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="UI ausblenden" type="TextureButton" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("24_vi4fd")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Control" type="Control" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer"]
+layout_mode = 2
+
+[node name="Speichern" type="TextureButton" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("25_d8yt2")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Laden" type="TextureButton" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("26_c3ybu")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("27_1nbkt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Menü ausblenden" type="TextureButton" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/HBoxContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("28_5k3u4")
+ignore_texture_size = true
+stretch_mode = 5
+
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Autobahn" to="." method="onChangeStreetType" binds= [1]]
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Landstrase" to="." method="onChangeStreetType" binds= [2]]
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Feldweg" to="." method="onChangeStreetType" binds= [3]]
@@ -215,3 +360,8 @@ EffectHeight = 0.4
 [connection signal="pressed" from="Baumodus/UI/StartUndEndNode/Start" to="." method="baumodusSetStartNode"]
 [connection signal="pressed" from="Baumodus/UI/StartUndEndNode/Ende" to="." method="baumodusSetGoalNode"]
 [connection signal="pressed" from="ToggleButtonBox/ToggleButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]
+[connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/Zum Hauptmenü" to="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/Zum Hauptmenü" method="OnBacktomenuPressed"]
+[connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/UI einblenden" to="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer" method="UiEinblenden"]
+[connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/UI ausblenden" to="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer" method="UiAusblenden"]
+[connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/Speichern" to="." method="initLevelSpeichern"]
+[connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/Laden" to="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/Laden" method="onLevelLaden"]
