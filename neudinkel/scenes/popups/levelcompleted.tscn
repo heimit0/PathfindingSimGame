@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgcteqohaesa3"]
+
+[ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="1_n4qvd"]
+[ext_resource type="StyleBox" uid="uid://uaef6xta4jcb" path="res://assets/ui_presets/PanelBackground.tres" id="2_8qb63"]
+[ext_resource type="Theme" uid="uid://bw3vapxj2vlks" path="res://assets/ui_presets/Pseudocode_buttons.tres" id="3_yduxe"]
+[ext_resource type="Texture2D" uid="uid://cfcxr6506wwen" path="res://assets/ui_icons/home.svg" id="4_bce3o"]
+
+[node name="Levelcompleted" type="Panel"]
+material = ExtResource("1_n4qvd")
+offset_right = 400.0
+offset_bottom = 175.0
+theme_override_styles/panel = ExtResource("2_8qb63")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -144.0
+offset_top = 10.0
+offset_right = 144.0
+offset_bottom = 77.0
+grow_horizontal = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Level geschafft"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 74)
+layout_mode = 2
+alignment = 1
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_yduxe")
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("4_bce3o")

@@ -1,9 +1,12 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bw3vapxj2vlks"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bw3vapxj2vlks"]
 
+[ext_resource type="StyleBox" uid="uid://r4lm2lrvte7g" path="res://assets/ui_presets/Pseudocode_buttons_focus.tres" id="1_a02mj"]
 [ext_resource type="StyleBox" uid="uid://cc4ewqduraq75" path="res://assets/ui_presets/Pseudocode_buttons_default.tres" id="1_cjqyk"]
+[ext_resource type="StyleBox" uid="uid://dfmm46fhi7enw" path="res://assets/ui_presets/Pseudocode_buttons_hover.tres" id="2_ajhuw"]
+[ext_resource type="StyleBox" uid="uid://b54r4jkjjcdu7" path="res://assets/ui_presets/Pseudocode_buttons_pressed.tres" id="3_a02mj"]
 
 [resource]
-Button/styles/focus = ExtResource("1_cjqyk")
-Button/styles/hover = null
+Button/styles/focus = ExtResource("1_a02mj")
+Button/styles/hover = ExtResource("2_ajhuw")
 Button/styles/normal = ExtResource("1_cjqyk")
-Button/styles/pressed = null
+Button/styles/pressed = ExtResource("3_a02mj")
