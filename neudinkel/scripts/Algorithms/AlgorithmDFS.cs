@@ -160,7 +160,4 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		this.visitedNodes.Add(this.currentNeighbour);
 		return 5; /* forEveryNeighbour */
 	}
-
-
-
 }

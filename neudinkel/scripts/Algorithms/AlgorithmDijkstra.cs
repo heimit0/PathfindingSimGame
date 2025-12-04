@@ -331,6 +331,4 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		}
 		costLabel.Text = cost.ToString();
 	}
-
-
 }

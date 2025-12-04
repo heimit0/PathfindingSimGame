@@ -411,8 +411,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	{
 		costLabel.Text = "t: "+Math.Round(uValue,2).ToString();
 	}
-
-
 }
 public enum LabelMode
 {
