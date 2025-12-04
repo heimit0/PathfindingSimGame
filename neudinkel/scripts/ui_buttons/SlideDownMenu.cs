@@ -3,7 +3,7 @@ using Godot;
 public partial class SlideDownMenu : Node
 {
     [Export] public NodePath toggleButtonPath = "./TextureButton";
-    [Export] public string slideDownMenuPath = "res://scenes/slidedownmenu.tscn";
+    [Export] public string slideDownMenuPath = "res://assets/ui_offcanvas_scenes/slidedownmenu.tscn";
     [Export] public float animationTime = 0.5f;
     [Export] public float fadeWaitTime = 0.02f; // Wartezeit bevor Button erscheint
     [Export] public float fadeDurationTime = 2.6f; // Einblendegeschwindigkeit 
@@ -74,7 +74,7 @@ public partial class SlideDownMenu : Node
         if (h <= 0) h = 100;
 
         // Position der Oberen Kante des Menü wenn dieses nach unten gefahren ist 
-        viewportTopEdge = slideDownMenuTopEdgeYPos + h + 10;
+        viewportTopEdge = slideDownMenuTopEdgeYPos + h + 30;
 
         // Menü startet ohne Transparenz
         var color = slideDownMenu.Modulate;

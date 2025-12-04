@@ -1,0 +1,99 @@
+[gd_scene load_steps=10 format=3 uid="uid://devtia7jy1ka8"]
+
+[ext_resource type="Texture2D" uid="uid://bq7xsl40bb5b6" path="res://models/textures/wolkenv2rc.png" id="1_34fxh"]
+[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="2_q3hc2"]
+[ext_resource type="Theme" uid="uid://d0fkbd3yhm4pl" path="res://assets/ui_presets/Popup_buttons.tres" id="3_0etym"]
+[ext_resource type="Texture2D" uid="uid://ymvtaea43a6k" path="res://assets/ui_icons/restart.svg" id="4_0etym"]
+[ext_resource type="Texture2D" uid="uid://cfcxr6506wwen" path="res://assets/ui_icons/home.svg" id="4_7lwnc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qf44v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owled"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 0.48235294)
+border_blend = true
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 20
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_otr7c"]
+texture = ExtResource("1_34fxh")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq7jr"]
+bg_color = Color(0, 0, 0, 0.48235294)
+border_color = Color(0, 0, 0, 0.48235294)
+border_blend = true
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[node name="PopupPanel" type="PopupPanel"]
+oversampling_override = 1.0
+size = Vector2i(400, 200)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qf44v")
+
+[node name="Hintergrund" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_owled")
+
+[node name="Wolken" type="PanelContainer" parent="Hintergrund"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_otr7c")
+
+[node name="Overlay" type="PanelContainer" parent="Hintergrund"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qq7jr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Description" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_q3hc2")
+theme_override_font_sizes/font_size = 35
+text = "Level nicht geschafft"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Restart" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_0etym")
+icon = ExtResource("4_0etym")
+
+[node name="BackToMenu" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_0etym")
+icon = ExtResource("4_7lwnc")
