@@ -123,7 +123,10 @@ public abstract class NeudinkelAlgorithm
 		}
 
 		foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
+		
+		//reset der vergangen nachbarn wegen wechsel der grundnode
 		highlightedNeighbours = new HashSet<GraphNode>();
+		
 		// 1. Schritt ignorieren
 		if (currentNode is null) return;
 		currentNode.setHighlighted(true);
@@ -142,7 +145,7 @@ public abstract class NeudinkelAlgorithm
 			toHighlight.setHighlighted(true);
 		}
 	}
-	
+	//highlighted den derzeitig zubearbeiteten nachbar und setzt das highlighting der zuvor gehighlighteten nachbarn wieder zurück
 	public void visualizeNeighbours(Graph g,GraphNode node)
 	{
 		highlightedNeighbours.Add(node);
