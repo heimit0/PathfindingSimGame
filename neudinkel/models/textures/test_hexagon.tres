@@ -2,6 +2,5 @@
 
 [ext_resource type="Texture2D" uid="uid://vtnwttfk6pf7" path="res://models/textures/test_hexagon_t_green.png" id="1_35fm8"]
 
-
 [resource]
 albedo_texture = ExtResource("1_35fm8")

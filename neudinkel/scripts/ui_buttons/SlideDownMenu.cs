@@ -74,7 +74,7 @@ public partial class SlideDownMenu : Node
         if (h <= 0) h = 100;
 
         // Position der Oberen Kante des Menü wenn dieses nach unten gefahren ist 
-        viewportTopEdge = slideDownMenuTopEdgeYPos + h + 10;
+        viewportTopEdge = slideDownMenuTopEdgeYPos + h + 30;
 
         // Menü startet ohne Transparenz
         var color = slideDownMenu.Modulate;
