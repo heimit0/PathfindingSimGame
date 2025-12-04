@@ -6,9 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://g0gk4fuh2m62" path="res://assets/ui_icons/eye.svg" id="4_hl8ul"]
 [ext_resource type="Texture2D" uid="uid://naxfdre3bowg" path="res://assets/ui_icons/eye-closed.svg" id="5_7okjf"]
 [ext_resource type="Texture2D" uid="uid://d3etyv5apag5g" path="res://assets/ui_icons/speichern.svg" id="6_wxmtt"]
-[ext_resource type="Texture2D" path="res://assets/ui_icons/laden.svg" id="7_fuw5e"]
+[ext_resource type="Texture2D" uid="uid://o6epvumrps7k" path="res://assets/ui_icons/laden.svg" id="7_fuw5e"]
 [ext_resource type="Texture2D" uid="uid://bwb1qbn6rp1ek" path="res://assets/ui_icons/arrow-up.svg" id="8_jc5kd"]
-[ext_resource type="Script" uid="uid://cxsolv1aw550c" path="res://scripts/ui_buttons/Laden.cs" id="9_qvarm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxlxb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -41,6 +40,21 @@ expand_margin_left = 2.0
 expand_margin_top = 3.0
 expand_margin_right = 2.0
 expand_margin_bottom = 3.0
+
+[sub_resource type="CSharpScript" id="CSharpScript_1bj23"]
+script/source = "using Godot;
+using System;
+
+public partial class Laden : TextureButton
+{
+	public void onLevelLaden()
+	{
+		LadenPopup popup = GetNode<LadenPopup>(\"Simulationsmodus/UI/LadenPopup\");
+		// popup.Submitted += actuallySpeichern;
+		popup.Open();
+	}
+}
+"
 
 [node name="SlideDownMenu" type="Control"]
 layout_mode = 3
@@ -126,7 +140,7 @@ size_flags_horizontal = 4
 texture_normal = ExtResource("7_fuw5e")
 ignore_texture_size = true
 stretch_mode = 5
-script = ExtResource("9_qvarm")
+script = SubResource("CSharpScript_1bj23")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2

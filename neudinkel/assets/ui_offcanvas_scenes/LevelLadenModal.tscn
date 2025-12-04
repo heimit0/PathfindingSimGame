@@ -1,18 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://bf6g670xowhx0"]
+[gd_scene load_steps=7 format=3 uid="uid://dw46rq0gpvov7"]
 
 [ext_resource type="Script" uid="uid://p08l8rqp6kcq" path="res://scripts/ui_buttons/LadenPopup.cs" id="1_xj4wj"]
-[ext_resource type="Texture2D" uid="uid://bq7xsl40bb5b6" path="res://models/textures/wolkenv2rc.png" id="2_xj4wj"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_463ae"]
 [ext_resource type="Script" uid="uid://chfeg5i8nqoag" path="res://scripts/LevelLoadList.cs" id="4_xj4wj"]
-[ext_resource type="Script" uid="uid://chfeg5i8nqoag" path="res://scripts/LevelLoadList.cs" id="4_xj4wj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs71l"]
-bg_color = Color(0, 0, 0, 1)
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs71l"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1ve1"]
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1ve1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2d3uh"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 1
 border_width_top = 1
@@ -26,263 +18,55 @@ corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 corner_detail = 20
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bs71l"]
-texture = ExtResource("2_xj4wj")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qk32f"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xj4wj"]
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bs71l"]
-texture = ExtResource("2_xj4wj")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xj4wj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xj4wj"]
-texture = ExtResource("2_xj4wj")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42ovf"]
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42ovf"]
-bg_color = Color(0, 0, 0, 0.48235294)
-border_color = Color(0, 0, 0, 0.48235294)
-border_blend = true
-corner_radius_top_left = 9
-corner_radius_top_right = 9
-corner_radius_bottom_right = 9
-corner_radius_bottom_left = 9
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1oo0"]
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1oo0"]
-bg_color = Color(1, 1, 1, 0.14117648)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 5.0
-expand_margin_top = 2.0
-expand_margin_right = 5.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogdx3"]
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogdx3"]
-bg_color = Color(0.6039216, 0.6039216, 0.6039216, 0.4862745)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 6.0
-expand_margin_top = 3.0
-expand_margin_right = 6.0
-expand_margin_bottom = 3.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnbli"]
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnbli"]
-bg_color = Color(0.6039216, 0.6039216, 0.6039216, 0.4862745)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 6.0
-expand_margin_top = 3.0
-expand_margin_right = 6.0
-expand_margin_bottom = 3.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_052n5"]
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_052n5"]
-bg_color = Color(1, 1, 1, 0.14117648)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 5.0
-expand_margin_top = 2.0
-expand_margin_right = 5.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnf5h"]
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnf5h"]
-bg_color = Color(0.6039216, 0.6039216, 0.6039216, 0.4862745)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 6.0
-expand_margin_top = 3.0
-expand_margin_right = 6.0
-expand_margin_bottom = 3.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oy3jq"]
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oy3jq"]
-bg_color = Color(0.6039216, 0.6039216, 0.6039216, 0.4862745)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 6.0
-expand_margin_top = 3.0
-expand_margin_right = 6.0
-expand_margin_bottom = 3.0
-
-[node name="LadenPopup" type="PopupMenu"]
-[node name="LadenPopup" type="PopupMenu"]
+[node name="PopupMenu" type="PopupMenu"]
 oversampling_override = 1.0
-initial_position = 2
 size = Vector2i(250, 150)
 visible = true
-theme_override_styles/panel = SubResource("StyleBoxFlat_bs71l")
-script = ExtResource("1_xj4wj")
-theme_override_styles/panel = SubResource("StyleBoxFlat_bs71l")
 script = ExtResource("1_xj4wj")
 
 [node name="Hintergrund" type="PanelContainer" parent="."]
-offset_right = 250.0
-offset_bottom = 150.0
-<<<<<<< HEAD
-theme_override_styles/panel = SubResource("StyleBoxFlat_k1ve1")
-=======
-theme_override_styles/panel = SubResource("StyleBoxFlat_2d3uh")
->>>>>>> e8e5bf4 (Erfolg und Fehler Message zum ein und ausblenden bei den Speicher und Laden Dialog hinzugefügt)
-
-[node name="Wolken" type="PanelContainer" parent="Hintergrund"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_bs71l")
-
-[node name="ItemList2" type="ItemList" parent="Hintergrund"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_xj4wj")
-script = ExtResource("4_xj4wj")
-theme_override_styles/panel = SubResource("StyleBoxTexture_bs71l")
-
-[node name="ItemList2" type="ItemList" parent="Hintergrund"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_xj4wj")
-script = ExtResource("4_xj4wj")
-
-[node name="Overlay" type="PanelContainer" parent="Hintergrund"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_42ovf")
-theme_override_styles/panel = SubResource("StyleBoxFlat_42ovf")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-<<<<<<< HEAD
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-=======
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -125.0
-offset_right = 125.0
-offset_bottom = 150.0
->>>>>>> e8e5bf4 (Erfolg und Fehler Message zum ein und ausblenden bei den Speicher und Laden Dialog hinzugefügt)
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2d3uh")
+
+[node name="Wolken" type="PanelContainer" parent="Hintergrund"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qk32f")
+
+[node name="Overlay" type="PanelContainer" parent="Hintergrund"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xj4wj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 20
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-z_as_relative = false
+[node name="ItemList" type="ItemList" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+script = ExtResource("4_xj4wj")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 10
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Description" type="Label" parent="VBoxContainer/VBoxContainer2/HBoxContainer2"]
-[node name="Description" type="Label" parent="VBoxContainer/VBoxContainer2/HBoxContainer2"]
+[node name="Description" type="Label" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("3_463ae")
 theme_override_font_sizes/font_size = 20
 text = "Level auswählen:"
-
-<<<<<<< HEAD
-[node name="successMessage" type="Label" parent="VBoxContainer/VBoxContainer2"]
-=======
-[node name="successMessage" type="Label" parent="VBoxContainer"]
->>>>>>> e8e5bf4 (Erfolg und Fehler Message zum ein und ausblenden bei den Speicher und Laden Dialog hinzugefügt)
-visible = false
-layout_mode = 2
-theme = ExtResource("3_463ae")
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_font_sizes/font_size = 15
-text = "Das Level wurde 
-erfolgreich geladen!"
-horizontal_alignment = 1
-
-<<<<<<< HEAD
-[node name="errorMessage" type="Label" parent="VBoxContainer/VBoxContainer2"]
-=======
-[node name="errorMessage" type="Label" parent="VBoxContainer"]
->>>>>>> e8e5bf4 (Erfolg und Fehler Message zum ein und ausblenden bei den Speicher und Laden Dialog hinzugefügt)
-visible = false
-layout_mode = 2
-theme = ExtResource("3_463ae")
-theme_override_colors/font_color = Color(1, 0.047058824, 0, 1)
-theme_override_font_sizes/font_size = 15
-text = "Es gab einen Fehler beim Leveladen."
-horizontal_alignment = 1
-
-<<<<<<< HEAD
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
-=======
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
->>>>>>> e8e5bf4 (Erfolg und Fehler Message zum ein und ausblenden bei den Speicher und Laden Dialog hinzugefügt)
-layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="OK" type="Button" parent="VBoxContainer/VBoxContainer2/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_w1oo0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ogdx3")
-theme_override_styles/hover = SubResource("StyleBoxFlat_hnbli")
-text = "Laden"
-
-[node name="Cancel" type="Button" parent="VBoxContainer/VBoxContainer2/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_052n5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_gnf5h")
-theme_override_styles/hover = SubResource("StyleBoxFlat_oy3jq")
-text = "Abbrechen"
-
-[connection signal="pressed" from="VBoxContainer/VBoxContainer2/HBoxContainer/OK" to="." method="onLaden"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer2/HBoxContainer/Cancel" to="." method="onAbbrechen"]

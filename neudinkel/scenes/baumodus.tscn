@@ -14,11 +14,12 @@
 [ext_resource type="StyleBox" uid="uid://qhm8qgtfl1y" path="res://assets/ui_presets/menu_button_focus.tres" id="9_sbvyt"]
 [ext_resource type="PackedScene" uid="uid://dnd4n4403rqoa" path="res://assets/ui_offcanvas_scenes/LevelSpeichernModal.tscn" id="13_4c4u4"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="13_axwq4"]
+[ext_resource type="PackedScene" uid="uid://dw46rq0gpvov7" path="res://assets/ui_offcanvas_scenes/LevelLadenModal.tscn" id="14_b6kbm"]
 [ext_resource type="Script" uid="uid://cwoiciqu0ccii" path="res://scripts/ui_buttons/SlideDownMenuBauModus.cs" id="14_jd0uw"]
 [ext_resource type="Script" uid="uid://debdk623bhaon" path="res://scripts/TileEffectManager.cs" id="15_w7ehh"]
 [ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="16_p5ppk"]
 [ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://assets/ui_effect_scenes/tileSelectedParticels.tscn" id="18_jd0uw"]
-[ext_resource type="PackedScene" uid="uid://w8iwl0w0od67" path="res://assets/ui_effect_scenes/tileVisited.tscn" id="19_p5ppk"]
+[ext_resource type="PackedScene" uid="uid://b3110xoh8hw2" path="res://assets/ui_effect_scenes/tileOutlineScene.tscn" id="18_mvsrt"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="20_b6kbm"]
 [ext_resource type="Script" uid="uid://beaukoodhtrmg" path="res://scripts/ui_buttons/BackToMainmenu.cs" id="21_awm26"]
 [ext_resource type="Script" uid="uid://cot7lwkd2p4ih" path="res://scripts/ui_buttons/UiToggle.cs" id="22_3th2j"]
@@ -26,7 +27,6 @@
 [ext_resource type="Texture2D" uid="uid://naxfdre3bowg" path="res://assets/ui_icons/eye-closed.svg" id="24_vi4fd"]
 [ext_resource type="Texture2D" uid="uid://d3etyv5apag5g" path="res://assets/ui_icons/speichern.svg" id="25_d8yt2"]
 [ext_resource type="Texture2D" uid="uid://o6epvumrps7k" path="res://assets/ui_icons/laden.svg" id="26_c3ybu"]
-[ext_resource type="Script" uid="uid://cxsolv1aw550c" path="res://scripts/ui_buttons/Laden.cs" id="27_1nbkt"]
 [ext_resource type="Texture2D" uid="uid://bwb1qbn6rp1ek" path="res://assets/ui_icons/arrow-up.svg" id="28_5k3u4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0prej"]
@@ -158,25 +158,6 @@ theme_override_styles/hover = ExtResource("8_ae4ts")
 theme_override_styles/focus = ExtResource("9_sbvyt")
 text = " Simulieren "
 
-[node name="Speichern" type="Button" parent="Baumodus/UI/BauModusBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = ExtResource("6_l1k4i")
-theme_override_styles/pressed = ExtResource("7_fmqkg")
-theme_override_styles/hover = ExtResource("8_ae4ts")
-theme_override_styles/focus = ExtResource("9_sbvyt")
-text = " Speichern "
-
-[node name="LevelLaden" type="Button" parent="Baumodus/UI/BauModusBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Wechselt zwischen Baumodus und Simulationsmodus"
-theme = ExtResource("13_pmco5")
-theme_override_font_sizes/font_size = 30
-text = " Level Laden "
-script = ExtResource("13_jd0uw")
-
 [node name="StartUndEndNode" type="HBoxContainer" parent="Baumodus/UI"]
 offset_left = 33.0
 offset_top = 573.0
@@ -195,7 +176,8 @@ text = "Ende"
 
 [node name="SpeichernPopup" parent="Baumodus/UI" instance=ExtResource("13_4c4u4")]
 
-[node name="LadenPopup" parent="Baumodus/UI" instance=ExtResource("15_p5ppk")]
+[node name="LadenPopup" parent="Baumodus/UI" instance=ExtResource("14_b6kbm")]
+initial_position = 2
 
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5
@@ -226,27 +208,24 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -15.0
-offset_top = -30.0
+offset_top = -40.0
 offset_right = 15.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 10
 
-[node name="Speichern" type="TextureButton" parent="SpeichernUndTipps"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-ignore_texture_size = true
-stretch_mode = 5
-
 [node name="Tips" type="TextureButton" parent="SpeichernUndTipps"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
+texture_normal = ExtResource("16_p5ppk")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="TileEffectManager" type="Node3D" parent="."]
 script = ExtResource("15_w7ehh")
-selectedTileChimneyEffect = ExtResource("16_0gjdt")
+selectedTileChimneyEffect = ExtResource("18_jd0uw")
+selectedTileOutline = ExtResource("18_mvsrt")
 EffectHeight = 0.4
 
 [node name="SlideDownMenuBaumodus" type="Control" parent="."]
@@ -264,7 +243,7 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -77.5
-offset_top = -112.0
+offset_top = -125.0
 offset_right = 77.5
 grow_horizontal = 2
 grow_vertical = 0
@@ -333,7 +312,6 @@ size_flags_horizontal = 4
 texture_normal = ExtResource("26_c3ybu")
 ignore_texture_size = true
 stretch_mode = 5
-script = ExtResource("27_1nbkt")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -355,8 +333,6 @@ stretch_mode = 5
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Sandweg" to="." method="onChangeStreetType" binds= [4]]
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Leer" to="." method="onChangeStreetType" binds= [0]]
 [connection signal="pressed" from="Baumodus/UI/BauModusBox/Baumodus" to="." method="onChangeToSimulationMode"]
-[connection signal="pressed" from="Baumodus/UI/BauModusBox/Speichern" to="." method="initLevelSpeichern"]
-[connection signal="pressed" from="Baumodus/UI/BauModusBox/LevelLaden" to="." method="onLevelLaden"]
 [connection signal="pressed" from="Baumodus/UI/StartUndEndNode/Start" to="." method="baumodusSetStartNode"]
 [connection signal="pressed" from="Baumodus/UI/StartUndEndNode/Ende" to="." method="baumodusSetGoalNode"]
 [connection signal="pressed" from="ToggleButtonBox/ToggleButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]
@@ -364,4 +340,5 @@ stretch_mode = 5
 [connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/UI einblenden" to="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer" method="UiEinblenden"]
 [connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/UI ausblenden" to="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer" method="UiAusblenden"]
 [connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/Speichern" to="." method="initLevelSpeichern"]
+[connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/Laden" to="." method="onLevelLaden"]
 [connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/Laden" to="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/Laden" method="onLevelLaden"]
