@@ -1,8 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://d4l2g3urlpx3q"]
+[gd_scene load_steps=7 format=3 uid="uid://d4l2g3urlpx3q"]
 
 [ext_resource type="Script" uid="uid://dpdiys1tq75u1" path="res://scripts/GameManagers/PruefungsGameManager.cs" id="1_70lit"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_7rp0e"]
-[ext_resource type="Material" path="res://assets/ui_presets/PseudocodePanel.tres" id="2_70lit"]
+[ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="2_70lit"]
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="3_70lit"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0b48g"]
@@ -11,106 +11,6 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrh4w"]
-bg_color = Color(0.9, 0.27, 0.27, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wl7tl"]
-bg_color = Color(0.9019608, 0.27058825, 0.27058825, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivnlw"]
-bg_color = Color(0.9, 0.45, 0.45, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8kv3"]
-bg_color = Color(1, 1, 1, 0)
-draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cd7hi"]
-bg_color = Color(0.22500001, 0.75, 0.22500001, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70lit"]
-bg_color = Color(0.22352941, 0.7490196, 0.22352941, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aeye2"]
-bg_color = Color(0.375, 0.75, 0.375, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ksohj"]
-bg_color = Color(1, 1, 1, 0)
-draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kiwpe"]
-bg_color = Color(0.17999998, 0.17999998, 0.9, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2nx8p"]
-bg_color = Color(0.18039216, 0.18039216, 0.9019608, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x247t"]
-bg_color = Color(0.35999995, 0.35999995, 0.9, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qomti"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_st3as"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -175,36 +75,8 @@ focus_mode = 2
 mouse_filter = 0
 alignment = 1
 
-[node name="Dijkstra" type="Button" parent="Pruefungsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
-custom_minimum_size = Vector2(100, 30)
+[node name="AlgorithmDisplay" type="Label" parent="Pruefungsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_lrh4w")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_wl7tl")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ivnlw")
-theme_override_styles/focus = SubResource("StyleBoxFlat_n8kv3")
-text = "Dijkstra"
-
-[node name="A*" type="Button" parent="Pruefungsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
-custom_minimum_size = Vector2(100, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_cd7hi")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_70lit")
-theme_override_styles/hover = SubResource("StyleBoxFlat_aeye2")
-theme_override_styles/focus = SubResource("StyleBoxFlat_ksohj")
-text = "A*"
-
-[node name="DFS" type="Button" parent="Pruefungsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons"]
-custom_minimum_size = Vector2(100, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_kiwpe")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2nx8p")
-theme_override_styles/hover = SubResource("StyleBoxFlat_x247t")
-theme_override_styles/focus = SubResource("StyleBoxFlat_qomti")
-text = "DFS
-"
 
 [node name="PseudocodePanel" type="Panel" parent="Pruefungsmodus/UI/PseudocodeBlock"]
 layout_mode = 1
@@ -240,6 +112,14 @@ script = ExtResource("2_7rp0e")
 
 [node name="Info" parent="Pruefungsmodus/UI" instance=ExtResource("3_70lit")]
 
-[connection signal="pressed" from="Pruefungsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
-[connection signal="pressed" from="Pruefungsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
-[connection signal="pressed" from="Pruefungsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
+[node name="SpielerHatWasFalschGemachtPopup" type="PopupPanel" parent="Pruefungsmodus/UI"]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(181, 100)
+
+[node name="Label" type="Label" parent="Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 177.0
+offset_bottom = 96.0
+horizontal_alignment = 1
