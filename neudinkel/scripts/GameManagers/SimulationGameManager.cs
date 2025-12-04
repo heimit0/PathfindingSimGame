@@ -169,4 +169,11 @@ public partial class SimulationGameManager : GameManager
 		// popup.Submitted += actuallySpeichern;
 		popup.Open();
 	}
+
+	public void onChangeToBauMode()
+	{
+		// müssen uns nix merken
+		GetTree().ChangeSceneToFile("res://scenes/baumodus.tscn");
+	}
+
 }

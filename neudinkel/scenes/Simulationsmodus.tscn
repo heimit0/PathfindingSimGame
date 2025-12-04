@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://mkk1cd41mlpr"]
+[gd_scene load_steps=28 format=3 uid="uid://mkk1cd41mlpr"]
 
 [ext_resource type="Script" uid="uid://cxoox5vn5nmqm" path="res://scripts/GameManagers/SimulationGameManager.cs" id="1_5p374"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_5p374"]
@@ -20,37 +20,6 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-
-[sub_resource type="CSharpScript" id="CSharpScript_70lit"]
-script/source = "using Godot;
-using System;
-
-
-public partial class PseudocodeBlock : Panel
-{
-	public override void _Ready()
-	{
-		GetNode<Button>(\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/Dijkstra\").Pressed += () => OnAlgorithmButtonPressed(\"Dijkstra\");
-		GetNode<Button>(\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/A*\").Pressed += () => OnAlgorithmButtonPressed(\"A*\");
-		GetNode<Button>(\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/DFS\").Pressed += () => OnAlgorithmButtonPressed(\"DFS\");
-	}
-
-	private void OnAlgorithmButtonPressed(string buttonName)
-	{
-		var btn = GetNode<Button>($\"TextDisplayAndAlgorithmSelection/AlgorithmButtons/{buttonName}\");
-
-		// Get the button’s color (Modulate is easiest)
-		Color newColor = btn.Modulate;
-
-		// Change this panel’s border color
-		var style = GetThemeStylebox(\"panel\") as StyleBoxFlat;
-		if (style != null)
-		{
-			style.BorderColor = newColor;
-		}
-	}
-}
-"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrh4w"]
 bg_color = Color(0.9, 0.27, 0.27, 1)
@@ -187,7 +156,6 @@ offset_right = 375.0
 offset_bottom = 270.0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0b48g")
-script = SubResource("CSharpScript_70lit")
 
 [node name="TextDisplayAndAlgorithmSelection" type="VBoxContainer" parent="Simulationsmodus/UI/PseudocodeBlock"]
 layout_mode = 1
@@ -295,7 +263,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Wechselt zwischen Baumodus und Simulationsmodus"
 theme_override_font_sizes/font_size = 30
-toggle_mode = true
 text = " Baumodus "
 script = ExtResource("4_ud2kt")
 
@@ -380,7 +347,7 @@ stretch_mode = 5
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
-[connection signal="toggled" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onToggleGamePhase"]
+[connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onChangeToBauMode"]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/LevelLaden" to="." method="onLevelLaden"]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/NextSearchStepButton" to="." method="onDoSearchForward" binds= [true]]
