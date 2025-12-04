@@ -9,6 +9,7 @@ public partial class OpenQueueList : NeudinkelItemList
 		eine Liste an GraphNodes welche diese Prioritaet haben mapped.
 	*/
 	List<(float, List<GraphNode>)> items;
+	
 
 	public override void _Ready()
 	{
@@ -20,6 +21,7 @@ public partial class OpenQueueList : NeudinkelItemList
 
 		Events.Instance.PushOpenQueue += onPushOpenQueue;
 		Events.Instance.PopOpenQueue += onPopOpenQueue;
+		Events.Instance.ClearOpenQueue += onClearOpenQueue;
 	}
 
 	/// <summary>
@@ -89,6 +91,16 @@ public partial class OpenQueueList : NeudinkelItemList
 			this.RemoveItem(0);
 			this.RemoveItem(0);
 		}
+	}
+
+	/// <summary>
+	/// Leert die gesamte Queue.
+	/// Entfernt alle Elemente aus der internen Liste und der UI.
+	/// </summary>
+	public void onClearOpenQueue()
+	{
+		this.items.Clear();
+		this.Clear();
 	}
 
 }

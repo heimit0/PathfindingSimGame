@@ -11,8 +11,9 @@ public partial class PruefungsGameManager : SimulationGameManager
 	private GraphSearchAlgorithm algo;
 
 	private int correctStepCounterSinceLastSave;
-	public override void  _Ready()
-	{
+	private int wrongStepCounter;
+    public override void  _Ready()
+    {
 		TileSelected += playerInteraction;
 		SetStartNode += onSetStartNode;
 		SetGoalNode += onSetGoalNode;
@@ -47,6 +48,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 		this.doSearchForwardHelper(true);
 		GD.Print("step 3");
 		this.doSearchForwardHelper(true);
+		GD.Print("step 4");
+		this.doSearchForwardHelper(true);
 		saveCheckpoint();
 		correctStepCounterSinceLastSave = 0;
 	}
@@ -54,29 +57,117 @@ public partial class PruefungsGameManager : SimulationGameManager
 	//Code um Spielerclick zu behandeln
 	public void playerInteraction(Vector2I tilePos)
 	{
-		GD.Print("Player did smth");
-		this.doSearchForwardHelper(true);
-		if(this.graph.getNode(tilePos.X, tilePos.Y) == currentAlgorithm.currentNode)
+		GD.Print("Player clicked");
+
+		skipTillNextCurrentNode();
+
+		GraphNode playerNode = this.graph.getNode(tilePos.X, tilePos.Y);
+		if (playerNode == null)
+		{
+			GD.PrintErr("Player clicked the void at: " + tilePos);
+			playerDidSmthWrong();
+			return;
+		}
+		if(currentAlgorithm.currentNode == null)
+		{
+			GD.Print("current Node is null");
+			return;
+		}
+
+		GD.Print("Richtige Node: "+ currentAlgorithm.currentNode.getTilePosString()+" Node des Spielers: "+ playerNode.getTilePosString());
+		if(playerNode == currentAlgorithm.currentNode)
 		{
 			GD.Print("Correct Tile Clicked");
-			correctStepCounterSinceLastSave++;
-			if(correctStepCounterSinceLastSave>=3)
+			playerDidSmthRight();
+			if(currentAlgorithm.currentNode.Equals(currentAlgorithm.goalNode))
 			{
-				correctStepCounterSinceLastSave = 0;
-				saveCheckpoint();
+				lvlGeschafft();
 			}
-			if (currentAlgorithm.currentNode != null) currentAlgorithm.currentNode.setHighlighted(true);
+			return;
 		}
 		else
 		{
 			GD.Print("Wrong Tile Clicked, Returning to Checkpoint");
-			returnToCheckpoint();
+			playerDidSmthWrong();
+			return;
 		}
 
 	}
 
-	//Speichert aktuelle Node in CheckpointNode
-	public void saveCheckpoint()
+    private void lvlGeschafft()
+    {
+        var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/PopupPanel");
+		var popuptext = GetNode<Label>("Pruefungsmodus/UI/PopupPanel/Label");
+		if (popup != null && popuptext != null)
+		{
+			popuptext.Text= "Lvl Geschafft!";
+			popup.Show();
+		}
+		//Globals.saveGame();
+		
+    }
+
+    public void playerDidSmthWrong()
+	{
+		wrongStepCounter++;
+		if(wrongStepCounter>3)
+			checkPointNode = startNode;
+
+		Events.Instance.EmitSignal(Events.SignalName.ClearOpenQueue);
+
+		// Open popup to notify player
+		var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup");
+		var popuptext = GetNode<Label>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/Label");
+		if (popup != null && popuptext != null)
+		{
+			popuptext.Text = "Leider das Falsche Tile ausgewählt \n Das richtige Tile war X: "
+			 + currentAlgorithm.currentNode.tilePosX + " Y: " + currentAlgorithm.currentNode.tilePosY + "\n" +
+			 "Falsche Schritte: " + wrongStepCounter +"/3";
+			popup.Show();
+		}
+		returnToCheckpoint();
+	}
+
+	public void playerDidSmthRight()
+	{
+		correctStepCounterSinceLastSave++;
+		if(correctStepCounterSinceLastSave>=3)
+		{
+			correctStepCounterSinceLastSave = 0;
+			saveCheckpoint();
+		}
+		currentAlgorithm.currentNode.setHighlighted(true);
+	}
+
+	public void skipTillNextCurrentNode()
+	{
+        switch ((currentAlgorithm))
+        {
+            case AlgorithmAStar astar:
+				currentAlgorithm.breakpoint = 5;
+                break;
+			
+			case AlgorithmDFS dfs:
+				currentAlgorithm.breakpoint = 4;
+				break;
+
+			case AlgorithmDijkstra dijkstra:
+				currentAlgorithm.breakpoint = 5;
+				break;
+        }
+
+		GD.Print("Selected Breakpoint at:" + currentAlgorithm.breakpoint);
+
+		currentAlgorithm.doSearchForward();
+
+		GD.Print("Successfull newCurrentNode");
+    }
+
+
+
+
+    //Speichert aktuelle Node in CheckpointNode
+    public void saveCheckpoint()
 	{
 		checkPointNode = currentAlgorithm.currentNode;
 	}
@@ -86,15 +177,18 @@ public partial class PruefungsGameManager : SimulationGameManager
 	{
 		GD.Print("Start resetting Algorithm");
 		onInitOrChangeAlgorithm(-1);
+		if(wrongStepCounter>3)
+			wrongStepCounter = 0;
 		int allowedNumberOfSteps = 1000000;
 		int failsafe = 0;
 		while(currentAlgorithm.currentNode != checkPointNode && failsafe < allowedNumberOfSteps)
 		{
 			this.doSearchForwardHelper(true);
 			failsafe++;
+
 		}
 		if(checkPointNode == currentAlgorithm.currentNode)
-		return 1;
+			return 1;
 
 		return -1;
 	}
