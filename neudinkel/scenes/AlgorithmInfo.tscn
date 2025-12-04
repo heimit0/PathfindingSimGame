@@ -1,12 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpjrofls0eln3"]
+[gd_scene load_steps=4 format=3 uid="uid://cpjrofls0eln3"]
 
+[ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="1_a4ddg"]
 [ext_resource type="Script" uid="uid://dvdhi6nlj2t8q" path="res://scripts/OpenQueueList.cs" id="1_kvkmi"]
+[ext_resource type="StyleBox" uid="uid://uaef6xta4jcb" path="res://assets/ui_presets/PanelBackground.tres" id="2_bimoo"]
 
 [node name="Info" type="Panel"]
+material = ExtResource("1_a4ddg")
 offset_left = 912.0
 offset_top = 144.0
 offset_right = 1136.0
 offset_bottom = 544.0
+theme_override_styles/panel = ExtResource("2_bimoo")
 
 [node name="ItemList" type="ItemList" parent="."]
 layout_mode = 0
@@ -27,3 +31,5 @@ offset_bottom = 46.0
 bbcode_enabled = true
 text = "[fill] X  Y  Prio  [/fill]"
 fit_content = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
