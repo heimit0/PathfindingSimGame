@@ -1,0 +1,145 @@
+[gd_scene load_steps=11 format=3 uid="uid://dj3bkwemxv6h"]
+
+[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="1_1bj23"]
+[ext_resource type="Script" uid="uid://beaukoodhtrmg" path="res://scripts/ui_buttons/BackToMainmenu.cs" id="2_4r5h7"]
+[ext_resource type="Script" uid="uid://cot7lwkd2p4ih" path="res://scripts/ui_buttons/UiToggle.cs" id="3_qvarm"]
+[ext_resource type="Texture2D" uid="uid://g0gk4fuh2m62" path="res://assets/ui_icons/eye.svg" id="4_hl8ul"]
+[ext_resource type="Texture2D" uid="uid://naxfdre3bowg" path="res://assets/ui_icons/eye-closed.svg" id="5_7okjf"]
+[ext_resource type="Texture2D" uid="uid://d3etyv5apag5g" path="res://assets/ui_icons/speichern.svg" id="6_wxmtt"]
+[ext_resource type="Texture2D" uid="uid://o6epvumrps7k" path="res://assets/ui_icons/laden.svg" id="7_fuw5e"]
+[ext_resource type="Texture2D" uid="uid://bwb1qbn6rp1ek" path="res://assets/ui_icons/arrow-up.svg" id="8_jc5kd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxlxb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 1.0
+expand_margin_top = 2.0
+expand_margin_right = 1.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04f2n"]
+bg_color = Color(0.65882355, 0.65882355, 0.65882355, 0.25882354)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 2.0
+expand_margin_top = 3.0
+expand_margin_right = 2.0
+expand_margin_bottom = 3.0
+
+[node name="SlideDownMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.5
+offset_top = -125.0
+offset_right = 77.5
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(0, -10)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="Zum Hauptmenü" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_1bj23")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxFlat_vxlxb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_04f2n")
+text = "Zum Hauptmenü
+"
+script = ExtResource("2_4r5h7")
+
+[node name="UiToggleContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("3_qvarm")
+
+[node name="UI einblenden" type="TextureButton" parent="HBoxContainer/VBoxContainer/UiToggleContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("4_hl8ul")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="UI ausblenden" type="TextureButton" parent="HBoxContainer/VBoxContainer/UiToggleContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("5_7okjf")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/UiToggleContainer"]
+layout_mode = 2
+
+[node name="Speichern" type="TextureButton" parent="HBoxContainer/VBoxContainer/UiToggleContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("6_wxmtt")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Laden" type="TextureButton" parent="HBoxContainer/VBoxContainer/UiToggleContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("7_fuw5e")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Menü ausblenden" type="TextureButton" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("8_jc5kd")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Zum Hauptmenü" to="HBoxContainer/VBoxContainer/Zum Hauptmenü" method="OnBacktomenuPressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/UiToggleContainer/UI einblenden" to="HBoxContainer/VBoxContainer/UiToggleContainer" method="UiEinblenden"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/UiToggleContainer/UI ausblenden" to="HBoxContainer/VBoxContainer/UiToggleContainer" method="UiAusblenden"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/UiToggleContainer/Speichern" to="HBoxContainer/VBoxContainer/UiToggleContainer" method="UiEinblenden"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/UiToggleContainer/Laden" to="HBoxContainer/VBoxContainer/UiToggleContainer" method="UiEinblenden"]

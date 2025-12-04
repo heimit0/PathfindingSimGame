@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cja2otsjks3ig"]
+[gd_scene load_steps=21 format=3 uid="uid://cja2otsjks3ig"]
 
 [ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/GameManagers/BauGameManager.cs" id="1_sfl2l"]
 [ext_resource type="Texture2D" uid="uid://ctx4brr3q6rko" path="res://assets/ui_icons/tile_highway.png" id="2_bn8a6"]
@@ -12,13 +12,13 @@
 [ext_resource type="Texture2D" uid="uid://cxw25x0gyjoo8" path="res://assets/ui_icons/tile_sandpath.png" id="7_uq815"]
 [ext_resource type="StyleBox" uid="uid://bi4osf3vsswdh" path="res://assets/ui_presets/menu_button_hover.tres" id="8_ae4ts"]
 [ext_resource type="StyleBox" uid="uid://qhm8qgtfl1y" path="res://assets/ui_presets/menu_button_focus.tres" id="9_sbvyt"]
-[ext_resource type="PackedScene" uid="uid://c3i3vv4hlsoq7" path="res://scenes/LevelSpeichernModal.tscn" id="13_4c4u4"]
+[ext_resource type="PackedScene" uid="uid://dnd4n4403rqoa" path="res://assets/ui_offcanvas_scenes/LevelSpeichernModal.tscn" id="13_4c4u4"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="13_axwq4"]
-[ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="14_uq815"]
-[ext_resource type="Texture2D" uid="uid://d3etyv5apag5g" path="res://assets/ui_icons/speichern.svg" id="15_jd0uw"]
+[ext_resource type="Script" uid="uid://cwoiciqu0ccii" path="res://scripts/ui_buttons/SlideDownMenuBauModus.cs" id="14_jd0uw"]
 [ext_resource type="Script" uid="uid://debdk623bhaon" path="res://scripts/TileEffectManager.cs" id="15_w7ehh"]
-[ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://scenes/tileSelectedParticels.tscn" id="16_0gjdt"]
-[ext_resource type="PackedScene" uid="uid://b3110xoh8hw2" path="res://scenes/tileOutlineScene.tscn" id="17_4c4u4"]
+[ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="16_p5ppk"]
+[ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://assets/ui_effect_scenes/tileSelectedParticels.tscn" id="18_jd0uw"]
+[ext_resource type="PackedScene" uid="uid://w8iwl0w0od67" path="res://assets/ui_effect_scenes/tileVisited.tscn" id="19_p5ppk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0prej"]
 shader = ExtResource("2_yojgw")
@@ -154,8 +154,7 @@ offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
 alignment = 1
-script = ExtResource("14_uq815")
-toggleButtonPath = NodePath("ToggleButton")
+script = ExtResource("14_jd0uw")
 
 [node name="ToggleButton" type="TextureButton" parent="ToggleButtonBox"]
 custom_minimum_size = Vector2(30, 30)
@@ -165,25 +164,17 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="SpeichernUndTipps" type="HBoxContainer" parent="."]
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -74.0
-offset_top = -50.0
-offset_right = -10.0
-offset_bottom = -10.0
-grow_horizontal = 0
+offset_left = -32.5
+offset_top = -40.0
+offset_right = 32.5
+grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 10
-
-[node name="Speichern" type="TextureButton" parent="SpeichernUndTipps"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-texture_normal = ExtResource("15_jd0uw")
-ignore_texture_size = true
-stretch_mode = 5
 
 [node name="Tips" type="TextureButton" parent="SpeichernUndTipps"]
 custom_minimum_size = Vector2(30, 30)
@@ -194,8 +185,8 @@ stretch_mode = 5
 
 [node name="TileEffectManager" type="Node3D" parent="."]
 script = ExtResource("15_w7ehh")
-selectedTileChimneyEffect = ExtResource("16_0gjdt")
-selectedTileOutline = ExtResource("17_0gjdt")
+selectedTileChimneyEffect = ExtResource("18_jd0uw")
+selectedTileOutline = ExtResource("19_p5ppk")
 EffectHeight = 0.4
 
 [connection signal="pressed" from="Baumodus/UI/Strasentypen/Autobahn" to="." method="onChangeStreetType" binds= [1]]
