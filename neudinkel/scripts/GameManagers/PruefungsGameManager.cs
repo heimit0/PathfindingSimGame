@@ -23,7 +23,9 @@ public partial class PruefungsGameManager : SimulationGameManager
 		string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "empty" : Globals.nextLevel;
 		algo = Globals.pruefungsAlgorithmus;
 
+		GD.Print("Lade Level");
 		prepScene(levelToLoad);
+		GD.Print("Lade Algorithmus");
 		onInitOrChangeAlgorithm((int)algo);
 
 		initialSteps();
@@ -103,6 +105,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 			popuptext.Text= "Lvl Geschafft!";
 			popup.Show();
 		}
+		//Globals.config = 
 		//Globals.saveGame();
 		
     }

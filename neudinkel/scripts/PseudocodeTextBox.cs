@@ -21,7 +21,11 @@ public partial class PseudocodeTextBox : RichTextLabel
 		}
 
 		this.pseudoCodeNodes = new Dictionary<Label, int>();
-		if (this.gameManager.currentAlgorithm.pseudoCodeSteps == null) return;
+		if (this.gameManager.currentAlgorithm.pseudoCodeSteps is null)
+		{
+			GD.PrintErr("Algorithmus bei InitOrChangeAlgo is null");
+			return;
+		}
 
 		GD.Print("adding " + this.gameManager.currentAlgorithm.pseudoCodeSteps.Length + " boxes");
 		// textbox-objecte erstellen

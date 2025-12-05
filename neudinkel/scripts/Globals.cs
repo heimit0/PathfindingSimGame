@@ -18,6 +18,8 @@ public partial class Globals : Node
     //variablen
     public static Random rand { get; set; }
     public static string nextLevel; // Gibt mit welches lvl File geladen werden soll
+
+    public static int stufe; //Man kann next lvl in algorithmus und stufe aufteilen, waer schoener aber kein muss TODO
     public static GraphSearchAlgorithm pruefungsAlgorithmus; //Gibt mit welcher Algorithmus bei der Pruefung genutzt wird
     public static NeudinkelConfig config;
     public static JsonSerializerOptions jsonOptions = new JsonSerializerOptions { WriteIndented = true };
