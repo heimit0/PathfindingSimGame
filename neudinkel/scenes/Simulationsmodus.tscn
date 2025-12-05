@@ -323,9 +323,6 @@ grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
 
-[node name="LadenPopup" parent="Simulationsmodus/UI" instance=ExtResource("10_cd7hi")]
-visible = false
-
 [node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus"]
 layout_mode = 1
 
