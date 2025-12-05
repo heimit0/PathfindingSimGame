@@ -97,6 +97,7 @@ public partial class Mainmenu : Control
 	{
 		Globals.nextLevel = "level1_dijkstra";
 		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DIJKSTRA;
+		Globals.stufe = 1;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
 	}
 	
@@ -104,6 +105,7 @@ public partial class Mainmenu : Control
 	{
 		Globals.nextLevel = "level2_dijkstra";
 		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DIJKSTRA;
+		Globals.stufe = 2;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
 	}
 	
@@ -111,6 +113,7 @@ public partial class Mainmenu : Control
 	{
 		Globals.nextLevel = "level3_dijkstra";
 		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DIJKSTRA;
+		Globals.stufe = 3;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
 	}
 	
@@ -128,6 +131,7 @@ public partial class Mainmenu : Control
 	{
 		Globals.nextLevel = "level1_astar";
 		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.A_STAR;
+		Globals.stufe = 1;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
 	}
 	
@@ -135,6 +139,7 @@ public partial class Mainmenu : Control
 	{
 		Globals.nextLevel = "level2_astar";
 		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.A_STAR;
+		Globals.stufe = 2;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
 	}
 	
@@ -142,6 +147,7 @@ public partial class Mainmenu : Control
 	{
 		Globals.nextLevel = "level3_astar";
 		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.A_STAR;
+		Globals.stufe = 3;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");	
 	}
 	
@@ -159,6 +165,7 @@ public partial class Mainmenu : Control
 	{
 		Globals.nextLevel = "level1_dfs";
 		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DFS;
+		Globals.stufe = 1;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");	
 	}
 	
@@ -166,6 +173,7 @@ public partial class Mainmenu : Control
 	{
 		Globals.nextLevel = "level1_dfs";
 		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DFS;
+		Globals.stufe = 2;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");	
 	}
 	
@@ -173,6 +181,7 @@ public partial class Mainmenu : Control
 	{
 		Globals.nextLevel = "level1_dfs";
 		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DFS;
+		Globals.stufe = 3;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");	
 	}
 }
