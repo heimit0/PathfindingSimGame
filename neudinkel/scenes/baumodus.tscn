@@ -175,6 +175,7 @@ tooltip_text = "Setzt Endpunkt"
 text = "Ende"
 
 [node name="SpeichernPopup" parent="Baumodus/UI" instance=ExtResource("13_4c4u4")]
+visible = false
 
 [node name="LadenPopup" parent="Baumodus/UI" instance=ExtResource("14_b6kbm")]
 initial_position = 2

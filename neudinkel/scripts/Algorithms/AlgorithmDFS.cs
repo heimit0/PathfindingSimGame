@@ -116,6 +116,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		if (this.neighbourQueue.Count > 0)
 		{
 			this.currentNeighbour = this.neighbourQueue.Dequeue();
+			visualizeNeighbours(g,currentNeighbour);
 			return this.currentStep + 1;
 		}
 		else

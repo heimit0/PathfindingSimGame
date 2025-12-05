@@ -217,6 +217,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		GD.Print("distance from start to " + currentNode.getTilePosString() + " is: " + distanceFromStart[currentNode]);
 		currentNeighbourCost = distanceFromStart[currentNode] + edgeCost(currentNode, currentNeighbours[currentNeighbourIndex]);
 		
+		visualizeNeighbours(g,currentNeighbours[currentNeighbourIndex]);
 
 		return currentStep + 1;
 	}
@@ -302,9 +303,9 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		Label3D costLabel = new Label3D();
 		costLabel.Position = costLabel.Position + new Vector3(0f,0.5f,0f);
 		costLabel.RenderPriority = 100;
-        costLabel.NoDepthTest = true;
-        costLabel.FontSize = 20;
-        costLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
+		costLabel.NoDepthTest = true;
+		costLabel.FontSize = 20;
+		costLabel.Billboard = BaseMaterial3D.BillboardModeEnum.Enabled;
 		if(cost < 1000000f)
 		{
 			costLabel.Text = cost.ToString();
