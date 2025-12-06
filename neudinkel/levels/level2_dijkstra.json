@@ -795,12 +795,12 @@
     {
         "posX":10,
         "posY":7,
-        "type":0
+        "type":3
     },
     {
         "posX":11,
         "posY":7,
-        "type":0
+        "type":2
     },
     {
         "posX":12,
@@ -815,7 +815,7 @@
     {
         "posX":14,
         "posY":7,
-        "type":0
+        "type":2
     },
     {
         "posX":15,
