@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPageData" load_steps=3 format=3 uid="uid://33doq80ujy6i"]
+
+[ext_resource type="Texture2D" uid="uid://cbkrmub658mi4" path="res://assets/tutorial_bilder/buttons.png" id="1_4ncka"]
+[ext_resource type="Script" uid="uid://bx8kcap1vq5l1" path="res://scripts/TutorialPageData.cs" id="1_qvs1c"]
+
+[resource]
+script = ExtResource("1_qvs1c")
+Label = "Buttons "
+Text = "Die Buttons beschreiben meist mit der Aufschrift was diese tun. Falls du ein Symbol siehst und nicht weißt was dieses tut, kannst du mit deiner Maus drüber hovern und siehst dann eine kurze Beschreibung der Funktionalität. "
+Image = ExtResource("1_4ncka")
+metadata/_custom_type_script = "uid://bx8kcap1vq5l1"

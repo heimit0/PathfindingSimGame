@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d4l2g3urlpx3q"]
+[gd_scene load_steps=11 format=3 uid="uid://d4l2g3urlpx3q"]
 
 [ext_resource type="Script" uid="uid://dpdiys1tq75u1" path="res://scripts/GameManagers/PruefungsGameManager.cs" id="1_70lit"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_7rp0e"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="3_70lit"]
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="5_qomti"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="6_st3as"]
+[ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="7_st3as"]
+[ext_resource type="Script" uid="uid://c3q5c1xahl7ue" path="res://scripts/ui_buttons/openTutorialPopup.cs" id="8_n8kv3"]
+[ext_resource type="PackedScene" uid="uid://b6acmjxqngq3f" path="res://assets/ui_offcanvas_scenes/tutorialPopup.tscn" id="9_ksohj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_st3as"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -134,8 +137,34 @@ toggleButtonPath = NodePath("TextureButton")
 [node name="TextureButton" type="TextureButton" parent="ToggleButtonBox"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
+tooltip_text = "Öffnet das SlideDownMenu"
 texture_normal = ExtResource("6_st3as")
 ignore_texture_size = true
 stretch_mode = 5
 
+[node name="SpeichernUndTipps" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -40.0
+offset_right = 15.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="Tips" type="TextureButton" parent="SpeichernUndTipps"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+tooltip_text = "Öffnet das Tutorial."
+texture_normal = ExtResource("7_st3as")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("8_n8kv3")
+tutorialPopup = ExtResource("9_ksohj")
+
 [connection signal="pressed" from="ToggleButtonBox/TextureButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]
+[connection signal="pressed" from="SpeichernUndTipps/Tips" to="SpeichernUndTipps/Tips" method="OnTipsPressed"]

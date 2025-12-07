@@ -48,8 +48,8 @@ public partial class SlideDownMenu : Node
         }
 
         // // Menu instanzieren und anhängen 
-        // slideDownMenu = menuScene.Instantiate<Control>();
-        // AddChild(slideDownMenu);
+        slideDownMenu = menuScene.Instantiate<Control>();
+        AddChild(slideDownMenu);
 
         // Button ausblenden
         menuToggleButton.Visible = false;

@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://devtia7jy1ka8"]
+[gd_scene load_steps=11 format=3 uid="uid://devtia7jy1ka8"]
 
 [ext_resource type="Texture2D" uid="uid://bq7xsl40bb5b6" path="res://models/textures/wolkenv2rc.png" id="1_34fxh"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="2_q3hc2"]
-[ext_resource type="Theme" uid="uid://d0fkbd3yhm4pl" path="res://assets/ui_presets/Popup_buttons.tres" id="3_0etym"]
+[ext_resource type="Theme" uid="uid://wpj72fhbl7gv" path="res://assets/ui_presets/Popup_buttons.tres" id="3_0etym"]
 [ext_resource type="Texture2D" uid="uid://ymvtaea43a6k" path="res://assets/ui_icons/restart.svg" id="4_0etym"]
 [ext_resource type="Texture2D" uid="uid://cfcxr6506wwen" path="res://assets/ui_icons/home.svg" id="4_7lwnc"]
+[ext_resource type="Script" uid="uid://beaukoodhtrmg" path="res://scripts/ui_buttons/BackToMainmenu.cs" id="6_5sqsj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qf44v"]
 
@@ -36,6 +37,7 @@ corner_radius_bottom_left = 9
 
 [node name="PopupPanel" type="PopupPanel"]
 oversampling_override = 1.0
+initial_position = 2
 size = Vector2i(400, 200)
 visible = true
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qf44v")
@@ -79,7 +81,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("2_q3hc2")
 theme_override_font_sizes/font_size = 35
-text = "Level nicht geschafft"
+text = "Level nicht geschafft."
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -97,3 +99,6 @@ icon = ExtResource("4_0etym")
 layout_mode = 2
 theme = ExtResource("3_0etym")
 icon = ExtResource("4_7lwnc")
+script = ExtResource("6_5sqsj")
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/BackToMenu" to="VBoxContainer/HBoxContainer/BackToMenu" method="OnBacktomenuPressed"]

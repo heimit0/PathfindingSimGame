@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://wpj72fhbl7gv"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://wpj72fhbl7gv"]
+
+[ext_resource type="FontFile" uid="uid://cryqnyausjcxw" path="res://assets/ui_presets/futurawin.ttf" id="1_67e06"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8dbnw"]
 bg_color = Color(0.5, 0.5, 0.5, 0.39215687)
@@ -23,6 +25,10 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
+expand_margin_left = 6.0
+expand_margin_top = 5.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b0l2t"]
 bg_color = Color(0.5, 0.5, 0.5, 0.39215687)
@@ -35,6 +41,10 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
+expand_margin_left = 6.0
+expand_margin_top = 5.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oai8u"]
 bg_color = Color(0.5, 0.5, 0.5, 0.39215687)
@@ -47,6 +57,10 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4x0s"]
 bg_color = Color(0.5, 0.5, 0.5, 0.39215687)
@@ -59,8 +73,14 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
 
 [resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/fonts/font = ExtResource("1_67e06")
 Button/styles/disabled = SubResource("StyleBoxFlat_8dbnw")
 Button/styles/focus = SubResource("StyleBoxFlat_67e06")
 Button/styles/hover = SubResource("StyleBoxFlat_b0l2t")

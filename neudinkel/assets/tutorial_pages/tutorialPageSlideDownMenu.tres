@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPageData" load_steps=3 format=3 uid="uid://dum2y3s6rbh1g"]
+
+[ext_resource type="Texture2D" uid="uid://ca63eenemuu0u" path="res://assets/tutorial_bilder/slideDownMenu.png" id="1_h73it"]
+[ext_resource type="Script" uid="uid://bx8kcap1vq5l1" path="res://scripts/TutorialPageData.cs" id="2_je4sx"]
+
+[resource]
+script = ExtResource("2_je4sx")
+Label = "SlideDownMenu"
+Text = "In jedem modus ist oben in der Mitte ein Pfeil zu finden. Dieser öffnet ein Menü welches die UI Aus-/Einblenden kann sowie dich zurück zum Hauptmenü bringt oder es dir ermöglicht im Baumodus Level zu speichern oder zu laden. "
+Image = ExtResource("1_h73it")
+metadata/_custom_type_script = "uid://bx8kcap1vq5l1"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://mkk1cd41mlpr"]
+[gd_scene load_steps=31 format=3 uid="uid://mkk1cd41mlpr"]
 
 [ext_resource type="Script" uid="uid://cxoox5vn5nmqm" path="res://scripts/GameManagers/SimulationGameManager.cs" id="1_5p374"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_5p374"]
@@ -6,12 +6,16 @@
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_rdpdv"]
 [ext_resource type="Texture2D" uid="uid://brl867djglgi3" path="res://assets/ui_icons/play.svg" id="4_7whdq"]
 [ext_resource type="Script" uid="uid://d1bqfncmscmb2" path="res://scripts/ui_buttons/BaumodusUndSimulationsButtons.cs" id="4_ud2kt"]
+[ext_resource type="Theme" uid="uid://wpj72fhbl7gv" path="res://assets/ui_presets/Popup_buttons.tres" id="5_ivnlw"]
 [ext_resource type="Texture2D" uid="uid://dg21qqgbbnxyt" path="res://assets/ui_icons/step.svg" id="5_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://nn71yaibgw8f" path="res://assets/ui_icons/iterate.svg" id="6_k7vyk"]
 [ext_resource type="Texture2D" uid="uid://ymvtaea43a6k" path="res://assets/ui_icons/restart.svg" id="7_lrh4w"]
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="8_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="9_k7vyk"]
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="9_lrh4w"]
+[ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="13_kiwpe"]
+[ext_resource type="Script" uid="uid://c3q5c1xahl7ue" path="res://scripts/ui_buttons/openTutorialPopup.cs" id="14_0b48g"]
+[ext_resource type="PackedScene" uid="uid://b6acmjxqngq3f" path="res://assets/ui_offcanvas_scenes/tutorialPopup.tscn" id="16_aeye2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0b48g"]
 bg_color = Color(0.29, 0.29, 0.29, 0.39215687)
@@ -21,25 +25,33 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrh4w"]
-bg_color = Color(0.9, 0.27, 0.27, 1)
+bg_color = Color(0.96862745, 0.36862746, 0.14509805, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wl7tl"]
-bg_color = Color(0.9019608, 0.27058825, 0.27058825, 1)
+bg_color = Color(0.96862745, 0.36862746, 0.14509805, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivnlw"]
-bg_color = Color(0.9, 0.45, 0.45, 1)
+bg_color = Color(0.96862745, 0.36862746, 0.14509805, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8kv3"]
 bg_color = Color(1, 1, 1, 0)
@@ -55,25 +67,33 @@ corner_radius_bottom_left = 50
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cd7hi"]
-bg_color = Color(0.22500001, 0.75, 0.22500001, 1)
+bg_color = Color(0, 1, 0.53333336, 0.78431374)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70lit"]
-bg_color = Color(0.22352941, 0.7490196, 0.22352941, 1)
+bg_color = Color(0, 1, 0.53333336, 0.78431374)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aeye2"]
-bg_color = Color(0.375, 0.75, 0.375, 1)
+bg_color = Color(0, 1, 0.53333336, 0.78431374)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ksohj"]
 bg_color = Color(1, 1, 1, 0)
@@ -89,25 +109,33 @@ corner_radius_bottom_left = 50
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kiwpe"]
-bg_color = Color(0.17999998, 0.17999998, 0.9, 1)
+bg_color = Color(0.3254902, 0.3254902, 0.9254902, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2nx8p"]
-bg_color = Color(0.18039216, 0.18039216, 0.9019608, 1)
+bg_color = Color(0.3254902, 0.3254902, 0.9254902, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x247t"]
-bg_color = Color(0.35999995, 0.35999995, 0.9, 1)
+bg_color = Color(0.3254902, 0.3254902, 0.9254902, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qomti"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -183,6 +211,8 @@ size_flags_horizontal = 4
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Dijkstra Algorithmus"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_lrh4w")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_wl7tl")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ivnlw")
@@ -193,6 +223,8 @@ text = "Dijkstra"
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "A Stern Algorithmus"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_cd7hi")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_70lit")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aeye2")
@@ -203,6 +235,8 @@ text = "A*"
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "DFS Algorithmus"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_kiwpe")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2nx8p")
 theme_override_styles/hover = SubResource("StyleBoxFlat_x247t")
@@ -248,11 +282,11 @@ anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -240.0
 offset_top = 12.0
-offset_right = -24.0
-offset_bottom = 125.0
+offset_right = -25.0
+offset_bottom = 127.0
 grow_horizontal = 0
 theme = ExtResource("3_rdpdv")
-theme_override_constants/separation = 5
+theme_override_constants/separation = 20
 
 [node name="ObenRechts" type="HBoxContainer" parent="Simulationsmodus/UI/ButtonsTopRight"]
 layout_mode = 2
@@ -260,7 +294,8 @@ layout_mode = 2
 [node name="SimulierenUndBauenWechseln" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ObenRechts"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Wechselt zwischen Baumodus und Simulationsmodus"
+tooltip_text = "Wechselt zurück zum Baumodus"
+theme = ExtResource("5_ivnlw")
 theme_override_font_sizes/font_size = 30
 text = " Baumodus "
 script = ExtResource("4_ud2kt")
@@ -274,7 +309,8 @@ theme_override_constants/separation = 17
 [node name="AutoStep" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Play"
+tooltip_text = "Den Algorithmus ablaufen lassen."
+theme = ExtResource("5_ivnlw")
 theme_override_constants/icon_max_width = 35
 theme_override_font_sizes/font_size = 30
 disabled = true
@@ -284,7 +320,8 @@ icon_alignment = 1
 [node name="NextSearchStepButton" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "gehe einen Schritt"
+tooltip_text = "Den Algorithmus um einen Schritt weiterbewegen"
+theme = ExtResource("5_ivnlw")
 theme_override_constants/icon_max_width = 35
 theme_override_font_sizes/font_size = 30
 disabled = true
@@ -293,7 +330,8 @@ icon = ExtResource("5_ud2kt")
 [node name="IterateButton" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "gehe eine Iteration"
+tooltip_text = "Eine Iteration weiter bewegen"
+theme = ExtResource("5_ivnlw")
 theme_override_constants/icon_max_width = 35
 theme_override_font_sizes/font_size = 30
 disabled = true
@@ -304,7 +342,8 @@ icon = ExtResource("6_k7vyk")
 [node name="RestartSimulation" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Starte neu"
+tooltip_text = "Neustarten"
+theme = ExtResource("5_ivnlw")
 theme_override_constants/icon_max_width = 35
 theme_override_font_sizes/font_size = 30
 disabled = true
@@ -341,9 +380,34 @@ toggleButtonPath = NodePath("TextureButton")
 [node name="TextureButton" type="TextureButton" parent="ToggleButtonBox"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
+tooltip_text = "Öffnet das SlideDownMenu"
 texture_normal = ExtResource("9_k7vyk")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="SpeichernUndTipps" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -40.0
+offset_right = 15.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="Tips" type="TextureButton" parent="SpeichernUndTipps"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+tooltip_text = "Öffnet das Tutorial."
+texture_normal = ExtResource("13_kiwpe")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("14_0b48g")
+tutorialPopup = ExtResource("16_aeye2")
 
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
@@ -354,3 +418,4 @@ stretch_mode = 5
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/IterateButton" to="." method="onDoSearchForward" binds= [false]]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/RestartSimulation" to="." method="onInitOrChangeAlgorithm" binds= [-1]]
 [connection signal="pressed" from="ToggleButtonBox/TextureButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]
+[connection signal="pressed" from="SpeichernUndTipps/Tips" to="SpeichernUndTipps/Tips" method="OnTipsPressed"]

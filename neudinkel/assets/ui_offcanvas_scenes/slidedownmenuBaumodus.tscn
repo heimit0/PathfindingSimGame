@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://c2hlq7fiou1kh"]
 
-[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="1_1bj23"]
+[ext_resource type="Theme" uid="uid://wpj72fhbl7gv" path="res://assets/ui_presets/Popup_buttons.tres" id="1_1bj23"]
 [ext_resource type="Script" uid="uid://beaukoodhtrmg" path="res://scripts/ui_buttons/BackToMainmenu.cs" id="2_4r5h7"]
 [ext_resource type="Script" uid="uid://cot7lwkd2p4ih" path="res://scripts/ui_buttons/UiToggle.cs" id="3_qvarm"]
 [ext_resource type="Texture2D" uid="uid://g0gk4fuh2m62" path="res://assets/ui_icons/eye.svg" id="4_hl8ul"]
@@ -90,7 +90,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 theme = ExtResource("1_1bj23")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_vxlxb")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_04f2n")
 text = "Zum Hauptmenü

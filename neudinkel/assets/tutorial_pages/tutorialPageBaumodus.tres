@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPageData" load_steps=3 format=3 uid="uid://cd8n73vuid66f"]
+
+[ext_resource type="Texture2D" uid="uid://beggi3ykm15cl" path="res://assets/tutorial_bilder/baumodus.png" id="1_pj8tr"]
+[ext_resource type="Script" uid="uid://bx8kcap1vq5l1" path="res://scripts/TutorialPageData.cs" id="2_cydbn"]
+
+[resource]
+script = ExtResource("2_cydbn")
+Label = "Baumodus"
+Text = "Im Baumodus kannst du dich selbst ausprobieren und eigene Level bauen um die Suchalgorithmen zu testen."
+Image = ExtResource("1_pj8tr")
+metadata/_custom_type_script = "uid://bx8kcap1vq5l1"

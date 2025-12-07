@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPageData" load_steps=3 format=3 uid="uid://df32raygew6b1"]
+
+[ext_resource type="Texture2D" uid="uid://bdma1dkug2esg" path="res://assets/tutorial_bilder/baumodusTileAuswählen.png" id="1_sedto"]
+[ext_resource type="Script" uid="uid://bx8kcap1vq5l1" path="res://scripts/TutorialPageData.cs" id="2_ej7ei"]
+
+[resource]
+script = ExtResource("2_ej7ei")
+Label = "Tiles auswählen im Baumoduss"
+Text = "Um eine Tile zu setzen musst du mit der Linken Maustaste auf die Tile klicken welche du auswählen möchtest. Diese Tiles werden hervorgehoben durch eine Umrandung und einem Hexagon was darüber aufsteigt."
+Image = ExtResource("1_sedto")
+metadata/_custom_type_script = "uid://bx8kcap1vq5l1"
