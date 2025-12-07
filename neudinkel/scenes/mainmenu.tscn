@@ -209,14 +209,12 @@ position = Vector2(-240, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_4hago")
 script = ExtResource("9_gjjcl")
-algorithm = 1
 
 [node name="Sprite2D2" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
 position = Vector2(0, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_4hago")
 script = ExtResource("9_gjjcl")
-algorithm = 1
 starNum = 1
 
 [node name="Sprite2D3" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
@@ -224,7 +222,6 @@ position = Vector2(240, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_4hago")
 script = ExtResource("9_gjjcl")
-algorithm = 1
 starNum = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="LevelMenu_zip/VBoxContainer"]

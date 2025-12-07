@@ -7,6 +7,7 @@ public partial class Mainmenu : Control
 	private CanvasLayer levelMenu;
 	private CanvasLayer levelMenuZip;
 	private Label algoName;
+	private Godot.Collections.Array<Node> stars;
 
 	public override void _Ready()
 	{
@@ -14,6 +15,7 @@ public partial class Mainmenu : Control
 		levelMenu = GetNode<CanvasLayer>("LevelMenu");
 		levelMenuZip = GetNode<CanvasLayer>("LevelMenu_zip");
 		algoName = GetNode<Label>("LevelMenu_zip/Label");
+		stars = GetNode<HBoxContainer>("LevelMenu_zip/VBoxContainer/HBoxContainer").GetChildren();
 
 		foreach (Node child in mainMenu.GetChildren())
 			if (child is CanvasItem item) item.Visible = true;
@@ -59,6 +61,9 @@ public partial class Mainmenu : Control
 			algoName.Text = "Dijkstra";
 		else if (algo == (int) GraphSearchAlgorithm.A_STAR)
 			algoName.Text = "A*";
+
+			foreach (Node star in stars)
+				((NeudinkelStarIndicator)star).update();
 
 		foreach (Node child in levelMenu.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
