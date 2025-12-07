@@ -5,31 +5,25 @@ public partial class Mainmenu : Control
 {
 	private CanvasLayer mainMenu;
 	private CanvasLayer levelMenu;
-	private CanvasLayer levelMenuDijkstra;
-	private CanvasLayer levelMenuAStar;
-	private CanvasLayer levelMenuDfs;
+	private CanvasLayer levelMenuZip;
+	private Label algoName;
+	private Godot.Collections.Array<Node> stars;
 
 	public override void _Ready()
 	{
 		mainMenu = GetNode<CanvasLayer>("MainMenu");
 		levelMenu = GetNode<CanvasLayer>("LevelMenu");
-		levelMenuDijkstra = GetNode<CanvasLayer>("LevelMenuDijkstra");
-		levelMenuAStar = GetNode<CanvasLayer>("LevelMenuAStar");
-		levelMenuDfs = GetNode<CanvasLayer>("LevelMenuDFS");
-	
+		levelMenuZip = GetNode<CanvasLayer>("LevelMenu_zip");
+		algoName = GetNode<Label>("LevelMenu_zip/Label");
+		stars = GetNode<HBoxContainer>("LevelMenu_zip/VBoxContainer/HBoxContainer").GetChildren();
+
 		foreach (Node child in mainMenu.GetChildren())
 			if (child is CanvasItem item) item.Visible = true;
 
 		foreach (Node child in levelMenu.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 			
-		foreach (Node child in levelMenuDijkstra.GetChildren())
-			if (child is CanvasItem item) item.Visible = false;
-		
-		foreach (Node child in levelMenuAStar.GetChildren())
-			if (child is CanvasItem item) item.Visible = false;
-		
-		foreach (Node child in levelMenuDfs.GetChildren())
+		foreach (Node child in levelMenuZip.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 	}
 
@@ -56,132 +50,52 @@ public partial class Mainmenu : Control
 			if (child is CanvasItem item) item.Visible = true;
 	}
 	
-	private void _on_levelMenuDijkstra_pressed()
+	private void _on_algorithm_selected(int algo)
 	{
+		Globals.pruefungsAlgorithmus = (GraphSearchAlgorithm) algo;
+
+		// Überschrift setzen
+		if (algo == (int) GraphSearchAlgorithm.DFS)
+			algoName.Text = "Depth First Search";
+		else if (algo == (int) GraphSearchAlgorithm.DIJKSTRA)
+			algoName.Text = "Dijkstra";
+		else if (algo == (int) GraphSearchAlgorithm.A_STAR)
+			algoName.Text = "A*";
+
+			foreach (Node star in stars)
+				((NeudinkelStarIndicator)star).update();
+
 		foreach (Node child in levelMenu.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 
-		foreach (Node child in levelMenuDijkstra.GetChildren())
+		foreach (Node child in levelMenuZip.GetChildren())
 			if (child is CanvasItem item) item.Visible = true;
 	}
-	
-	private void _on_levelMenuAStar_pressed()
-	{
-		foreach (Node child in levelMenu.GetChildren())
-			if (child is CanvasItem item) item.Visible = false;
 
-		foreach (Node child in levelMenuAStar.GetChildren())
-			if (child is CanvasItem item) item.Visible = true;
-	}
-	
-	private void _on_levelMenuDFS_pressed()
+	//---------- level menu level selection ----------
+	private void _on_back_button_zip_pressed()
 	{
-		foreach (Node child in levelMenu.GetChildren())
-			if (child is CanvasItem item) item.Visible = false;
-
-		foreach (Node child in levelMenuDfs.GetChildren())
-			if (child is CanvasItem item) item.Visible = true;
-	}
-	
-	//---------- level menu Dijkstra ----------
-	private void _on_backButtonDijkstra_pressed()
-	{
-		foreach (Node child in levelMenuDijkstra.GetChildren())
+		foreach (Node child in levelMenuZip.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 
 		foreach (Node child in levelMenu.GetChildren())
 			if (child is CanvasItem item) item.Visible = true;
 	}
-	
-	private void _on_dijkstraLevel1_pressed()
+
+	private void _on_level_selected(int level)
 	{
-		Globals.nextLevel = "level1_dijkstra";
-		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DIJKSTRA;
-		Globals.stufe = 1;
+		String _algoName = "";
+
+		if (Globals.pruefungsAlgorithmus == GraphSearchAlgorithm.DFS)
+			_algoName = "dfs";
+		else if (Globals.pruefungsAlgorithmus == GraphSearchAlgorithm.DIJKSTRA)
+			_algoName = "dijkstra";
+		else if (Globals.pruefungsAlgorithmus == GraphSearchAlgorithm.A_STAR)
+			_algoName = "astar";
+		
+		Globals.stufe = level;
+		Globals.nextLevel = "level" + level + "_" + _algoName;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
 	}
-	
-	private void _on_dijkstraLevel2_pressed()
-	{
-		Globals.nextLevel = "level2_dijkstra";
-		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DIJKSTRA;
-		Globals.stufe = 2;
-		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
-	}
-	
-	private void _on_dijkstraLevel3_pressed()
-	{
-		Globals.nextLevel = "level3_dijkstra";
-		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DIJKSTRA;
-		Globals.stufe = 3;
-		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
-	}
-	
-	//------------ level menu AStar -----------
-	private void _on_backButtonAStar_pressed()
-	{
-		foreach (Node child in levelMenuAStar.GetChildren())
-			if (child is CanvasItem item) item.Visible = false;
 
-		foreach (Node child in levelMenu.GetChildren())
-			if (child is CanvasItem item) item.Visible = true;
-	}
-	
-	private void _on_astarLevel1_pressed()
-	{
-		Globals.nextLevel = "level1_astar";
-		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.A_STAR;
-		Globals.stufe = 1;
-		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
-	}
-	
-	private void _on_astarLevel2_pressed()
-	{
-		Globals.nextLevel = "level2_astar";
-		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.A_STAR;
-		Globals.stufe = 2;
-		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
-	}
-	
-	private void _on_astarLevel3_pressed()
-	{
-		Globals.nextLevel = "level3_astar";
-		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.A_STAR;
-		Globals.stufe = 3;
-		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");	
-	}
-	
-	//------------- level menu DFS ------------
-	private void _on_backButtonDFS_pressed()
-	{
-				foreach (Node child in levelMenuDfs.GetChildren())
-			if (child is CanvasItem item) item.Visible = false;
-
-		foreach (Node child in levelMenu.GetChildren())
-			if (child is CanvasItem item) item.Visible = true;
-	}
-	
-	private void _on_dfsLevel1_pressed()
-	{
-		Globals.nextLevel = "level1_dfs";
-		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DFS;
-		Globals.stufe = 1;
-		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");	
-	}
-	
-	private void _on_dfsLevel2_pressed()
-	{
-		Globals.nextLevel = "level1_dfs";
-		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DFS;
-		Globals.stufe = 2;
-		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");	
-	}
-	
-	private void _on_dfsLevel3_pressed()
-	{
-		Globals.nextLevel = "level1_dfs";
-		Globals.pruefungsAlgorithmus = GraphSearchAlgorithm.DFS;
-		Globals.stufe = 3;
-		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");	
-	}
 }
