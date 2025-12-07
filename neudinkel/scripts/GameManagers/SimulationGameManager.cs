@@ -121,8 +121,6 @@ public partial class SimulationGameManager : GameManager
 		// gleichen algorithmus nochmal, nur neustarten
 		if (algorithm == -1)
 		{
-			Events.Instance.EmitSignal(Events.SignalName.ClearOpenQueue);
-			GD.Print("reset Algorithm");
 			if (this.currentAlgorithm is AlgorithmAStar)
 			{
 				this.currentAlgorithm = new AlgorithmAStar(this.graph, this.startNode, this.goalNode);
@@ -136,6 +134,8 @@ public partial class SimulationGameManager : GameManager
 				this.currentAlgorithm = new AlgorithmDFS(this.graph, this.startNode, this.goalNode);
 			}
 		}
+
+		Events.Instance.EmitSignal(Events.SignalName.ClearOpenQueue);
 
 		switch (algorithm)
 		{
