@@ -169,9 +169,9 @@ theme = ExtResource("4_s5g8n")
 theme_override_font_sizes/font_size = 20
 text = "zurück"
 
-[node name="LevelMenuDijkstra" type="CanvasLayer" parent="."]
+[node name="LevelMenu_zip" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="LevelMenuDijkstra"]
+[node name="Label" type="Label" parent="LevelMenu_zip"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -180,11 +180,11 @@ offset_right = 286.5
 offset_bottom = 91.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 66
-text = "Dijkstra "
+text = "Hier sollte was stehen"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LevelMenuDijkstra"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelMenu_zip"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -198,20 +198,20 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LevelMenuDijkstra/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelMenu_zip/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="LevelMenuDijkstra/VBoxContainer/HBoxContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
 position = Vector2(-240, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_4hago")
 script = ExtResource("9_gjjcl")
 algorithm = 1
 
-[node name="Sprite2D2" type="Sprite2D" parent="LevelMenuDijkstra/VBoxContainer/HBoxContainer"]
+[node name="Sprite2D2" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
 position = Vector2(0, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_4hago")
@@ -219,7 +219,7 @@ script = ExtResource("9_gjjcl")
 algorithm = 1
 starNum = 1
 
-[node name="Sprite2D3" type="Sprite2D" parent="LevelMenuDijkstra/VBoxContainer/HBoxContainer"]
+[node name="Sprite2D3" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
 position = Vector2(240, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_4hago")
@@ -227,28 +227,28 @@ script = ExtResource("9_gjjcl")
 algorithm = 1
 starNum = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="LevelMenuDijkstra/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="LevelMenu_zip/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("4_s5g8n")
 
-[node name="level1" type="Button" parent="LevelMenuDijkstra/VBoxContainer/HBoxContainer2"]
+[node name="level1" type="Button" parent="LevelMenu_zip/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "    Level 1    "
 
-[node name="level2" type="Button" parent="LevelMenuDijkstra/VBoxContainer/HBoxContainer2"]
+[node name="level2" type="Button" parent="LevelMenu_zip/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "    Level 2    "
 
-[node name="level3" type="Button" parent="LevelMenuDijkstra/VBoxContainer/HBoxContainer2"]
+[node name="level3" type="Button" parent="LevelMenu_zip/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "    Level 3    "
 
-[node name="backButtonDijkstra" type="Button" parent="LevelMenuDijkstra"]
+[node name="backButton" type="Button" parent="LevelMenu_zip"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -266,195 +266,13 @@ theme = ExtResource("4_s5g8n")
 theme_override_font_sizes/font_size = 20
 text = "zurück"
 
-[node name="LevelMenuAStar" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="LevelMenuAStar"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -286.5
-offset_right = 286.5
-offset_bottom = 91.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 66
-text = "A*
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="LevelMenuAStar"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -413.5
-offset_top = -40.5
-offset_right = 413.5
-offset_bottom = 40.5
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="LevelMenuAStar/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelMenuAStar/VBoxContainer/HBoxContainer"]
-position = Vector2(-240, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("8_4hago")
-script = ExtResource("9_gjjcl")
-
-[node name="Sprite2D2" type="Sprite2D" parent="LevelMenuAStar/VBoxContainer/HBoxContainer"]
-position = Vector2(0, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("8_4hago")
-script = ExtResource("9_gjjcl")
-starNum = 1
-
-[node name="Sprite2D3" type="Sprite2D" parent="LevelMenuAStar/VBoxContainer/HBoxContainer"]
-position = Vector2(240, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("8_4hago")
-script = ExtResource("9_gjjcl")
-starNum = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="LevelMenuAStar/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("4_s5g8n")
-
-[node name="level1" type="Button" parent="LevelMenuAStar/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "    Level 1    "
-
-[node name="level2" type="Button" parent="LevelMenuAStar/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "    Level 2    "
-
-[node name="level3" type="Button" parent="LevelMenuAStar/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "    Level 3    "
-
-[node name="backButtonAStar" type="Button" parent="LevelMenuAStar"]
-offset_left = 1070.0
-offset_top = 600.0
-offset_right = 1130.0
-offset_bottom = 631.0
-theme = ExtResource("4_s5g8n")
-theme_override_font_sizes/font_size = 20
-text = "zurück"
-
-[node name="LevelMenuDFS" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="LevelMenuDFS"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -286.5
-offset_right = 286.5
-offset_bottom = 91.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 66
-text = "A*"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="LevelMenuDFS"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -413.5
-offset_top = -40.5
-offset_right = 413.5
-offset_bottom = 40.5
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="LevelMenuDFS/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelMenuDFS/VBoxContainer/HBoxContainer"]
-position = Vector2(-240, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("8_4hago")
-script = ExtResource("9_gjjcl")
-algorithm = 2
-
-[node name="Sprite2D2" type="Sprite2D" parent="LevelMenuDFS/VBoxContainer/HBoxContainer"]
-position = Vector2(0, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("8_4hago")
-script = ExtResource("9_gjjcl")
-algorithm = 2
-starNum = 1
-
-[node name="Sprite2D3" type="Sprite2D" parent="LevelMenuDFS/VBoxContainer/HBoxContainer"]
-position = Vector2(240, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("8_4hago")
-script = ExtResource("9_gjjcl")
-algorithm = 2
-starNum = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="LevelMenuDFS/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("4_s5g8n")
-
-[node name="level1" type="Button" parent="LevelMenuDFS/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "    Level 1    "
-
-[node name="level2" type="Button" parent="LevelMenuDFS/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "    Level 2    "
-
-[node name="level3" type="Button" parent="LevelMenuDFS/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "    Level 3    "
-
-[node name="backButtonDFS" type="Button" parent="LevelMenuDFS"]
-offset_left = 1070.0
-offset_top = 600.0
-offset_right = 1130.0
-offset_bottom = 631.0
-theme = ExtResource("4_s5g8n")
-theme_override_font_sizes/font_size = 20
-text = "zurück"
-
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer2/baumodus" to="." method="_on_baumodus_pressed"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer2/pruefmodus" to="." method="_on_pruefmodus_pressed"]
-[connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/dijkstra" to="." method="_on_levelMenuDijkstra_pressed"]
-[connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/aStar" to="." method="_on_levelMenuAStar_pressed"]
-[connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/dfs" to="." method="_on_levelMenuDFS_pressed"]
+[connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/dijkstra" to="." method="_on_algorithm_selected" binds= [1]]
+[connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/aStar" to="." method="_on_algorithm_selected" binds= [0]]
+[connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/dfs" to="." method="_on_algorithm_selected" binds= [2]]
 [connection signal="pressed" from="LevelMenu/backButtonLevelMenu" to="." method="_on_backButtonLevelMenu_pressed"]
-[connection signal="pressed" from="LevelMenuDijkstra/VBoxContainer/HBoxContainer2/level1" to="." method="_on_dijkstraLevel1_pressed"]
-[connection signal="pressed" from="LevelMenuDijkstra/VBoxContainer/HBoxContainer2/level2" to="." method="_on_dijkstraLevel2_pressed"]
-[connection signal="pressed" from="LevelMenuDijkstra/VBoxContainer/HBoxContainer2/level3" to="." method="_on_dijkstraLevel3_pressed"]
-[connection signal="pressed" from="LevelMenuDijkstra/backButtonDijkstra" to="." method="_on_backButtonDijkstra_pressed"]
-[connection signal="pressed" from="LevelMenuAStar/VBoxContainer/HBoxContainer2/level1" to="." method="_on_astarLevel1_pressed"]
-[connection signal="pressed" from="LevelMenuAStar/VBoxContainer/HBoxContainer2/level2" to="." method="_on_astarLevel2_pressed"]
-[connection signal="pressed" from="LevelMenuAStar/VBoxContainer/HBoxContainer2/level3" to="." method="_on_astarLevel3_pressed"]
-[connection signal="pressed" from="LevelMenuAStar/backButtonAStar" to="." method="_on_backButtonAStar_pressed"]
-[connection signal="pressed" from="LevelMenuDFS/VBoxContainer/HBoxContainer2/level1" to="." method="_on_dfsLevel1_pressed"]
-[connection signal="pressed" from="LevelMenuDFS/VBoxContainer/HBoxContainer2/level2" to="." method="_on_dfsLevel2_pressed"]
-[connection signal="pressed" from="LevelMenuDFS/VBoxContainer/HBoxContainer2/level3" to="." method="_on_dfsLevel3_pressed"]
-[connection signal="pressed" from="LevelMenuDFS/backButtonDFS" to="." method="_on_backButtonDFS_pressed"]
+[connection signal="pressed" from="LevelMenu_zip/VBoxContainer/HBoxContainer2/level1" to="." method="_on_level_selected" binds= [1]]
+[connection signal="pressed" from="LevelMenu_zip/VBoxContainer/HBoxContainer2/level2" to="." method="_on_level_selected" binds= [2]]
+[connection signal="pressed" from="LevelMenu_zip/VBoxContainer/HBoxContainer2/level3" to="." method="_on_level_selected" binds= [3]]
+[connection signal="pressed" from="LevelMenu_zip/backButton" to="." method="_on_back_button_zip_pressed"]
