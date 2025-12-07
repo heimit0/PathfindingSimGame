@@ -1,9 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://mkk1cd41mlpr"]
+[gd_scene load_steps=27 format=3 uid="uid://mkk1cd41mlpr"]
 
 [ext_resource type="Script" uid="uid://cxoox5vn5nmqm" path="res://scripts/GameManagers/SimulationGameManager.cs" id="1_5p374"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_5p374"]
 [ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="2_cd7hi"]
-[ext_resource type="StyleBox" uid="uid://uaef6xta4jcb" path="res://assets/ui_presets/PanelBackground.tres" id="3_0b48g"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_rdpdv"]
 [ext_resource type="Texture2D" uid="uid://brl867djglgi3" path="res://assets/ui_icons/play.svg" id="4_7whdq"]
 [ext_resource type="Script" uid="uid://d1bqfncmscmb2" path="res://scripts/ui_buttons/BaumodusUndSimulationsButtons.cs" id="4_ud2kt"]
@@ -278,6 +277,7 @@ size_flags_horizontal = 3
 tooltip_text = "Play"
 theme_override_constants/icon_max_width = 35
 theme_override_font_sizes/font_size = 30
+disabled = true
 icon = ExtResource("4_7whdq")
 icon_alignment = 1
 
@@ -287,6 +287,7 @@ size_flags_horizontal = 3
 tooltip_text = "gehe einen Schritt"
 theme_override_constants/icon_max_width = 35
 theme_override_font_sizes/font_size = 30
+disabled = true
 icon = ExtResource("5_ud2kt")
 
 [node name="IterateButton" type="Button" parent="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep"]
@@ -295,6 +296,7 @@ size_flags_horizontal = 3
 tooltip_text = "gehe eine Iteration"
 theme_override_constants/icon_max_width = 35
 theme_override_font_sizes/font_size = 30
+disabled = true
 text = "
 "
 icon = ExtResource("6_k7vyk")
@@ -305,6 +307,7 @@ size_flags_horizontal = 3
 tooltip_text = "Starte neu"
 theme_override_constants/icon_max_width = 35
 theme_override_font_sizes/font_size = 30
+disabled = true
 text = "
 "
 icon = ExtResource("7_lrh4w")
@@ -322,9 +325,6 @@ offset_bottom = 261.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
-
-[node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus"]
-layout_mode = 1
 
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5
