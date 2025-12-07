@@ -8,6 +8,11 @@ public class NeudinkelConfig
 	// Persistente Variablen
 	public int progress { get; set; }
 
+	public NeudinkelConfig()
+	{
+		this.progress = 0;
+	}
+
 }
 
 public partial class Globals : Node
@@ -31,8 +36,6 @@ public partial class Globals : Node
 		Globals.rand = new Random();
 		Globals.config = new NeudinkelConfig();
 
-		Globals.config.progress = 128;
-		Globals.saveGame();
 		Globals.loadGame();
 	}
 
