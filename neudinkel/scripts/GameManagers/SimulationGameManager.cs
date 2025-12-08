@@ -166,12 +166,14 @@ public partial class SimulationGameManager : GameManager
 		textBoxBox.onInitOrChangeAlgorithm(algorithm);
 
 		// Step-Buttons freigeben (theoretisch nur beim ersten Mal notwendig, aber zur Sicherheit immer)
-		foreach (Node i in GetNode("Simulationsmodus/UI/ButtonsTopRight/ButtonsStep").GetChildren())
+		if(this is SimulationGameManager)
 		{
-			// Sanity check, auch wenn alle Kinder Buttons sein sollten...
-			if (i is Button) ((Button)i).Disabled = false;
+			foreach (Node i in GetNode("Simulationsmodus/UI/ButtonsTopRight/ButtonsStep").GetChildren())
+			{
+				// Sanity check, auch wenn alle Kinder Buttons sein sollten...
+				if (i is Button) ((Button)i).Disabled = false;
+			}
 		}
-
 		GD.Print("Pseudocde done");
 	}
 
