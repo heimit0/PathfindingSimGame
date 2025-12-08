@@ -13,7 +13,7 @@ public partial class NeudinkelItemList : ItemList
 		
 		if (index > this.ItemCount + 1 || index < 0)
 		{
-			GD.Print("NeudinkelItemList.InsertItem: Sinnloser Index " + index);
+			GD.PrintErr("NeudinkelItemList.InsertItem: Sinnloser Index " + index);
 			return;
 		}
 
