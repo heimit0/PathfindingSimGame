@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cmoc8fo8iyfqp"]
+[gd_scene load_steps=8 format=3 uid="uid://cmoc8fo8iyfqp"]
 
 [ext_resource type="Script" uid="uid://c48nvxgn3oi8v" path="res://scripts/ui_buttons/Mainmenu.cs" id="1_natt5"]
 [ext_resource type="FontFile" uid="uid://cryqnyausjcxw" path="res://assets/ui_presets/futurawin.ttf" id="2_85riq"]
@@ -7,10 +7,6 @@
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="4_s5g8n"]
 [ext_resource type="Theme" uid="uid://do0012mtba6ii" path="res://assets/ui_presets/Popup_buttons_zurueck.tres" id="8_85riq"]
 [ext_resource type="Script" uid="uid://btwp1hq3ogfmy" path="res://scripts/NeudinkelStarIndicator.cs" id="9_gjjcl"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wf3n4"]
-bg_color = Color(0.5019608, 0.5019608, 0.5019608, 0.39215687)
-draw_center = false
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -56,10 +52,9 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
-alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="MainMenu/VBoxContainer/HBoxContainer"]
-position = Vector2(-220, -40.5)
+position = Vector2(-226, -40.5)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
 
@@ -69,7 +64,7 @@ scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
 
 [node name="Sprite2D3" type="Sprite2D" parent="MainMenu/VBoxContainer/HBoxContainer"]
-position = Vector2(-60, -39.5)
+position = Vector2(-57, -39.5)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
 
@@ -81,17 +76,15 @@ theme_override_constants/separation = 30
 [node name="baumodus" type="Button" parent="MainMenu/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-tooltip_text = "Mit einem Klick landest du im Baumodus"
 theme = ExtResource("4_dfy5j")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 50
 text = "Baumodus"
 
 [node name="pruefmodus" type="Button" parent="MainMenu/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-tooltip_text = "Mit einem Klick landest du im Baumodus"
 theme = ExtResource("4_dfy5j")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 50
 text = "Prüfmodus"
 
 [node name="LevelMenu" type="CanvasLayer" parent="."]
@@ -116,9 +109,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -460.5
+offset_left = -413.5
 offset_top = -40.5
-offset_right = 460.5
+offset_right = 413.5
 offset_bottom = 40.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -136,7 +129,7 @@ scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
 
 [node name="Sprite2D2" type="Sprite2D" parent="LevelMenu/VBoxContainer/HBoxContainer"]
-position = Vector2(-20, -40)
+position = Vector2(-25, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
 
@@ -152,14 +145,12 @@ theme = ExtResource("4_s5g8n")
 [node name="dijkstra" type="Button" parent="LevelMenu/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-tooltip_text = "Hier wählst du den Dijkstra-Algorithmus aus um dich selbst zu testen."
 theme = ExtResource("4_dfy5j")
 text = "   Dijkstra   "
 
 [node name="aStar" type="Button" parent="LevelMenu/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-tooltip_text = "Hier wählst du den AStern-Algorithmus aus um dich selbst zu testen."
 theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "        A*        "
@@ -167,7 +158,6 @@ text = "        A*        "
 [node name="dfs" type="Button" parent="LevelMenu/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-tooltip_text = "Hier wählst du den DFS-Algorithmus aus um dich selbst zu testen."
 theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "       DFS       "
@@ -180,12 +170,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -81.0
 offset_top = -44.0
-offset_right = -10.0
-offset_bottom = -10.0
+offset_right = -18.0
+offset_bottom = -13.0
 grow_horizontal = 0
 grow_vertical = 0
-tooltip_text = "Hier kommst du eine Ebene zurück."
 theme = ExtResource("8_85riq")
+theme_override_font_sizes/font_size = 24
 text = "zurück"
 
 [node name="LevelMenu_zip" type="CanvasLayer" parent="."]
@@ -224,20 +214,20 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="LevelMenuDijkstra/VBoxContainer/HBoxContainer"]
-position = Vector2(-300, -40)
+[node name="Sprite2D" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
+position = Vector2(-305, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
 script = ExtResource("9_gjjcl")
 
-[node name="Sprite2D2" type="Sprite2D" parent="LevelMenuDijkstra/VBoxContainer/HBoxContainer"]
-position = Vector2(5, -40)
+[node name="Sprite2D2" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
+position = Vector2(3, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
 script = ExtResource("9_gjjcl")
 starNum = 1
 
-[node name="Sprite2D3" type="Sprite2D" parent="LevelMenuDijkstra/VBoxContainer/HBoxContainer"]
+[node name="Sprite2D3" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
 position = Vector2(310, -40)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
@@ -252,21 +242,18 @@ theme = ExtResource("4_s5g8n")
 
 [node name="level1" type="Button" parent="LevelMenu_zip/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-tooltip_text = "Hier wählst du dein Level aus die 3 ist das Schwierigste und die 1 das Leichteste."
 theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "    Level 1    "
 
 [node name="level2" type="Button" parent="LevelMenu_zip/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-tooltip_text = "Hier wählst du dein Level aus die 3 ist das Schwierigste und die 1 das Leichteste."
 theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "    Level 2    "
 
 [node name="level3" type="Button" parent="LevelMenu_zip/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-tooltip_text = "Hier wählst du dein Level aus die 3 ist das Schwierigste und die 1 das Leichteste."
 theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "    Level 3    "
@@ -279,215 +266,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -81.0
 offset_top = -44.0
-offset_right = -10.0
-offset_bottom = -10.0
+offset_right = -18.0
+offset_bottom = -13.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
-tooltip_text = "Hier kommst du eine Ebene zurück."
 theme = ExtResource("8_85riq")
-theme_override_styles/normal = SubResource("StyleBoxFlat_wf3n4")
-text = "zurück"
-
-[node name="LevelMenuAStar" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="LevelMenuAStar"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -286.5
-offset_right = 286.5
-offset_bottom = 91.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 66
-text = "A*
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="LevelMenuAStar"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -413.5
-offset_top = -40.5
-offset_right = 413.5
-offset_bottom = 40.5
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="LevelMenuAStar/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelMenuAStar/VBoxContainer/HBoxContainer"]
-position = Vector2(-300, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("3_3vvtq")
-script = ExtResource("9_gjjcl")
-
-[node name="Sprite2D2" type="Sprite2D" parent="LevelMenuAStar/VBoxContainer/HBoxContainer"]
-position = Vector2(5, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("3_3vvtq")
-script = ExtResource("9_gjjcl")
-starNum = 1
-
-[node name="Sprite2D3" type="Sprite2D" parent="LevelMenuAStar/VBoxContainer/HBoxContainer"]
-position = Vector2(310, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("3_3vvtq")
-script = ExtResource("9_gjjcl")
-starNum = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="LevelMenuAStar/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("4_s5g8n")
-
-[node name="level1" type="Button" parent="LevelMenuAStar/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-tooltip_text = "Hier wählst du dein Level aus die 3 ist das Schwierigste und die 1 das Leichteste."
-theme = ExtResource("4_dfy5j")
-theme_override_font_sizes/font_size = 50
-text = "    Level 1    "
-
-[node name="level2" type="Button" parent="LevelMenuAStar/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-tooltip_text = "Hier wählst du dein Level aus die 3 ist das Schwierigste und die 1 das Leichteste."
-theme = ExtResource("4_dfy5j")
-theme_override_font_sizes/font_size = 50
-text = "    Level 2    "
-
-[node name="level3" type="Button" parent="LevelMenuAStar/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-tooltip_text = "Hier wählst du dein Level aus die 3 ist das Schwierigste und die 1 das Leichteste."
-theme = ExtResource("4_dfy5j")
-theme_override_font_sizes/font_size = 50
-text = "    Level 3    "
-
-[node name="backButtonAStar" type="Button" parent="LevelMenuAStar"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -81.0
-offset_top = -44.0
-offset_right = -10.0
-offset_bottom = -10.0
-grow_horizontal = 0
-grow_vertical = 0
-tooltip_text = "Hier kommst du eine Ebene zurück."
-theme = ExtResource("8_85riq")
-text = "zurück"
-
-[node name="LevelMenuDFS" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="LevelMenuDFS"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -286.5
-offset_right = 286.5
-offset_bottom = 91.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 66
-text = "A*"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="LevelMenuDFS"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -413.5
-offset_top = -40.5
-offset_right = 413.5
-offset_bottom = 40.5
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="LevelMenuDFS/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelMenuDFS/VBoxContainer/HBoxContainer"]
-position = Vector2(-300, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("3_3vvtq")
-script = ExtResource("9_gjjcl")
-algorithm = 2
-
-[node name="Sprite2D2" type="Sprite2D" parent="LevelMenuDFS/VBoxContainer/HBoxContainer"]
-position = Vector2(5, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("3_3vvtq")
-script = ExtResource("9_gjjcl")
-algorithm = 2
-starNum = 1
-
-[node name="Sprite2D3" type="Sprite2D" parent="LevelMenuDFS/VBoxContainer/HBoxContainer"]
-position = Vector2(310, -40)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("3_3vvtq")
-script = ExtResource("9_gjjcl")
-algorithm = 2
-starNum = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="LevelMenuDFS/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("4_s5g8n")
-
-[node name="level1" type="Button" parent="LevelMenuDFS/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-tooltip_text = "Hier wählst du dein Level aus die 3 ist das Schwierigste und die 1 das Leichteste."
-theme = ExtResource("4_dfy5j")
-theme_override_font_sizes/font_size = 50
-text = "    Level 1    "
-
-[node name="level2" type="Button" parent="LevelMenuDFS/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-tooltip_text = "Hier wählst du dein Level aus die 3 ist das Schwierigste und die 1 das Leichteste."
-theme = ExtResource("4_dfy5j")
-theme_override_font_sizes/font_size = 50
-text = "    Level 2    "
-
-[node name="level3" type="Button" parent="LevelMenuDFS/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-tooltip_text = "Hier wählst du dein Level aus die 3 ist das Schwierigste und die 1 das Leichteste."
-theme = ExtResource("4_dfy5j")
-theme_override_font_sizes/font_size = 50
-text = "    Level 3    "
-
-[node name="backButtonDFS" type="Button" parent="LevelMenuDFS"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -81.0
-offset_top = -44.0
-offset_right = -10.0
-offset_bottom = -10.0
-grow_horizontal = 0
-grow_vertical = 0
-tooltip_text = "Hier kommst du eine Ebene zurück."
-theme = ExtResource("8_85riq")
+theme_override_font_sizes/font_size = 24
 text = "zurück"
 
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer2/baumodus" to="." method="_on_baumodus_pressed"]
