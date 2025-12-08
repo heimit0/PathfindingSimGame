@@ -35,7 +35,6 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		};
 
 		this.pseudoCodeSteps = new[] {
-			(-10, "     DFS"),
 			( 0, "unbesuchteKnoten = new Stack()"),
 			( 1, "besuchteKnoten = new List()"),
 			( 2, "unbesuchteKnoten.push(startNode)"),

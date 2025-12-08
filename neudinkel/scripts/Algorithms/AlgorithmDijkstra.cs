@@ -45,7 +45,6 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		}; // TODO kann verbessert werden
 
 		this.pseudoCodeSteps = new[] {
-			(-10, "     DIJKSTRA"),
 			( 0, "unbesuchteKnoten = new PriorityQueue()"),
 			( 1, "besuchteKnoten = new List()"),
 			( 2, "distance[all nodes] = ∞"),

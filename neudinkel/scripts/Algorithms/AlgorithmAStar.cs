@@ -84,7 +84,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		};
 
 		this.pseudoCodeSteps = new[] {
-			(-10, "     A STAR"),
 			( 0, "unbesuchteKnoten = new PriorityQueue()"),
 			( 1, "besuchteKnoten = new List()"),
 			( 2, "gScore[all nodes] = ∞"),

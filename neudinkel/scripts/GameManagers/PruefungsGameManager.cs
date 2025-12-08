@@ -28,6 +28,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		prepScene(levelToLoad);
 		GD.Print("Lade Algorithmus");
 		onInitOrChangeAlgorithm((int)algo);
+		GD.Print("Algo geladen");
 
 		initialSteps();
 		currentAlgorithm.startNode.setHighlighted(true);
@@ -53,8 +54,11 @@ public partial class PruefungsGameManager : SimulationGameManager
 		this.doSearchForwardHelper(true);
 		GD.Print("step 4");
 		this.doSearchForwardHelper(true);
+		this.doSearchForwardHelper(true);
 		saveCheckpoint();
 		correctStepCounterSinceLastSave = 0;
+
+		GD.Print("Initial steps sind durch");
 	}
 
 	//Code um Spielerclick zu behandeln
@@ -65,13 +69,13 @@ public partial class PruefungsGameManager : SimulationGameManager
 		skipTillNextCurrentNode();
 
 		GraphNode playerNode = this.graph.getNode(tilePos.X, tilePos.Y);
-		if (playerNode == null)
+		if (playerNode is null)
 		{
 			GD.PrintErr("Player clicked the void at: " + tilePos);
 			playerDidSmthWrong();
 			return;
 		}
-		if(currentAlgorithm.currentNode == null)
+		if(currentAlgorithm.currentNode is null)
 		{
 			GD.Print("current Node is null");
 			return;
