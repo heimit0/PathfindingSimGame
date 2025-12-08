@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class PruefungsGameManager : SimulationGameManager
 {
@@ -125,7 +126,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		{
 			popuptext.Text = "Leider das Falsche Tile ausgewählt \n Das richtige Tile war X: "
 			 + currentAlgorithm.currentNode.tilePosX + " Y: " + currentAlgorithm.currentNode.tilePosY + "\n" +
-			 "Falsche Schritte: " + wrongStepCounter +"/3";
+			 "Falsche Schritte: " + wrongStepCounter +"/4";
 			popup.Show();
 		}
 		returnToCheckpoint();
