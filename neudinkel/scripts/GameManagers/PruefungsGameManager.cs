@@ -1,10 +1,7 @@
 using Godot;
-using System;
-using System.Threading.Tasks;
 
 public partial class PruefungsGameManager : SimulationGameManager
 {
-
 	private GraphNode checkPointNode;
 
 	[Signal]
@@ -21,8 +18,13 @@ public partial class PruefungsGameManager : SimulationGameManager
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
 
+		
+		
+
 		string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "empty" : Globals.nextLevel;
 		algo = Globals.pruefungsAlgorithmus;
+
+
 
 		GD.Print("Lade Level");
 		prepScene(levelToLoad);
@@ -95,17 +97,28 @@ public partial class PruefungsGameManager : SimulationGameManager
 
     private void lvlGeschafft()
     {
-        var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/PopupPanel");
-		var popuptext = GetNode<Label>("Pruefungsmodus/UI/PopupPanel/Label");
-		if (popup != null && popuptext != null)
-		{
-			popuptext.Text= "Lvl Geschafft!";
-			popup.Show();
-		}
-		//Globals.config = 
-		//Globals.saveGame();
-		
+        var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/WinnerPopup");
+
+		if (popup is not null)	popup.Show();
+
+		// Save level completion in progress bit flags
+		int bitOffset = 0;
+		if (algo == GraphSearchAlgorithm.DIJKSTRA) bitOffset = 0;
+		if (algo == GraphSearchAlgorithm.A_STAR) bitOffset = 3;
+		if (algo == GraphSearchAlgorithm.DFS) bitOffset = 6;
+
+		// Set the bit for the completed level (stufe is 1-3, so subtract 1 for bit index 0-2)
+		int levelBit = 1 << (bitOffset + Globals.stufe - 1);
+		Globals.config.progress |= levelBit;
+
+		Globals.saveGame();
     }
+
+
+	public void onNextLvlButtonPressed()
+	{
+		GetTree().ChangeSceneToFile("res://scenes/mainmenu.tscn");
+	}
 
     public void playerDidSmthWrong()
 	{
@@ -117,8 +130,9 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 		// Open popup to notify player
 		var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup");
-		var popuptext = GetNode<Label>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/Label");
-		if (popup != null && popuptext != null)
+		var popuptext = GetNode<Label>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/VBoxContainer/Label");
+
+		if (popup is not null && popuptext is not null)
 		{
 			popuptext.Text = "Leider das Falsche Tile ausgewählt \n Das richtige Tile war X: "
 			 + currentAlgorithm.currentNode.tilePosX + " Y: " + currentAlgorithm.currentNode.tilePosY + "\n" +
@@ -127,6 +141,14 @@ public partial class PruefungsGameManager : SimulationGameManager
 		}
 		returnToCheckpoint();
 	}
+
+
+	public void hidePopupOnButtonPressed()
+	{
+		var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup");
+		if(popup is not null) popup.Hide();
+	}
+
 
 	public void playerDidSmthRight()
 	{
@@ -144,11 +166,11 @@ public partial class PruefungsGameManager : SimulationGameManager
         switch ((currentAlgorithm))
         {
             case AlgorithmAStar astar:
-				currentAlgorithm.breakpoint = 6;
+				currentAlgorithm.breakpoint = 5;
                 break;
 
 			case AlgorithmDFS dfs:
-				currentAlgorithm.breakpoint = 5;
+				currentAlgorithm.breakpoint = 4;
 				break;
 
 			case AlgorithmDijkstra dijkstra:

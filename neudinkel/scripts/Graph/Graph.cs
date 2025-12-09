@@ -263,6 +263,7 @@ public partial class Graph : Node3D
 
 	}
 
+
 	public void initCoordsNode(GraphNode n)
 	{
 		Label3D coordLabel = new Label3D();

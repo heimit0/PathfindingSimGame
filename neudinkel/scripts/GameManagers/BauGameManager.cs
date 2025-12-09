@@ -174,6 +174,7 @@ public partial class BauGameManager : GameManager
 		// erst alle streetTypes setzen, dann alle models updaten, um verwirrung zu vermeiden
 		foreach (GraphNode n in this.selectedNodes) n.streetType = (StreetType)newStreetType;
 		foreach (GraphNode n in this.selectedNodes) n.updateModel();
+		
 
 		// deselect all
 		onTileSelected(new Vector2I(-10000, -10000));
