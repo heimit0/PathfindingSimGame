@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj65w0b4imr18"]
+
+[ext_resource type="StyleBox" uid="uid://uaef6xta4jcb" path="res://assets/ui_presets/PanelBackground.tres" id="1_6w3ku"]
+
+[node name="GeneralStatusPopup" type="PopupPanel"]
+oversampling_override = 1.0
+position = Vector2i(426, 292)
+size = Vector2i(300, 63)
+visible = true
+theme_override_styles/panel = ExtResource("1_6w3ku")
+
+[node name="Content" type="Label" parent="."]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 290.0
+offset_bottom = 53.0
+text = "asdf"
+horizontal_alignment = 1
+vertical_alignment = 1

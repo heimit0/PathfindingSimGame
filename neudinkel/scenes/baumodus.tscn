@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cja2otsjks3ig"]
+[gd_scene load_steps=31 format=3 uid="uid://cja2otsjks3ig"]
 
 [ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/GameManagers/BauGameManager.cs" id="1_sfl2l"]
 [ext_resource type="Texture2D" uid="uid://ctx4brr3q6rko" path="res://assets/ui_icons/tile_highway.png" id="2_bn8a6"]
@@ -7,22 +7,23 @@
 [ext_resource type="Texture2D" uid="uid://dxwtkh2ukrey4" path="res://assets/ui_icons/tile_empty.png" id="5_0prej"]
 [ext_resource type="Texture2D" uid="uid://c6hg13q4pa2r8" path="res://assets/ui_icons/tile_street.png" id="5_sbvyt"]
 [ext_resource type="Texture2D" uid="uid://bwxe81xedhwdb" path="res://assets/ui_icons/tile_dirtpath.png" id="6_axwq4"]
-[ext_resource type="StyleBox" uid="uid://c4qtp5kce3mi1" path="res://assets/ui_presets/menu_button_default.tres" id="6_l1k4i"]
-[ext_resource type="StyleBox" uid="uid://ckr8sap5sw1if" path="res://assets/ui_presets/menu_button_pressed.tres" id="7_fmqkg"]
 [ext_resource type="Texture2D" uid="uid://cxw25x0gyjoo8" path="res://assets/ui_icons/tile_sandpath.png" id="7_uq815"]
-[ext_resource type="StyleBox" uid="uid://bi4osf3vsswdh" path="res://assets/ui_presets/menu_button_hover.tres" id="8_ae4ts"]
-[ext_resource type="StyleBox" uid="uid://qhm8qgtfl1y" path="res://assets/ui_presets/menu_button_focus.tres" id="9_sbvyt"]
+[ext_resource type="Theme" uid="uid://wpj72fhbl7gv" path="res://assets/ui_presets/Popup_buttons.tres" id="9_d8yt2"]
+[ext_resource type="Texture2D" uid="uid://0rm68pxg7iu" path="res://assets/ui_icons/start.svg" id="13_3th2j"]
 [ext_resource type="PackedScene" uid="uid://dnd4n4403rqoa" path="res://assets/ui_offcanvas_scenes/LevelSpeichernModal.tscn" id="13_4c4u4"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="13_axwq4"]
 [ext_resource type="PackedScene" uid="uid://dw46rq0gpvov7" path="res://assets/ui_offcanvas_scenes/LevelLadenModal.tscn" id="14_b6kbm"]
+[ext_resource type="Texture2D" uid="uid://d1px3tkott2k7" path="res://assets/ui_icons/finish.svg" id="14_gj26j"]
 [ext_resource type="Script" uid="uid://cwoiciqu0ccii" path="res://scripts/ui_buttons/SlideDownMenuBauModus.cs" id="14_jd0uw"]
 [ext_resource type="Script" uid="uid://debdk623bhaon" path="res://scripts/TileEffectManager.cs" id="15_w7ehh"]
 [ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="16_p5ppk"]
 [ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://assets/ui_effect_scenes/tileSelectedParticels.tscn" id="18_jd0uw"]
 [ext_resource type="PackedScene" uid="uid://b3110xoh8hw2" path="res://assets/ui_effect_scenes/tileOutlineScene.tscn" id="18_mvsrt"]
-[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="20_b6kbm"]
+[ext_resource type="Script" uid="uid://c3q5c1xahl7ue" path="res://scripts/ui_buttons/openTutorialPopup.cs" id="20_gj26j"]
 [ext_resource type="Script" uid="uid://beaukoodhtrmg" path="res://scripts/ui_buttons/BackToMainmenu.cs" id="21_awm26"]
+[ext_resource type="PackedScene" uid="uid://b6acmjxqngq3f" path="res://assets/ui_offcanvas_scenes/tutorialPopup.tscn" id="21_vi4fd"]
 [ext_resource type="Script" uid="uid://cot7lwkd2p4ih" path="res://scripts/ui_buttons/UiToggle.cs" id="22_3th2j"]
+[ext_resource type="Theme" uid="uid://di2fwfbs3b63t" path="res://assets/ui_presets/slidedown_buttons.tres" id="22_awm26"]
 [ext_resource type="Texture2D" uid="uid://g0gk4fuh2m62" path="res://assets/ui_icons/eye.svg" id="23_gj26j"]
 [ext_resource type="Texture2D" uid="uid://naxfdre3bowg" path="res://assets/ui_icons/eye-closed.svg" id="24_vi4fd"]
 [ext_resource type="Texture2D" uid="uid://d3etyv5apag5g" path="res://assets/ui_icons/speichern.svg" id="25_d8yt2"]
@@ -33,38 +34,6 @@
 shader = ExtResource("2_yojgw")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/thickness = 20.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54rl7"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 1.0
-expand_margin_top = 2.0
-expand_margin_right = 1.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mdgsc"]
-bg_color = Color(0.65882355, 0.65882355, 0.65882355, 0.25882354)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 2.0
-expand_margin_top = 3.0
-expand_margin_right = 2.0
-expand_margin_bottom = 3.0
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_sfl2l")
@@ -151,34 +120,47 @@ size_flags_vertical = 3
 [node name="Baumodus" type="Button" parent="Baumodus/UI/BauModusBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Wechsel zum Simulationsmodus"
+theme = ExtResource("9_d8yt2")
 theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = ExtResource("6_l1k4i")
-theme_override_styles/pressed = ExtResource("7_fmqkg")
-theme_override_styles/hover = ExtResource("8_ae4ts")
-theme_override_styles/focus = ExtResource("9_sbvyt")
 text = " Simulieren "
 
 [node name="StartUndEndNode" type="HBoxContainer" parent="Baumodus/UI"]
-offset_left = 33.0
-offset_top = 573.0
-offset_right = 130.0
-offset_bottom = 614.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -75.0
+offset_right = 135.0
+offset_bottom = -30.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
 
 [node name="Start" type="Button" parent="Baumodus/UI/StartUndEndNode"]
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
-tooltip_text = "Setzt Startpunkt"
-text = "Start"
+tooltip_text = "Klicke vorher auf eine Tile um einen Startknoten zu setzen."
+theme = ExtResource("9_d8yt2")
+icon = ExtResource("13_3th2j")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Ende" type="Button" parent="Baumodus/UI/StartUndEndNode"]
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
-tooltip_text = "Setzt Endpunkt"
-text = "Ende"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Klicke vorher auf eine Tile um einen Endknoten zu setzen."
+theme = ExtResource("9_d8yt2")
+icon = ExtResource("14_gj26j")
+expand_icon = true
 
 [node name="SpeichernPopup" parent="Baumodus/UI" instance=ExtResource("13_4c4u4")]
 visible = false
 
 [node name="LadenPopup" parent="Baumodus/UI" instance=ExtResource("14_b6kbm")]
-initial_position = 2
 
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5
@@ -198,6 +180,7 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+tooltip_text = "Öffnet das SlideDownMenu"
 texture_normal = ExtResource("13_axwq4")
 ignore_texture_size = true
 stretch_mode = 5
@@ -219,9 +202,12 @@ theme_override_constants/separation = 10
 [node name="Tips" type="TextureButton" parent="SpeichernUndTipps"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
+tooltip_text = "Öffnet das Tutorial."
 texture_normal = ExtResource("16_p5ppk")
 ignore_texture_size = true
 stretch_mode = 5
+script = ExtResource("20_gj26j")
+tutorialPopup = ExtResource("21_vi4fd")
 
 [node name="TileEffectManager" type="Node3D" parent="."]
 script = ExtResource("15_w7ehh")
@@ -261,11 +247,10 @@ theme_override_constants/separation = 10
 
 [node name="Zum Hauptmenü" type="Button" parent="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("20_b6kbm")
+tooltip_text = "Hier kommt man zurück zum Hauptmenü"
+theme = ExtResource("22_awm26")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 17
-theme_override_styles/normal = SubResource("StyleBoxFlat_54rl7")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_mdgsc")
 text = "Zum Hauptmenü
 "
 script = ExtResource("21_awm26")
@@ -282,6 +267,7 @@ script = ExtResource("22_3th2j")
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 4
+tooltip_text = "Hier kann man die UI einblenden"
 texture_normal = ExtResource("23_gj26j")
 ignore_texture_size = true
 stretch_mode = 5
@@ -291,6 +277,7 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+tooltip_text = "Hier kann man die UI ausblenden"
 texture_normal = ExtResource("24_vi4fd")
 ignore_texture_size = true
 stretch_mode = 5
@@ -302,6 +289,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 size_flags_horizontal = 4
+tooltip_text = "Hier kann man das Level speichern"
 texture_normal = ExtResource("25_d8yt2")
 ignore_texture_size = true
 stretch_mode = 5
@@ -310,6 +298,7 @@ stretch_mode = 5
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 4
+tooltip_text = "Hier kann man das Level laden"
 texture_normal = ExtResource("26_c3ybu")
 ignore_texture_size = true
 stretch_mode = 5
@@ -324,6 +313,7 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+tooltip_text = "Hier blended man das SlideDownMenu wieder aus"
 texture_normal = ExtResource("28_5k3u4")
 ignore_texture_size = true
 stretch_mode = 5

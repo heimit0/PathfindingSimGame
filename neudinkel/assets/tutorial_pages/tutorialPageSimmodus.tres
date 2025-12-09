@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPageData" load_steps=3 format=3 uid="uid://ovbfe4ldiwfy"]
+
+[ext_resource type="Texture2D" uid="uid://dhq3fi71tiav0" path="res://assets/tutorial_bilder/Simulationsmodus.png" id="1_t5jld"]
+[ext_resource type="Script" uid="uid://bx8kcap1vq5l1" path="res://scripts/TutorialPageData.cs" id="2_2d765"]
+
+[resource]
+script = ExtResource("2_2d765")
+Label = "Simulationsmodus"
+Text = "Im Simulationsmodus kannst du diese Level dann für jeden Algorithmus einmal testen. Dabei wird dir während die Simulation läuft der Ablauf des Algorithmus angezeigt damit du dies besser nachvollziehen kannst."
+Image = ExtResource("1_t5jld")
+metadata/_custom_type_script = "uid://bx8kcap1vq5l1"

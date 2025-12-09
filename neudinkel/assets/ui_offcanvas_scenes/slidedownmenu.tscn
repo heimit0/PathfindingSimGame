@@ -1,43 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ubwkv3remjot"]
+[gd_scene load_steps=7 format=3 uid="uid://ubwkv3remjot"]
 
-[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="1_04f2n"]
 [ext_resource type="Script" uid="uid://beaukoodhtrmg" path="res://scripts/ui_buttons/BackToMainmenu.cs" id="1_eebk8"]
 [ext_resource type="Texture2D" uid="uid://g0gk4fuh2m62" path="res://assets/ui_icons/eye.svg" id="1_eukrr"]
+[ext_resource type="Theme" uid="uid://di2fwfbs3b63t" path="res://assets/ui_presets/slidedown_buttons.tres" id="1_tcdqr"]
 [ext_resource type="Texture2D" uid="uid://naxfdre3bowg" path="res://assets/ui_icons/eye-closed.svg" id="2_eebk8"]
 [ext_resource type="Script" uid="uid://cot7lwkd2p4ih" path="res://scripts/ui_buttons/UiToggle.cs" id="3_dyri3"]
 [ext_resource type="Texture2D" uid="uid://bwb1qbn6rp1ek" path="res://assets/ui_icons/arrow-up.svg" id="3_eukrr"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxlxb"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 8.0
-expand_margin_top = 2.0
-expand_margin_right = 8.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04f2n"]
-bg_color = Color(0.65882355, 0.65882355, 0.65882355, 0.25882354)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 2.0
-expand_margin_top = 3.0
-expand_margin_right = 2.0
-expand_margin_bottom = 3.0
 
 [node name="SlideDownMenu" type="Control"]
 layout_mode = 3
@@ -71,11 +39,9 @@ theme_override_constants/separation = 10
 
 [node name="Zum Hauptmenü" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_04f2n")
+theme = ExtResource("1_tcdqr")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 17
-theme_override_styles/normal = SubResource("StyleBoxFlat_vxlxb")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_04f2n")
+theme_override_font_sizes/font_size = 18
 text = "Zum Hauptmenü
 "
 script = ExtResource("1_eebk8")

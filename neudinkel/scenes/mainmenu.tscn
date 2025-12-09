@@ -1,13 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmoc8fo8iyfqp"]
+[gd_scene load_steps=8 format=3 uid="uid://cmoc8fo8iyfqp"]
 
 [ext_resource type="Script" uid="uid://c48nvxgn3oi8v" path="res://scripts/ui_buttons/Mainmenu.cs" id="1_natt5"]
-[ext_resource type="FontFile" uid="uid://ckt7xray770d5" path="res://assets/ui_presets/SairaCondensed-Medium.ttf" id="2_3vvtq"]
+[ext_resource type="FontFile" uid="uid://cryqnyausjcxw" path="res://assets/ui_presets/futurawin.ttf" id="2_85riq"]
 [ext_resource type="Texture2D" uid="uid://dqbvgu7k317eu" path="res://assets/ui_icons/leerer-stern.svg" id="3_3vvtq"]
+[ext_resource type="Theme" uid="uid://wpj72fhbl7gv" path="res://assets/ui_presets/Popup_buttons.tres" id="4_dfy5j"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="4_s5g8n"]
-[ext_resource type="Texture2D" uid="uid://maoyinoxx3hy" path="res://assets/ui_icons/voller-stern.svg" id="5_wf3n4"]
-[ext_resource type="Texture2D" uid="uid://b8sticmids716" path="res://assets/ui_icons/goldener-leerer-stern.svg" id="6_h73c4"]
-[ext_resource type="Texture2D" uid="uid://crkiaqxky0jm5" path="res://assets/ui_icons/goldener-voller-stern.svg" id="7_uui5l"]
-[ext_resource type="Texture2D" uid="uid://bugu5vlgvm8hc" path="res://icon.svg" id="8_4hago"]
+[ext_resource type="Theme" uid="uid://do0012mtba6ii" path="res://assets/ui_presets/Popup_buttons_zurueck.tres" id="8_85riq"]
 [ext_resource type="Script" uid="uid://btwp1hq3ogfmy" path="res://scripts/NeudinkelStarIndicator.cs" id="9_gjjcl"]
 
 [node name="MainMenu" type="Control"]
@@ -31,7 +29,7 @@ offset_left = -286.5
 offset_right = 286.5
 offset_bottom = 91.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_3vvtq")
+theme_override_fonts/font = ExtResource("2_85riq")
 theme_override_font_sizes/font_size = 66
 text = "Projekt Neudinkel"
 horizontal_alignment = 1
@@ -56,17 +54,17 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="MainMenu/VBoxContainer/HBoxContainer"]
-position = Vector2(-216.5, -40.5)
+position = Vector2(-226, -40.5)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
 
 [node name="Sprite2D2" type="Sprite2D" parent="MainMenu/VBoxContainer/HBoxContainer"]
-position = Vector2(-130, -40.5)
+position = Vector2(-140, -40.5)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
 
 [node name="Sprite2D3" type="Sprite2D" parent="MainMenu/VBoxContainer/HBoxContainer"]
-position = Vector2(-47.5, -39.5)
+position = Vector2(-57, -39.5)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_3vvtq")
 
@@ -78,14 +76,14 @@ theme_override_constants/separation = 30
 [node name="baumodus" type="Button" parent="MainMenu/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-theme = ExtResource("4_s5g8n")
+theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "Baumodus"
 
 [node name="pruefmodus" type="Button" parent="MainMenu/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-theme = ExtResource("4_s5g8n")
+theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "Prüfmodus"
 
@@ -99,6 +97,7 @@ offset_left = -286.5
 offset_right = 286.5
 offset_bottom = 91.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_85riq")
 theme_override_font_sizes/font_size = 66
 text = "Algo Auswahl"
 horizontal_alignment = 1
@@ -125,19 +124,19 @@ size_flags_vertical = 4
 alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelMenu/VBoxContainer/HBoxContainer"]
-position = Vector2(-280, -40)
+position = Vector2(-330, -40)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("5_wf3n4")
+texture = ExtResource("3_3vvtq")
 
 [node name="Sprite2D2" type="Sprite2D" parent="LevelMenu/VBoxContainer/HBoxContainer"]
-position = Vector2(0, -40)
+position = Vector2(-25, -40)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("6_h73c4")
+texture = ExtResource("3_3vvtq")
 
 [node name="Sprite2D3" type="Sprite2D" parent="LevelMenu/VBoxContainer/HBoxContainer"]
-position = Vector2(280, -40)
+position = Vector2(310, -40)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("7_uui5l")
+texture = ExtResource("3_3vvtq")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="LevelMenu/VBoxContainer"]
 layout_mode = 2
@@ -146,27 +145,37 @@ theme = ExtResource("4_s5g8n")
 [node name="dijkstra" type="Button" parent="LevelMenu/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+theme = ExtResource("4_dfy5j")
 text = "   Dijkstra   "
 
 [node name="aStar" type="Button" parent="LevelMenu/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "        A*        "
 
 [node name="dfs" type="Button" parent="LevelMenu/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "       DFS       "
 
 [node name="backButtonLevelMenu" type="Button" parent="LevelMenu"]
-offset_left = 1070.0
-offset_top = 600.0
-offset_right = 1130.0
-offset_bottom = 631.0
-theme = ExtResource("4_s5g8n")
-theme_override_font_sizes/font_size = 20
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = -44.0
+offset_right = -18.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("8_85riq")
+theme_override_font_sizes/font_size = 24
 text = "zurück"
 
 [node name="LevelMenu_zip" type="CanvasLayer" parent="."]
@@ -179,6 +188,7 @@ offset_left = -286.5
 offset_right = 286.5
 offset_bottom = 91.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_85riq")
 theme_override_font_sizes/font_size = 66
 text = "Hier sollte was stehen"
 horizontal_alignment = 1
@@ -205,22 +215,22 @@ size_flags_vertical = 4
 alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
-position = Vector2(-240, -40)
+position = Vector2(-305, -40)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("8_4hago")
+texture = ExtResource("3_3vvtq")
 script = ExtResource("9_gjjcl")
 
 [node name="Sprite2D2" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
-position = Vector2(0, -40)
+position = Vector2(3, -40)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("8_4hago")
+texture = ExtResource("3_3vvtq")
 script = ExtResource("9_gjjcl")
 starNum = 1
 
 [node name="Sprite2D3" type="Sprite2D" parent="LevelMenu_zip/VBoxContainer/HBoxContainer"]
-position = Vector2(240, -40)
+position = Vector2(310, -40)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("8_4hago")
+texture = ExtResource("3_3vvtq")
 script = ExtResource("9_gjjcl")
 starNum = 2
 
@@ -232,16 +242,19 @@ theme = ExtResource("4_s5g8n")
 
 [node name="level1" type="Button" parent="LevelMenu_zip/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "    Level 1    "
 
 [node name="level2" type="Button" parent="LevelMenu_zip/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "    Level 2    "
 
 [node name="level3" type="Button" parent="LevelMenu_zip/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "    Level 3    "
 
@@ -251,16 +264,16 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -82.0
-offset_top = -48.0
-offset_right = -22.0
-offset_bottom = -11.0
+offset_left = -81.0
+offset_top = -44.0
+offset_right = -18.0
+offset_bottom = -13.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
-theme = ExtResource("4_s5g8n")
-theme_override_font_sizes/font_size = 20
+theme = ExtResource("8_85riq")
+theme_override_font_sizes/font_size = 24
 text = "zurück"
 
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer2/baumodus" to="." method="_on_baumodus_pressed"]

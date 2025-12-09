@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPageData" load_steps=3 format=3 uid="uid://bpl1iu8mex13o"]
+
+[ext_resource type="Texture2D" uid="uid://0l245ppo81on" path="res://assets/tutorial_bilder/straßenTypSetzen2.png" id="1_bja0d"]
+[ext_resource type="Script" uid="uid://bx8kcap1vq5l1" path="res://scripts/TutorialPageData.cs" id="2_6bath"]
+
+[resource]
+script = ExtResource("2_6bath")
+Label = "Tileart ändern"
+Text = "Als Ergebnis siehst du dann die Straße."
+Image = ExtResource("1_bja0d")
+metadata/_custom_type_script = "uid://bx8kcap1vq5l1"

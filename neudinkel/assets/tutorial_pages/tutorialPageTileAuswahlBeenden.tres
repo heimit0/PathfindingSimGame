@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPageData" load_steps=3 format=3 uid="uid://cgu8hk1jekj2i"]
+
+[ext_resource type="Texture2D" uid="uid://bcrd628lgxw0m" path="res://assets/tutorial_bilder/tileAuswahlBeenden.png" id="1_byyra"]
+[ext_resource type="Script" uid="uid://bx8kcap1vq5l1" path="res://scripts/TutorialPageData.cs" id="2_ochr0"]
+
+[resource]
+script = ExtResource("2_ochr0")
+Label = "Tileauswahl beenden"
+Text = "Um diese Tileauswahl aufzuheben kannst du einfach außerhalb der Tiles klicken und deine Auswahl wird aufgehoben."
+Image = ExtResource("1_byyra")
+metadata/_custom_type_script = "uid://bx8kcap1vq5l1"

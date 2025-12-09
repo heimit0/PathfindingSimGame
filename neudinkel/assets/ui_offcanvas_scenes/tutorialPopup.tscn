@@ -1,48 +1,114 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6acmjxqngq3f"]
+[gd_scene load_steps=18 format=3 uid="uid://b6acmjxqngq3f"]
 
-[ext_resource type="Texture2D" uid="uid://cqutqulw2v73y" path="res://models/textures/3dwolken.png" id="1_mgrk0"]
+[ext_resource type="StyleBox" uid="uid://uaef6xta4jcb" path="res://assets/ui_presets/PanelBackground.tres" id="1_qdu7g"]
+[ext_resource type="Texture2D" uid="uid://8xhxikuw8tmw" path="res://assets/ui_icons/arrow-left.svg" id="2_323uy"]
+[ext_resource type="Texture2D" uid="uid://ctab6sjt5v1bh" path="res://assets/ui_icons/close-icon.svg" id="2_adx3j"]
+[ext_resource type="Script" uid="uid://l8ps1f62hv8e" path="res://scripts/ui_buttons/TutorialPopup.cs" id="2_u14ly"]
+[ext_resource type="Texture2D" uid="uid://du3rakn6ut435" path="res://assets/ui_icons/arrow-right.svg" id="3_1hcky"]
+[ext_resource type="Resource" uid="uid://cd8n73vuid66f" path="res://assets/tutorial_pages/tutorialPageBaumodus.tres" id="3_55hcv"]
+[ext_resource type="Resource" uid="uid://df32raygew6b1" path="res://assets/tutorial_pages/tutorialPageTileAuswahl.tres" id="4_o0751"]
+[ext_resource type="Resource" uid="uid://bsbpi0huyetuj" path="res://assets/tutorial_pages/tutorialPageStraßentyp1.tres" id="5_r2dvc"]
+[ext_resource type="Resource" uid="uid://bpl1iu8mex13o" path="res://assets/tutorial_pages/tutorialPageStraßentyp2.tres" id="6_jm3xc"]
+[ext_resource type="Resource" uid="uid://cgu8hk1jekj2i" path="res://assets/tutorial_pages/tutorialPageTileAuswahlBeenden.tres" id="7_sbank"]
+[ext_resource type="Resource" uid="uid://cvgj3kmhqx1dc" path="res://assets/tutorial_pages/tutorialPageStartEndNode.tres" id="8_2r1ja"]
+[ext_resource type="Resource" uid="uid://ovbfe4ldiwfy" path="res://assets/tutorial_pages/tutorialPageSimmodus.tres" id="9_gtsg7"]
+[ext_resource type="Resource" uid="uid://dslndxktj5k73" path="res://assets/tutorial_pages/tutorialPagePruefungsmodus.tres" id="10_2r1ja"]
+[ext_resource type="Resource" uid="uid://dum2y3s6rbh1g" path="res://assets/tutorial_pages/tutorialPageSlideDownMenu.tres" id="11_2r1ja"]
+[ext_resource type="Texture2D" uid="uid://beggi3ykm15cl" path="res://assets/tutorial_bilder/baumodus.png" id="11_r2dvc"]
+[ext_resource type="Resource" uid="uid://33doq80ujy6i" path="res://assets/tutorial_pages/tutorialPageButtons.tres" id="12_2r1ja"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u14ly"]
+font_size = 19
+outline_size = 2
 
 [node name="PopupPanel" type="PopupPanel"]
 oversampling_override = 1.0
 initial_position = 1
-size = Vector2i(400, 323)
+size = Vector2i(320, 365)
 visible = true
+always_on_top = true
+theme_override_styles/panel = ExtResource("1_qdu7g")
+script = ExtResource("2_u14ly")
+Seiten = Array[Object]([ExtResource("3_55hcv"), ExtResource("4_o0751"), ExtResource("5_r2dvc"), ExtResource("6_jm3xc"), ExtResource("7_sbank"), ExtResource("8_2r1ja"), ExtResource("9_gtsg7"), ExtResource("10_2r1ja"), ExtResource("11_2r1ja"), ExtResource("12_2r1ja")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 396.0
-offset_bottom = 319.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 23
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="CloseBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="CloseButton" type="TextureButton" parent="VBoxContainer/CloseBox"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+tooltip_text = "Hier schließt man das Tutorial"
+texture_normal = ExtResource("2_adx3j")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureBox" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="BilderBox" type="TextureRect" parent="VBoxContainer/TextureBox"]
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("1_mgrk0")
+texture = ExtResource("11_r2dvc")
 expand_mode = 2
-flip_h = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="TextBox" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-alignment = 1
+theme_override_constants/separation = 10
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
+[node name="TutorialLabel" type="Label" parent="VBoxContainer/TextBox"]
+layout_mode = 2
+text = "Titel"
+label_settings = SubResource("LabelSettings_u14ly")
+horizontal_alignment = 1
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/TextBox"]
 clip_contents = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Hallo das ist das Tutorial
-blah blah 
-lorem ipusm"
+text = "TutorialText"
 fit_content = true
 horizontal_alignment = 1
+
+[node name="ButtonsundLabelBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Backwards" type="TextureButton" parent="VBoxContainer/ButtonsundLabelBox"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+tooltip_text = "Hier wechselt man eine Seite zurück"
+texture_normal = ExtResource("2_323uy")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Seitenlabel" type="Label" parent="VBoxContainer/ButtonsundLabelBox"]
+layout_mode = 2
+text = "1/8"
+
+[node name="Forwards" type="TextureButton" parent="VBoxContainer/ButtonsundLabelBox"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+tooltip_text = "Hier wechselt man eine Seite nach vorn"
+texture_normal = ExtResource("3_1hcky")
+ignore_texture_size = true
+stretch_mode = 5

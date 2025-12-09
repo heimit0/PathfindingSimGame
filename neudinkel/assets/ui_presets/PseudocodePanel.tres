@@ -5,5 +5,5 @@
 [resource]
 shader = ExtResource("1_wlfjp")
 shader_parameter/base_grey = 0.2750000130625
-shader_parameter/alpha_value = 0.3630000172425
+shader_parameter/alpha_value = 0.6210000294975
 shader_parameter/gradient_strength = 0.338000016055
