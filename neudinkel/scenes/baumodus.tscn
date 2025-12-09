@@ -1,4 +1,5 @@
 [gd_scene load_steps=31 format=3 uid="uid://cja2otsjks3ig"]
+[gd_scene load_steps=33 format=3 uid="uid://cja2otsjks3ig"]
 
 [ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/GameManagers/BauGameManager.cs" id="1_sfl2l"]
 [ext_resource type="Texture2D" uid="uid://ctx4brr3q6rko" path="res://assets/ui_icons/tile_highway.png" id="2_bn8a6"]
@@ -15,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dw46rq0gpvov7" path="res://assets/ui_offcanvas_scenes/LevelLadenModal.tscn" id="14_b6kbm"]
 [ext_resource type="Texture2D" uid="uid://d1px3tkott2k7" path="res://assets/ui_icons/finish.svg" id="14_gj26j"]
 [ext_resource type="Script" uid="uid://cwoiciqu0ccii" path="res://scripts/ui_buttons/SlideDownMenuBauModus.cs" id="14_jd0uw"]
+[ext_resource type="PackedScene" uid="uid://dyyyfal4p6jcv" path="res://scenes/Minimap.tscn" id="15_awm26"]
 [ext_resource type="Script" uid="uid://debdk623bhaon" path="res://scripts/TileEffectManager.cs" id="15_w7ehh"]
 [ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="16_p5ppk"]
 [ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://assets/ui_effect_scenes/tileSelectedParticels.tscn" id="18_jd0uw"]
@@ -161,6 +163,11 @@ expand_icon = true
 visible = false
 
 [node name="LadenPopup" parent="Baumodus/UI" instance=ExtResource("14_b6kbm")]
+initial_position = 2
+
+[node name="Minimap" parent="Baumodus/UI" instance=ExtResource("15_awm26")]
+offset = Vector2(925, 425)
+transform = Transform2D(1, 0, 0, 1, 925, 425)
 
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5

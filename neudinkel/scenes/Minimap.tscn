@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyyyfal4p6jcv"]
+
+[ext_resource type="Script" uid="uid://cer30o2v8d0bf" path="res://scripts/Graph/Minimap.cs" id="1_q45j0"]
+[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="2_2niip"]
+
+[node name="Minimap" type="CanvasLayer"]
+script = ExtResource("1_q45j0")
+
+[node name="Background" type="Panel" parent="."]
+offset_right = 200.0
+offset_bottom = 200.0
+theme = ExtResource("2_2niip")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+scale = Vector2(2, 2)
+polygon = PackedVector2Array(0, 0, 1, 0, 0, 1)

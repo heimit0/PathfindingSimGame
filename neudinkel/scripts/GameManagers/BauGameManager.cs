@@ -38,6 +38,9 @@ public partial class BauGameManager : GameManager
 		this.ladenPopup.Submitted += filename => loadNewLevel(filename);
 		this.ladenPopup.PopupHide += toggleCameraIsUserInputEnabled;
 		this.ladenPopup.Hide();
+
+		Minimap minimap = GetNode<Minimap>("Baumodus/UI/Minimap");
+		minimap.initMiniMap(this);
 	}
 
 	public override void _Process(double delta)
