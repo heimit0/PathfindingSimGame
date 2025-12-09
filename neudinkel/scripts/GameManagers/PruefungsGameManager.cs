@@ -146,7 +146,7 @@ public partial class PruefungsGameManager : SimulationGameManager
             case AlgorithmAStar astar:
 				currentAlgorithm.breakpoint = 6;
                 break;
-			
+
 			case AlgorithmDFS dfs:
 				currentAlgorithm.breakpoint = 5;
 				break;
@@ -157,9 +157,14 @@ public partial class PruefungsGameManager : SimulationGameManager
         }
 
 		GD.Print("Selected Breakpoint at:" + currentAlgorithm.breakpoint);
-		
+		GD.Print("Current step before doSearchForward: " + currentAlgorithm.currentStep);
+
 		if(currentAlgorithm.currentNode is not null) GD.Print("Old current Node: " + currentAlgorithm.currentNode);
+
+		GD.Print("DEBUG: About to call doSearchForward()");
 		currentAlgorithm.doSearchForward();
+		GD.Print("DEBUG: doSearchForward() completed");
+
 		if(currentAlgorithm.currentNode is not null) GD.Print("New current Node: " + currentAlgorithm.currentNode);
 		GD.Print("Successfull newCurrentNode");
     }

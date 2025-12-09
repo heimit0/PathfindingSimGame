@@ -223,8 +223,11 @@ public partial class GraphNode : Node3D
                     if (!newHead.Equals(this) && !path.Contains(newHead))
                     {
                         path.Add(newHead);
-                        cameFrom.Add(newHead, head);
-						GD.Print(newHead.getTilePosString() + " came from " + head.getTilePosString());
+                        // Only add if not already in cameFrom (multiple paths can reach same node)
+                        if (cameFrom.TryAdd(newHead, head))
+                        {
+							GD.Print(newHead.getTilePosString() + " came from " + head.getTilePosString());
+                        }
                     }
                 }
             }
