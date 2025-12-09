@@ -1,10 +1,7 @@
 using Godot;
-using System;
-using System.Threading.Tasks;
 
 public partial class PruefungsGameManager : SimulationGameManager
 {
-
 	private GraphNode checkPointNode;
 
 	[Signal]
@@ -144,11 +141,11 @@ public partial class PruefungsGameManager : SimulationGameManager
         switch ((currentAlgorithm))
         {
             case AlgorithmAStar astar:
-				currentAlgorithm.breakpoint = 6;
+				currentAlgorithm.breakpoint = 5;
                 break;
 
 			case AlgorithmDFS dfs:
-				currentAlgorithm.breakpoint = 5;
+				currentAlgorithm.breakpoint = 4;
 				break;
 
 			case AlgorithmDijkstra dijkstra:
