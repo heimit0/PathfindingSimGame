@@ -1,6 +1,5 @@
 [gd_scene load_steps=18 format=3 uid="uid://b6acmjxqngq3f"]
 
-[ext_resource type="StyleBox" uid="uid://uaef6xta4jcb" path="res://assets/ui_presets/PanelBackground.tres" id="1_qdu7g"]
 [ext_resource type="Texture2D" uid="uid://8xhxikuw8tmw" path="res://assets/ui_icons/arrow-left.svg" id="2_323uy"]
 [ext_resource type="Texture2D" uid="uid://ctab6sjt5v1bh" path="res://assets/ui_icons/close-icon.svg" id="2_adx3j"]
 [ext_resource type="Script" uid="uid://l8ps1f62hv8e" path="res://scripts/ui_buttons/TutorialPopup.cs" id="2_u14ly"]
@@ -17,6 +16,17 @@
 [ext_resource type="Texture2D" uid="uid://beggi3ykm15cl" path="res://assets/tutorial_bilder/baumodus.png" id="11_r2dvc"]
 [ext_resource type="Resource" uid="uid://33doq80ujy6i" path="res://assets/tutorial_pages/tutorialPageButtons.tres" id="12_2r1ja"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbank"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.43137255)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="LabelSettings" id="LabelSettings_u14ly"]
 font_size = 19
 outline_size = 2
@@ -27,7 +37,7 @@ initial_position = 1
 size = Vector2i(320, 365)
 visible = true
 always_on_top = true
-theme_override_styles/panel = ExtResource("1_qdu7g")
+theme_override_styles/panel = SubResource("StyleBoxFlat_sbank")
 script = ExtResource("2_u14ly")
 Seiten = Array[Object]([ExtResource("3_55hcv"), ExtResource("4_o0751"), ExtResource("5_r2dvc"), ExtResource("6_jm3xc"), ExtResource("7_sbank"), ExtResource("8_2r1ja"), ExtResource("9_gtsg7"), ExtResource("10_2r1ja"), ExtResource("11_2r1ja"), ExtResource("12_2r1ja")])
 
