@@ -46,15 +46,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		GD.Print("Startile "+ this.currentAlgorithm.startNode.getTilePosString());
 		GD.Print("Goaltile: "+ this.currentAlgorithm.goalNode.getTilePosString());
 		
-		GD.Print("step 1");
-		this.doSearchForwardHelper(true);
-		GD.Print("step 2");
-		this.doSearchForwardHelper(true);
-		GD.Print("step 3");
-		this.doSearchForwardHelper(true);
-		GD.Print("step 4");
-		this.doSearchForwardHelper(true);
-		this.doSearchForwardHelper(true);
+		skipTillNextCurrentNode();
 		saveCheckpoint();
 		correctStepCounterSinceLastSave = 0;
 
@@ -152,22 +144,23 @@ public partial class PruefungsGameManager : SimulationGameManager
         switch ((currentAlgorithm))
         {
             case AlgorithmAStar astar:
-				currentAlgorithm.breakpoint = 5;
+				currentAlgorithm.breakpoint = 6;
                 break;
 			
 			case AlgorithmDFS dfs:
-				currentAlgorithm.breakpoint = 4;
+				currentAlgorithm.breakpoint = 5;
 				break;
 
 			case AlgorithmDijkstra dijkstra:
-				currentAlgorithm.breakpoint = 5;
+				currentAlgorithm.breakpoint = 6;
 				break;
         }
 
 		GD.Print("Selected Breakpoint at:" + currentAlgorithm.breakpoint);
-
+		
+		if(currentAlgorithm.currentNode is not null) GD.Print("Old current Node: " + currentAlgorithm.currentNode);
 		currentAlgorithm.doSearchForward();
-
+		if(currentAlgorithm.currentNode is not null) GD.Print("New current Node: " + currentAlgorithm.currentNode);
 		GD.Print("Successfull newCurrentNode");
     }
 
