@@ -80,10 +80,25 @@ public abstract class NeudinkelAlgorithm
 	/// </summary>
 	public int doSearchForward()
 	{
+		int iterationCount = 0;
+		int maxIterations = 100000; // Safety limit to prevent infinite loops
+
 		do
+		{
 			doSearchStep();
+			iterationCount++;
+
+			if (iterationCount > maxIterations)
+			{
+				GD.PrintErr("ERROR: doSearchForward() exceeded maximum iterations!");
+				GD.PrintErr("currentStep: " + currentStep + ", breakpoint: " + breakpoint);
+				GD.PrintErr("This indicates an infinite loop in the algorithm.");
+				return currentStep;
+			}
+		}
 		while (currentStep != breakpoint && currentStep >= 0);
 
+		GD.Print("doSearchForward completed after " + iterationCount + " iterations");
 		return currentStep;
 	}
 

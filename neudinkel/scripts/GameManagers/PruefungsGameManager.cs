@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class PruefungsGameManager : SimulationGameManager
 {
@@ -27,6 +28,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		prepScene(levelToLoad);
 		GD.Print("Lade Algorithmus");
 		onInitOrChangeAlgorithm((int)algo);
+		GD.Print("Algo geladen");
 
 		initialSteps();
 		currentAlgorithm.startNode.setHighlighted(true);
@@ -44,16 +46,11 @@ public partial class PruefungsGameManager : SimulationGameManager
 		GD.Print("Startile "+ this.currentAlgorithm.startNode.getTilePosString());
 		GD.Print("Goaltile: "+ this.currentAlgorithm.goalNode.getTilePosString());
 		
-		GD.Print("step 1");
-		this.doSearchForwardHelper(true);
-		GD.Print("step 2");
-		this.doSearchForwardHelper(true);
-		GD.Print("step 3");
-		this.doSearchForwardHelper(true);
-		GD.Print("step 4");
-		this.doSearchForwardHelper(true);
+		skipTillNextCurrentNode();
 		saveCheckpoint();
 		correctStepCounterSinceLastSave = 0;
+
+		GD.Print("Initial steps sind durch");
 	}
 
 	//Code um Spielerclick zu behandeln
@@ -64,13 +61,13 @@ public partial class PruefungsGameManager : SimulationGameManager
 		skipTillNextCurrentNode();
 
 		GraphNode playerNode = this.graph.getNode(tilePos.X, tilePos.Y);
-		if (playerNode == null)
+		if (playerNode is null)
 		{
 			GD.PrintErr("Player clicked the void at: " + tilePos);
 			playerDidSmthWrong();
 			return;
 		}
-		if(currentAlgorithm.currentNode == null)
+		if(currentAlgorithm.currentNode is null)
 		{
 			GD.Print("current Node is null");
 			return;
@@ -125,7 +122,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		{
 			popuptext.Text = "Leider das Falsche Tile ausgewählt \n Das richtige Tile war X: "
 			 + currentAlgorithm.currentNode.tilePosX + " Y: " + currentAlgorithm.currentNode.tilePosY + "\n" +
-			 "Falsche Schritte: " + wrongStepCounter +"/3";
+			 "Falsche Schritte: " + wrongStepCounter +"/4";
 			popup.Show();
 		}
 		returnToCheckpoint();
@@ -147,22 +144,28 @@ public partial class PruefungsGameManager : SimulationGameManager
         switch ((currentAlgorithm))
         {
             case AlgorithmAStar astar:
-				currentAlgorithm.breakpoint = 5;
+				currentAlgorithm.breakpoint = 6;
                 break;
-			
+
 			case AlgorithmDFS dfs:
-				currentAlgorithm.breakpoint = 4;
+				currentAlgorithm.breakpoint = 5;
 				break;
 
 			case AlgorithmDijkstra dijkstra:
-				currentAlgorithm.breakpoint = 5;
+				currentAlgorithm.breakpoint = 6;
 				break;
         }
 
 		GD.Print("Selected Breakpoint at:" + currentAlgorithm.breakpoint);
+		GD.Print("Current step before doSearchForward: " + currentAlgorithm.currentStep);
 
+		if(currentAlgorithm.currentNode is not null) GD.Print("Old current Node: " + currentAlgorithm.currentNode);
+
+		GD.Print("DEBUG: About to call doSearchForward()");
 		currentAlgorithm.doSearchForward();
+		GD.Print("DEBUG: doSearchForward() completed");
 
+		if(currentAlgorithm.currentNode is not null) GD.Print("New current Node: " + currentAlgorithm.currentNode);
 		GD.Print("Successfull newCurrentNode");
     }
 
