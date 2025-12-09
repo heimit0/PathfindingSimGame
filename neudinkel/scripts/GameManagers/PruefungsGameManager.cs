@@ -97,18 +97,28 @@ public partial class PruefungsGameManager : SimulationGameManager
 
     private void lvlGeschafft()
     {
-        var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/PopupPanel");
-		var popuptext = GetNode<Label>("Pruefungsmodus/UI/PopupPanel/Label");
-		var button = GetNode<Button>("Pruefungsmodus/UI/PopupPanel/Button");
-		if (popup != null && popuptext != null)
-		{
-			popuptext.Text= "Lvl Geschafft!";
-			popup.Show();
-		}
-		//Globals.config = 
-		//Globals.saveGame();
-		
+        var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/WinnerPopup");
+
+		if (popup is not null)	popup.Show();
+
+		// Save level completion in progress bit flags
+		int bitOffset = 0;
+		if (algo == GraphSearchAlgorithm.DIJKSTRA) bitOffset = 0;
+		if (algo == GraphSearchAlgorithm.A_STAR) bitOffset = 3;
+		if (algo == GraphSearchAlgorithm.DFS) bitOffset = 6;
+
+		// Set the bit for the completed level (stufe is 1-3, so subtract 1 for bit index 0-2)
+		int levelBit = 1 << (bitOffset + Globals.stufe - 1);
+		Globals.config.progress |= levelBit;
+
+		Globals.saveGame();
     }
+
+
+	public void onNextLvlButtonPressed()
+	{
+		GetTree().ChangeSceneToFile("res://scenes/mainmenu.tscn");
+	}
 
     public void playerDidSmthWrong()
 	{

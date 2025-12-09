@@ -132,6 +132,31 @@ theme = ExtResource("5_7rp0e")
 text = "Weiter!"
 flat = true
 
+[node name="WinnerPopup" type="PopupPanel" parent="Pruefungsmodus/UI"]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(250, 152)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pruefungsmodus/UI/WinnerPopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 246.0
+offset_bottom = 148.0
+
+[node name="Label" type="Label" parent="Pruefungsmodus/UI/WinnerPopup/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 6
+text = "Level Geschafft"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackToMenu" type="Button" parent="Pruefungsmodus/UI/WinnerPopup/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 10
+text = "Zurueck zum Menu"
+
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
@@ -178,5 +203,6 @@ script = ExtResource("8_n8kv3")
 tutorialPopup = ExtResource("9_ksohj")
 
 [connection signal="pressed" from="Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/VBoxContainer/Button" to="." method="hidePopupOnButtonPressed"]
+[connection signal="pressed" from="Pruefungsmodus/UI/WinnerPopup/VBoxContainer/BackToMenu" to="." method="onNextLvlButtonPressed"]
 [connection signal="pressed" from="ToggleButtonBox/TextureButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]
 [connection signal="pressed" from="SpeichernUndTipps/Tips" to="SpeichernUndTipps/Tips" method="OnTipsPressed"]

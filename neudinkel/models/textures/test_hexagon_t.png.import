@@ -3,16 +3,16 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b758cdol6kxuj"
-path.etc2="res://.godot/imported/test_hexagon_t.png-ad09906964fba34555bfb25a0232d5d7.etc2.ctex"
+path.s3tc="res://.godot/imported/test_hexagon_t.png-ad09906964fba34555bfb25a0232d5d7.s3tc.ctex"
 metadata={
-"imported_formats": ["etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://models/textures/test_hexagon_t.png"
-dest_files=["res://.godot/imported/test_hexagon_t.png-ad09906964fba34555bfb25a0232d5d7.etc2.ctex"]
+dest_files=["res://.godot/imported/test_hexagon_t.png-ad09906964fba34555bfb25a0232d5d7.s3tc.ctex"]
 
 [params]
 
