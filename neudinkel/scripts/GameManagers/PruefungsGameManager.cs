@@ -18,8 +18,13 @@ public partial class PruefungsGameManager : SimulationGameManager
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
 
+		
+		
+
 		string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "empty" : Globals.nextLevel;
 		algo = Globals.pruefungsAlgorithmus;
+
+
 
 		GD.Print("Lade Level");
 		prepScene(levelToLoad);
@@ -94,6 +99,7 @@ public partial class PruefungsGameManager : SimulationGameManager
     {
         var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/PopupPanel");
 		var popuptext = GetNode<Label>("Pruefungsmodus/UI/PopupPanel/Label");
+		var button = GetNode<Button>("Pruefungsmodus/UI/PopupPanel/Button");
 		if (popup != null && popuptext != null)
 		{
 			popuptext.Text= "Lvl Geschafft!";
@@ -114,8 +120,9 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 		// Open popup to notify player
 		var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup");
-		var popuptext = GetNode<Label>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/Label");
-		if (popup != null && popuptext != null)
+		var popuptext = GetNode<Label>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/VBoxContainer/Label");
+
+		if (popup is not null && popuptext is not null)
 		{
 			popuptext.Text = "Leider das Falsche Tile ausgewählt \n Das richtige Tile war X: "
 			 + currentAlgorithm.currentNode.tilePosX + " Y: " + currentAlgorithm.currentNode.tilePosY + "\n" +
@@ -124,6 +131,14 @@ public partial class PruefungsGameManager : SimulationGameManager
 		}
 		returnToCheckpoint();
 	}
+
+
+	public void hidePopupOnButtonPressed()
+	{
+		var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup");
+		if(popup is not null) popup.Hide();
+	}
+
 
 	public void playerDidSmthRight()
 	{

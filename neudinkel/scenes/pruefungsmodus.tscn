@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://d4l2g3urlpx3q"]
+[gd_scene load_steps=12 format=3 uid="uid://d4l2g3urlpx3q"]
 
 [ext_resource type="Script" uid="uid://dpdiys1tq75u1" path="res://scripts/GameManagers/PruefungsGameManager.cs" id="1_70lit"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_7rp0e"]
 [ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="2_70lit"]
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="3_70lit"]
+[ext_resource type="Theme" uid="uid://di2fwfbs3b63t" path="res://assets/ui_presets/slidedown_buttons.tres" id="5_7rp0e"]
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="5_qomti"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="6_st3as"]
 [ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="7_st3as"]
@@ -114,12 +115,22 @@ oversampling_override = 1.0
 initial_position = 1
 size = Vector2i(181, 100)
 
-[node name="Label" type="Label" parent="Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup"]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 177.0
 offset_bottom = 96.0
+
+[node name="Label" type="Label" parent="Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/VBoxContainer"]
+layout_mode = 2
 horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme = ExtResource("5_7rp0e")
+text = "Weiter!"
+flat = true
 
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5
@@ -166,5 +177,6 @@ stretch_mode = 5
 script = ExtResource("8_n8kv3")
 tutorialPopup = ExtResource("9_ksohj")
 
+[connection signal="pressed" from="Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/VBoxContainer/Button" to="." method="hidePopupOnButtonPressed"]
 [connection signal="pressed" from="ToggleButtonBox/TextureButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]
 [connection signal="pressed" from="SpeichernUndTipps/Tips" to="SpeichernUndTipps/Tips" method="OnTipsPressed"]
