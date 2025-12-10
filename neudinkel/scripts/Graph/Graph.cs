@@ -259,7 +259,6 @@ public partial class Graph : Node3D
 		}
 	}
 
-
 	public void initCoordsNodes()
 	{
 		foreach (GraphNode n in getCities())
