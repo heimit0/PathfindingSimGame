@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d4l2g3urlpx3q"]
+[gd_scene load_steps=13 format=3 uid="uid://d4l2g3urlpx3q"]
 
 [ext_resource type="Script" uid="uid://dpdiys1tq75u1" path="res://scripts/GameManagers/PruefungsGameManager.cs" id="1_70lit"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_7rp0e"]
@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="3_70lit"]
 [ext_resource type="Theme" uid="uid://di2fwfbs3b63t" path="res://assets/ui_presets/slidedown_buttons.tres" id="5_7rp0e"]
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="5_qomti"]
-[ext_resource type="PackedScene" uid="uid://dyyyfal4p6jcv" path="res://scenes/Minimap.tscn" id="5_st3as"]
+[ext_resource type="PackedScene" uid="uid://dyyyfal4p6jcv" path="res://scenes/Minimap.tscn" id="6_c5eov"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="6_st3as"]
 [ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="7_st3as"]
 [ext_resource type="Script" uid="uid://c3q5c1xahl7ue" path="res://scripts/ui_buttons/openTutorialPopup.cs" id="8_n8kv3"]
@@ -126,7 +126,39 @@ offset_bottom = 96.0
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Minimap" parent="Pruefungsmodus/UI" instance=ExtResource("5_st3as")]
+[node name="Button" type="Button" parent="Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme = ExtResource("5_7rp0e")
+text = "Weiter!"
+flat = true
+
+[node name="WinnerPopup" type="PopupPanel" parent="Pruefungsmodus/UI"]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(250, 152)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pruefungsmodus/UI/WinnerPopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 246.0
+offset_bottom = 148.0
+
+[node name="Label" type="Label" parent="Pruefungsmodus/UI/WinnerPopup/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 6
+text = "Level Geschafft"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackToMenu" type="Button" parent="Pruefungsmodus/UI/WinnerPopup/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 10
+text = "Zurueck zum Menu"
+
+[node name="Minimap" parent="Pruefungsmodus/UI" instance=ExtResource("6_c5eov")]
 offset = Vector2(920, 420)
 transform = Transform2D(1, 0, 0, 1, 920, 420)
 
@@ -134,10 +166,9 @@ transform = Transform2D(1, 0, 0, 1, 920, 420)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -24.0
-offset_top = -3.0
-offset_right = 16.0
-offset_bottom = 37.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
 grow_horizontal = 2
 alignment = 1
 script = ExtResource("5_qomti")
