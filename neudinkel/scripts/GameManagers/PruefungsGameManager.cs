@@ -35,6 +35,9 @@ public partial class PruefungsGameManager : SimulationGameManager
 		initialSteps();
 		currentAlgorithm.startNode.setHighlighted(true);
 		currentAlgorithm.goalNode.setHighlighted(true);
+
+		Minimap minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
+		minimap.initMiniMap(this);
 	}
 
 	public override void _Process(double delta)

@@ -39,6 +39,11 @@ public partial class SimulationGameManager : GameManager
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
 		SetStartNode += onSetStartNode;
 		SetGoalNode += onSetGoalNode;
+
+
+
+		Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
+		minimap.initMiniMap(this);
 	}
 
 	public override void _Process(double delta)
@@ -78,6 +83,19 @@ public partial class SimulationGameManager : GameManager
 		int nextStep = step ? this.currentAlgorithm.doSearchStep() : this.currentAlgorithm.doSearchForward();
 
 		textBoxBox.highlightNextStep(nextStep);
+		
+		
+		if(this is SimulationGameManager)
+		{
+			Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
+			minimap.updateMinimapNodes(this.currentAlgorithm);
+		}
+		else
+		{
+			Minimap minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
+			minimap.updateMinimapNodes(this.currentAlgorithm);
+		}
+		
 	}
 
 	// automatisches Ausführen vom Algorithmus mit Geschwindigkeit automaticSimulationSpeed

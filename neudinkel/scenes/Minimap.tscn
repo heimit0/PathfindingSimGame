@@ -10,7 +10,3 @@ script = ExtResource("1_q45j0")
 offset_right = 200.0
 offset_bottom = 200.0
 theme = ExtResource("2_2niip")
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
-scale = Vector2(2, 2)
-polygon = PackedVector2Array(0, 0, 1, 0, 0, 1)
