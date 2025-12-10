@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://baej2qg8np44g"]
+
+[ext_resource type="PackedScene" uid="uid://c75wh8lba6lsi" path="res://models/testing/flag.fbx" id="1_ue10i"]
+
+[node name="Flag" type="Node3D"]
+
+[node name="flag" parent="." instance=ExtResource("1_ue10i")]
+transform = Transform3D(0.04103457, -0.008044223, -0.043028526, 0.008338942, 0.059334654, -0.0031401576, 0.042972382, -0.0038326236, 0.041697543, -0.17393476, 0.006024897, 0.09399074)
