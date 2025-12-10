@@ -131,6 +131,7 @@ public partial class GraphNode : Node3D
         Node3D scene = (Node3D)ResourceLoader.Load<PackedScene>("assets/tiles/" + fileName + ".tscn").Instantiate(); // TODO: add variations
         Node3D obj = new Node3D();
         obj.AddChild(scene);
+
         return obj;
     }
 

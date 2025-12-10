@@ -164,9 +164,15 @@ public partial class Graph : Node3D
 		}
 
 		foreach (GraphNode n in this.nodes)
+		{
 			this.AddChild(n);
-
+		}
 		initCoordsNodes();
+		Node3D startflag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/flag.tscn").Instantiate(); // TODO: add variations
+		Node3D goalflag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/flag.tscn").Instantiate(); // TODO: add variations
+
+		gm.startNode.AddChild(startflag);
+		gm.goalNode.AddChild(goalflag);
 
 		return false;
 	}
