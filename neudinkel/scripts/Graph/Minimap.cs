@@ -2,6 +2,21 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+
+public class WeightedGraphEdge
+{
+    public GraphNode from { get; set; }
+    public GraphNode to { get; set; }
+    public float weight { get; set; }
+
+    public WeightedGraphEdge(GraphNode from, GraphNode to, float weight)
+    {
+        this.from = from;
+        this.to = to;
+        this.weight = weight;
+    }
+}
 
 public partial class Minimap : CanvasLayer
 {
@@ -16,6 +31,9 @@ public partial class Minimap : CanvasLayer
 
     public Dictionary<GraphNode, Polygon2D> minimapNodes;
     public Dictionary<GraphNode, List<GraphNode>> edges;
+    public List<WeightedGraphEdge> edgeWeights;
+    public float minEdgeWeight = 1000.0f, maxEdgeWeight = 0.0f;
+    public float edgeBaseGrayValue = 0.1f;
 
     public Vector2[] tmpPolygon = {
         new Vector2(0.5f, 0),
@@ -26,10 +44,23 @@ public partial class Minimap : CanvasLayer
         new Vector2(0, 0.3f)
     };
 
-    public void initMiniMap(GameManager gameManager)
+    public override void _Ready()
     {
         this.sizeX -= minimapNodeSize;
         this.sizeY -= minimapNodeSize;
+    }
+
+    public void initMiniMap(GameManager gameManager)
+    {
+        foreach (Node child in this.GetChildren())
+        {
+            if (child is Polygon2D)
+            {
+                this.RemoveChild(child);
+                child.QueueFree();
+            }
+        }
+
         this.gameManager = gameManager;
         this.gameGraph = this.gameManager.graph;
         this.minimapNodes = new Dictionary<GraphNode, Polygon2D>();
@@ -56,6 +87,7 @@ public partial class Minimap : CanvasLayer
 
             Polygon2D newMinimapNode = new Polygon2D();
             newMinimapNode.Polygon = this.tmpPolygon;
+            newMinimapNode.Color = Colors.DarkGray;
             newMinimapNode.ZIndex = 20;
             newMinimapNode.Position = new Vector2I(outputX, outputY);
             newMinimapNode.Scale = Vector2.One * this.minimapNodeSize;
@@ -69,6 +101,18 @@ public partial class Minimap : CanvasLayer
         {
             foreach (GraphNode neighbour in edge.Value)
             {
+                WeightedGraphEdge currentEdge = this.edgeWeights.Find(e => e.from.Equals(edge.Key) && e.to.Equals(neighbour));
+                if (currentEdge is null)
+                {
+                    GD.PrintErr("weight of edge not known in minimap edges! Aborting...");
+                    return;
+                }
+
+                Color edgeColor = new Color(edgeBaseGrayValue, 1.0f - edgeBaseGrayValue, edgeBaseGrayValue);
+                float weightColorDiff = Mathf.Remap(currentEdge.weight, this.minEdgeWeight, this.maxEdgeWeight, 0.0f, 1.0f - edgeBaseGrayValue);
+                edgeColor.G -= weightColorDiff;
+                edgeColor.R += weightColorDiff;
+
                 Vector2 startPos = Vector2.Zero, goalPos = Vector2.Zero;
 
                 foreach (KeyValuePair<GraphNode, Polygon2D> minimapNode in this.minimapNodes)
@@ -84,14 +128,14 @@ public partial class Minimap : CanvasLayer
                     return;
                 }
 
+                // schön-machen-berechnung ~georg
                 Vector2 edgeDirection = goalPos - startPos;
                 Vector2 edgeThicknessHelper = (new Vector2(-edgeDirection.Y, edgeDirection.X)).Normalized();
                 startPos += (Vector2.One * this.minimapNodeSize / 2) - (edgeThicknessHelper * (this.edgeThickness / 2)); // center of each node
                 goalPos += (Vector2.One * this.minimapNodeSize / 2) - (edgeThicknessHelper * (this.edgeThickness / 2));
 
                 Polygon2D newMinimapEdge = new Polygon2D();
-                // newMinimapEdge.Position = startPos;
-                newMinimapEdge.Color = Colors.Gray;
+                newMinimapEdge.Color = edgeColor;
                 newMinimapEdge.ZIndex = 10;
                 newMinimapEdge.Polygon = new Vector2[] {
                     startPos,
@@ -105,9 +149,11 @@ public partial class Minimap : CanvasLayer
         }
     }
 
+    // mittlerweile ugly, aber egal
     public void setGraphEdges(Graph graph)
     {
         this.edges = new Dictionary<GraphNode, List<GraphNode>>();
+        this.edgeWeights = new List<WeightedGraphEdge>();
 
         foreach (GraphNode from in graph.getCities())
         {
@@ -115,6 +161,13 @@ public partial class Minimap : CanvasLayer
             {
                 if (this.edges.ContainsKey(from) && this.edges[from].Contains(to)) continue;
                 if (this.edges.ContainsKey(to) && this.edges[to].Contains(from)) continue;
+
+                GraphNode[] edgePath = from.getPathToNeighbouringCity(to);
+                float edgeWeight = 0.0f;
+                foreach (GraphNode n in edgePath) edgeWeight += (int)n.streetType;
+                this.edgeWeights.Add(new WeightedGraphEdge(from, to, edgeWeight));
+                if (edgeWeight < this.minEdgeWeight) this.minEdgeWeight = edgeWeight;
+                if (edgeWeight > this.maxEdgeWeight) this.maxEdgeWeight = edgeWeight;
 
                 if (this.edges.ContainsKey(from))
                 {
@@ -124,6 +177,25 @@ public partial class Minimap : CanvasLayer
                 {
                     this.edges.Add(from, new List<GraphNode>() { to });
                 }
+            }
+        }
+    }
+
+    public void updateMinimapNodes(NeudinkelAlgorithm algorithm)
+    {
+        // visited nodes
+        foreach (KeyValuePair<GraphNode, Polygon2D> entry in this.minimapNodes)
+        {
+            if (algorithm.visitedNodes is null) break;
+            if (algorithm.visitedNodes.Contains(entry.Key)) entry.Value.Color = Colors.White;
+        }
+
+        // current node
+        foreach (KeyValuePair<GraphNode, Polygon2D> entry in this.minimapNodes)
+        {
+            if (entry.Key.Equals(algorithm.currentNode))
+            {
+                entry.Value.Color = Colors.Yellow;
             }
         }
     }

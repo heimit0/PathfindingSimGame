@@ -9,7 +9,7 @@ material = ExtResource("1_a4ddg")
 offset_left = 912.0
 offset_top = 144.0
 offset_right = 1136.0
-offset_bottom = 544.0
+offset_bottom = 355.0
 theme_override_styles/panel = ExtResource("2_bimoo")
 
 [node name="ItemList" type="ItemList" parent="."]
@@ -17,7 +17,7 @@ layout_mode = 0
 offset_left = 16.0
 offset_top = 32.0
 offset_right = 208.0
-offset_bottom = 384.0
+offset_bottom = 192.0
 auto_width = true
 same_column_width = true
 script = ExtResource("1_kvkmi")

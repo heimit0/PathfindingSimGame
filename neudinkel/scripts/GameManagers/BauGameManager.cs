@@ -181,6 +181,10 @@ public partial class BauGameManager : GameManager
 
 		// deselect all
 		onTileSelected(new Vector2I(-10000, -10000));
+
+		// update minimap
+		Minimap minimap = GetNode<Minimap>("Baumodus/UI/Minimap");
+		minimap.initMiniMap(this);
 	}
 
 	public void onChangeToSimulationMode()
