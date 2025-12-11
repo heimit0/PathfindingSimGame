@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dw46rq0gpvov7"]
+[gd_scene load_steps=9 format=3 uid="uid://dw46rq0gpvov7"]
 
-[ext_resource type="StyleBox" uid="uid://uaef6xta4jcb" path="res://assets/ui_presets/PanelBackground.tres" id="1_2va1r"]
 [ext_resource type="Script" uid="uid://p08l8rqp6kcq" path="res://scripts/ui_buttons/LadenPopup.cs" id="1_xj4wj"]
 [ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="2_2va1r"]
 [ext_resource type="Theme" uid="uid://wpj72fhbl7gv" path="res://assets/ui_presets/Popup_buttons.tres" id="3_2va1r"]
+[ext_resource type="FontFile" uid="uid://cryqnyausjcxw" path="res://assets/ui_presets/futurawin.ttf" id="4_463ae"]
 [ext_resource type="Script" uid="uid://chfeg5i8nqoag" path="res://scripts/LevelLoadList.cs" id="4_xj4wj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xj4wj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2va1r"]
 bg_color = Color(0.003921569, 0.003921569, 0.003921569, 0)
@@ -22,7 +25,7 @@ oversampling_override = 1.0
 initial_position = 1
 size = Vector2i(250, 450)
 visible = true
-theme_override_styles/panel = ExtResource("1_2va1r")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xj4wj")
 script = ExtResource("1_xj4wj")
 
 [node name="Hintergrund" type="PanelContainer" parent="."]
@@ -55,6 +58,7 @@ alignment = 1
 [node name="Titel" type="Label" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("3_2va1r")
+theme_override_fonts/font = ExtResource("4_463ae")
 theme_override_font_sizes/font_size = 20
 text = "Level auswählen:"
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://di1y1fetenvpb" path="res://scripts/ui_buttons/SpeichernPopup.cs" id="1_0df0a"]
 [ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="2_rl636"]
-[ext_resource type="Theme" uid="uid://wpj72fhbl7gv" path="res://assets/ui_presets/Popup_buttons.tres" id="3_pfw30"]
+[ext_resource type="Theme" uid="uid://bxuenqfc1auia" path="res://assets/ui_presets/Popup_buttons.tres" id="3_pfw30"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yioj3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

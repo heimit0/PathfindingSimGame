@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://nkcomdshhipw"]
+[gd_scene load_steps=10 format=3 uid="uid://nkcomdshhipw"]
 
-[ext_resource type="Texture2D" uid="uid://bq7xsl40bb5b6" path="res://models/textures/wolkenv2rc.png" id="1_h4g3l"]
+[ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="1_otr7c"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="2_u8j0d"]
-[ext_resource type="Theme" uid="uid://wpj72fhbl7gv" path="res://assets/ui_presets/Popup_buttons.tres" id="3_owled"]
+[ext_resource type="Theme" uid="uid://bxuenqfc1auia" path="res://assets/ui_presets/Popup_buttons.tres" id="3_owled"]
 [ext_resource type="Texture2D" uid="uid://ymvtaea43a6k" path="res://assets/ui_icons/restart.svg" id="3_qf44v"]
+[ext_resource type="FontFile" uid="uid://cryqnyausjcxw" path="res://assets/ui_presets/futurawin.ttf" id="3_qq7jr"]
 [ext_resource type="Texture2D" uid="uid://cfcxr6506wwen" path="res://assets/ui_icons/home.svg" id="4_bce3o"]
 [ext_resource type="Script" uid="uid://beaukoodhtrmg" path="res://scripts/ui_buttons/BackToMainmenu.cs" id="6_otr7c"]
 
@@ -17,23 +18,11 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 0.48235294)
 border_blend = true
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 corner_detail = 20
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_otr7c"]
-texture = ExtResource("1_h4g3l")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq7jr"]
-bg_color = Color(0, 0, 0, 0.48235294)
-border_color = Color(0, 0, 0, 0.48235294)
-border_blend = true
-corner_radius_top_left = 9
-corner_radius_top_right = 9
-corner_radius_bottom_right = 9
-corner_radius_bottom_left = 9
 
 [node name="PopupPanel" type="PopupPanel"]
 oversampling_override = 1.0
@@ -43,6 +32,7 @@ visible = true
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qf44v")
 
 [node name="Hintergrund" type="PanelContainer" parent="."]
+material = ExtResource("1_otr7c")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -55,14 +45,6 @@ offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_owled")
-
-[node name="Wolken" type="PanelContainer" parent="Hintergrund"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_otr7c")
-
-[node name="Overlay" type="PanelContainer" parent="Hintergrund"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qq7jr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 5
@@ -80,8 +62,9 @@ alignment = 1
 [node name="Description" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_u8j0d")
-theme_override_font_sizes/font_size = 35
-text = "Level geschafft"
+theme_override_fonts/font = ExtResource("3_qq7jr")
+theme_override_font_sizes/font_size = 40
+text = "Level geschafft."
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
