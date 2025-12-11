@@ -58,7 +58,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	/* Schritt 1 */
 	public int initUnvisitedNodes(Graph g)
 	{
-		this.unvisitedNodes = new PriorityQueue<GraphNode, float>();
+		this.unvisitedNodes = new NeudinkelPriorityQueue<GraphNode, float>();
 		return this.currentStep + 1;
 	}
 

@@ -145,7 +145,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	// diese wird nach und nach mit nachbarn gefüllt
 	private int initUnvisitedNodes(Graph g)
 	{
-		unvisitedNodes = new PriorityQueue<GraphNode, float>();
+		unvisitedNodes = new NeudinkelPriorityQueue<GraphNode, float>();
 		GD.Print("A Star innit!");
 
 		return currentStep + 1;
