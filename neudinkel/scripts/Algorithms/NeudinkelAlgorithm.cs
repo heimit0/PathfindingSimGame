@@ -18,7 +18,7 @@ public abstract class NeudinkelAlgorithm
 
 
 	// noch nicht besuchte Nodes
-	public PriorityQueue<GraphNode, float> unvisitedNodes;
+	public NeudinkelPriorityQueue<GraphNode, float> unvisitedNodes;
 	// bereits besuchte Nodes
 	public HashSet<GraphNode> visitedNodes;
 	// tatsächliche, bekannte Kosten pro Node zum Start
