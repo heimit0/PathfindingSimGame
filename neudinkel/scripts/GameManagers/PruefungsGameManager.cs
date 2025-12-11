@@ -33,8 +33,9 @@ public partial class PruefungsGameManager : SimulationGameManager
 		GD.Print("Algo geladen");
 
 		initialSteps();
-		currentAlgorithm.startNode.setHighlighted(true);
-		currentAlgorithm.goalNode.setHighlighted(true);
+
+		currentAlgorithm.startNode.updateModel();
+		currentAlgorithm.goalNode.updateModel();
 
 		Minimap minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
 		minimap.initMiniMap(this);
