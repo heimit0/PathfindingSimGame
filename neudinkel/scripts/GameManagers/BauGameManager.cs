@@ -170,6 +170,7 @@ public partial class BauGameManager : GameManager
 						if (this.startNode == n3) this.startNode = null;
 						if (this.goalNode == n3) this.goalNode = null;
 					}
+
 					foreach (GraphNode n3 in n2.getNeighbours())
 					{
 						if (this.startNode == n3) this.startNode = null;
@@ -189,20 +190,22 @@ public partial class BauGameManager : GameManager
 				if (n.Equals(this.startNode))
 				{
 					this.startNode = null;
+					this.startNode.isStartNode = false;
 					GD.Print("Baumodus: reset start node!");
 				}
 
 				if (n.Equals(this.goalNode))
 				{
-					this.goalNode = null;
+					this.goalNode.isGoalNode = false;
 					GD.Print("Baumodus: reset goal node!");
 				}
-
-				// TODO fix impl: n.isStartNode = false; n.isGoalNode = false;
 			}
 
-			n.updateModel();
+			GD.Print("new streettype: " + (int) n.streetType);
 		}
+
+		// erst im nachhinein updaten, damit fehler vermieden werden
+		foreach (GraphNode n in this.selectedNodes) n.updateModel();
 
 		// deselect all
 		onTileSelected(new Vector2I(-10000, -10000));
@@ -252,7 +255,11 @@ public partial class BauGameManager : GameManager
 			return;
 		}
 
+		this.startNode.isStartNode = false;
+		this.startNode.updateModel();
 		this.startNode = this.selectedNodes[0];
+		this.startNode.isStartNode = true;
+		this.startNode.updateModel();
 		GD.Print("Setting start node at: " + this.startNode.getTilePosString());
 		this.onTileSelected(new Vector2I(-10000, -10000)); // deselect all
 	}
@@ -283,7 +290,11 @@ public partial class BauGameManager : GameManager
 			return;
 		}
 
+		this.goalNode.isGoalNode = false;
+		this.goalNode.updateModel();
 		this.goalNode = this.selectedNodes[0];
+		this.goalNode.isGoalNode = true;
+		this.goalNode.updateModel();
 		GD.Print("Setting goal node at: " + this.goalNode.getTilePosString());
 		this.onTileSelected(new Vector2I(-10000, -10000)); // deselect all
 	}

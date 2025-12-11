@@ -72,7 +72,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	/* Schritt 3 */
 	public int enqueueStartNode(Graph g)
 	{
-		this.unvisitedNodes.Enqueue(this.startNode, 0);
+		enqueueLikeStack(this.startNode);
 		this.visitedNodes.Add(startNode);
 		Events.Instance.EmitSignal(Events.SignalName.UpdateOpenQueue);
 		return this.currentStep + 1;
@@ -149,7 +149,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	/* Schritt 8 */
 	public int enqueueNeighbour(Graph g)
 	{
-		this.unvisitedNodes.Enqueue(this.currentNeighbour, 0);
+		enqueueLikeStack(this.currentNeighbour);
 		Events.Instance.EmitSignal(Events.SignalName.UpdateOpenQueue);
 		this.cameFrom.Add(currentNeighbour, currentNode);
 		return this.currentStep + 1;
@@ -161,4 +161,11 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		this.visitedNodes.Add(this.currentNeighbour);
 		return 5; /* forEveryNeighbour */
 	}
+
+	/* Funny hack because we always use a priority queue for unvisited nodes */
+	public void enqueueLikeStack(GraphNode n)
+	{
+		this.unvisitedNodes.Enqueue(n, -this.unvisitedNodes.Count);
+	}
+
 }
