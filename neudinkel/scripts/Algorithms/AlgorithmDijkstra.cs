@@ -250,6 +250,21 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int updateNeighbourCost(Graph g)
 	{
 		distanceFromStart[currentNeighbours[currentNeighbourIndex]] = currentNeighbourCost;
+		NeudinkelPriorityQueue<GraphNode, float> tmpQueue = new NeudinkelPriorityQueue<GraphNode, float>();
+		while (unvisitedNodes.Count != 0)
+		{
+			GraphNode tmpNode  = unvisitedNodes.Dequeue();
+			if(tmpNode != currentNeighbours[currentNeighbourIndex])
+			{
+				tmpQueue.Enqueue(tmpNode,distanceFromStart[tmpNode]);
+			}
+		}
+		while (tmpQueue.Count != 0)
+		{
+			GraphNode tmpNode  = tmpQueue.Dequeue();
+			unvisitedNodes.Enqueue(tmpNode,distanceFromStart[tmpNode]);
+		}
+		unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex],distanceFromStart[currentNeighbours[currentNeighbourIndex]]);
 		updateCost(currentNeighbours[currentNeighbourIndex]);
 		return currentStep + 1;
 	}
