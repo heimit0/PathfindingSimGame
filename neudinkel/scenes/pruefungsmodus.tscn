@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d4l2g3urlpx3q"]
+[gd_scene load_steps=15 format=3 uid="uid://d4l2g3urlpx3q"]
 
 [ext_resource type="Script" uid="uid://dpdiys1tq75u1" path="res://scripts/GameManagers/PruefungsGameManager.cs" id="1_70lit"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_7rp0e"]
@@ -6,11 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="3_70lit"]
 [ext_resource type="Theme" uid="uid://di2fwfbs3b63t" path="res://assets/ui_presets/slidedown_buttons.tres" id="5_7rp0e"]
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="5_qomti"]
-[ext_resource type="PackedScene" uid="uid://dyyyfal4p6jcv" path="res://scenes/Minimap.tscn" id="6_c5eov"]
+[ext_resource type="PackedScene" path="res://scenes/Minimap.tscn" id="6_c5eov"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="6_st3as"]
 [ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="7_st3as"]
 [ext_resource type="Script" uid="uid://c3q5c1xahl7ue" path="res://scripts/ui_buttons/openTutorialPopup.cs" id="8_n8kv3"]
 [ext_resource type="PackedScene" uid="uid://b6acmjxqngq3f" path="res://assets/ui_offcanvas_scenes/tutorialPopup.tscn" id="9_ksohj"]
+[ext_resource type="PackedScene" uid="uid://devtia7jy1ka8" path="res://assets/ui_offcanvas_scenes/LevelFailed.tscn" id="12_8npku"]
+[ext_resource type="PackedScene" uid="uid://nkcomdshhipw" path="res://assets/ui_offcanvas_scenes/LevelCompleted.tscn" id="13_bswbg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_st3as"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -161,6 +163,10 @@ text = "Zurueck zum Menu"
 [node name="Minimap" parent="Pruefungsmodus/UI" instance=ExtResource("6_c5eov")]
 offset = Vector2(920, 420)
 transform = Transform2D(1, 0, 0, 1, 920, 420)
+
+[node name="LevelFailedPopup" parent="Pruefungsmodus/UI" instance=ExtResource("12_8npku")]
+
+[node name="LevelCompletePopup" parent="Pruefungsmodus/UI" instance=ExtResource("13_bswbg")]
 
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5
