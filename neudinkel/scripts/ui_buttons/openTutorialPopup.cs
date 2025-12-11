@@ -18,14 +18,16 @@ public partial class openTutorialPopup : TextureButton
             return;
         }
 
-        // Popup instanziieren
-        Node popupInstance = tutorialPopup.Instantiate();
+        Node popupInstance = null;
+        TutorialPopup existingPopup = GetNodeOrNull<TutorialPopup>("/root/Node3D/PopupPanel"); // TODO fix
+        if (existingPopup != null) popupInstance = existingPopup;
 
-        // In aktuelle Szene einfügen
-        GetTree().CurrentScene.AddChild(popupInstance);
-
-        if (popupInstance is TutorialPopup popup) {
-            popup.PopupCentered();
+        if (popupInstance == null)
+        {
+            popupInstance = tutorialPopup.Instantiate();
+            GetTree().CurrentScene.AddChild(popupInstance);
         }
+
+        (popupInstance as TutorialPopup).PopupCentered();
     }
 }
