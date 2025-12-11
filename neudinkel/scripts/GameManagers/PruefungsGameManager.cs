@@ -101,7 +101,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 
     private void lvlGeschafft()
     {
-        var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/WinnerPopup");
+        var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/LevelCompletePopup");
 
 		if (popup is not null)	popup.Show();
 
@@ -146,13 +146,14 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 		if(wrongStepCounter >= 4)
 		{
-			
+			var lvlFailed = GetNode<PopupPanel>("Pruefungsmodus/UI/LevelFailedPopup");
+			lvlFailed.Show();
 		}
 
 		returnToCheckpoint();
 	}
 
-
+	//Legacy
 	public void hidePopupOnButtonPressed()
 	{
 		var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup");
