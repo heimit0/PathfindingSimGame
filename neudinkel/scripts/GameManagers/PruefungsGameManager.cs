@@ -59,15 +59,17 @@ public partial class PruefungsGameManager : SimulationGameManager
 	public void playerInteraction(Vector2I tilePos)
 	{
 		GD.Print("Player clicked");
-
-		skipTillNextCurrentNode();
-
 		GraphNode playerNode = this.graph.getNode(tilePos.X, tilePos.Y);
 		if (playerNode is null)
 		{
-			GD.PrintErr("Player clicked the void at: " + tilePos);
+			GD.PrintErr("Player clicked the void at: " + tilePos);	
 			return;
 		}
+
+		
+		skipTillNextCurrentNode();
+
+	
 		if(currentAlgorithm.currentNode is null)
 		{
 			GD.Print("current Node is null");
