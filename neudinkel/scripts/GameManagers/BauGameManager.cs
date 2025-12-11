@@ -89,6 +89,7 @@ public partial class BauGameManager : GameManager
 
 		if (selectedGhostNode != null)
 		{
+			GD.Print("Selected ghost node: " + selectedGhostNode.getTilePosString());
 			selectedGhostNode.makeInstance();
 			return;
 		}
@@ -108,6 +109,8 @@ public partial class BauGameManager : GameManager
 		}
 		else
 		{
+			GD.Print("Selected graph node: " + newSelectedNode.getTilePosString() + " -> streetType: " + newSelectedNode.streetType.ToString());
+
 			// gucken, ob die neue node schon in der liste ist
 			// da wir die liste aendern muessen wir sie vorher kopieren
 			GraphNode[] _selectedNodes = this.selectedNodes.ToArray();
@@ -134,26 +137,14 @@ public partial class BauGameManager : GameManager
 		// add nodes
 		foreach (GraphNode n in this.selectedNodes)
 		{
+			if (newStreetType == (int) StreetType.EMPTY) continue;
 			if (this.graph.getNode(n) == null) this.graph.addNode(n);
 		}
 
 		// add relations
 		foreach (GraphNode n1 in this.selectedNodes)
 		{
-			// if "make empty"
-			if (newStreetType == (int)StreetType.EMPTY)
-			{
-				// skip all, remove all neighbours
-				// but clear neighbours end/start state beforehand to prevent dangling stuff
-				// when turning them into street tiles
-				foreach (GraphNode n2 in n1.getNeighbours())
-				{
-					if (this.startNode == n2) this.startNode = null;
-					if (this.goalNode == n2) this.goalNode = null;
-				}
-				n1.clearNeighbours();
-				continue;
-			}
+			if (newStreetType == (int) StreetType.EMPTY) continue;
 
 			foreach (GraphNode n2 in this.selectedNodes)
 			{
@@ -187,6 +178,8 @@ public partial class BauGameManager : GameManager
 
 			if (newStreetType == (int) StreetType.EMPTY)
 			{
+				n.clearNeighbours();
+
 				if (n.Equals(this.startNode))
 				{
 					this.startNode = null;

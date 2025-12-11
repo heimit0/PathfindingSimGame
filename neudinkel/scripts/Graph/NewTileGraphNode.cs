@@ -26,6 +26,11 @@ public partial class NewTileGraphNode : Node3D
 		this.Position = GraphNode.convertTilePosToPos(tilePosX, tilePosY);
 	}
 
+	public String getTilePosString()
+	{
+		return "[" + this.tilePosX + ", " + this.tilePosY + "]";
+	}
+
 	// macht das tile zu einem echten Tile
 	public void makeInstance()
 	{

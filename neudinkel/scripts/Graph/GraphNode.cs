@@ -103,7 +103,8 @@ public partial class GraphNode : Node3D
             case int n when n != 2:
                 int c = _neighbours.Length < 2 ? 3 : 0;
                 this.tile = loadAsset("city_0" + (_neighbours.Length + c) + "_" + "1");
-                loadCityConnectionsAssets();
+
+                if (this.streetType != (int)StreetType.EMPTY) loadCityConnectionsAssets();
                 break;
             // if street
             case 2:
@@ -121,6 +122,7 @@ public partial class GraphNode : Node3D
             goalPost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate(); // TODO: add variations
             this.AddChild(goalPost);
         }
+
         this.AddChild(tile);
     }
 
@@ -157,7 +159,14 @@ public partial class GraphNode : Node3D
 
         foreach (GraphNode n in _neighbours)
         {
+            if (n.streetType == (int)StreetType.EMPTY)
+            {
+                GD.PrintErr("Tried to load connection for empty streettile for neighbour: " + n.getTilePosString() + " from: " + this.getTilePosString());
+                return;
+            }
+
             Node3D newConnection = (Node3D)ResourceLoader.Load<PackedScene>("assets/tiles/connection_00_" + (int)n.streetType + ".tscn").Instantiate();
+
             newConnection.RotateY(Mathf.DegToRad(((int)getNeighbourType(this, n) * -60.0f)));
             this.AddChild(newConnection);
         }
@@ -290,13 +299,13 @@ public partial class GraphNode : Node3D
         // besten pfad konstruieren
         List<GraphNode> finalPath = [];
         GraphNode currentNode = goalNode;
-		stepCounter = 0;
+        stepCounter = 0;
 
         while (cameFrom.ContainsKey(currentNode) && stepCounter < 1000)
         {
             finalPath.Add(currentNode);
             currentNode = cameFrom[currentNode];
-			stepCounter++;
+            stepCounter++;
         }
 
         return finalPath.ToArray();
