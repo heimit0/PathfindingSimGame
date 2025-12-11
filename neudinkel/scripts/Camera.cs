@@ -101,7 +101,6 @@ public partial class Camera : Camera3D
 
 			if (gameManager is PruefungsGameManager)
 			{
-				GD.Print("Camera: Emitting TileHovered for tile: [" + tilePos.X + ", " + tilePos.Y + "]");
 				EmitSignal(SignalName.TileHovered, tilePos);
 			}
 		}
