@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPruefPageData" load_steps=3 format=3 uid="uid://j0pe40cedvgt"]
+
+[ext_resource type="Texture2D" uid="uid://dikofkyj6emtn" path="res://assets/tutorial_bilder/pruefmodusZiel.png" id="1_n83xu"]
+[ext_resource type="Script" uid="uid://ckd2bmnlsdaxg" path="res://scripts/TutorialPruefPageData.cs" id="2_atlq0"]
+
+[resource]
+script = ExtResource("2_atlq0")
+Label = "Prüfungsmodus"
+Text = "Wenn du den richtigen Weg bis zum Ziel wählst dann hast du das Level geschafft und erhälst einen Stern in der Levelübersicht."
+Image = ExtResource("1_n83xu")
+metadata/_custom_type_script = "uid://ckd2bmnlsdaxg"

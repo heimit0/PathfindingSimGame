@@ -12,6 +12,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 	private GraphNode lastNode;
 
+	private NodePath minimapPath = "Pruefungsmodus/UI/Info/totalBlock/minimapBox/Minimap";
+
 	private int correctStepCounterSinceLastSave;
 	private int wrongStepCounter;
     public override void  _Ready()
@@ -42,7 +44,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		currentAlgorithm.startNode.updateModel();
 		currentAlgorithm.goalNode.updateModel();
 
-		Minimap minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
+		Minimap minimap = GetNodeOrNull<Minimap>(minimapPath);
 		minimap.initMiniMap(this);
 
 		lastNode = startNode;

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPruefPageData" load_steps=3 format=3 uid="uid://bnc087j5745a6"]
+
+[ext_resource type="Texture2D" uid="uid://c1ne8wpwrsh5p" path="res://assets/tutorial_bilder/minimapPrüfungsmodus.png" id="1_plfsy"]
+[ext_resource type="Script" uid="uid://ckd2bmnlsdaxg" path="res://scripts/TutorialPruefPageData.cs" id="2_e23hy"]
+
+[resource]
+script = ExtResource("2_e23hy")
+Label = "Minimap"
+Text = "Unten rechts kannst du Minimap sehen. Aus dieser kannst du erkennen welche Wege am teuresten sind (rot) und welche am billigsten (grün). Es gibt auch andere Farben wie braun, diese Wege liegen von den Kosten eher dazwischen."
+Image = ExtResource("1_plfsy")
+metadata/_custom_type_script = "uid://ckd2bmnlsdaxg"

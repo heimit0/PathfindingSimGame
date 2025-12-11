@@ -32,9 +32,8 @@ public partial class SimulationGameManager : GameManager
 	public NeudinkelAlgorithm currentAlgorithm { get; set; }
 
 	public PseudocodeTextBox textBoxBox { get; set; }
-	public Minimap minimap;
 
-	public GraphNode lastNode;
+	private NodePath minimapPath = "Simulationsmodus/UI/Info/totalBlock/minimapBox/Minimap";
 
 	public override void _Ready()
 	{
@@ -49,8 +48,9 @@ public partial class SimulationGameManager : GameManager
 		goalNode.updateModel();
 		lastNode = startNode;
 
-		this.minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
-		this.minimap.initMiniMap(this);
+
+		Minimap minimap = GetNodeOrNull<Minimap>(minimapPath);
+		minimap.initMiniMap(this);
 	}
 
 	public override void _Process(double delta)
@@ -109,11 +109,13 @@ public partial class SimulationGameManager : GameManager
 
 		if (this is PruefungsGameManager)
 		{
-			minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
+			Minimap minimap = GetNode<Minimap>(minimapPath);
+			minimap.updateMinimapNodes(this.currentAlgorithm);
 		}
 		else
 		{
-			Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
+			Minimap minimap = GetNode<Minimap>(minimapPath);
+			minimap.updateMinimapNodes(this.currentAlgorithm);
 		}
 		this.minimap.updateMinimapNodes(this.currentAlgorithm);
 	}

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://dt1ong0svnsnq"]
+
+[ext_resource type="Texture2D" uid="uid://bfwiaox0tie1k" path="res://assets/tutorial_bilder/schrittButtonsSim.png" id="1_av54h"]
+[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_wmub4"]
+
+[resource]
+script = ExtResource("2_wmub4")
+Label = "Ablauf"
+Text = "Der Button ganz links sorgt dafür das der Algorithmus langsam schrittweise abläuft."
+Image = ExtResource("1_av54h")
+metadata/_custom_type_script = "uid://tnd4qbj0ypdb"

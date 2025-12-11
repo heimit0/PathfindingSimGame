@@ -3,6 +3,7 @@ using Godot;
 public partial class TutorialPopup : PopupPanel
 {
 	private TextureRect textureRect;
+	private HBoxContainer textureBox;
 	private RichTextLabel tutorialText;
 	private Label tutorialLabel;
 	private Label seitenLabel;
@@ -10,15 +11,33 @@ public partial class TutorialPopup : PopupPanel
 	private TextureButton buttonWeiter;
 	private TextureButton buttonSchliessen;
 
+
+	private int gameModi;
+
 	private int aktuelleSeite = 0;
 
+	private TutorialPageData[] Seiten;
+
 	[Export]
-	public TutorialPageData[] Seiten { get; set; } = new TutorialPageData[0];
+	public TutorialBauPageData[] BauSeiten { get; set; } = new TutorialBauPageData[0]; // Baumodus signalInt = 0
+
+	[Export]
+	public TutorialSimPageData[] SimSeiten { get; set; } = new TutorialSimPageData[0]; // Simulationsmodus signalInt = 1
+
+	[Export]
+	public TutorialPruefPageData[] PruefSeiten { get; set; } = new TutorialPruefPageData[0]; // Pruefmodus signalInt = 2
+
+	[Export]
+	public TutorialPseudoPageData[] PseudoSeiten { get; set; } = new TutorialPseudoPageData[0];
+
+
+	public bool isPseudoBlockTrue = false;
 
 	private AudioStreamPlayer audioPlayer;
 
 	public override void _Ready()
 	{
+		textureBox = GetNode<HBoxContainer>("VBoxContainer/TextureBox");
 		textureRect = GetNode<TextureRect>("VBoxContainer/TextureBox/BilderBox");
 		tutorialText = GetNode<RichTextLabel>("VBoxContainer/TextBox/Text");
 		tutorialLabel = GetNode<Label>("VBoxContainer/TextBox/TutorialLabel");
@@ -34,15 +53,44 @@ public partial class TutorialPopup : PopupPanel
 		buttonWeiter.Pressed += OnForwardsPressed;
 		buttonSchliessen.Pressed += OnClosePressed;
 
-		if (Seiten.Length == 0)
+		gameModi = (int)Globals.getGameMode(this);
+
+		//Events.Instance.SetTutorialIsPseudoBlock += onSetIsPseudoBlock;
+
+		switch (gameModi)
 		{
-			GD.PushWarning("TutorialPopup: 'Seiten' Liste ist leer. Bitte im Inspector füllen.");
-			return;
-		}
+			case 0: 
+				Seiten = BauSeiten;
+				break;
+			case 1: 
+				Seiten = SimSeiten;
+				if (isPseudoBlockTrue)
+				{
+					Seiten = PseudoSeiten;
+				}
+				break;
+			case 2: 
+				Seiten = PruefSeiten;
+				if (isPseudoBlockTrue)
+				{
+					Seiten = PseudoSeiten;
+				}
+				break;
+		} 
 
 		aktuelleSeite = 0;
 		UpdatePageContent();
 	}
+
+	public void setTrueValuePseudoBlock(bool pseudoBlockTrue)
+    {
+         isPseudoBlockTrue = pseudoBlockTrue;
+    }
+
+	// public void onSetIsPseudoBlock(bool pseudoBlockTrue)
+	// {
+	// 	yesPseudoBlock = pseudoBlockTrue;
+	// }
 
 	private void OnBackwardsPressed()
 	{
@@ -58,6 +106,8 @@ public partial class TutorialPopup : PopupPanel
 
 	private void OnForwardsPressed()
 	{
+
+
 		if (Seiten.Length == 0)
 			return;
 
@@ -75,7 +125,7 @@ public partial class TutorialPopup : PopupPanel
 
 	private void UpdatePageContent()
 	{
-		if (Seiten.Length == 0)
+        if (Seiten.Length == 0)
 			return;
 
 		var seite = Seiten[aktuelleSeite];
@@ -83,7 +133,12 @@ public partial class TutorialPopup : PopupPanel
 		tutorialLabel.Text = seite.Label ?? ""; 
 
 		tutorialText.Text = seite.Text ?? "";
-
+		
+		if(seite.Image == null)
+		{
+			textureBox.Visible = false;
+			textureRect.Visible = false;
+		}
 		textureRect.Texture = seite.Image;
 
 		seitenLabel.Text = $"{aktuelleSeite + 1}/{Seiten.Length}";

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://cgb5xubhdb8r2"]
+
+[ext_resource type="Texture2D" uid="uid://dhpin3kitdrjy" path="res://assets/tutorial_bilder/pseudoCodeSimmodus.png" id="1_qjx1i"]
+[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_5dc22"]
+
+[resource]
+script = ExtResource("2_5dc22")
+Label = "Pseudocodeblock"
+Text = "Im Pseudocodeblock siehst du den Pseudocode des jeweiligen Algorithmus. Gleichzeitig wird dir bei jedem Schritt des Codes in gelb die Zeile angezeigt welche als nächste vom Algorithmus ausgeführt wird. In rot erscheint das in diesem Schritt ausgeführte."
+Image = ExtResource("1_qjx1i")
+metadata/_custom_type_script = "uid://tnd4qbj0ypdb"

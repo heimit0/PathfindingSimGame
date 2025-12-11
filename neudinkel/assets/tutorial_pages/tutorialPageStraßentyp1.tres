@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="TutorialPageData" load_steps=3 format=3 uid="uid://bsbpi0huyetuj"]
+[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=3 format=3 uid="uid://bsbpi0huyetuj"]
 
-[ext_resource type="Texture2D" uid="uid://5fx63eojyats" path="res://assets/tutorial_bilder/straßenTypSetzen1.png" id="1_wgtss"]
-[ext_resource type="Script" uid="uid://bx8kcap1vq5l1" path="res://scripts/TutorialPageData.cs" id="2_m1h6p"]
+[ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="1_dpfy6"]
+[ext_resource type="Texture2D" uid="uid://uvxc3iiic3xm" path="res://assets/tutorial_bilder/tileAnpassen1.png" id="1_wgtss"]
 
 [resource]
-script = ExtResource("2_m1h6p")
+script = ExtResource("1_dpfy6")
 Label = "Tileart ändern"
 Text = "Um den Straßentyp einer oder mehrerer Tiles zu ändern musst du diese nur auswählen und dann auf die jeweilig Straße am rechten Bildschirmrand klicken. Hierbei werden Knotenpunkte von selbst gesetzt."
 Image = ExtResource("1_wgtss")

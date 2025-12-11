@@ -25,6 +25,16 @@ public partial class Globals : Node
 	public static string nextLevel; // Gibt mit welches lvl File geladen werden soll
 
 	public static int stufe; //Man kann next lvl in algorithmus und stufe aufteilen, waer schoener aber kein muss TODO
+
+	public enum GameModi
+	{
+		BauM,
+		SimM,
+		PruefM
+	}
+
+	public static openTutorialPopup pseudoTipsButton;
+
 	public static GraphSearchAlgorithm pruefungsAlgorithmus; //Gibt mit welcher Algorithmus bei der Pruefung genutzt wird
 	public static NeudinkelConfig config;
 	public static JsonSerializerOptions jsonOptions = new JsonSerializerOptions { WriteIndented = true };
@@ -84,5 +94,28 @@ public partial class Globals : Node
 		modal.Hide();
 		origin.RemoveChild(modal);
 		modal.QueueFree();
+	}
+
+	public static GameModi getGameMode(Node node)
+	{
+		GameManager gm = node.GetNode<GameManager>("/root/Node3D");
+
+		
+
+		if (gm is SimulationGameManager)
+        {
+            return GameModi.SimM;
+			
+		}else if(gm is BauGameManager){
+			return GameModi.BauM;
+
+		}else if(gm is PruefungsGameManager)
+		{
+			return GameModi.PruefM;
+		}
+
+		return GameModi.BauM;
+		
+		
 	}
 }

@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="TutorialPageData" load_steps=3 format=3 uid="uid://cvgj3kmhqx1dc"]
+[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=3 format=3 uid="uid://cvgj3kmhqx1dc"]
 
-[ext_resource type="Texture2D" uid="uid://bpvjty4k62hvh" path="res://assets/tutorial_bilder/startundEndNodeSetzen.png" id="1_pvxiq"]
-[ext_resource type="Script" uid="uid://bx8kcap1vq5l1" path="res://scripts/TutorialPageData.cs" id="2_rl132"]
+[ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="1_0aau3"]
+[ext_resource type="Texture2D" uid="uid://b6vn0rudeh4sj" path="res://assets/tutorial_bilder/startNodeSetzen.png" id="1_pvxiq"]
 
 [resource]
-script = ExtResource("2_rl132")
+script = ExtResource("1_0aau3")
 Label = "Start- und Endknoten setzen"
-Text = "Im Baumodus musst du einen Start- und Endknoten wählen um dir die Algorithmen simulieren zu lassen. Um diese festzulegen klicke zuerst eine Tile an welche du als Startknoten wählen möchtest und dann das Symbol der Flagge unten links damit diese als Startknoten gesetzt wird. Genau neben dem Flaggensymbol befindet sich ein Symbol mit einem Tor dies nutzt man auf dem selben Weg um einen Endknoten zu setzen."
+Text = "Um einen Start und End Node festzulegen. Klicke zuerst eine Tile an welche du als Startknoten wählen möchtest und dann das Symbol der Flagge unten links damit diese als Startknoten gesetzt wird. Genau neben dem Flaggensymbol befindet sich ein Symbol mit einem Tor dies nutzt man auf dem selben Weg. "
 Image = ExtResource("1_pvxiq")
 metadata/_custom_type_script = "uid://bx8kcap1vq5l1"

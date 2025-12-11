@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="TutorialPageData" load_steps=3 format=3 uid="uid://33doq80ujy6i"]
+[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=3 format=3 uid="uid://33doq80ujy6i"]
 
-[ext_resource type="Texture2D" uid="uid://cbkrmub658mi4" path="res://assets/tutorial_bilder/buttons.png" id="1_4ncka"]
-[ext_resource type="Script" uid="uid://bx8kcap1vq5l1" path="res://scripts/TutorialPageData.cs" id="1_qvs1c"]
+[ext_resource type="Texture2D" uid="uid://dn0mk50esqfvg" path="res://assets/tutorial_bilder/baumodus.png" id="1_4ncka"]
+[ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="2_4ncka"]
 
 [resource]
-script = ExtResource("1_qvs1c")
+script = ExtResource("2_4ncka")
 Label = "Buttons "
 Text = "Die Buttons beschreiben meist mit der Aufschrift was diese tun. Falls du ein Symbol siehst und nicht weißt was dieses tut, kannst du mit deiner Maus drüber hovern und siehst dann eine kurze Beschreibung der Funktionalität. "
 Image = ExtResource("1_4ncka")

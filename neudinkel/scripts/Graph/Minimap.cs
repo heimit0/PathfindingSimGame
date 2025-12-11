@@ -19,7 +19,7 @@ public class WeightedGraphEdge
     }
 }
 
-public partial class Minimap : CanvasLayer
+public partial class Minimap : Panel
 {
     public GameManager gameManager { get; set; }
     public Graph gameGraph { get; set; }

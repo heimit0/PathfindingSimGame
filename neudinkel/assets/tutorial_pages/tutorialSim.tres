@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://kg4n8hliww7w"]
+
+[ext_resource type="Texture2D" uid="uid://cv5vrd0yaxrtn" path="res://assets/tutorial_bilder/tutorial.png" id="1_gbl8p"]
+[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_nu2ex"]
+
+[resource]
+script = ExtResource("2_nu2ex")
+Label = "Tutorial"
+Text = "Wenn du am unteren Bildschirm klickst öffnet sich das Tutorial. Deshalb bist du jetzt hier."
+Image = ExtResource("1_gbl8p")
+metadata/_custom_type_script = "uid://tnd4qbj0ypdb"
