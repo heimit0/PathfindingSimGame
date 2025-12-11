@@ -219,11 +219,14 @@ public partial class Minimap : CanvasLayer
 
                 foreach (KeyValuePair<GraphNode, Polygon2D> entry in this.minimapNodes)
                 {
-					entry.Value.Color = Colors.Yellow;
+                    if (entry.Key.Equals(_currentNode)) entry.Value.Color = Colors.Yellow;
                 }
 
                 _currentNode = algorithm.cameFrom[_currentNode];
             }
+
+			this.minimapNodes[algorithm.startNode].Color = Colors.Yellow;
+            return;
         }
 
         // visited nodes

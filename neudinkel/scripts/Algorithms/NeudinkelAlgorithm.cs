@@ -137,6 +137,7 @@ public abstract class NeudinkelAlgorithm
             }
 
 			_currentNode.setHighlighted(true);
+			gameManager.minimap.updateMinimapNodes(this);
 			return;
 		}
 

@@ -227,7 +227,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		}
 
 		GD.Print("g from start: [" + currentNeighbours[currentNeighbourIndex].getTilePosString() + "] is unknown! adding it...");
-		return 16; // add node to lists
+		return 14; // add node to lists
 	}
 
 	// falls die node bekannt ist, überprüfe, ob die
@@ -257,6 +257,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int updateNeighbourCameFrom(Graph g)
 	{
 		cameFrom[currentNeighbours[currentNeighbourIndex]] = currentNode;
+		GD.Print("camefrom updated");
 
 		currentNeighbourIndex++;
 		return 9;
@@ -266,6 +267,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int addNeighbourParent(Graph g)
 	{
 		cameFrom.Add(currentNeighbours[currentNeighbourIndex], currentNode);
+		GD.Print("camefrom added");
 
 		return currentStep + 1;
 	}

@@ -234,9 +234,9 @@ public partial class GraphNode : Node3D
             cameFrom.Add(head, this);
             costs.Add(head, (int)head.streetType);
         }
-        int stepCounter = 0;
+        int stepCounter = 0, maxSteps = 1000;
 
-        while (stepCounter >= 0)
+        while (stepCounter >= 0 && stepCounter < maxSteps)
         {
             List<GraphNode> newHeads = [];
 
@@ -290,11 +290,13 @@ public partial class GraphNode : Node3D
         // besten pfad konstruieren
         List<GraphNode> finalPath = [];
         GraphNode currentNode = goalNode;
+		stepCounter = 0;
 
-        while (cameFrom.ContainsKey(currentNode))
+        while (cameFrom.ContainsKey(currentNode) && stepCounter < 1000)
         {
             finalPath.Add(currentNode);
             currentNode = cameFrom[currentNode];
+			stepCounter++;
         }
 
         return finalPath.ToArray();
