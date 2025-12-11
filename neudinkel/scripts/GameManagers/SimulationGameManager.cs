@@ -22,6 +22,9 @@ public partial class SimulationGameManager : GameManager
 	[Signal]
 	public delegate void SetAutomaticSimulationSpeedEventHandler(int newSpeed); // slider für speed im simulations-modus
 
+	[Signal]
+	public delegate void TileSelectedEventHandler(Vector2I tilePos);
+
 
 	[Export]
 	public float automaticSimulationSpeed = 1; // für simulationsmodus
@@ -31,6 +34,8 @@ public partial class SimulationGameManager : GameManager
 
 	public PseudocodeTextBox textBoxBox { get; set; }
 
+	public GraphNode lastNode;
+
 	public override void _Ready()
 	{
 		prepScene("baumodus_save");
@@ -39,10 +44,11 @@ public partial class SimulationGameManager : GameManager
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
 		SetStartNode += onSetStartNode;
 		SetGoalNode += onSetGoalNode;
+		TileSelected += OnTileHovered;
 
 		startNode.updateModel();
 		goalNode.updateModel();
-
+		lastNode = startNode;
 
 		Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
 		minimap.initMiniMap(this);
@@ -51,6 +57,22 @@ public partial class SimulationGameManager : GameManager
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
+	}
+
+	// Handler for tile hover/selection events
+	private void OnTileHovered(Vector2I tilePos)
+	{
+		GraphNode playerNode = this.graph.getNode(tilePos.X, tilePos.Y);
+
+		if(playerNode is not null && playerNode != lastNode)
+		{
+			if(lastNode is not null)
+			{
+				lastNode.setHighlighted(false);
+			}
+			lastNode = playerNode;
+			playerNode.setHighlighted(true);
+		}
 	}
 
 	// ruft ensprechende Methode in jedem NeudinkelAlgorithm auf

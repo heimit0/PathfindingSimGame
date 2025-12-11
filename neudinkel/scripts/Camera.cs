@@ -69,6 +69,28 @@ public partial class Camera : Camera3D
 				}
 			}
 		}
+
+		// Handle mouse motion for hover effect in SimulationGameManager
+		if (@event is InputEventMouseMotion eventMouseMotion && isUserInputEnabled)
+		{
+			Vector2 mousePos = eventMouseMotion.Position;
+
+			if (isMouseInUIDeadzone(mousePos))
+				return;
+
+			Vector3 clickPoint = this.ProjectPosition(eventMouseMotion.Position, 1);
+			Vector3 ray = new Vector3(this.Position.X - clickPoint.X, this.Position.Y - clickPoint.Y, this.Position.Z - clickPoint.Z);
+			float castDistance = this.Position.Y / ray.Y;
+			Vector3 nullPos = this.Position - ray * castDistance;
+			Vector2I tilePos = GraphNode.convertPosToTilePos(nullPos);
+
+			GameManager gameManager = GetNode<GameManager>("/root/Node3D");
+
+			if (gameManager is SimulationGameManager && !(gameManager is PruefungsGameManager))
+			{
+				gameManager.EmitSignal("TileSelected", tilePos);
+			}
+		}
 	}
 
 	public override void _Process(double delta)
