@@ -76,7 +76,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 
     private void removeAllLabels()
     {
-        if (graph == null) return;
+		if (graph == null) return;
 
 		foreach (GraphNode node in graph.getCities())
 		{
@@ -107,7 +107,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
     // diese wird nach und nach mit nachbarn gefüllt
     private int initUnvisitedNodes(Graph g)
 	{
-		unvisitedNodes = new PriorityQueue<GraphNode, float>();
+		unvisitedNodes = new NeudinkelPriorityQueue<GraphNode, float>();
 		unvisitedNodes.Enqueue(startNode, 0);
 		// Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, startNode, 0);
 
