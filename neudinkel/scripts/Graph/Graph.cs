@@ -148,6 +148,9 @@ public partial class Graph : Node3D
 			i++;
 		}
 
+		if (gm.startNode == null) GD.PrintErr("Start node couldn't be set from json!");
+		if (gm.goalNode == null) GD.PrintErr("Goal node couldn't be set from json!");
+
 		foreach (JsonObject e in json["edges"].AsArray())
 		{
 			GraphNode from = this.nodes[(int)e["from"]];

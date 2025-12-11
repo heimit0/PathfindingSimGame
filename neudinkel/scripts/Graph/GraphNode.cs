@@ -247,7 +247,7 @@ public partial class GraphNode : Node3D
 					while (cameFrom.ContainsKey(head))
 					{
 						finalPath.Add(head);
-						GD.Print("final path has: " + head.getTilePosString());
+						// GD.Print("final path has: " + head.getTilePosString());
 						head = cameFrom[head];
 					}
 					return finalPath.ToArray();
@@ -262,7 +262,7 @@ public partial class GraphNode : Node3D
 						// Only add if not already in cameFrom (multiple paths can reach same node)
 						if (cameFrom.TryAdd(newHead, head))
 						{
-							GD.Print(newHead.getTilePosString() + " came from " + head.getTilePosString());
+							// GD.Print(newHead.getTilePosString() + " came from " + head.getTilePosString());
 						}
 					}
 				}
