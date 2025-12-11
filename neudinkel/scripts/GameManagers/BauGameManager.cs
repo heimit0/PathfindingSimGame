@@ -20,6 +20,7 @@ public partial class BauGameManager : GameManager
 		if (Globals.baumodusInitLevel == null)
 		{
 			prepScene("baumodus_save");
+			
 		}
 		else
 		{
@@ -41,6 +42,10 @@ public partial class BauGameManager : GameManager
 
 		Minimap minimap = GetNode<Minimap>("Baumodus/UI/Minimap");
 		minimap.initMiniMap(this);
+
+		startNode.updateModel();
+		goalNode.updateModel();
+
 	}
 
 	public override void _Process(double delta)
@@ -223,8 +228,11 @@ public partial class BauGameManager : GameManager
 			Globals.openSimpleInfoModal(this, "Ausgewählte Node ist keine Stadt!", 2);
 			return;
 		}
-
+		this.startNode.isStartNode=false;
+		this.startNode.updateModel();
 		this.startNode = this.selectedNodes[0];
+		this.startNode.isStartNode = true;
+		this.startNode.updateModel();
 		GD.Print("Setting start node at: " + this.startNode.getTilePosString());
 		this.onTileSelected(new Vector2I(-10000, -10000)); // deselect all
 	}
@@ -251,10 +259,14 @@ public partial class BauGameManager : GameManager
 			Globals.openSimpleInfoModal(this, "Ausgewählte Node ist keine Stadt!", 2);
 			return;
 		}
-
+		this.goalNode.isGoalNode = false;
+		this.goalNode.updateModel();
 		this.goalNode = this.selectedNodes[0];
+		this.goalNode.isGoalNode = true;
+		this.goalNode.updateModel();
 		GD.Print("Setting goal node at: " + this.goalNode.getTilePosString());
 		this.onTileSelected(new Vector2I(-10000, -10000)); // deselect all
+		
 	}
 
 	// speichern dialog öffnen und level speichern

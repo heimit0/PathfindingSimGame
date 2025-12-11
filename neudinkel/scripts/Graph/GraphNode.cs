@@ -35,9 +35,18 @@ public partial class GraphNode : Node3D
 	// base-sprite (gras)
 	public Node3D tileBase;
 
+	// start/goal markers
+	private Node3D startFlag;
+	private Node3D goalPost;
+
 	// hervorgehobn ja / nein
 	public bool highlighted;
 	public StreetType streetType { get; set; }
+
+    public Boolean isStartNode;
+    public Boolean isGoalNode;
+
+
 
 	[Export]
 	public float highlightedYOffset = 0.25f;
@@ -60,6 +69,22 @@ public partial class GraphNode : Node3D
 	{
 		// sicher ist sicher
 		if (this.GetChildren().Contains(tile)) this.RemoveChild(tile);
+
+		// Remove old start flag if it exists
+		if (startFlag != null && this.GetChildren().Contains(startFlag))
+		{
+			this.RemoveChild(startFlag);
+			startFlag.QueueFree();
+			startFlag = null;
+		}
+
+		// Remove old goal post if it exists
+		if (goalPost != null && this.GetChildren().Contains(goalPost))
+		{
+			this.RemoveChild(goalPost);
+			goalPost.QueueFree();
+			goalPost = null;
+		}
 
 		// base-sprite (gras)
 		this.tileBase = (Node3D)ResourceLoader.Load<PackedScene>("assets/testing/testtile00.tscn").Instantiate();
@@ -85,6 +110,16 @@ public partial class GraphNode : Node3D
 				break;
 		}
 
+        if(isStartNode)
+        {
+            startFlag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/startflag.tscn").Instantiate(); // TODO: add variations
+            this.AddChild(startFlag);
+        }
+        if(isGoalNode)
+        {
+            goalPost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate(); // TODO: add variations
+            this.AddChild(goalPost);
+        }
 		this.AddChild(tile);
 	}
 

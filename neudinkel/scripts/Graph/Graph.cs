@@ -168,11 +168,10 @@ public partial class Graph : Node3D
 			this.AddChild(n);
 		}
 		initCoordsNodes();
-		Node3D startflag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/startflag.tscn").Instantiate(); // TODO: add variations
-		Node3D goalpost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate(); // TODO: add variations
+		
 
-		gm.startNode.AddChild(startflag);
-		gm.goalNode.AddChild(goalpost);
+		gm.startNode.isStartNode = true;
+		gm.goalNode.isGoalNode = true;
 
 		return false;
 	}
