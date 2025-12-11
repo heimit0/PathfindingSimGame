@@ -27,8 +27,8 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 			/*  2 */ enqueueStartNode,
 			/*  3 */ whileQueueNotEmpty,
 			/*  4 */ getNodeFromQueue,
-			/*  5 */ forEveryNeighbour,
-			/*  6 */ checkIfIsGoal,
+			/*  5 */ checkIfIsGoal,
+			/*  6 */ forEveryNeighbour,
 			/*  7 */ ifNodeUnvisited,
 			/*  8 */ enqueueNeighbour,
 			/*  9 */ markNeighbourVisited
@@ -38,38 +38,37 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 			( 0, "unbesuchteKnoten = new Stack()"),
 			( 1, "besuchteKnoten = new List()"),
 			( 2, "unbesuchteKnoten.push(startNode)"),
-			( 2, "while (!unbesuchteKnoten.isEmpty()):"),
-			( 3, "    current = unbesuchteKnoten.pop()"),
-			( 4, "    for (neighbor in current.neighbors):"),
-			( 5, "        if (neighbor == targetNode):"),
-			(-1, "            Weg zu Ziel gefunden"),
-			( 5, "        "),
-			( 6, "        if (!besuchteKnoten.contains(neighbor)):"),
-			( 7, "            unbesuchteKnoten.push(neighbor)"),
-			( 7, "            cameFrom[neighbor] = current"),
-			( 8, "            besuchteKnoten.add(neighbor)"),
-			( 4, "    "),
-			( 2, ""),
+			( 3, "while (!unbesuchteKnoten.isEmpty()):"),
+			( 4, "    current = unbesuchteKnoten.pop()"),
+			( 5, "    if (currentNode is goal)"),
+			(-1, "        return;"),
+			( 6, "    for (neighbor in current.neighbors):"),
+			( 7, "        if (!besuchteKnoten.contains(neighbor)):"),
+			( 8, "            unbesuchteKnoten.push(neighbor)"),
+			( 8, "            cameFrom[neighbor] = current"),
+			( 9, "            besuchteKnoten.add(neighbor)"),
+			( 6, "    "),
+			( 3, ""),
 			(-2, "Kein Weg gefunden")
 		};
 
 	}
 
-	/* Schritt 1 */
+	/* Schritt 0 */
 	public int initUnvisitedNodes(Graph g)
 	{
 		this.unvisitedNodes = new NeudinkelPriorityQueue<GraphNode, float>();
 		return this.currentStep + 1;
 	}
 
-	/* Schritt 2 */
+	/* Schritt 1 */
 	public int initVisitedNodes(Graph g)
 	{
 		this.visitedNodes = [];
 		return this.currentStep + 1;
 	}
 
-	/* Schritt 3 */
+	/* Schritt 2 */
 	public int enqueueStartNode(Graph g)
 	{
 		enqueueLikeStack(this.startNode);
@@ -97,6 +96,16 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	}
 
 	/* Schritt 5 */
+	public int checkIfIsGoal(Graph g)
+	{
+		if (this.currentNode == this.goalNode)
+		{
+			return -1;
+		}
+		return this.currentStep + 1;
+	}
+
+	/* Schritt 6 */
 	public int forEveryNeighbour(Graph g)
 	{
 		if (this.neighbourQueue == null)
@@ -125,24 +134,13 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		}
 	}
 
-	/* Schritt 6 */
-	public int checkIfIsGoal(Graph g)
-	{
-		if (this.currentNeighbour == this.goalNode)
-		{
-			this.cameFrom.Add(currentNeighbour, currentNode);
-			return -1;
-		}
-		return this.currentStep + 1;
-	}
-
 	/* Schritt 7 */
 	public int ifNodeUnvisited(Graph g)
 	{
 		if (!this.visitedNodes.Contains(this.currentNeighbour))
 			return this.currentStep + 1;
 		else
-			return 5; /* forEveryNeighbour */
+			return 6; /* forEveryNeighbour */
 	}
 
 	/* Schritt 8 */
@@ -158,7 +156,7 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 	public int markNeighbourVisited(Graph g)
 	{
 		this.visitedNodes.Add(this.currentNeighbour);
-		return 5; /* forEveryNeighbour */
+		return 6; /* forEveryNeighbour */
 	}
 
 	/* Funny hack because we always use a priority queue for unvisited nodes */
