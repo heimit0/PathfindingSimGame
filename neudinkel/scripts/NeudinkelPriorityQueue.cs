@@ -9,8 +9,7 @@ public class NeudinkelPriorityQueue<TElement, TPriority> where TPriority : IComp
 		Implementiert eine naive PriorityQueue,
 		weil C#s PQ irgendwie Müll ist.
 	*/
-	List<(TPriority, TElement)> Items { get; set; }
-
+	public List<(TPriority, TElement)> Items { get; set; }
 	public int Count { get { return this.Items.Count; } }
 
 	public NeudinkelPriorityQueue()

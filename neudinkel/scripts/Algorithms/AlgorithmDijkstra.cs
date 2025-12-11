@@ -109,14 +109,14 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	{
 		unvisitedNodes = new NeudinkelPriorityQueue<GraphNode, float>();
 		unvisitedNodes.Enqueue(startNode, 0);
-		// Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, startNode, 0);
+		// Events.Instance.EmitSignal(Events.SignalName.UpdateOpenQueue);
 
 		return currentStep + 1;
 	}
 
 	private int addStartNodeToQueue(Graph g)
 	{
-		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, startNode, 0);
+		Events.Instance.EmitSignal(Events.SignalName.UpdateOpenQueue);
 		return currentStep +1;
 	}
 
@@ -170,7 +170,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
 		lastNode = currentNode;
 		currentNode = unvisitedNodes.Dequeue();
-		Events.Instance.EmitSignal(Events.SignalName.PopOpenQueue);
+		Events.Instance.EmitSignal(Events.SignalName.UpdateOpenQueue);
 		GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
 
 		visualize(g);
@@ -291,7 +291,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		updateCost(currentNeighbours[currentNeighbourIndex]);
 		unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex], currentNeighbourCost);
 		GD.Print("neighbourcost: " + currentNeighbourCost);
-		Events.Instance.EmitSignal(Events.SignalName.PushOpenQueue, currentNeighbours[currentNeighbourIndex], currentNeighbourCost);
+		Events.Instance.EmitSignal(Events.SignalName.UpdateOpenQueue);
 
 		currentNeighbourIndex++;
 		return 9;

@@ -9,10 +9,7 @@ public partial class Events : Node
 {
 
 	[Signal]
-	public delegate void PushOpenQueueEventHandler(GraphNode node, float prio);
-
-	[Signal]
-	public delegate void PopOpenQueueEventHandler();
+	public delegate void UpdateOpenQueueEventHandler();
 
 	[Signal]
 	public delegate void ClearOpenQueueEventHandler();
