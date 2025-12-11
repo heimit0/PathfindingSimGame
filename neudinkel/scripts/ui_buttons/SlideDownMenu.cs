@@ -3,7 +3,7 @@ using Godot;
 public partial class SlideDownMenu : Node
 {
     [Export] public NodePath toggleButtonPath = "./TextureButton";
-    [Export] public string slideDownMenuPath = "res://assets/ui_offcanvas_scenes/slidedownmenu.tscn";
+    [Export] public NodePath slideDownMenuPath;
     [Export] public float animationTime = 0.5f;
     [Export] public float fadeWaitTime = 0.02f; // Wartezeit bevor Button erscheint
     [Export] public float fadeDurationTime = 2.6f; // Einblendegeschwindigkeit 
@@ -26,36 +26,38 @@ public partial class SlideDownMenu : Node
             return;
         }
 
+        slideDownMenu = GetNodeOrNull<Control>(slideDownMenuPath);
+        if(slideDownMenu == null)
+        {
+            GD.PushError("SlideDownMenu nicht gefunden");
+        }
+
+        CallDeferred("Setup");
         menuToggleButton.Pressed += OnOpenButtonPressed;
     }
 
     private void OnOpenButtonPressed()
     {
-        // Falls Menü schon da ist nicht nochmal ausfahren 
-        if (slideDownMenu == null)
-            ShowMenu();
+        ShowMenu();
     }
 
     private void ShowMenu()
     {
 
         // Menu aus sein Szene laden 
-        var menuScene = ResourceLoader.Load<PackedScene>(slideDownMenuPath);
-        if (menuScene == null)
+        if (slideDownMenu == null)
         {
-            GD.PushError("SlideDownMenu konnte nicht geladen werden.");
+            GD.PushError("SlideDownMenu ist nicht gesetzt im Editor");
             return;
         }
 
-        // // Menu instanzieren und anhängen 
-        slideDownMenu = menuScene.Instantiate<Control>();
-        AddChild(slideDownMenu);
+        // Menü sichtbar schalten
+        slideDownMenu.Visible = true;
 
         // Button ausblenden
         menuToggleButton.Visible = false;
         
-        // Setup am Ende des Frames aufrufen
-        CallDeferred("Setup");
+        AnimateDown();
     }
 
     private void Setup()
@@ -81,6 +83,10 @@ public partial class SlideDownMenu : Node
         color.A = 1f;
         slideDownMenu.Modulate = color;
 
+        slideDownMenu.Position = new Vector2(
+            slideDownMenu.Position.X,
+            slideDownMenuTopEdgeYPos
+        );
 
         // Button holen der das Menü wieder nach oben fährt 
         var hideButton = slideDownMenu.GetNodeOrNull<TextureButton>(
@@ -98,8 +104,6 @@ public partial class SlideDownMenu : Node
             GD.PushWarning("Hide Button nicht gefunden");
             slideDownMenu.PrintTreePretty();
         }
-
-        AnimateDown();
     }
 
     private void AnimateDown()
@@ -132,8 +136,7 @@ public partial class SlideDownMenu : Node
         // Menü entfernen
         _tween.TweenCallback(Callable.From(() =>
         {
-            slideDownMenu.QueueFree();
-            slideDownMenu = null;
+            slideDownMenu.Visible = false;
         }));
         
         // Warten bis wir den Button wieder anzeigen 

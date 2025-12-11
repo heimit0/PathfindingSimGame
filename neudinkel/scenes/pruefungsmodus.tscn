@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d4l2g3urlpx3q"]
+[gd_scene load_steps=16 format=3 uid="uid://d4l2g3urlpx3q"]
 
 [ext_resource type="Script" uid="uid://dpdiys1tq75u1" path="res://scripts/GameManagers/PruefungsGameManager.cs" id="1_70lit"]
 [ext_resource type="Script" uid="uid://biyy5vkwq44mn" path="res://scripts/PseudocodeTextBox.cs" id="2_7rp0e"]
@@ -13,9 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b6acmjxqngq3f" path="res://assets/ui_offcanvas_scenes/tutorialPopup.tscn" id="9_ksohj"]
 [ext_resource type="PackedScene" uid="uid://devtia7jy1ka8" path="res://assets/ui_offcanvas_scenes/LevelFailed.tscn" id="12_8npku"]
 [ext_resource type="PackedScene" uid="uid://nkcomdshhipw" path="res://assets/ui_offcanvas_scenes/LevelCompleted.tscn" id="13_bswbg"]
-[ext_resource type="Script" path="res://scripts/TileEffectManager.cs" id="14_effect"]
-[ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://assets/ui_effect_scenes/tileSelectedParticels.tscn" id="15_effect"]
-[ext_resource type="PackedScene" uid="uid://b3110xoh8hw2" path="res://assets/ui_effect_scenes/tileOutlineScene.tscn" id="16_effect"]
+[ext_resource type="PackedScene" uid="uid://ubwkv3remjot" path="res://assets/ui_offcanvas_scenes/slidedownmenu.tscn" id="14_sf2sf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_st3as"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -191,6 +189,7 @@ grow_horizontal = 2
 alignment = 1
 script = ExtResource("5_qomti")
 toggleButtonPath = NodePath("TextureButton")
+slideDownMenuPath = NodePath("../SlideDownMenu")
 
 [node name="TextureButton" type="TextureButton" parent="ToggleButtonBox"]
 custom_minimum_size = Vector2(30, 30)
@@ -223,6 +222,8 @@ ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("8_n8kv3")
 tutorialPopup = ExtResource("9_ksohj")
+
+[node name="SlideDownMenu" parent="." instance=ExtResource("14_sf2sf")]
 
 [connection signal="pressed" from="Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/VBoxContainer/Button" to="." method="hidePopupOnButtonPressed"]
 [connection signal="pressed" from="Pruefungsmodus/UI/WinnerPopup/VBoxContainer/BackToMenu" to="." method="onNextLvlButtonPressed"]
