@@ -93,7 +93,6 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		this.lastNode = this.currentNode;
 		this.currentNode = this.unvisitedNodes.Dequeue();
 		Events.Instance.EmitSignal(Events.SignalName.UpdateOpenQueue);
-		this.visualize(g);
 		return this.currentStep + 1;
 	}
 

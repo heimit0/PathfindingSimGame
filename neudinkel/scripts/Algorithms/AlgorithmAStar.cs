@@ -12,7 +12,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	private float currentHeuristic;
 	private float currentDistance;
 
-	private int currentNeighbourIndex;
 	private float tentativeG;
 	private float neighbourFScore;
 
@@ -204,8 +203,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		Events.Instance.EmitSignal(Events.SignalName.UpdateOpenQueue);
 		GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
 		currentDistance = totalCost[currentNode];
-
-		visualize(g);
 
 		return currentStep + 1;
 	}

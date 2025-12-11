@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 /// <summary>
@@ -15,6 +16,7 @@ public abstract class NeudinkelAlgorithm
 	public GraphNode currentNode { get; set; }
 	public GraphNode lastNode { get; set; }
 	public GraphNode[] currentNeighbours;
+	public int currentNeighbourIndex;
 	public Dictionary<GraphNode, GraphNode> cameFrom { get; set; }
 
 
@@ -103,7 +105,7 @@ public abstract class NeudinkelAlgorithm
 		return currentStep;
 	}
 
-    public new void visualize(Graph g)
+    public new void visualize(Graph g, SimulationGameManager gameManager)
     {
         // erst alle ausschalten
         foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);

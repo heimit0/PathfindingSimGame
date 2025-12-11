@@ -8,7 +8,6 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 {
 
 	private float cost;
-	private int currentNeighbourIndex;
 	private float currentNeighbourCost;
 
 	public AlgorithmDijkstra(Graph graph, GraphNode startNode, GraphNode goalNode)
@@ -170,8 +169,6 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		currentNode = unvisitedNodes.Dequeue();
 		Events.Instance.EmitSignal(Events.SignalName.UpdateOpenQueue);
 		GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
-
-		visualize(g);
 
 		return currentStep + 1;
 	}
