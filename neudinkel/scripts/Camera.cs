@@ -97,10 +97,7 @@ public partial class Camera : Camera3D
 
 			GameManager gameManager = GetNode<GameManager>("/root/Node3D");
 
-			if (gameManager is SimulationGameManager && !(gameManager is PruefungsGameManager))
-			{
-				gameManager.EmitSignal("TileSelected", tilePos);
-			}
+			
 
 			if (gameManager is PruefungsGameManager)
 			{
@@ -234,3 +231,4 @@ public partial class Camera : Camera3D
 	}
 
 }
+
