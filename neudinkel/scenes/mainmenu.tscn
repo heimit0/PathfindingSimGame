@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c48nvxgn3oi8v" path="res://scripts/ui_buttons/Mainmenu.cs" id="1_natt5"]
 [ext_resource type="FontFile" uid="uid://cryqnyausjcxw" path="res://assets/ui_presets/futurawin.ttf" id="2_85riq"]
 [ext_resource type="Texture2D" uid="uid://dqbvgu7k317eu" path="res://assets/ui_icons/leerer-stern.svg" id="3_3vvtq"]
-[ext_resource type="Theme" uid="uid://wpj72fhbl7gv" path="res://assets/ui_presets/Popup_buttons.tres" id="4_dfy5j"]
+[ext_resource type="Theme" uid="uid://bxuenqfc1auia" path="res://assets/ui_presets/Popup_buttons.tres" id="4_dfy5j"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="4_s5g8n"]
 [ext_resource type="Theme" uid="uid://do0012mtba6ii" path="res://assets/ui_presets/Popup_buttons_zurueck.tres" id="8_85riq"]
 [ext_resource type="Script" uid="uid://btwp1hq3ogfmy" path="res://scripts/NeudinkelStarIndicator.cs" id="9_gjjcl"]

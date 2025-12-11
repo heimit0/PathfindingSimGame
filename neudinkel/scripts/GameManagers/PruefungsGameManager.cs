@@ -153,6 +153,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		{
 			var lvlFailed = GetNode<PopupPanel>("Pruefungsmodus/UI/LevelFailedPopup");
 			lvlFailed.Show();
+			popup.Hide();
 			lvlFailed.Exclusive = false;
 			lvlFailed.PopupWindow = false;
 		}

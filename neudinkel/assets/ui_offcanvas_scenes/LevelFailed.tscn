@@ -83,5 +83,5 @@ theme = ExtResource("3_0etym")
 icon = ExtResource("4_7lwnc")
 script = ExtResource("6_5sqsj")
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Restart" to="VBoxContainer/HBoxContainer/BackToMenu" method="OnRestartLvl"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Restart" to="VBoxContainer/HBoxContainer/BackToMenu" method="OnResetLevel"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/BackToMenu" to="VBoxContainer/HBoxContainer/BackToMenu" method="OnBacktomenuPressed"]

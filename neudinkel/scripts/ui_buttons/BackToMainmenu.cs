@@ -8,7 +8,7 @@ public partial class BackToMainmenu : Node
 		GetTree().ChangeSceneToFile("res://scenes/mainmenu.tscn");
 	}
 
-	private void resetLevel()
+	private void OnResetLevel()
 	{
 		GetTree().ReloadCurrentScene();
 	}
