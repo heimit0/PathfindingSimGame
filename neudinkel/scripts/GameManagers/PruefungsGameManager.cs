@@ -103,8 +103,12 @@ public partial class PruefungsGameManager : SimulationGameManager
     {
         var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/LevelCompletePopup");
 
-		if (popup is not null)	popup.Show();
-
+		if (popup is not null)
+		{
+				popup.Show();
+				popup.Exclusive = false;
+				popup.PopupWindow = false;
+		}
 		// Save level completion in progress bit flags
 		int bitOffset = 0;
 		if (algo == GraphSearchAlgorithm.DIJKSTRA) bitOffset = 0;
@@ -148,6 +152,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 		{
 			var lvlFailed = GetNode<PopupPanel>("Pruefungsmodus/UI/LevelFailedPopup");
 			lvlFailed.Show();
+			lvlFailed.Exclusive = false;
+			lvlFailed.PopupWindow = false;
 		}
 
 		returnToCheckpoint();
