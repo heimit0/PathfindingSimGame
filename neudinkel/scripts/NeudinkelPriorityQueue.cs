@@ -21,8 +21,11 @@ public class NeudinkelPriorityQueue<TElement, TPriority> where TPriority : IComp
 	{
 		int pos = 0;
 
-		for (int i = 0; i < this.Items.Count; i++)
+		for (int i = 0; i <= this.Items.Count; i++)
 		{
+			pos = i;
+			if (i == this.Items.Count) break;
+
 			TPriority _prio = this.Items[i].Item1;
 			pos = i;
 			// wenn das aktuelle Element eine größere Prio hat
