@@ -1,8 +1,6 @@
 {
 	"name":"Level",
 	"startPos":[2.0, 6.0],
-	"startTile": 0,
-	"endTile": 4,
 	"tiles":[
 		{
 			"posX":0,
@@ -85,81 +83,5 @@
 			"type":0
 		}
 	],
-	"edges":[
-		{
-			"from":0,
-			"to":1,
-			"bi":true
-		},
-		{
-			"from":1,
-			"to":5,
-			"bi":true
-		},
-		{
-			"from":5,
-			"to":6,
-			"bi":true
-		},
-		{
-			"from":6,
-			"to":9,
-			"bi":true
-		},
-		{
-			"from":9,
-			"to":8,
-			"bi":true
-		},
-		{
-			"from":8,
-			"to":4,
-			"bi":true
-		},
-		{
-			"from":8,
-			"to":12,
-			"bi":true
-		},
-		{
-			"from":12,
-			"to":13,
-			"bi":true
-		},
-		{
-			"from":13,
-			"to":14,
-			"bi":true
-		},
-		{
-			"from":14,
-			"to":15,
-			"bi":true
-		},
-		{
-			"from":15,
-			"to":11,
-			"bi":true
-		},
-		{
-			"from":11,
-			"to":7,
-			"bi":true
-		},
-		{
-			"from":7,
-			"to":10,
-			"bi":true
-		},
-		{
-			"from":7,
-			"to":3,
-			"bi":true
-		},
-		{
-			"from":3,
-			"to":2,
-			"bi":true
-		}
-	]
+	"edges":[ ]
 }
