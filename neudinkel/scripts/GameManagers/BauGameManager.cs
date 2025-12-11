@@ -164,7 +164,7 @@ public partial class BauGameManager : GameManager
 					(n1.tilePosX + 1 == n2.tilePosX && n1.tilePosY - 1 == n2.tilePosY))
 				{
 					this.graph.addRelation(n1, n2);
-					 // Special state resetting, probably a bit too much, but time is running out at ths point
+					// Special state resetting, probably a bit too much, but time is running out at ths point
 					foreach (GraphNode n3 in n1.getNeighbours())
 					{
 						if (this.startNode == n3) this.startNode = null;
@@ -180,9 +180,29 @@ public partial class BauGameManager : GameManager
 		}
 
 		// erst alle streetTypes setzen, dann alle models updaten, um verwirrung zu vermeiden
-		foreach (GraphNode n in this.selectedNodes) n.streetType = (StreetType)newStreetType;
-		foreach (GraphNode n in this.selectedNodes) n.updateModel();
-		
+		foreach (GraphNode n in this.selectedNodes)
+		{
+			n.streetType = (StreetType)newStreetType;
+
+			if (newStreetType == (int) StreetType.EMPTY)
+			{
+				if (n.Equals(this.startNode))
+				{
+					this.startNode = null;
+					GD.Print("Baumodus: reset start node!");
+				}
+
+				if (n.Equals(this.goalNode))
+				{
+					this.goalNode = null;
+					GD.Print("Baumodus: reset goal node!");
+				}
+
+				// TODO fix impl: n.isStartNode = false; n.isGoalNode = false;
+			}
+
+			n.updateModel();
+		}
 
 		// deselect all
 		onTileSelected(new Vector2I(-10000, -10000));
@@ -212,6 +232,7 @@ public partial class BauGameManager : GameManager
 		{
 			GD.Print("Warning: tried to set startnode, but more than one tile was selected!");
 			Globals.openSimpleInfoModal(this, "Bitte nur eine Node auswählen um Startnode zu setzen!", 2);
+			this.onTileSelected(new Vector2I(-10000, -10000));
 			return;
 		}
 
@@ -219,6 +240,7 @@ public partial class BauGameManager : GameManager
 		{
 			GD.Print("Tried to set the startNode the same as goalNode! Aborting...");
 			Globals.openSimpleInfoModal(this, "Startnode kann nicht Zielnode sein!", 2);
+			this.onTileSelected(new Vector2I(-10000, -10000));
 			return;
 		}
 
@@ -226,13 +248,11 @@ public partial class BauGameManager : GameManager
 		{
 			GD.Print("Tried to select Streetnode as startNode! Aborting...");
 			Globals.openSimpleInfoModal(this, "Ausgewählte Node ist keine Stadt!", 2);
+			this.onTileSelected(new Vector2I(-10000, -10000));
 			return;
 		}
-		this.startNode.isStartNode=false;
-		this.startNode.updateModel();
+
 		this.startNode = this.selectedNodes[0];
-		this.startNode.isStartNode = true;
-		this.startNode.updateModel();
 		GD.Print("Setting start node at: " + this.startNode.getTilePosString());
 		this.onTileSelected(new Vector2I(-10000, -10000)); // deselect all
 	}
@@ -243,6 +263,7 @@ public partial class BauGameManager : GameManager
 		{
 			GD.Print("Warning: tried to set goalnode, but more than one tile was selected!");
 			Globals.openSimpleInfoModal(this, "Bitte nur eine Node auswählen um Zielnode zu setzen!", 2);
+			this.onTileSelected(new Vector2I(-10000, -10000));
 			return;
 		}
 
@@ -250,6 +271,7 @@ public partial class BauGameManager : GameManager
 		{
 			GD.Print("Tried to set the startNode the same as goalNode! Aborting...");
 			Globals.openSimpleInfoModal(this, "Zielnode kann nicht Startnode sein!", 2);
+			this.onTileSelected(new Vector2I(-10000, -10000));
 			return;
 		}
 
@@ -257,16 +279,13 @@ public partial class BauGameManager : GameManager
 		{
 			GD.Print("Tried to select Streetnode as startNode! Aborting...");
 			Globals.openSimpleInfoModal(this, "Ausgewählte Node ist keine Stadt!", 2);
+			this.onTileSelected(new Vector2I(-10000, -10000));
 			return;
 		}
-		this.goalNode.isGoalNode = false;
-		this.goalNode.updateModel();
+
 		this.goalNode = this.selectedNodes[0];
-		this.goalNode.isGoalNode = true;
-		this.goalNode.updateModel();
 		GD.Print("Setting goal node at: " + this.goalNode.getTilePosString());
 		this.onTileSelected(new Vector2I(-10000, -10000)); // deselect all
-		
 	}
 
 	// speichern dialog öffnen und level speichern
