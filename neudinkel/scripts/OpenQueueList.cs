@@ -22,10 +22,12 @@ public partial class OpenQueueList : NeudinkelItemList
 
 		queue = GetNode<SimulationGameManager>("/root/Node3D").currentAlgorithm.unvisitedNodes;
 
-		GD.Print("UnvisitedNodes:");
-		foreach ((float _prio, GraphNode node) in queue.Items)
+		this.Clear();
+		foreach ((float _prio, GraphNode _node) in queue.Items)
 		{
-			GD.Print(_prio);
+			this.AddItem(_node.tilePosX.ToString(), null, false);
+			this.AddItem(_node.tilePosY.ToString(), null, false);
+			this.AddItem(_prio.ToString(), null, false);
 		}
 	}
 

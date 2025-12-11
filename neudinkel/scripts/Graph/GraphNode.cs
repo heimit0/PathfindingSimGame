@@ -43,8 +43,8 @@ public partial class GraphNode : Node3D
 	public bool highlighted;
 	public StreetType streetType { get; set; }
 
-    public Boolean isStartNode;
-    public Boolean isGoalNode;
+	public Boolean isStartNode;
+	public Boolean isGoalNode;
 
 
 
@@ -110,16 +110,16 @@ public partial class GraphNode : Node3D
 				break;
 		}
 
-        if(isStartNode)
-        {
-            startFlag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/startflag.tscn").Instantiate(); // TODO: add variations
-            this.AddChild(startFlag);
-        }
-        if(isGoalNode)
-        {
-            goalPost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate(); // TODO: add variations
-            this.AddChild(goalPost);
-        }
+		if(isStartNode)
+		{
+			startFlag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/startflag.tscn").Instantiate(); // TODO: add variations
+			this.AddChild(startFlag);
+		}
+		if(isGoalNode)
+		{
+			goalPost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate(); // TODO: add variations
+			this.AddChild(goalPost);
+		}
 		this.AddChild(tile);
 	}
 
