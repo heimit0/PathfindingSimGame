@@ -26,12 +26,23 @@ public partial class Camera : Camera3D
 	[Signal]
 	public delegate void setIsUserInputEnabledEventHandler(bool enabled);
 
+	[Signal]
+	public delegate void TileHoveredEventHandler(Vector2I tilePos);
+
 	public override void _Ready()
 	{
 		// FIXME: TERRIBLE HACK
 		this.GetParent<GameManager>().SetCameraPosition += onSetCameraPosition;
 		this.isUserInputEnabled = true;
 		setIsUserInputEnabled += enabled => this.isUserInputEnabled = enabled;
+
+		// Connect TileHovered signal to PruefungsGameManager if that's our parent
+		GameManager parent = this.GetParent<GameManager>();
+		if (parent is PruefungsGameManager pruefungsGameManager)
+		{
+			GD.Print("Camera: Connecting to PruefungsGameManager");
+			this.TileHovered += pruefungsGameManager.onTileHovered;
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -67,6 +78,34 @@ public partial class Camera : Camera3D
 				{
 					gameManager.EmitSignal("TileSelected", tilePos);
 				}
+			}
+		}
+
+		// Handle mouse motion for hover effect in SimulationGameManager
+		if (@event is InputEventMouseMotion eventMouseMotion && isUserInputEnabled)
+		{
+			Vector2 mousePos = eventMouseMotion.Position;
+
+			if (isMouseInUIDeadzone(mousePos))
+				return;
+
+			Vector3 clickPoint = this.ProjectPosition(eventMouseMotion.Position, 1);
+			Vector3 ray = new Vector3(this.Position.X - clickPoint.X, this.Position.Y - clickPoint.Y, this.Position.Z - clickPoint.Z);
+			float castDistance = this.Position.Y / ray.Y;
+			Vector3 nullPos = this.Position - ray * castDistance;
+			Vector2I tilePos = GraphNode.convertPosToTilePos(nullPos);
+
+			GameManager gameManager = GetNode<GameManager>("/root/Node3D");
+
+			if (gameManager is SimulationGameManager && !(gameManager is PruefungsGameManager))
+			{
+				gameManager.EmitSignal("TileSelected", tilePos);
+			}
+
+			if (gameManager is PruefungsGameManager)
+			{
+				GD.Print("Camera: Emitting TileHovered for tile: [" + tilePos.X + ", " + tilePos.Y + "]");
+				EmitSignal(SignalName.TileHovered, tilePos);
 			}
 		}
 	}

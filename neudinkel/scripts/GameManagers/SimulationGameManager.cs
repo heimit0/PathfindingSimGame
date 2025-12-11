@@ -23,6 +23,8 @@ public partial class SimulationGameManager : GameManager
 	public delegate void SetAutomaticSimulationSpeedEventHandler(int newSpeed); // slider für speed im simulations-modus
 
 
+
+
 	[Export]
 	public float automaticSimulationSpeed = 1; // für simulationsmodus
 	public bool isSimulationAutomatic { get; set; }
@@ -30,6 +32,8 @@ public partial class SimulationGameManager : GameManager
 	public NeudinkelAlgorithm currentAlgorithm { get; set; }
 
 	public PseudocodeTextBox textBoxBox { get; set; }
+
+	public GraphNode lastNode;
 
 	public override void _Ready()
 	{
@@ -42,7 +46,7 @@ public partial class SimulationGameManager : GameManager
 
 		startNode.updateModel();
 		goalNode.updateModel();
-
+		lastNode = startNode;
 
 		Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
 		minimap.initMiniMap(this);
@@ -51,6 +55,22 @@ public partial class SimulationGameManager : GameManager
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
+	}
+
+	// Handler for tile hover/selection events
+	private void OnTileHovered(Vector2I tilePos)
+	{
+		GraphNode playerNode = this.graph.getNode(tilePos.X, tilePos.Y);
+
+		if(playerNode is not null && playerNode != lastNode)
+		{
+			if(lastNode is not null)
+			{
+				lastNode.setHighlighted(false);
+			}
+			lastNode = playerNode;
+			playerNode.setHighlighted(true);
+		}
 	}
 
 	// ruft ensprechende Methode in jedem NeudinkelAlgorithm auf

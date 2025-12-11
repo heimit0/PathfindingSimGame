@@ -2,11 +2,15 @@ using Godot;
 
 public partial class PruefungsGameManager : SimulationGameManager
 {
-	private GraphNode checkPointNode;
-
 	[Signal]
 	public delegate void TileSelectedEventHandler(Vector2I tilePos);
+	private GraphNode checkPointNode;
+
 	private GraphSearchAlgorithm algo;
+
+	private TileEffectManager effectManager;
+
+	private GraphNode lastNode;
 
 	private int correctStepCounterSinceLastSave;
 	private int wrongStepCounter;
@@ -18,13 +22,14 @@ public partial class PruefungsGameManager : SimulationGameManager
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
 
-		
-		
-
 		string levelToLoad = string.IsNullOrEmpty(Globals.nextLevel) ? "empty" : Globals.nextLevel;
 		algo = Globals.pruefungsAlgorithmus;
 
-
+		effectManager = GetNodeOrNull<TileEffectManager>("TileEffectManager");
+		if (effectManager == null)
+		{
+			GD.PrintErr("TileEffectManager node not found in scene tree");
+		}
 
 		GD.Print("Lade Level");
 		prepScene(levelToLoad);
@@ -39,6 +44,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 		Minimap minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
 		minimap.initMiniMap(this);
+
+		lastNode = startNode;
 	}
 
 	public override void _Process(double delta)
@@ -66,14 +73,14 @@ public partial class PruefungsGameManager : SimulationGameManager
 		GraphNode playerNode = this.graph.getNode(tilePos.X, tilePos.Y);
 		if (playerNode is null)
 		{
-			GD.PrintErr("Player clicked the void at: " + tilePos);	
+			GD.PrintErr("Player clicked the void at: " + tilePos);
 			return;
 		}
 
-		
+
 		skipTillNextCurrentNode();
 
-	
+
 		if(currentAlgorithm.currentNode is null)
 		{
 			GD.Print("current Node is null");
@@ -98,6 +105,30 @@ public partial class PruefungsGameManager : SimulationGameManager
 			return;
 		}
 
+	}
+
+	//Code um Hover Event zu behandeln
+	public void onTileHovered(Vector2I tilePos)
+	{
+		GraphNode hoveredNode = this.graph.getNode(tilePos.X, tilePos.Y);
+		if (hoveredNode is null)
+		{
+			effectManager.disableEffects(lastNode.tilePosX,lastNode.tilePosY);
+			return;
+		}
+
+		if (effectManager is null)
+		{
+			return;
+		}
+
+		if(hoveredNode != lastNode)
+		{
+			
+			effectManager.disableEffects(lastNode.tilePosX,lastNode.tilePosY);
+			lastNode = hoveredNode;
+			effectManager.enableEffects(hoveredNode.tilePosX,hoveredNode.tilePosY);
+		}
 	}
 
     private void lvlGeschafft()
@@ -234,6 +265,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 			failsafe++;
 
 		}
+		currentAlgorithm.currentNode.setHighlighted(true);
 		if(checkPointNode == currentAlgorithm.currentNode)
 			return 1;
 
