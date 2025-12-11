@@ -13,6 +13,8 @@ config_version=5
 config/name="Neudinkel"
 run/main_scene="uid://cja2otsjks3ig"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
+boot_splash/fullsize=false
+boot_splash/image="uid://bfvr5kq3kyqm"
 config/icon="res://icon.svg"
 
 [autoload]

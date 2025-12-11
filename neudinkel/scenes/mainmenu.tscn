@@ -1,17 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://cmoc8fo8iyfqp"]
+[gd_scene load_steps=10 format=3 uid="uid://cmoc8fo8iyfqp"]
 
 [ext_resource type="Script" uid="uid://c48nvxgn3oi8v" path="res://scripts/ui_buttons/Mainmenu.cs" id="1_natt5"]
 [ext_resource type="FontFile" uid="uid://cryqnyausjcxw" path="res://assets/ui_presets/futurawin.ttf" id="2_85riq"]
 [ext_resource type="Texture2D" uid="uid://dqbvgu7k317eu" path="res://assets/ui_icons/leerer-stern.svg" id="3_3vvtq"]
 [ext_resource type="Theme" uid="uid://bxuenqfc1auia" path="res://assets/ui_presets/Popup_buttons.tres" id="4_dfy5j"]
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="4_s5g8n"]
-[ext_resource type="Texture2D" uid="uid://df3p7p0aueorw" path="res://assets/ui_icons/neudinkelIconwhite_notext.svg" id="5_wf3n4"]
 [ext_resource type="Theme" uid="uid://do0012mtba6ii" path="res://assets/ui_presets/Popup_buttons_zurueck.tres" id="8_85riq"]
 [ext_resource type="Script" uid="uid://j2i3q6mpt2fq" path="res://scripts/ui_buttons/OrbitCamera.cs" id="8_wf3n4"]
 [ext_resource type="Script" uid="uid://btwp1hq3ogfmy" path="res://scripts/NeudinkelStarIndicator.cs" id="9_gjjcl"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dfy5j"]
-exposure_multiplier = 1.441
 dof_blur_far_enabled = true
 dof_blur_far_distance = 0.1
 
@@ -32,11 +30,6 @@ attributes = SubResource("CameraAttributesPractical_dfy5j")
 fov = 20.0
 script = ExtResource("8_wf3n4")
 Distance = 15.0
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(961.99994, 433)
-scale = Vector2(1.5372665, 1.5372663)
-texture = ExtResource("5_wf3n4")
 
 [node name="MainMenu" type="CanvasLayer" parent="."]
 
