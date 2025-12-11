@@ -74,8 +74,8 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 
 	}
 
-    private void removeAllLabels()
-    {
+	private void removeAllLabels()
+	{
 		if (graph == null) return;
 
 		foreach (GraphNode node in graph.getCities())
@@ -101,11 +101,11 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 				label.QueueFree();
 			}
 		}
-    }
+	}
 
-    // PriorityQueue(node, calculatedDistance) mit der Startnode direkt in der queue
-    // diese wird nach und nach mit nachbarn gefüllt
-    private int initUnvisitedNodes(Graph g)
+	// PriorityQueue(node, calculatedDistance) mit der Startnode direkt in der queue
+	// diese wird nach und nach mit nachbarn gefüllt
+	private int initUnvisitedNodes(Graph g)
 	{
 		unvisitedNodes = new NeudinkelPriorityQueue<GraphNode, float>();
 		unvisitedNodes.Enqueue(startNode, 0);
