@@ -290,5 +290,11 @@ text = "zurück"
 
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer2/baumodus" to="." method="_on_baumodus_pressed"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer2/pruefmodus" to="." method="_on_pruefmodus_pressed"]
+[connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/dijkstra" to="." method="_on_algorithm_selected" binds= [1]]
+[connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/aStar" to="." method="_on_algorithm_selected" binds= [0]]
+[connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/dfs" to="." method="_on_algorithm_selected" binds= [2]]
 [connection signal="pressed" from="LevelMenu/backButtonLevelMenu" to="." method="_on_backButtonLevelMenu_pressed"]
+[connection signal="pressed" from="LevelMenu_zip/VBoxContainer/HBoxContainer2/level1" to="." method="_on_level_selected" binds= [1]]
+[connection signal="pressed" from="LevelMenu_zip/VBoxContainer/HBoxContainer2/level2" to="." method="_on_level_selected" binds= [2]]
+[connection signal="pressed" from="LevelMenu_zip/VBoxContainer/HBoxContainer2/level3" to="." method="_on_level_selected" binds= [3]]
 [connection signal="pressed" from="LevelMenu_zip/backButton" to="." method="_on_back_button_zip_pressed"]
