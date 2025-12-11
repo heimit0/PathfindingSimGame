@@ -44,8 +44,8 @@ public partial class GraphNode : Node3D
     public bool highlighted;
     public StreetType streetType { get; set; }
 
-	public Boolean isStartNode;
-	public Boolean isGoalNode;
+    public Boolean isStartNode;
+    public Boolean isGoalNode;
 
 
 
@@ -111,18 +111,18 @@ public partial class GraphNode : Node3D
                 break;
         }
 
-		if(isStartNode)
-		{
-			startFlag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/startflag.tscn").Instantiate(); // TODO: add variations
-			this.AddChild(startFlag);
-		}
-		if(isGoalNode)
-		{
-			goalPost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate(); // TODO: add variations
-			this.AddChild(goalPost);
-		}
-		this.AddChild(tile);
-	}
+        if (isStartNode)
+        {
+            startFlag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/startflag.tscn").Instantiate(); // TODO: add variations
+            this.AddChild(startFlag);
+        }
+        if (isGoalNode)
+        {
+            goalPost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate(); // TODO: add variations
+            this.AddChild(goalPost);
+        }
+        this.AddChild(tile);
+    }
 
     private Node3D getStreetTileAsset(GraphNode n1, GraphNode n2)
     {
@@ -153,6 +153,7 @@ public partial class GraphNode : Node3D
             GD.PrintErr("Tried to add city connections assets on a non-city node!");
             return;
         }
+
 
         foreach (GraphNode n in _neighbours)
         {
@@ -225,78 +226,78 @@ public partial class GraphNode : Node3D
     // Außerdem muss ein Nachbar als Startpunkt übergeben werden
     public GraphNode[] getPathToNeighbouringCity(GraphNode goalNode)
     {
-		List<GraphNode> heads = [..this.getNeighbours()];
-		Dictionary<GraphNode, GraphNode> cameFrom = []; // node -> last node
-		Dictionary<GraphNode, Int32> costs = [];
-		foreach (GraphNode head in heads)
-		{
-			cameFrom.Add(head, this);
-			costs.Add(head, (int) head.streetType);
-		}
-		int stepCounter = 0;
+        List<GraphNode> heads = [.. this.getNeighbours()];
+        Dictionary<GraphNode, GraphNode> cameFrom = []; // node -> last node
+        Dictionary<GraphNode, Int32> costs = [];
+        foreach (GraphNode head in heads)
+        {
+            cameFrom.Add(head, this);
+            costs.Add(head, (int)head.streetType);
+        }
+        int stepCounter = 0;
 
-		while (stepCounter >= 0)
-		{
-			List<GraphNode> newHeads = [];
+        while (stepCounter >= 0)
+        {
+            List<GraphNode> newHeads = [];
 
-			foreach (GraphNode head in heads)
-			{
-				if (head.Equals(goalNode))
-				{
-					newHeads.Add(head);
-					continue;
-				}
+            foreach (GraphNode head in heads)
+            {
+                if (head.Equals(goalNode))
+                {
+                    newHeads.Add(head);
+                    continue;
+                }
 
-				// jeder neue nachbar (nur in richtige richtung)
-				foreach (GraphNode newHead in head.getNeighbours().Where(n => !n.Equals(cameFrom[head])))
-				{
-					newHeads.Add(newHead);
+                // jeder neue nachbar (nur in richtige richtung)
+                foreach (GraphNode newHead in head.getNeighbours().Where(n => !n.Equals(cameFrom[head])))
+                {
+                    newHeads.Add(newHead);
 
-					int newHeadCost = costs[head] + (int) newHead.streetType;
-					int oldHeadCost = 0;
-					if (costs.ContainsKey(newHead))
-					{
-						if (costs[newHead] > newHeadCost)
-						{
-							oldHeadCost = costs[newHead];
-							costs[newHead] = newHeadCost;
-						}
-					}
-					else
-					{
-						costs.Add(newHead, newHeadCost);
-					}
+                    int newHeadCost = costs[head] + (int)newHead.streetType;
+                    int oldHeadCost = 0;
+                    if (costs.ContainsKey(newHead))
+                    {
+                        if (costs[newHead] > newHeadCost)
+                        {
+                            oldHeadCost = costs[newHead];
+                            costs[newHead] = newHeadCost;
+                        }
+                    }
+                    else
+                    {
+                        costs.Add(newHead, newHeadCost);
+                    }
 
-					if (cameFrom.ContainsKey(newHead))
-					{
-						if (costs[newHead] < oldHeadCost) cameFrom[newHead] = head;
-					}
-					else
-					{
-						cameFrom.Add(newHead, head);
-					}
-				}
-			}
+                    if (cameFrom.ContainsKey(newHead))
+                    {
+                        if (costs[newHead] < oldHeadCost) cameFrom[newHead] = head;
+                    }
+                    else
+                    {
+                        cameFrom.Add(newHead, head);
+                    }
+                }
+            }
 
-			heads = newHeads;
+            heads = newHeads;
 
-			// worst case: der bessere Pfad braucht 4x so lang wie der erste gefundene
-			// d.h. nachdem der erste Pfad gefunden wurde, gehen wir noch max. 4x so lang durch
-			// um bessere pfade nicht auszuschließen
-			stepCounter += heads.Contains(goalNode) ? -1 : 4;
-		}
+            // worst case: der bessere Pfad braucht 4x so lang wie der erste gefundene
+            // d.h. nachdem der erste Pfad gefunden wurde, gehen wir noch max. 4x so lang durch
+            // um bessere pfade nicht auszuschließen
+            stepCounter += heads.Contains(goalNode) ? -1 : 4;
+        }
 
-		// besten pfad konstruieren
-		List<GraphNode> finalPath = [];
-		GraphNode currentNode = goalNode;
+        // besten pfad konstruieren
+        List<GraphNode> finalPath = [];
+        GraphNode currentNode = goalNode;
 
-		while (cameFrom.ContainsKey(currentNode))
-		{
-			finalPath.Add(currentNode);
-			currentNode = cameFrom[currentNode];
-		}
-		
-		return finalPath.ToArray();
+        while (cameFrom.ContainsKey(currentNode))
+        {
+            finalPath.Add(currentNode);
+            currentNode = cameFrom[currentNode];
+        }
+
+        return finalPath.ToArray();
     }
 
     public GraphNode[] getNeighbours()

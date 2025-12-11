@@ -170,6 +170,7 @@ public partial class BauGameManager : GameManager
 						if (this.startNode == n3) this.startNode = null;
 						if (this.goalNode == n3) this.goalNode = null;
 					}
+
 					foreach (GraphNode n3 in n2.getNeighbours())
 					{
 						if (this.startNode == n3) this.startNode = null;
@@ -201,8 +202,11 @@ public partial class BauGameManager : GameManager
 				// TODO fix impl: n.isStartNode = false; n.isGoalNode = false;
 			}
 
-			n.updateModel();
+			GD.Print("new streettype: " + (int) n.streetType);
 		}
+
+		// erst im nachhinein updaten, damit fehler vermieden werden
+		foreach (GraphNode n in this.selectedNodes) n.updateModel();
 
 		// deselect all
 		onTileSelected(new Vector2I(-10000, -10000));
