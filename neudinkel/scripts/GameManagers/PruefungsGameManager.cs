@@ -33,8 +33,9 @@ public partial class PruefungsGameManager : SimulationGameManager
 		GD.Print("Algo geladen");
 
 		initialSteps();
-		currentAlgorithm.startNode.setHighlighted(true);
-		currentAlgorithm.goalNode.setHighlighted(true);
+
+		currentAlgorithm.startNode.updateModel();
+		currentAlgorithm.goalNode.updateModel();
 
 		Minimap minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
 		minimap.initMiniMap(this);
@@ -103,8 +104,12 @@ public partial class PruefungsGameManager : SimulationGameManager
     {
         var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/LevelCompletePopup");
 
-		if (popup is not null)	popup.Show();
-
+		if (popup is not null)
+		{
+				popup.Show();
+				popup.Exclusive = false;
+				popup.PopupWindow = false;
+		}
 		// Save level completion in progress bit flags
 		int bitOffset = 0;
 		if (algo == GraphSearchAlgorithm.DIJKSTRA) bitOffset = 0;
@@ -148,6 +153,9 @@ public partial class PruefungsGameManager : SimulationGameManager
 		{
 			var lvlFailed = GetNode<PopupPanel>("Pruefungsmodus/UI/LevelFailedPopup");
 			lvlFailed.Show();
+			popup.Hide();
+			lvlFailed.Exclusive = false;
+			lvlFailed.PopupWindow = false;
 		}
 
 		returnToCheckpoint();

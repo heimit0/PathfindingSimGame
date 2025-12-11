@@ -31,9 +31,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -160.0
+offset_left = -200.0
 offset_top = -100.0
-offset_right = 240.0
+offset_right = 200.0
 offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -46,9 +46,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -160.0
+offset_left = -200.0
 offset_top = -100.0
-offset_right = 240.0
+offset_right = 200.0
 offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -83,4 +83,5 @@ theme = ExtResource("3_0etym")
 icon = ExtResource("4_7lwnc")
 script = ExtResource("6_5sqsj")
 
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Restart" to="VBoxContainer/HBoxContainer/BackToMenu" method="OnResetLevel"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/BackToMenu" to="VBoxContainer/HBoxContainer/BackToMenu" method="OnBacktomenuPressed"]
