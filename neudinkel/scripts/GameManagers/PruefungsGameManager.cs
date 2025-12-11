@@ -66,7 +66,6 @@ public partial class PruefungsGameManager : SimulationGameManager
 		if (playerNode is null)
 		{
 			GD.PrintErr("Player clicked the void at: " + tilePos);
-			playerDidSmthWrong();
 			return;
 		}
 		if(currentAlgorithm.currentNode is null)
