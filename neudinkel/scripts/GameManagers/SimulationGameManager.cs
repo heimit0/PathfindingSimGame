@@ -40,6 +40,8 @@ public partial class SimulationGameManager : GameManager
 		SetStartNode += onSetStartNode;
 		SetGoalNode += onSetGoalNode;
 
+		startNode.updateModel();
+		goalNode.updateModel();
 
 
 		Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
