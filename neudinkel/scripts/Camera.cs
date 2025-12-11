@@ -26,12 +26,23 @@ public partial class Camera : Camera3D
 	[Signal]
 	public delegate void setIsUserInputEnabledEventHandler(bool enabled);
 
+	[Signal]
+	public delegate void TileHoveredEventHandler(Vector2I tilePos);
+
 	public override void _Ready()
 	{
 		// FIXME: TERRIBLE HACK
 		this.GetParent<GameManager>().SetCameraPosition += onSetCameraPosition;
 		this.isUserInputEnabled = true;
 		setIsUserInputEnabled += enabled => this.isUserInputEnabled = enabled;
+
+		// Connect TileHovered signal to PruefungsGameManager if that's our parent
+		GameManager parent = this.GetParent<GameManager>();
+		if (parent is PruefungsGameManager pruefungsGameManager)
+		{
+			GD.Print("Camera: Connecting to PruefungsGameManager");
+			this.TileHovered += pruefungsGameManager.onTileHovered;
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -89,6 +100,12 @@ public partial class Camera : Camera3D
 			if (gameManager is SimulationGameManager && !(gameManager is PruefungsGameManager))
 			{
 				gameManager.EmitSignal("TileSelected", tilePos);
+			}
+
+			if (gameManager is PruefungsGameManager)
+			{
+				GD.Print("Camera: Emitting TileHovered for tile: [" + tilePos.X + ", " + tilePos.Y + "]");
+				EmitSignal(SignalName.TileHovered, tilePos);
 			}
 		}
 	}

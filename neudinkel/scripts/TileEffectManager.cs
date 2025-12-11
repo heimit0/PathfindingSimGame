@@ -113,7 +113,7 @@ public partial class TileEffectManager : Node3D
 
     }
 
-    private void enableEffects(int tileX, int tileY)
+    public void enableEffects(int tileX, int tileY)
     {
         // Umwandeln um mit activeChimneys vergleichen zu können
         var key = (intX: tileX, intY: tileY);
@@ -143,7 +143,7 @@ public partial class TileEffectManager : Node3D
         activeOutlines[key] = outlineNode as Node3D;
     }
 
-    private void disableEffects(int tileX, int tileY)
+    public void disableEffects(int tileX, int tileY)
     {
         var key = (intX: tileX, intY: tileY);
 

@@ -22,8 +22,7 @@ public partial class SimulationGameManager : GameManager
 	[Signal]
 	public delegate void SetAutomaticSimulationSpeedEventHandler(int newSpeed); // slider für speed im simulations-modus
 
-	[Signal]
-	public delegate void TileSelectedEventHandler(Vector2I tilePos);
+
 
 
 	[Export]
@@ -44,7 +43,6 @@ public partial class SimulationGameManager : GameManager
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
 		SetStartNode += onSetStartNode;
 		SetGoalNode += onSetGoalNode;
-		TileSelected += OnTileHovered;
 
 		startNode.updateModel();
 		goalNode.updateModel();
