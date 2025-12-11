@@ -85,14 +85,14 @@ public partial class SimulationGameManager : GameManager
 		textBoxBox.highlightNextStep(nextStep);
 		
 		
-		if(this is SimulationGameManager)
+		if(this is PruefungsGameManager)
 		{
-			Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
+			Minimap minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
 			minimap.updateMinimapNodes(this.currentAlgorithm);
 		}
 		else
 		{
-			Minimap minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
+			Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
 			minimap.updateMinimapNodes(this.currentAlgorithm);
 		}
 		
