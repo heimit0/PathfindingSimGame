@@ -234,6 +234,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 			failsafe++;
 
 		}
+		currentAlgorithm.currentNode.setHighlighted(true);
 		if(checkPointNode == currentAlgorithm.currentNode)
 			return 1;
 
