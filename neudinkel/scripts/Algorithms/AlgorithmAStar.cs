@@ -12,7 +12,6 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	private float currentHeuristic;
 	private float currentDistance;
 
-	private GraphNode[] currentNeighbours;
 	private int currentNeighbourIndex;
 	private float tentativeG;
 	private float neighbourFScore;
@@ -84,31 +83,31 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 		};
 
 		this.pseudoCodeSteps = new[] {
-			( 0, "unbesuchteKnoten = new PriorityQueue()"),
-			( 1, "besuchteKnoten = new List()"),
-			( 2, "gScore[all nodes] = ∞"),
-			( 3, "unbesuchteKnoten.add(startNode)"),
-			( 3, "gScore[startNode] = 0"),
-			( 3, "while (!unbesuchteKnoten.isEmpty()):"),
-			( 4, "    current = unbesuchteKnoten.dequeue()"),
-			( 5, "    besuchteKnoten.add(current)"),
+			( 0, "unvisited = PriorityQueue"),
+			( 1, "visited = List"),
+			( 2, "g[all nodes] = ∞"),
+			( 3, "unvisited.add(startNode)"),
+			( 3, "g[startNode] = 0"),
+			( 3, "while (unvisited is not empty):"),
+			( 4, "    current = unvisited.dequeue()"),
+			( 5, "    visited.add(current)"),
 			( 6, "    if (current == targetNode):"),
-			(-1, "        Weg zu Ziel gefunden"),
+			(-1, "        <Weg zu Ziel gefunden!>"),
 			( 6, "    "),
-			( 7, "    for (neighbor in current.neighbors):"),
-			( 8, "        if (besuchteKnoten.contains(neighbor)):"),
-			( 8, "            continue"),
+			( 7, "    foreach (neighbor in current.neighbors):"),
+			( 8, "        if (neighbor is in visited):"),
+			( 8, "            skip this neighbor"),
 			( 8, "        "),
-			( 9, "        tentativeGScore = gScore[current] + distance(current, neighbor)"),
-			(10, "        if (tentativeGScore < gScore[neighbor]):"),
-			(11, "            gScore[neighbor] = tentativeGScore"),
+			( 9, "        tentativeG = g[current] + distance(current, neighbor)"),
+			(10, "        if (tentativeG < g[neighbor]):"),
+			(11, "            g[neighbor] = tentativeG"),
 			(12, "            cameFrom[neighbor] = current"),
-			(13, "            fScore[neighbor] = gScore[neighbor] + heuristic(neighbor, target)"),
-			(14, "            unbesuchteKnoten.add(neighbor, fScore[neighbor])"),
+			(13, "            f[neighbor] = g[neighbor] + h(neighbor, target)"),
+			(14, "            unvisited.add(neighbor, f[neighbor])"),
 			(10, "        "),
 			( 7, "    "),
 			( 3, ""),
-			(-2, "Kein Weg gefunden")
+			(-2, "<Kein Weg gefunden>")
 		};
 	}
 

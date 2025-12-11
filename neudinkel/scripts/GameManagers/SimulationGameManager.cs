@@ -32,6 +32,7 @@ public partial class SimulationGameManager : GameManager
 	public NeudinkelAlgorithm currentAlgorithm { get; set; }
 
 	public PseudocodeTextBox textBoxBox { get; set; }
+	public Minimap minimap;
 
 	public GraphNode lastNode;
 
@@ -48,8 +49,8 @@ public partial class SimulationGameManager : GameManager
 		goalNode.updateModel();
 		lastNode = startNode;
 
-		Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
-		minimap.initMiniMap(this);
+		this.minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
+		this.minimap.initMiniMap(this);
 	}
 
 	public override void _Process(double delta)
@@ -109,13 +110,11 @@ public partial class SimulationGameManager : GameManager
 		
 		if(this is PruefungsGameManager)
 		{
-			Minimap minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
-			minimap.updateMinimapNodes(this.currentAlgorithm);
+			this.minimap.updateMinimapNodes(this.currentAlgorithm);
 		}
 		else
 		{
-			Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
-			minimap.updateMinimapNodes(this.currentAlgorithm);
+			this.minimap.updateMinimapNodes(this.currentAlgorithm);
 		}
 		
 	}
@@ -157,6 +156,7 @@ public partial class SimulationGameManager : GameManager
 	public void onInitOrChangeAlgorithm(int algorithm)
 	{
 		GD.Print("start change algorithm");
+		this.minimap.initMiniMap(this);
 
 		// gleichen algorithmus nochmal, nur neustarten
 		if (algorithm == -1)

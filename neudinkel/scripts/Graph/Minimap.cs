@@ -30,6 +30,7 @@ public partial class Minimap : CanvasLayer
 	public int edgeThickness = 5;
 
 	public Dictionary<GraphNode, Polygon2D> minimapNodes;
+	public List<Polygon2D> minimapEdges;
 	public Dictionary<GraphNode, List<GraphNode>> edges;
 	public List<WeightedGraphEdge> edgeWeights;
 	public float minEdgeWeight = 1000.0f, maxEdgeWeight = 0.0f;
@@ -64,6 +65,7 @@ public partial class Minimap : CanvasLayer
 		this.gameManager = gameManager;
 		this.gameGraph = this.gameManager.graph;
 		this.minimapNodes = new Dictionary<GraphNode, Polygon2D>();
+		this.minimapEdges = [];
 
 		// init max size
 		foreach (GraphNode node in this.gameGraph.getCities())
@@ -80,10 +82,8 @@ public partial class Minimap : CanvasLayer
 		// render
 		foreach (GraphNode node in this.gameGraph.getCities())
 		{
-			float slopeX = ((sizeX - padding) - padding) / (maxX - minX);
-			float slopeY = ((sizeY - padding) - padding) / (maxY - minY);
-			int outputX = (int)(padding + slopeX * (node.tilePosX - minX));
-			int outputY = (int)(padding + slopeY * (node.tilePosY - minY));
+			int outputX = (int) Mathf.Remap(node.tilePosX, minX, maxX, padding, sizeX - padding);
+			int outputY = (int) Mathf.Remap(node.tilePosY, minY, maxY, padding, sizeY - padding);
 
 			Polygon2D newMinimapNode = new Polygon2D();
 			newMinimapNode.Polygon = this.tmpPolygon;
@@ -101,6 +101,7 @@ public partial class Minimap : CanvasLayer
 		{
 			foreach (GraphNode neighbour in edge.Value)
 			{
+				// falls die edge nicht existiert (nicht vom Graphen gefunden wurde)
 				WeightedGraphEdge currentEdge = this.edgeWeights.Find(e => e.from.Equals(edge.Key) && e.to.Equals(neighbour));
 				if (currentEdge is null)
 				{
@@ -108,6 +109,10 @@ public partial class Minimap : CanvasLayer
 					return;
 				}
 
+				// Farbe zwischen Rot und Grün basierend darauf, wie günstig (kosten) die Edge in Relation zum derzeitigen Level aussieht
+				// i.e. 100% rot => teuerste Edge im Level
+				// und 100% grün => günstigste Edge im Level
+				// und braun => irgendwo dazwischen
 				Color edgeColor = new Color(edgeBaseGrayValue, 1.0f - edgeBaseGrayValue, edgeBaseGrayValue);
 				float weightColorDiff = Mathf.Remap(currentEdge.weight, this.minEdgeWeight, this.maxEdgeWeight, 0.0f, 1.0f - edgeBaseGrayValue);
 				edgeColor.G -= weightColorDiff;
@@ -115,6 +120,7 @@ public partial class Minimap : CanvasLayer
 
 				Vector2 startPos = Vector2.Zero, goalPos = Vector2.Zero;
 
+				// Minimap-Positionen (Viewport-Position) bekommen
 				foreach (KeyValuePair<GraphNode, Polygon2D> minimapNode in this.minimapNodes)
 				{
 					if (edge.Key.Equals(minimapNode.Key)) startPos = minimapNode.Value.Position;
@@ -128,12 +134,15 @@ public partial class Minimap : CanvasLayer
 					return;
 				}
 
-				// schön-machen-berechnung ~georg
+				// schön-machen-berechnung tm c ~georg
+				// berechnet ein Offset zum Center der Polygone, damit die edge mit thickness
+				// basierend auf dem Winkel auch zentriert aussieht
 				Vector2 edgeDirection = goalPos - startPos;
 				Vector2 edgeThicknessHelper = (new Vector2(-edgeDirection.Y, edgeDirection.X)).Normalized();
 				startPos += (Vector2.One * this.minimapNodeSize / 2) - (edgeThicknessHelper * (this.edgeThickness / 2)); // center of each node
 				goalPos += (Vector2.One * this.minimapNodeSize / 2) - (edgeThicknessHelper * (this.edgeThickness / 2));
 
+				// Edge hinzufügen
 				Polygon2D newMinimapEdge = new Polygon2D();
 				newMinimapEdge.Color = edgeColor;
 				newMinimapEdge.ZIndex = 10;
@@ -144,6 +153,7 @@ public partial class Minimap : CanvasLayer
 					startPos + edgeThicknessHelper * this.edgeThickness
 				};
 
+				this.minimapEdges.Add(newMinimapEdge);
 				this.AddChild(newMinimapEdge);
 			}
 		}
@@ -196,6 +206,11 @@ public partial class Minimap : CanvasLayer
 			if (entry.Key.Equals(algorithm.currentNode))
 			{
 				entry.Value.Color = Colors.Yellow;
+			}
+
+			if (algorithm.currentNeighbours is not null && algorithm.currentNeighbours.Contains(entry.Key))
+			{
+				entry.Value.Color = Colors.Orange;
 			}
 		}
 	}

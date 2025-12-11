@@ -14,6 +14,7 @@ public abstract class NeudinkelAlgorithm
 	public GraphNode goalNode { get; set; }
 	public GraphNode currentNode { get; set; }
 	public GraphNode lastNode { get; set; }
+	public GraphNode[] currentNeighbours;
 	public Dictionary<GraphNode, GraphNode> cameFrom { get; set; }
 
 
