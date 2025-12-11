@@ -8,8 +8,6 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 {
 
 	private float cost;
-	private GraphNode[] currentNeighbours;
-	private int currentNeighbourIndex;
 	private float currentNeighbourCost;
 
 	public AlgorithmDijkstra(Graph graph, GraphNode startNode, GraphNode goalNode)
@@ -34,9 +32,9 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 			/*  6 */ getBestNodeFromQueue,
 			/*  7 */ addNodeToVisited,
 			/*  8 */ checkIfGoal,
-			/*  9 */ calculteDistance,
-			/* 10 */ checkIfDistanceIsKnown,
-			/* 11 */ checkForBetterDistance,
+			/*  9 */ calculteg,
+			/* 10 */ checkIfgIsKnown,
+			/* 11 */ checkForBetterg,
 			/* 12 */ updateNeighbourCost,
 			/* 13 */ updateNeighbourCameFrom,
 			/* 14 */ addNeighbourParent,
@@ -45,33 +43,32 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		}; // TODO kann verbessert werden
 
 		this.pseudoCodeSteps = new[] {
-			( 0, "unbesuchteKnoten = new PriorityQueue()"),
-			( 1, "besuchteKnoten = new List()"),
-			( 2, "distance[all nodes] = ∞"),
-			( 3, "unbesuchteKnoten.add(startNode, 0)"),
-			( 4, "distance[startNode] = 0"),
-			( 4, "while (!unbesuchteKnoten.isEmpty()):"),
-			( 5, "    current = unbesuchteKnoten.dequeue()"),
-			( 6, "    besuchteKnoten.add(current)"),
+			( 0, "unvisited = PriorityQueue"),
+			( 1, "visited = List"),
+			( 2, "g[all nodes] = ∞"),
+			( 3, "unvisited.add(startNode, 0)"),
+			( 4, "g[startNode] = 0"),
+			( 4, "while (unvisited is not empty):"),
+			( 5, "    current = unvisited.dequeue()"),
+			( 6, "    visited.add(current)"),
 			( 7, "    if (current == targetNode):"),
-			(-1, "        Weg zu Ziel gefunden"),
+			(-1, "        <Weg zu Ziel gefunden>"),
 			( 7, "    "),
-			( 8, "    for (neighbor in current.neighbors):"),
-			( 9, "        tentativeDist = distance[current] + edgeCost(current, neighbor)"),
-			(10, "        if (distance[neighbor] != ∞):"),
-			(11, "            if (tentativeDist < distance[neighbor]):"),
-			(12, "                distance[neighbor] = tentativeDist"),
+			( 8, "    foreach (neighbor in current.neighbors):"),
+			( 9, "        tentativeG = g[current] + edgeCost(current, neighbor)"),
+			(10, "        if (g[neighbor] != ∞):"),
+			(11, "            if (tentativeG < g[neighbor]):"),
+			(12, "                g[neighbor] = tentativeG"),
 			(13, "                cameFrom[neighbor] = current"),
 			(11, "        "),
 			(14, "        else:"),
 			(15, "            cameFrom[neighbor] = current"),
-			(16, "            distance[neighbor] = tentativeDist"),
-			(17, "            unbesuchteKnoten.add(neighbor, tentativeDist)"),
+			(16, "            g[neighbor] = tentativeG"),
+			(17, "            unvisited.add(neighbor, tentativeG)"),
 			( 8, "    "),
 			( 4, ""),
-			(-2, "Kein Weg gefunden")
+			(-2, "<Kein Weg gefunden>")
 		};
-
 	}
 
 	private void removeAllLabels()
@@ -103,7 +100,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		}
 	}
 
-	// PriorityQueue(node, calculatedDistance) mit der Startnode direkt in der queue
+	// PriorityQueue(node, calculatedg) mit der Startnode direkt in der queue
 	// diese wird nach und nach mit nachbarn gefüllt
 	private int initUnvisitedNodes(Graph g)
 	{
@@ -173,8 +170,6 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		Events.Instance.EmitSignal(Events.SignalName.UpdateOpenQueue);
 		GD.Print("from: [" + tmp.getTilePosString() + "] to: [" + currentNode.getTilePosString() + "]");
 
-		visualize(g);
-
 		return currentStep + 1;
 	}
 
@@ -210,11 +205,11 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 
 	// errechne die direkten kosten vom start zum derzeitigen nachnarn nachbarn
 	// for-loop start
-	private int calculteDistance(Graph g)
+	private int calculteg(Graph g)
 	{
 		if (currentNeighbourIndex >= currentNeighbours.Length) return 5; // exit for-loop, jz normaler durchlauf
 	
-		GD.Print("distance from start to " + currentNode.getTilePosString() + " is: " + distanceFromStart[currentNode]);
+		GD.Print("g from start to " + currentNode.getTilePosString() + " is: " + distanceFromStart[currentNode]);
 		currentNeighbourCost = distanceFromStart[currentNode] + edgeCost(currentNode, currentNeighbours[currentNeighbourIndex]);
 		
 		visualizeNeighbours(g,currentNeighbours[currentNeighbourIndex]);
@@ -223,21 +218,21 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	}
 
 	// überprüfe, ob eine distanz zu dieser node bereits bekannt ist
-	private int checkIfDistanceIsKnown(Graph g)
+	private int checkIfgIsKnown(Graph g)
 	{
 		if (distanceFromStart[currentNeighbours[currentNeighbourIndex]] != float.MaxValue)
 		{
-			GD.Print("Distance from start: [" + currentNeighbours[currentNeighbourIndex].getTilePosString() + "] is known!");
-			return 11; // check for better distance
+			GD.Print("g from start: [" + currentNeighbours[currentNeighbourIndex].getTilePosString() + "] is known!");
+			return 11; // check for better g
 		}
 
-		GD.Print("Distance from start: [" + currentNeighbours[currentNeighbourIndex].getTilePosString() + "] is unknown! adding it...");
-		return 16; // add node to lists
+		GD.Print("g from start: [" + currentNeighbours[currentNeighbourIndex].getTilePosString() + "] is unknown! adding it...");
+		return 14; // add node to lists
 	}
 
 	// falls die node bekannt ist, überprüfe, ob die
 	// derzeitige route besser ist
-	private int checkForBetterDistance(Graph g)
+	private int checkForBetterg(Graph g)
 	{
 		if (currentNeighbourCost < distanceFromStart[currentNeighbours[currentNeighbourIndex]])
 		{
@@ -262,6 +257,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int updateNeighbourCameFrom(Graph g)
 	{
 		cameFrom[currentNeighbours[currentNeighbourIndex]] = currentNode;
+		GD.Print("camefrom updated");
 
 		currentNeighbourIndex++;
 		return 9;
@@ -271,6 +267,7 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int addNeighbourParent(Graph g)
 	{
 		cameFrom.Add(currentNeighbours[currentNeighbourIndex], currentNode);
+		GD.Print("camefrom added");
 
 		return currentStep + 1;
 	}
