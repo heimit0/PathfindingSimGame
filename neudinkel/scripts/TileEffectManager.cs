@@ -11,7 +11,7 @@ public partial class TileEffectManager : Node3D
 {
     [Export] public PackedScene selectedTileChimneyEffect;  // Szene für Hexagon was nach oben fliegt im Editor auswählbar machen 
     [Export] public PackedScene selectedTileOutline;        // Szene für Selected Tiles auswählbar machen
-    [Export] public float EffectHeight = 0.5f;              // Y-Offset für beide Effekte
+    [Export] public float EffectHeight;              // Y-Offset für beide Effekte
     [Export] public float checkTime = 0.1f;                // Intervall in dem wir die Selected Tiles aus dem Gamemanger abfragen 1 Frame / checkTime
 
     private Node modusManager;
@@ -38,6 +38,8 @@ public partial class TileEffectManager : Node3D
             return;
         }
 
+        // Set EffectHeight to 0 in Pruefungsmodus, otherwise 0.5f
+        EffectHeight = modusManager is PruefungsGameManager ? 0.25f : 0.5f;
         var type = modusManager.GetType();
 
         // selectedNode Property 
