@@ -136,13 +136,19 @@ public partial class PruefungsGameManager : SimulationGameManager
 		var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup");
 		var popuptext = GetNode<Label>("Pruefungsmodus/UI/SpielerHatWasFalschGemachtPopup/VBoxContainer/Label");
 
-		if (popup is not null && popuptext is not null)
+		if (popup is not null && popuptext is not null && wrongStepCounter <=4)
 		{
 			popuptext.Text = "Leider das Falsche Tile ausgewählt \n Das richtige Tile war X: "
 			 + currentAlgorithm.currentNode.tilePosX + " Y: " + currentAlgorithm.currentNode.tilePosY + "\n" +
 			 "Falsche Schritte: " + wrongStepCounter +"/4";
 			popup.Show();
 		}
+
+		if(wrongStepCounter >= 4)
+		{
+			
+		}
+
 		returnToCheckpoint();
 	}
 
