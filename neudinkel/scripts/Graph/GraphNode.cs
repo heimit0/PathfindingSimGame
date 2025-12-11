@@ -44,8 +44,8 @@ public partial class GraphNode : Node3D
     public bool highlighted;
     public StreetType streetType { get; set; }
 
-	public Boolean isStartNode;
-	public Boolean isGoalNode;
+    public Boolean isStartNode;
+    public Boolean isGoalNode;
 
 
 
@@ -111,18 +111,18 @@ public partial class GraphNode : Node3D
                 break;
         }
 
-		if (isStartNode)
-		{
-			startFlag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/startflag.tscn").Instantiate(); // TODO: add variations
-			this.AddChild(startFlag);
-		}
-		if (isGoalNode)
-		{
-			goalPost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate(); // TODO: add variations
-			this.AddChild(goalPost);
-		}
-		this.AddChild(tile);
-	}
+        if (isStartNode)
+        {
+            startFlag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/startflag.tscn").Instantiate(); // TODO: add variations
+            this.AddChild(startFlag);
+        }
+        if (isGoalNode)
+        {
+            goalPost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate(); // TODO: add variations
+            this.AddChild(goalPost);
+        }
+        this.AddChild(tile);
+    }
 
     private Node3D getStreetTileAsset(GraphNode n1, GraphNode n2)
     {
@@ -153,6 +153,7 @@ public partial class GraphNode : Node3D
             GD.PrintErr("Tried to add city connections assets on a non-city node!");
             return;
         }
+
 
         foreach (GraphNode n in _neighbours)
         {
@@ -225,182 +226,111 @@ public partial class GraphNode : Node3D
     // Außerdem muss ein Nachbar als Startpunkt übergeben werden
     public GraphNode[] getPathToNeighbouringCity(GraphNode goalNode)
     {
-		List<GraphNode> heads = [..this.getNeighbours()];
-		Dictionary<GraphNode, GraphNode> cameFrom = []; // node -> last node
-		Dictionary<GraphNode, Int32> costs = [];
-		foreach (GraphNode head in heads)
-		{
-			cameFrom.Add(head, this);
-			costs.Add(head, (int) head.streetType);
-		}
-		int stepCounter = 0;
+        List<GraphNode> heads = [.. this.getNeighbours()];
+        Dictionary<GraphNode, GraphNode> cameFrom = []; // node -> last node
+        Dictionary<GraphNode, Int32> costs = [];
+        foreach (GraphNode head in heads)
+        {
+            cameFrom.Add(head, this);
+            costs.Add(head, (int)head.streetType);
+        }
+        int stepCounter = 0;
 
-		while (stepCounter >= 0)
-		{
-			GD.PrintErr("Tried to add city connections assets on a non-city node!");
-			return;
-		}
+        while (stepCounter >= 0)
+        {
+            List<GraphNode> newHeads = [];
 
+            foreach (GraphNode head in heads)
+            {
+                if (head.Equals(goalNode))
+                {
+                    newHeads.Add(head);
+                    continue;
+                }
 
-		foreach (GraphNode n in _neighbours)
-		{
-			Node3D newConnection = (Node3D)ResourceLoader.Load<PackedScene>("assets/tiles/connection_00_" + (int)n.streetType + ".tscn").Instantiate();
-			newConnection.RotateY(Mathf.DegToRad(((int)getNeighbourType(this, n) * -60.0f)));
-			this.AddChild(newConnection);
-		}
-	}
+                // jeder neue nachbar (nur in richtige richtung)
+                foreach (GraphNode newHead in head.getNeighbours().Where(n => !n.Equals(cameFrom[head])))
+                {
+                    newHeads.Add(newHead);
 
-	private Node3D loadAsset(string fileName)
-	{
-		Node3D scene = (Node3D)ResourceLoader.Load<PackedScene>("assets/tiles/" + fileName + ".tscn").Instantiate(); // TODO: add variations
-		Node3D obj = new Node3D();
-		obj.AddChild(scene);
+                    int newHeadCost = costs[head] + (int)newHead.streetType;
+                    int oldHeadCost = 0;
+                    if (costs.ContainsKey(newHead))
+                    {
+                        if (costs[newHead] > newHeadCost)
+                        {
+                            oldHeadCost = costs[newHead];
+                            costs[newHead] = newHeadCost;
+                        }
+                    }
+                    else
+                    {
+                        costs.Add(newHead, newHeadCost);
+                    }
 
-		return obj;
-	}
+                    if (cameFrom.ContainsKey(newHead))
+                    {
+                        if (costs[newHead] < oldHeadCost) cameFrom[newHead] = head;
+                    }
+                    else
+                    {
+                        cameFrom.Add(newHead, head);
+                    }
+                }
+            }
 
-	// suche alle anliegenden Knoten mit genau 1 oder > 2 Nachbarn
-	public GraphNode[] getNeighbouringCities(GraphNode[] visited)
-	{
-		List<GraphNode> heads = [];
-		foreach (GraphNode head in this.getNeighbours()) heads.Add(head);
-		List<GraphNode> visitedNodes = [this, .. heads, .. visited];
-		int numCitiesFound = 0;
+            heads = newHeads;
 
-		while (numCitiesFound < heads.Count)
-		{
-			// c# bullshit
-			List<GraphNode> newHeads = [];
+            // worst case: der bessere Pfad braucht 4x so lang wie der erste gefundene
+            // d.h. nachdem der erste Pfad gefunden wurde, gehen wir noch max. 4x so lang durch
+            // um bessere pfade nicht auszuschließen
+            stepCounter += heads.Contains(goalNode) ? -1 : 4;
+        }
 
-			foreach (GraphNode head in heads)
-			{
-				if (head.Equals(goalNode))
-				{
-					newHeads.Add(head);
-					continue;
-				}
+        // besten pfad konstruieren
+        List<GraphNode> finalPath = [];
+        GraphNode currentNode = goalNode;
 
-				// jeder neue nachbar (nur in richtige richtung)
-				foreach (GraphNode newHead in head.getNeighbours().Where(n => !n.Equals(cameFrom[head])))
-				{
-					newHeads.Add(newHead);
+        while (cameFrom.ContainsKey(currentNode))
+        {
+            finalPath.Add(currentNode);
+            currentNode = cameFrom[currentNode];
+        }
 
-					int newHeadCost = costs[head] + (int) newHead.streetType;
-					int oldHeadCost = 0;
-					if (costs.ContainsKey(newHead))
-					{
-						if (costs[newHead] > newHeadCost)
-						{
-							oldHeadCost = costs[newHead];
-							costs[newHead] = newHeadCost;
-						}
-					}
-					// if city aber nicht goalnode => abbrechen
-					else if (newHead.getNeighbours().Length == 1 || newHead.getNeighbours().Length > 2)
-					{
-						costs.Add(newHead, newHeadCost);
-					}
+        return finalPath.ToArray();
+    }
 
-					if (cameFrom.ContainsKey(newHead))
-					{
-						if (costs[newHead] < oldHeadCost) cameFrom[newHead] = head;
-					}
-					else
-					{
-						cameFrom.Add(newHead, head);
-					}
-				}
-			}
+    public GraphNode[] getNeighbours()
+    {
+        return this.neighbours.Where(n => n != null).ToArray();
+    }
 
-			heads = newHeads;
+    public static TileRelation getNeighbourType(GraphNode origin, GraphNode neighbour)
+    {
+        int dx = origin.tilePosX - neighbour.tilePosX;
+        int dy = origin.tilePosY - neighbour.tilePosY;
 
-			// worst case: der bessere Pfad braucht 4x so lang wie der erste gefundene
-			// d.h. nachdem der erste Pfad gefunden wurde, gehen wir noch max. 4x so lang durch
-			// um bessere pfade nicht auszuschließen
-			stepCounter += heads.Contains(goalNode) ? -1 : 4;
-		}
+        if (dx == -1 && dy == 1) return TileRelation.TOPRIGHT;
+        if (dx == -1 && dy == 0) return TileRelation.RIGHT;
+        if (dx == 0 && dy == -1) return TileRelation.BOTTOMRIGHT;
+        if (dx == 1 && dy == -1) return TileRelation.BOTTOMLEFT;
+        if (dx == 1 && dy == 0) return TileRelation.LEFT;
+        if (dx == 0 && dy == 1) return TileRelation.TOPLEFT;
 
-		// besten pfad konstruieren
-		List<GraphNode> finalPath = [];
-		GraphNode currentNode = goalNode;
+        return TileRelation.INVALID;
+    }
 
-	// Wir gehen davon aus, dass man weiß, dass es benachbarte Knoten gibt
-	// Außerdem muss ein Nachbar als Startpunkt übergeben werden
-	public GraphNode[] getPathToNeighbouringCity(GraphNode goalNode)
-	{
-		List<GraphNode> heads = [.. this.getNeighbours()];
-		Dictionary<GraphNode, GraphNode> cameFrom = []; // node -> last node
-		Dictionary<GraphNode, Int32> costs = [];
-		foreach (GraphNode head in heads)
-		{
-			cameFrom.Add(head, this);
-			costs.Add(head, (int)head.streetType);
-		}
-		int stepCounter = 0;
-
-		while (stepCounter >= 0)
-		{
-			List<GraphNode> newHeads = [];
-
-			foreach (GraphNode head in heads)
-			{
-				if (head.Equals(goalNode))
-				{
-					newHeads.Add(head);
-					continue;
-				}
-
-				// jeder neue nachbar (nur in richtige richtung)
-				foreach (GraphNode newHead in head.getNeighbours().Where(n => !n.Equals(cameFrom[head])))
-				{
-					newHeads.Add(newHead);
-
-					int newHeadCost = costs[head] + (int)newHead.streetType;
-					int oldHeadCost = 0;
-					if (costs.ContainsKey(newHead))
-					{
-						if (costs[newHead] > newHeadCost)
-						{
-							oldHeadCost = costs[newHead];
-							costs[newHead] = newHeadCost;
-						}
-					}
-					else
-					{
-						costs.Add(newHead, newHeadCost);
-					}
-
-					if (cameFrom.ContainsKey(newHead))
-					{
-						if (costs[newHead] < oldHeadCost) cameFrom[newHead] = head;
-					}
-					else
-					{
-						cameFrom.Add(newHead, head);
-					}
-				}
-			}
-
-			heads = newHeads;
-
-			// worst case: der bessere Pfad braucht 4x so lang wie der erste gefundene
-			// d.h. nachdem der erste Pfad gefunden wurde, gehen wir noch max. 4x so lang durch
-			// um bessere pfade nicht auszuschließen
-			stepCounter += heads.Contains(goalNode) ? -1 : 4;
-		}
-
-		// besten pfad konstruieren
-		List<GraphNode> finalPath = [];
-		GraphNode currentNode = goalNode;
-
-		while (cameFrom.ContainsKey(currentNode))
-		{
-			finalPath.Add(currentNode);
-			currentNode = cameFrom[currentNode];
-		}
-
-		return finalPath.ToArray();
-	}
+    public Vector2I getNeighbourPos(int direction)
+    {
+        switch (direction)
+        {
+            case 0: return new Vector2I(this.tilePosX + 1, this.tilePosY - 1);
+            case 1: return new Vector2I(this.tilePosX + 1, this.tilePosY);
+            case 2: return new Vector2I(this.tilePosX, this.tilePosY + 1);
+            case 3: return new Vector2I(this.tilePosX - 1, this.tilePosY + 1);
+            case 4: return new Vector2I(this.tilePosX - 1, this.tilePosY);
+            case 5: return new Vector2I(this.tilePosX, this.tilePosY - 1);
+        }
 
         // shouldnt happen
         return new Vector2I(-1000, -1000);
