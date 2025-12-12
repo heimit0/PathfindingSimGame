@@ -27,11 +27,11 @@ public partial class Mainmenu : Control
 		foreach (Node child in levelMenuZip.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 		
-		loadLevel("level3_astar");
+		loadBackdrop("baumodus_save");
 	}
 	
 	
-	private void loadLevel(string levelFile)
+	private void loadBackdrop(string levelFile)
 	{
 		
 
