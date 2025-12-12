@@ -102,7 +102,7 @@ public partial class Graph : Node3D
 	public bool fromJsonObject(JsonObject json)
 	{
 		this.nodes = new List<GraphNode>();
-		GameManager gm = this.GetParent<GameManager>();
+		GameManager gm = this.GetParent() as GameManager;
 		int startTile;
 		int endTile;
 		int i;
@@ -126,12 +126,15 @@ public partial class Graph : Node3D
 			return true;
 		}
 
-		// Kamera-Position setzen
-		if (json.ContainsKey("startPos") && json["startPos"].AsArray().Count == 2)
+		// Kamera-Position setzen (nur wenn wir einen GameManager haben)
+		if (gm != null && json.ContainsKey("startPos") && json["startPos"].AsArray().Count == 2)
 		{
 			JsonArray startPos = json["startPos"].AsArray();
 			gm.EmitSignal(GameManager.SignalName.SetCameraPosition, new Vector2((float)startPos[0], (float)startPos[1]));
 		}
+
+		GraphNode startNode = null;
+		GraphNode goalNode = null;
 
 		i = 0; // meh
 		foreach (JsonObject n in json["tiles"].AsArray())
@@ -143,13 +146,20 @@ public partial class Graph : Node3D
 			node.streetType = (StreetType)(int)n["type"];
 			this.nodes.Add(node);
 			// sind wir ein start- bzw. endtile?
-			if (i == startTile) gm.startNode = node;
-			if (i == endTile) gm.goalNode = node;
+			if (i == startTile) startNode = node;
+			if (i == endTile) goalNode = node;
 			i++;
 		}
 
-		if (gm.startNode == null) GD.PrintErr("Start node couldn't be set from json!");
-		if (gm.goalNode == null) GD.PrintErr("Goal node couldn't be set from json!");
+		// Nur wenn wir einen GameManager haben, setzen wir dort die Nodes
+		if (gm != null)
+		{
+			gm.startNode = startNode;
+			gm.goalNode = goalNode;
+
+			if (gm.startNode == null) GD.PrintErr("Start node couldn't be set from json!");
+			if (gm.goalNode == null) GD.PrintErr("Goal node couldn't be set from json!");
+		}
 
 		foreach (JsonObject e in json["edges"].AsArray())
 		{
@@ -171,10 +181,10 @@ public partial class Graph : Node3D
 			this.AddChild(n);
 		}
 		initCoordsNodes();
-		
 
-		gm.startNode.isStartNode = true;
-		gm.goalNode.isGoalNode = true;
+		// Nur wenn wir Start- und Goal-Nodes haben, markieren wir sie
+		if (startNode != null) startNode.isStartNode = true;
+		if (goalNode != null) goalNode.isGoalNode = true;
 
 		return false;
 	}

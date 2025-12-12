@@ -4,11 +4,12 @@ using System;
 public partial class OrbitCamera : Camera3D
 {
 	[Export] public Vector3 Center = Vector3.Zero; 
-	[Export] public float Distance = 10f;          
-	[Export] public float Height = 5f;             
+	[Export] public float Distance ;          
+	[Export] public float Height = 13f;             
 	[Export] public float RotationSpeed = 0.05f;   
 
-	private float _angle = 0f;
+	private float _angle = 3.14f;
+
 
 	public override void _Process(double delta)
 	{
@@ -20,4 +21,11 @@ public partial class OrbitCamera : Camera3D
 		GlobalPosition = new Vector3(x, y, z);
 		LookAt(Center, Vector3.Up);
 	}
+
+	public void setDistance(float d)
+	{
+		Distance = d;
+	}
+
+
 }
