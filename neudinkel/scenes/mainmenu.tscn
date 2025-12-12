@@ -29,7 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 0.7660445, 0.64278764, 0, -0.64278764, 0.766
 attributes = SubResource("CameraAttributesPractical_dfy5j")
 fov = 20.0
 script = ExtResource("8_wf3n4")
-Distance = 15.0
+Distance = 25.0
 
 [node name="MainMenu" type="CanvasLayer" parent="."]
 

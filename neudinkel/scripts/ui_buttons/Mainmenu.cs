@@ -26,8 +26,20 @@ public partial class Mainmenu : Control
 			
 		foreach (Node child in levelMenuZip.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
-		
-		loadBackdrop("baumodus_save");
+			//Loads random lvl from array Backdrops
+		String[] backdrops = {"baumodus_save", "level1_astar","level3_dijkstra","level1_dfs"}; //kann noch erweitert werden
+		Random r = new();
+		loadBackdrop(backdrops[Mathf.PosMod(r.Next(),backdrops.Length)]);
+		loadRandomBackdrop();
+	
+	}
+
+	public void loadRandomBackdrop()
+	{
+		//Loads random lvl from array Backdrops
+		String[] backdrops = {"baumodus_save", "level1_astar","level3_dijkstra","level1_dfs"}; //kann noch erweitert werden
+		Random r = new();
+		loadBackdrop(backdrops[Mathf.PosMod(r.Next(),backdrops.Length)]);
 	}
 	
 	
@@ -41,7 +53,7 @@ public partial class Mainmenu : Control
 
 		if (FileAccess.FileExists("res:///levels/" + levelFile + ".json"))
 		{
-			GD.Print("Loading level: " + levelFile);
+			GD.Print(" loadBackdrop: Loading level: " + levelFile);
 			file = FileAccess.Open("res:///levels/" + levelFile + ".json", FileAccess.ModeFlags.Read);
 		}
 		else
@@ -74,6 +86,16 @@ public partial class Mainmenu : Control
 		{
 			orbitCam.Center = center;
 		}
+
+		setCameraDynamic(levelGraph,orbitCam);
+	}
+
+
+	public void setCameraDynamic( Graph g, OrbitCamera c)
+	{
+		float smalsize = Mathf.Sqrt(g.getNodes().Length)+5;
+		c.setDistance(smalsize);
+		c.Height=smalsize/2;
 	}
 	
 	
