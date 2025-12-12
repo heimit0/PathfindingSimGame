@@ -69,7 +69,7 @@ public partial class GraphNode : Node3D
     public void updateModel()
     {
         // sicher ist sicher
-        if (this.GetChildren().Contains(tile)) this.RemoveChild(tile);
+		foreach (Node child in this.GetChildren()) child.QueueFree();
 
         // Remove old start flag if it exists
         if (startFlag != null && this.GetChildren().Contains(startFlag))
