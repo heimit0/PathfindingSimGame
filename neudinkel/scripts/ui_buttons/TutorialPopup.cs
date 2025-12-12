@@ -71,6 +71,7 @@ public partial class TutorialPopup : PopupPanel
 				break;
 			case 2: 
 				Seiten = PruefSeiten;
+				GD.PrintErr("Wir sind im Prüfungsmodus");
 				if (isPseudoBlockTrue)
 				{
 					Seiten = PseudoSeiten;

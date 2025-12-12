@@ -8,6 +8,8 @@ public partial class openTutorialPopup : TextureButton
     [Export] public bool isPseudoBlock;
 
 
+    TutorialPopup popupInstance;
+
     public override void _Ready()
     {
         Pressed += OnTipsPressed;
@@ -24,18 +26,16 @@ public partial class openTutorialPopup : TextureButton
             GD.PushWarning("TutorialPopup ist nicht gesetzt.");
             return;
         }
-        // Popup instanziieren
-        var popupInstance = tutorialPopup.Instantiate<TutorialPopup>();
 
-        popupInstance.setTrueValuePseudoBlock(isPseudoBlock);
 
         if (popupInstance == null)
         {
-            popupInstance = tutorialPopup.Instantiate();
+            popupInstance = tutorialPopup.Instantiate<TutorialPopup>();
+            popupInstance.setTrueValuePseudoBlock(isPseudoBlock);
             GetTree().CurrentScene.AddChild(popupInstance);
         }
 
-        (popupInstance as TutorialPopup).PopupCentered();
+        popupInstance.PopupCentered();
     }
 
 }
