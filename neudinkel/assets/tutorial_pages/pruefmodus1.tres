@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TutorialPruefPageData" load_steps=4 format=3 uid="uid://d3ne7fbntub1h"]
 
-[ext_resource type="Script" path="res://scripts/TutorialPruefPageData.cs" id="1_ilrw0"]
+[ext_resource type="Script" uid="uid://ckd2bmnlsdaxg" path="res://scripts/TutorialPruefPageData.cs" id="1_ilrw0"]
 [ext_resource type="Texture2D" uid="uid://ctxnt7t71kp43" path="res://assets/tutorial_bilder/pruefmodus.png" id="1_qojid"]
 [ext_resource type="AudioStream" uid="uid://b608sjtafu5ub" path="res://assets/sounddesign/pruefmodus2.wav" id="1_y62eg"]
 

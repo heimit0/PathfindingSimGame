@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=4 format=3 uid="uid://cvgj3kmhqx1dc"]
 
-[ext_resource type="Script" path="res://scripts/TutorialBauPageData.cs" id="1_0aau3"]
+[ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="1_0aau3"]
 [ext_resource type="Texture2D" uid="uid://b6vn0rudeh4sj" path="res://assets/tutorial_bilder/startNodeSetzen.png" id="1_pvxiq"]
 [ext_resource type="AudioStream" uid="uid://bmmh2cdrderx7" path="res://assets/sounddesign/startUndEndnode1.wav" id="1_rl132"]
 
