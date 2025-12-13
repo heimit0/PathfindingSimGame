@@ -55,7 +55,7 @@ public partial class Mainmenu : Control
         
         while (fileName != "")
         {
-            if (!dir.CurrentIsDir() && fileName.EndsWith(".json") && !fileName.StartsWith("pruef_"))
+            if (!dir.CurrentIsDir() && fileName.EndsWith(".json"))
             {
                 levelFiles.Add(fileName.Substring(0,fileName.Length-5));
 				GD.Print(fileName);
