@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 public class NeudinkelPriorityQueue<TElement, TPriority> where TPriority : IComparable
 														 where TElement : class?
