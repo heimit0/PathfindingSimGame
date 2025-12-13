@@ -35,6 +35,7 @@ public partial class SimulationGameManager : GameManager
 	public Minimap minimap;
 
 	private NodePath minimapPath = "Simulationsmodus/UI/Info/totalBlock/minimapBox/Minimap";
+	private NodePath minimapPathPruefungsModus = "Pruefungsmodus/UI/Info/totalBlock/minimapBox/Minimap";
 	public GraphNode lastNode;
 
 	public override void _Ready()
@@ -111,12 +112,13 @@ public partial class SimulationGameManager : GameManager
 
 		if (this is PruefungsGameManager)
 		{
-			minimap = GetNode<Minimap>("Pruefungsmodus/UI/Info/totalBlock/minimapBox/Minimap");
+			minimap = GetNode<Minimap>(minimapPathPruefungsModus);
 		}
 		else
 		{
 			Minimap minimap = GetNode<Minimap>(minimapPath);
 		}
+	
 		this.minimap.updateMinimapNodes(this.currentAlgorithm);
 	}
 
@@ -124,15 +126,18 @@ public partial class SimulationGameManager : GameManager
 	// hört automatisch auf, wenn isSimulationAutomatic = false
 	private async void executeAutomaticAlgorithmStepsAsync()
 	{
-		while (isSimulationAutomatic)
+		while (isSimulationAutomatic )
 		{
 			doSearchForwardHelper(true);
 
 			// wait
 			// TODO: evtl geschwindikeits-berechnung ändern
-			await ToSignal(GetTree().CreateTimer(1.0 / automaticSimulationSpeed), SceneTreeTimer.SignalName.Timeout);
+			await ToSignal(GetTree().CreateTimer(1.0 / automaticSimulationSpeed*2), SceneTreeTimer.SignalName.Timeout);
+
 		}
 	}
+
+
 
 	public void onSetIsSimulationAutomatic(bool isSimulationAutomatic)
 	{
