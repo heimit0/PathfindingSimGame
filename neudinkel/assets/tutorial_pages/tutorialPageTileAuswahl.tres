@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=3 format=3 uid="uid://df32raygew6b1"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://df32raygew6b1"]
 
-[ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="1_lcyr6"]
+[ext_resource type="Script" path="res://scripts/TutorialBauPageData.cs" id="1_lcyr6"]
 [ext_resource type="Texture2D" uid="uid://c10j6kxedb2xq" path="res://assets/tutorial_bilder/tileAuswaehlenBaumodus.png" id="1_sedto"]
 
 [resource]

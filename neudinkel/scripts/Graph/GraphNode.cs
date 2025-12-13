@@ -104,7 +104,7 @@ public partial class GraphNode : Node3D
                 int c = _neighbours.Length < 2 ? 3 : 0;
                 this.tile = loadAsset("city_0" + (_neighbours.Length + c) + "_" + "1");
 
-                if (this.streetType != (int)StreetType.EMPTY) loadCityConnectionsAssets();
+                loadCityConnectionsAssets();
                 break;
             // if street
             case 2:
