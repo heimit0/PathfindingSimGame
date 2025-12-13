@@ -111,6 +111,7 @@ public abstract class NeudinkelAlgorithm
         // erst alle ausschalten
         foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
 		GraphNode _currentNode;
+		GraphNode _currentNode;
 
         // Zielweg anzeigen
         if (currentStep == -1)
@@ -118,7 +119,6 @@ public abstract class NeudinkelAlgorithm
             GD.Print("Showing best path...");
 
 			_currentNode = this.goalNode;
-			
 
 			while (cameFrom.ContainsKey(_currentNode))
 			{
@@ -156,15 +156,6 @@ public abstract class NeudinkelAlgorithm
 
 		// bisherigen pfad highlighten + nachbar
 		_currentNode = this.currentNode;
-		if(oldCurrentNode is not null && oldCurrentNode != currentNode)
-		{
-			oldCurrentNode.isCurrentNode = false;
-			oldCurrentNode.updateModel();
-		}
-		currentNode.isCurrentNode = true;
-		currentNode.updateModel();
-		oldCurrentNode = currentNode;
-
 
 		while (cameFrom.ContainsKey(_currentNode))
 		{
