@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://baunx80t5qxp2"]
+
+[ext_resource type="Script" uid="uid://cer30o2v8d0bf" path="res://scripts/Graph/Minimap.cs" id="1_q45j0"]
+[ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="2_2niip"]
+
+[node name="Minimap" type="CanvasLayer"]
+script = ExtResource("1_q45j0")
+
+[node name="Background" type="Panel" parent="."]
+offset_right = 200.0
+offset_bottom = 200.0
+theme = ExtResource("2_2niip")
