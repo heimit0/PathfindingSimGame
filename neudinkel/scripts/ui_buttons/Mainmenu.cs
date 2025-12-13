@@ -194,7 +194,7 @@ public partial class Mainmenu : Control
 			_algoName = "astar";
 		
 		Globals.stufe = level;
-		Globals.nextLevel = "level" + level + "_" + _algoName;
+		Globals.nextLevel = "pruef_level" + level + "_" + _algoName;
 		GetTree().ChangeSceneToFile("res://scenes/pruefungsmodus.tscn");
 	}
 
