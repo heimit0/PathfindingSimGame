@@ -116,7 +116,7 @@ public partial class SimulationGameManager : GameManager
 		}
 		else
 		{
-			Minimap minimap = GetNode<Minimap>(minimapPath);
+			this.minimap = GetNode<Minimap>(minimapPath);
 		}
 	
 		this.minimap.updateMinimapNodes(this.currentAlgorithm);
@@ -197,7 +197,7 @@ public partial class SimulationGameManager : GameManager
 
 		GD.Print("start visualizing algorithm");
 		this.currentAlgorithm.visualize(this.graph, this);
-		if(this.minimap is not null) this.minimap.initMiniMap(this);
+		this.minimap.initMiniMap(this);
 		onSetIsSimulationAutomatic(false);
 
 		GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
