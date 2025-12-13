@@ -158,17 +158,17 @@ public partial class BauGameManager : GameManager
 				{
 					this.graph.addRelation(n1, n2);
 					// Special state resetting, probably a bit too much, but time is running out at ths point
-					foreach (GraphNode n3 in n1.getNeighbours())
-					{
-						if (this.startNode == n3) this.startNode = null;
-						if (this.goalNode == n3) this.goalNode = null;
-					}
+					// foreach (GraphNode n3 in n1.getNeighbours())
+					// {
+					// 	if (this.startNode == n3) this.startNode = null;
+					// 	if (this.goalNode == n3) this.goalNode = null;
+					// }
 
-					foreach (GraphNode n3 in n2.getNeighbours())
-					{
-						if (this.startNode == n3) this.startNode = null;
-						if (this.goalNode == n3) this.goalNode = null;
-					}
+					// foreach (GraphNode n3 in n2.getNeighbours())
+					// {
+					// 	if (this.startNode == n3) this.startNode = null;
+					// 	if (this.goalNode == n3) this.goalNode = null;
+					// }
 				}
 			}
 		}
@@ -195,8 +195,6 @@ public partial class BauGameManager : GameManager
 					GD.Print("Baumodus: reset goal node!");
 				}
 			}
-
-			GD.Print("new streettype: " + (int) n.streetType);
 		}
 
 		// erst im nachhinein updaten, damit fehler vermieden werden

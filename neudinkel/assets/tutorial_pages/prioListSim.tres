@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://v381oaaxum10"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://v381oaaxum10"]
 
 [ext_resource type="Texture2D" uid="uid://kybonftgip0h" path="res://assets/tutorial_bilder/prioListeSimModus.png" id="1_2d0k3"]
-[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_0b1ig"]
+[ext_resource type="Script" path="res://scripts/TutorialSimPageData.cs" id="2_0b1ig"]
 
 [resource]
 script = ExtResource("2_0b1ig")

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://ovbfe4ldiwfy"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ovbfe4ldiwfy"]
 
-[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="1_5s47e"]
+[ext_resource type="Script" path="res://scripts/TutorialSimPageData.cs" id="1_5s47e"]
 [ext_resource type="Texture2D" uid="uid://dwujytvsx2xi1" path="res://assets/tutorial_bilder/simulationsModus.png" id="1_t5jld"]
 
 [resource]

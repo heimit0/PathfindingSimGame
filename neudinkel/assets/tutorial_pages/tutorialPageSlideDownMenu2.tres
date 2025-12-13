@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=3 format=3 uid="uid://0ygjxt7vd8n5"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://0ygjxt7vd8n5"]
 
 [ext_resource type="Texture2D" uid="uid://cv5vrd0yaxrtn" path="res://assets/tutorial_bilder/tutorial.png" id="1_sl0f7"]
-[ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="2_vcdwj"]
+[ext_resource type="Script" path="res://scripts/TutorialBauPageData.cs" id="2_vcdwj"]
 
 [resource]
 script = ExtResource("2_vcdwj")
