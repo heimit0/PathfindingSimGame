@@ -60,21 +60,6 @@ public partial class SimulationGameManager : GameManager
 		base._Process(delta);
 	}
 
-	// Handler for tile hover/selection events
-	private void OnTileHovered(Vector2I tilePos)
-	{
-		GraphNode playerNode = this.graph.getNode(tilePos.X, tilePos.Y);
-
-		if(playerNode is not null && playerNode != lastNode)
-		{
-			if(lastNode is not null)
-			{
-				lastNode.setHighlighted(false);
-			}
-			lastNode = playerNode;
-			playerNode.setHighlighted(true);
-		}
-	}
 
 	// ruft ensprechende Methode in jedem NeudinkelAlgorithm auf
 	// gibt den nächsten index im schritt-array des algorithmus' zurück (für UI)
@@ -161,6 +146,13 @@ public partial class SimulationGameManager : GameManager
 	// int algorithm == -1 => gleichen Algorithmus nochmal, i.e. nur neustarten
 	public void onInitOrChangeAlgorithm(int algorithm)
 	{
+		if(currentAlgorithm is not null)
+		{
+		currentAlgorithm.currentNode.isCurrentNode=false;
+		currentAlgorithm.currentNode.updateModel();
+		}
+
+
 		GD.Print("start change algorithm");
 
 		// gleichen algorithmus nochmal, nur neustarten

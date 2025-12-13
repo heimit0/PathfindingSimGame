@@ -1,7 +1,7 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://8o4bg7nqueer"]
+[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://8o4bg7nqueer"]
 
 [ext_resource type="Texture2D" uid="uid://c6007txkq1adr" path="res://assets/tutorial_bilder/algoAuswahlSimu.png" id="1_517np"]
-[ext_resource type="Script" path="res://scripts/TutorialSimPageData.cs" id="2_ptrqf"]
+[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_ptrqf"]
 
 [resource]
 script = ExtResource("2_ptrqf")
