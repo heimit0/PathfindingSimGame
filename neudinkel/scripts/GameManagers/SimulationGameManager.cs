@@ -105,6 +105,7 @@ public partial class SimulationGameManager : GameManager
 
 		GD.Print("Executing step: " + this.currentAlgorithm.currentStep);
 		int nextStep = step ? this.currentAlgorithm.doSearchStep() : this.currentAlgorithm.doSearchForward();
+		this.currentAlgorithm.visualize(this.graph, this);
 
 		textBoxBox.highlightNextStep(nextStep);
 
@@ -191,6 +192,7 @@ public partial class SimulationGameManager : GameManager
 
 		GD.Print("start visualizing algorithm");
 		this.currentAlgorithm.visualize(this.graph, this);
+		this.minimap.initMiniMap(this);
 		onSetIsSimulationAutomatic(false);
 
 		GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);

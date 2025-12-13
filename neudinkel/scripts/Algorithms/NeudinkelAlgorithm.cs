@@ -109,13 +109,14 @@ public abstract class NeudinkelAlgorithm
     {
         // erst alle ausschalten
         foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
+		GraphNode _currentNode;
 
         // Zielweg anzeigen
         if (currentStep == -1)
         {
             GD.Print("Showing best path...");
 
-			GraphNode _currentNode = this.goalNode;
+			_currentNode = this.goalNode;
 
 			while (cameFrom.ContainsKey(_currentNode))
 			{
@@ -147,22 +148,27 @@ public abstract class NeudinkelAlgorithm
 		highlightedNeighbours = new HashSet<GraphNode>();
 		
 		// 1. Schritt ignorieren
+		GD.Print("highlighting current node");
 		if (currentNode is null) return;
 		currentNode.setHighlighted(true);
-		if (lastNode is null) return;
 
-		if (lastNode is null) return;
+		// bisherigen pfad highlighten + nachbar
+		_currentNode = this.currentNode;
 
-		if (currentNode.getPathToNeighbouringCity(lastNode) is null)
+		while (cameFrom.ContainsKey(_currentNode))
 		{
-			lastNode.setHighlighted(true);
-			return;
+			// ganzen pfad
+			foreach (GraphNode pathNode in _currentNode.getPathToNeighbouringCity(cameFrom[_currentNode]))
+			{
+				pathNode.setHighlighted(true);
+			}
+
+			_currentNode = cameFrom[_currentNode];
 		}
 
-		foreach (GraphNode toHighlight in currentNode.getPathToNeighbouringCity(lastNode))
-		{
-			toHighlight.setHighlighted(true);
-		}
+		// derzeitiger nachbar
+		if (this.currentNeighbours is null || this.currentNeighbourIndex >= this.currentNeighbours.Length) return;
+		this.currentNeighbours[this.currentNeighbourIndex].setHighlighted(true);
 	}
 	//highlighted den derzeitig zubearbeiteten nachbar und setzt das highlighting der zuvor gehighlighteten nachbarn wieder zurück
 	public void visualizeNeighbours(Graph g,GraphNode node)
