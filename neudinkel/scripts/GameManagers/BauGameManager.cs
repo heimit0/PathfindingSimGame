@@ -26,7 +26,7 @@ public partial class BauGameManager : GameManager
 		}
 		else
 		{
-			prepScene(Globals.baumodusInitLevel);
+			prepScene(Globals.baumodusInitLevel, true);
 			Globals.baumodusInitLevel = null;
 			Globals.openSimpleInfoModal(this, "Level geladen", 2);
 		}
@@ -218,7 +218,7 @@ public partial class BauGameManager : GameManager
 		}
 
 		// save state
-		this.graph.toJsonFile("baumodus_save");
+		actuallySpeichern("baumodus_save");
 		GetTree().ChangeSceneToFile("res://scenes/Simulationsmodus.tscn");
 	}
 

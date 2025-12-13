@@ -47,7 +47,21 @@ public partial class Globals : Node
 		Globals.config = new NeudinkelConfig();
 
 		Globals.loadGame();
+		initUserLevelDir();
 	}
+
+	/* <HACK> */
+	/// <summary>
+	/// Sicherstellen dass es das Nutzer-Level-Verzeichnis WIRKLICH gibt.
+	/// </summary>
+	public void initUserLevelDir()
+	{
+		string path = "user:///levels/";
+		if (!DirAccess.DirExistsAbsolute(path))
+			DirAccess.MakeDirAbsolute(path);
+		return;
+	}
+	/* </HACK> */
 
 	public static void saveGame()
 	{
