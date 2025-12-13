@@ -205,9 +205,11 @@ public partial class Minimap : Panel
             entry.Key.Color = entry.Value.color;
         }
 
+        GraphNode _currentNode;
+
         if (algorithm.currentStep == -1)
         {
-            GraphNode _currentNode = algorithm.goalNode;
+            _currentNode = algorithm.goalNode;
 
             while (algorithm.cameFrom.ContainsKey(_currentNode))
             {
@@ -225,7 +227,7 @@ public partial class Minimap : Panel
                 _currentNode = algorithm.cameFrom[_currentNode];
             }
 
-			this.minimapNodes[algorithm.startNode].Color = Colors.Yellow;
+            this.minimapNodes[algorithm.startNode].Color = Colors.Yellow;
             return;
         }
 
@@ -237,35 +239,44 @@ public partial class Minimap : Panel
             if (algorithm.visitedNodes.Contains(entry.Key)) entry.Value.Color = Colors.White;
         }
 
-        // current node
+        // path to start + neighbour
+        if (algorithm.currentNode is null) return;
+        _currentNode = algorithm.currentNode;
+
+        while (algorithm.cameFrom.ContainsKey(_currentNode))
+        {
+            foreach (KeyValuePair<Polygon2D, WeightedGraphEdge> entry in this.minimapEdges)
+            {
+                if (entry.Value.from.Equals(_currentNode) && entry.Value.to.Equals(algorithm.cameFrom[_currentNode])) entry.Key.Color = Colors.Yellow;
+                if (entry.Value.to.Equals(_currentNode) && entry.Value.from.Equals(algorithm.cameFrom[_currentNode])) entry.Key.Color = Colors.Yellow;
+            }
+
+            foreach (KeyValuePair<GraphNode, Polygon2D> entry in this.minimapNodes)
+            {
+                if (entry.Key.Equals(_currentNode)) entry.Value.Color = Colors.Yellow;
+            }
+
+            _currentNode = algorithm.cameFrom[_currentNode];
+        }
+
+        this.minimapNodes[algorithm.startNode].Color = Colors.Yellow;
+
+        // neighbours
         foreach (KeyValuePair<GraphNode, Polygon2D> entry in this.minimapNodes)
         {
-
-            if (entry.Key.Equals(algorithm.currentNode))
-            {
-                entry.Value.Color = Colors.Yellow;
-            }
-
-            if (algorithm.currentNeighbours is not null && algorithm.currentNeighbours.Contains(entry.Key))
-            {
-                if (algorithm.currentNeighbourIndex >= algorithm.currentNeighbours.Length) continue;
-                entry.Value.Color = Colors.Orange;
-            }
+            if (algorithm.currentNeighbours is null) continue;
+            if (algorithm.currentNeighbourIndex >= algorithm.currentNeighbours.Length) continue;
+			
+            if (algorithm.currentNeighbours.Contains(entry.Key)) entry.Value.Color = Colors.Orange;
         }
 
         foreach (KeyValuePair<Polygon2D, WeightedGraphEdge> entry in this.minimapEdges)
         {
-            if (algorithm.currentNeighbours is null) break;
-            if (algorithm.currentNeighbourIndex >= algorithm.currentNeighbours.Length) break;
+            if (algorithm.currentNeighbours is null) continue;
+            if (algorithm.currentNeighbourIndex >= algorithm.currentNeighbours.Length) continue;
 
-            if (entry.Value.to.Equals(algorithm.currentNeighbours[algorithm.currentNeighbourIndex]))
-            {
-                if (entry.Value.from.Equals(algorithm.currentNode)) entry.Key.Color = Colors.Yellow;
-            }
-            else
-            {
-                entry.Key.Color = entry.Value.color;
-            }
+            if (entry.Value.from.Equals(algorithm.currentNode) && entry.Value.to.Equals(algorithm.currentNeighbours[algorithm.currentNeighbourIndex])) entry.Key.Color = Colors.Orange;
+            if (entry.Value.to.Equals(algorithm.currentNode) && entry.Value.from.Equals(algorithm.currentNeighbours[algorithm.currentNeighbourIndex])) entry.Key.Color = Colors.Orange;
         }
     }
 }
