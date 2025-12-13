@@ -29,7 +29,6 @@ public partial class Mainmenu : Control
 			//Loads random lvl from array Backdrops
 		String[] backdrops = {"baumodus_save", "level1_astar","level3_dijkstra","level1_dfs"}; //kann noch erweitert werden
 		Random r = new();
-		loadBackdrop(backdrops[Mathf.PosMod(r.Next(),backdrops.Length)]);
 		loadRandomBackdrop();
 	
 	}
