@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Text.Json.Nodes;
 
 public partial class Mainmenu : Control
@@ -27,7 +28,7 @@ public partial class Mainmenu : Control
 		foreach (Node child in levelMenuZip.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 			//Loads random lvl from array Backdrops
-		String[] backdrops = {"baumodus_save", "level1_astar","level3_dijkstra","level1_dfs"}; //kann noch erweitert werden
+		String[] backdrops = {"baumodus_save", "pruef_level1_astar","level3_dijkstra","level1_dfs"}; //kann noch erweitert werden
 		Random r = new();
 		loadRandomBackdrop();
 	
@@ -36,10 +37,36 @@ public partial class Mainmenu : Control
 	public void loadRandomBackdrop()
 	{
 		//Loads random lvl from array Backdrops
-		String[] backdrops = {"baumodus_save", "level1_astar","level3_dijkstra","level1_dfs"}; //kann noch erweitert werden
+		String[] backdrops = getLevelFiles().ToArray(); //kann noch erweitert werden
 		Random r = new();
 		loadBackdrop(backdrops[Mathf.PosMod(r.Next(),backdrops.Length)]);
 	}
+
+
+	public List<string> getLevelFiles()
+{
+    var levelFiles = new List<string>();
+    var dir = DirAccess.Open("res://levels");
+    
+    if (dir != null)
+    {
+        dir.ListDirBegin();
+        string fileName = dir.GetNext();
+        
+        while (fileName != "")
+        {
+            if (!dir.CurrentIsDir() && fileName.EndsWith(".json") && !fileName.StartsWith("pruef_"))
+            {
+                levelFiles.Add(fileName.Substring(0,fileName.Length-5));
+				GD.Print(fileName);
+            }
+            fileName = dir.GetNext();
+        }
+        dir.ListDirEnd();
+    }
+    
+    return levelFiles;
+}
 	
 	
 	private void loadBackdrop(string levelFile)

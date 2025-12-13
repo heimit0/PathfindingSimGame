@@ -20,6 +20,8 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		this.cameFrom = new Dictionary<GraphNode, GraphNode>();
 		this.distanceFromStart = new Dictionary<GraphNode, float>();
 
+		this.breakpoint = 6;
+
 		removeAllLabels();
 
 		this.steps = new Func<Graph, int>[] {

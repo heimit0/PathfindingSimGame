@@ -20,6 +20,8 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		this.neighbourQueue = null;
 		this.currentNeighbour = null;
 
+		this.breakpoint = 4;
+
 		// Schritte-Array (nur Submethoden)
 		this.steps = new Func<Graph, int>[] {
 			/*  0 */ initUnvisitedNodes,
