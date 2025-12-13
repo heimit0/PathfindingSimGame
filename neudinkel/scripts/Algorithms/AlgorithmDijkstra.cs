@@ -250,20 +250,28 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int updateNeighbourCost(Graph g)
 	{
 		distanceFromStart[currentNeighbours[currentNeighbourIndex]] = currentNeighbourCost;
-		NeudinkelPriorityQueue<GraphNode, float> tmpQueue = new NeudinkelPriorityQueue<GraphNode, float>();
+		//erstellt eine temporaere priority queue
+		NeudinkelPriorityQueue<GraphNode, float> tmpQueue = new NeudinkelPriorityQueue<GraphNode, float>(); 
+		//while schleife solange unvisitednodes noch nodes hat für das umlagern in temp queue
 		while (unvisitedNodes.Count != 0)
 		{
+			//holen der node mit der niedrigsten prio 
 			GraphNode tmpNode  = unvisitedNodes.Dequeue();
-			if(tmpNode != currentNeighbours[currentNeighbourIndex])
+			//umlagern in die temp queue solange es nicht der zu ändernde nachbar ist
+			if(!tmpNode.Equals(currentNeighbours[currentNeighbourIndex]))
 			{
 				tmpQueue.Enqueue(tmpNode,distanceFromStart[tmpNode]);
 			}
 		}
+		//while schleife solange tempqueue noch nodes hat für das zurueckfuehren in unvisitednodes
 		while (tmpQueue.Count != 0)
 		{
+			//holen des elements mit hoechster prio aus der temp queue
 			GraphNode tmpNode  = tmpQueue.Dequeue();
+			//einlagern des elements in unvisitednodes
 			unvisitedNodes.Enqueue(tmpNode,distanceFromStart[tmpNode]);
 		}
+		//einlagern des zu aendernden nachbarn mit geaenderter priotitaet in priority queue
 		unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex],distanceFromStart[currentNeighbours[currentNeighbourIndex]]);
 		updateCost(currentNeighbours[currentNeighbourIndex]);
 		return currentStep + 1;

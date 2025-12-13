@@ -50,21 +50,4 @@ public class NeudinkelPriorityQueue<TElement, TPriority> where TPriority : IComp
 			return e;
 		}
 	}
-
-	public bool TryDequeue([MaybeNullWhen(false)] out TElement element, [MaybeNullWhen(false)] out TPriority priority)
-	{
-		if (this.Items.Count != 0)
-		{
-			(priority, element) = this.Items[0];
-			this.Items.RemoveAt(0);
-			return true;
-		}
-		else
-		{
-			element = default;
-			priority = default;
-			return false;
-		}
-	}
-
 }
