@@ -111,7 +111,7 @@ public partial class SimulationGameManager : GameManager
 
 		if (this is PruefungsGameManager)
 		{
-			minimap = GetNode<Minimap>(minimapPath);
+			minimap = GetNode<Minimap>("Pruefungsmodus/UI/Info/totalBlock/minimapBox/Minimap");
 		}
 		else
 		{

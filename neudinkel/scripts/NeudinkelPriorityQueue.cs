@@ -49,5 +49,4 @@ public class NeudinkelPriorityQueue<TElement, TPriority> where TPriority : IComp
 			return e;
 		}
 	}
-
 }
