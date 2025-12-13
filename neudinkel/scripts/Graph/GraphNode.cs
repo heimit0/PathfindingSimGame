@@ -274,7 +274,7 @@ public partial class GraphNode : Node3D
                 // jeder neue nachbar (nur in richtige richtung)
                 foreach (GraphNode newHead in head.getNeighbours().Where(n => !n.Equals(cameFrom[head])))
                 {
-                    newHeads.Add(newHead);
+                    if (newHead.getNeighbours().Length == 2) newHeads.Add(newHead); // if newHead is a streettile, break at cities
 
                     int newHeadCost = costs[head] + (int)newHead.streetType;
                     int oldHeadCost = 0;
