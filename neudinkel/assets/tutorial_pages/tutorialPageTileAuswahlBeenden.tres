@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=4 format=3 uid="uid://cgu8hk1jekj2i"]
 
-[ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="1_0n7qj"]
+[ext_resource type="Script" path="res://scripts/TutorialBauPageData.cs" id="1_0n7qj"]
 [ext_resource type="Texture2D" uid="uid://b83d1rqla0mge" path="res://assets/tutorial_bilder/tileAuswahlBeenden.png" id="1_byyra"]
 [ext_resource type="AudioStream" uid="uid://cw0u4sj2qha4q" path="res://assets/sounddesign/tileauswahlBeenden.wav" id="1_ochr0"]
 

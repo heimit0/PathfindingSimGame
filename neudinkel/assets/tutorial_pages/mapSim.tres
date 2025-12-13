@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://cl3gvedyioulf" path="res://assets/sounddesign/minimap.wav" id="1_0tdex"]
 [ext_resource type="Texture2D" uid="uid://iut7j1na0j5b" path="res://assets/tutorial_bilder/minimapSimModus.png" id="1_x5txu"]
-[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_0tdex"]
+[ext_resource type="Script" path="res://scripts/TutorialSimPageData.cs" id="2_0tdex"]
 
 [resource]
 script = ExtResource("2_0tdex")

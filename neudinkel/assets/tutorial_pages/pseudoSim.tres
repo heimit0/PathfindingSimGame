@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://if6lx7ke32sc" path="res://assets/sounddesign/pseudocodeBlock.wav" id="1_5dc22"]
 [ext_resource type="Texture2D" uid="uid://dhpin3kitdrjy" path="res://assets/tutorial_bilder/pseudoCodeSimmodus.png" id="1_qjx1i"]
-[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_5dc22"]
+[ext_resource type="Script" path="res://scripts/TutorialSimPageData.cs" id="2_5dc22"]
 
 [resource]
 script = ExtResource("2_5dc22")

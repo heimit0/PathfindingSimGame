@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://ds6djfbibx3hb" path="res://assets/sounddesign/simulationsModus5.wav" id="1_1h3xa"]
 [ext_resource type="Texture2D" uid="uid://bfwiaox0tie1k" path="res://assets/tutorial_bilder/schrittButtonsSim.png" id="1_d1lsm"]
-[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_1h3xa"]
+[ext_resource type="Script" path="res://scripts/TutorialSimPageData.cs" id="2_1h3xa"]
 
 [resource]
 script = ExtResource("2_1h3xa")

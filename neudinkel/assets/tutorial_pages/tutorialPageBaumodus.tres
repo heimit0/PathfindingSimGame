@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://rlm3cbj7xblo" path="res://assets/sounddesign/baumodusTutorial1.wav" id="1_cydbn"]
 [ext_resource type="Texture2D" uid="uid://dn0mk50esqfvg" path="res://assets/tutorial_bilder/baumodus.png" id="1_pj8tr"]
-[ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="2_pj8tr"]
+[ext_resource type="Script" path="res://scripts/TutorialBauPageData.cs" id="2_pj8tr"]
 
 [resource]
 script = ExtResource("2_pj8tr")

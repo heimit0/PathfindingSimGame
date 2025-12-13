@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://hfh0gnp1vka4" path="res://assets/sounddesign/straßenTyp2.wav" id="1_6bath"]
 [ext_resource type="Texture2D" uid="uid://sbbxdd0rhy6g" path="res://assets/tutorial_bilder/tileAnpassen2.png" id="1_bja0d"]
-[ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="1_h5t86"]
+[ext_resource type="Script" path="res://scripts/TutorialBauPageData.cs" id="1_h5t86"]
 
 [resource]
 script = ExtResource("1_h5t86")
