@@ -19,11 +19,6 @@ public class WeightedGraphEdge
     }
 }
 
-public class GraphEdgeContent
-{
-	
-}
-
 public partial class Minimap : Panel
 {
     public GameManager gameManager { get; set; }
