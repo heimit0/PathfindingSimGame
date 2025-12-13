@@ -1,7 +1,7 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cjfpx6rghx1e5"]
+[gd_resource type="Resource" script_class="TutorialPruefPageData" load_steps=3 format=3 uid="uid://cjfpx6rghx1e5"]
 
 [ext_resource type="Texture2D" uid="uid://cuw27006r5u1k" path="res://assets/tutorial_bilder/pseudoCodePrüfungsmodus.png" id="1_nets0"]
-[ext_resource type="Script" path="res://scripts/TutorialPruefPageData.cs" id="2_u105j"]
+[ext_resource type="Script" uid="uid://ckd2bmnlsdaxg" path="res://scripts/TutorialPruefPageData.cs" id="2_u105j"]
 
 [resource]
 script = ExtResource("2_u105j")

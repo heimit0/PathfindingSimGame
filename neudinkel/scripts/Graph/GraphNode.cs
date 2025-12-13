@@ -39,6 +39,7 @@ public partial class GraphNode : Node3D
     // start/goal markers
     private Node3D startFlag;
     private Node3D goalPost;
+    private Node3D currentCrystal;
 
     // hervorgehobn ja / nein
     public bool highlighted;
@@ -46,6 +47,7 @@ public partial class GraphNode : Node3D
 
     public Boolean isStartNode;
     public Boolean isGoalNode;
+    public Boolean isCurrentNode;
 
 
 
@@ -77,6 +79,13 @@ public partial class GraphNode : Node3D
             this.RemoveChild(startFlag);
             startFlag.QueueFree();
             startFlag = null;
+        }
+
+        if (currentCrystal != null && this.GetChildren().Contains(currentCrystal))
+        {
+            this.RemoveChild(currentCrystal);
+            currentCrystal.QueueFree();
+            currentCrystal = null;
         }
 
         // Remove old goal post if it exists
@@ -114,13 +123,18 @@ public partial class GraphNode : Node3D
 
         if (isStartNode)
         {
-            startFlag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/startflag.tscn").Instantiate(); // TODO: add variations
+            startFlag = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/startflag.tscn").Instantiate();
             this.AddChild(startFlag);
         }
         if (isGoalNode)
         {
-            goalPost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate(); // TODO: add variations
+            goalPost = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/testing/goalpost.tscn").Instantiate();
             this.AddChild(goalPost);
+        }
+        if(isCurrentNode)
+        {
+            currentCrystal = (Node3D)ResourceLoader.Load<PackedScene>("res://assets/Markers/CurrentNodeCrystal.tscn").Instantiate();
+            this.AddChild(currentCrystal);
         }
 
         this.AddChild(tile);
@@ -260,7 +274,7 @@ public partial class GraphNode : Node3D
                 // jeder neue nachbar (nur in richtige richtung)
                 foreach (GraphNode newHead in head.getNeighbours().Where(n => !n.Equals(cameFrom[head])))
                 {
-                    newHeads.Add(newHead);
+                    if (newHead.getNeighbours().Length == 2) newHeads.Add(newHead); // if newHead is a streettile, break at cities
 
                     int newHeadCost = costs[head] + (int)newHead.streetType;
                     int oldHeadCost = 0;
