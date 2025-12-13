@@ -69,7 +69,7 @@ public partial class GraphNode : Node3D
     public void updateModel()
     {
         // sicher ist sicher
-		foreach (Node child in this.GetChildren()) child.QueueFree();
+		foreach (Node child in this.GetChildren().Where(child => child is not Label3D)) child.QueueFree();
 
         // Remove old start flag if it exists
         if (startFlag != null && this.GetChildren().Contains(startFlag))
