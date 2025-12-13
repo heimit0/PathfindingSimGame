@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://d26dp64kw4o8c"]
+
+[ext_resource type="Texture2D" uid="uid://bfwiaox0tie1k" path="res://assets/tutorial_bilder/schrittButtonsSim.png" id="1_d1lsm"]
+[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_1h3xa"]
+
+[resource]
+script = ExtResource("2_1h3xa")
+Label = "Ablauf"
+Text = "Der 3. Button von links führt eine Iteration des Algorithmus durch. Der letzte Button startet die Simulation von Anfang neu."
+Image = ExtResource("1_d1lsm")
+metadata/_custom_type_script = "uid://tnd4qbj0ypdb"

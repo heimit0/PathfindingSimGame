@@ -34,6 +34,7 @@ public partial class SimulationGameManager : GameManager
 	public PseudocodeTextBox textBoxBox { get; set; }
 	public Minimap minimap;
 
+	private NodePath minimapPath = "Simulationsmodus/UI/Info/totalBlock/minimapBox/Minimap";
 	public GraphNode lastNode;
 
 	public override void _Ready()
@@ -49,7 +50,7 @@ public partial class SimulationGameManager : GameManager
 		goalNode.updateModel();
 		lastNode = startNode;
 
-		this.minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
+		this.minimap = GetNode<Minimap>(minimapPath);
 		this.minimap.initMiniMap(this);
 	}
 
@@ -109,11 +110,11 @@ public partial class SimulationGameManager : GameManager
 
 		if (this is PruefungsGameManager)
 		{
-			minimap = GetNode<Minimap>("Pruefungsmodus/UI/Minimap");
+			minimap = GetNode<Minimap>(minimapPath);
 		}
 		else
 		{
-			Minimap minimap = GetNode<Minimap>("Simulationsmodus/UI/Minimap");
+			Minimap minimap = GetNode<Minimap>(minimapPath);
 		}
 		this.minimap.updateMinimapNodes(this.currentAlgorithm);
 	}

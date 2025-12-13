@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cja2otsjks3ig"]
+[gd_scene load_steps=34 format=3 uid="uid://cja2otsjks3ig"]
 
 [ext_resource type="Script" uid="uid://ddtghf3r0my2n" path="res://scripts/GameManagers/BauGameManager.cs" id="1_sfl2l"]
 [ext_resource type="Texture2D" uid="uid://ctx4brr3q6rko" path="res://assets/ui_icons/tile_highway.png" id="2_bn8a6"]
@@ -8,14 +8,15 @@
 [ext_resource type="Texture2D" uid="uid://c6hg13q4pa2r8" path="res://assets/ui_icons/tile_street.png" id="5_sbvyt"]
 [ext_resource type="Texture2D" uid="uid://bwxe81xedhwdb" path="res://assets/ui_icons/tile_dirtpath.png" id="6_axwq4"]
 [ext_resource type="Texture2D" uid="uid://cxw25x0gyjoo8" path="res://assets/ui_icons/tile_sandpath.png" id="7_uq815"]
-[ext_resource type="Theme" uid="uid://wpj72fhbl7gv" path="res://assets/ui_presets/Popup_buttons.tres" id="9_d8yt2"]
+[ext_resource type="Theme" uid="uid://bxuenqfc1auia" path="res://assets/ui_presets/Popup_buttons.tres" id="9_d8yt2"]
 [ext_resource type="Texture2D" uid="uid://0rm68pxg7iu" path="res://assets/ui_icons/start.svg" id="13_3th2j"]
 [ext_resource type="PackedScene" uid="uid://dnd4n4403rqoa" path="res://assets/ui_offcanvas_scenes/LevelSpeichernModal.tscn" id="13_4c4u4"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="13_axwq4"]
 [ext_resource type="PackedScene" uid="uid://dw46rq0gpvov7" path="res://assets/ui_offcanvas_scenes/LevelLadenModal.tscn" id="14_b6kbm"]
 [ext_resource type="Texture2D" uid="uid://d1px3tkott2k7" path="res://assets/ui_icons/finish.svg" id="14_gj26j"]
 [ext_resource type="Script" uid="uid://cwoiciqu0ccii" path="res://scripts/ui_buttons/SlideDownMenuBauModus.cs" id="14_jd0uw"]
-[ext_resource type="PackedScene" uid="uid://dyyyfal4p6jcv" path="res://scenes/Minimap.tscn" id="15_awm26"]
+[ext_resource type="Material" uid="uid://bdcbkaoa7gbam" path="res://assets/ui_presets/algorithmInfoMaterial.tres" id="14_vi4fd"]
+[ext_resource type="Script" uid="uid://cer30o2v8d0bf" path="res://scripts/Graph/Minimap.cs" id="15_d8yt2"]
 [ext_resource type="Script" uid="uid://debdk623bhaon" path="res://scripts/TileEffectManager.cs" id="15_w7ehh"]
 [ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="16_p5ppk"]
 [ext_resource type="PackedScene" uid="uid://ccufffoeem1ue" path="res://assets/ui_effect_scenes/tileSelectedParticels.tscn" id="18_jd0uw"]
@@ -35,6 +36,17 @@
 shader = ExtResource("2_yojgw")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/thickness = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3ybu"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_sfl2l")
@@ -164,9 +176,20 @@ visible = false
 [node name="LadenPopup" parent="Baumodus/UI" instance=ExtResource("14_b6kbm")]
 initial_position = 2
 
-[node name="Minimap" parent="Baumodus/UI" instance=ExtResource("15_awm26")]
-offset = Vector2(925, 425)
-transform = Transform2D(1, 0, 0, 1, 925, 425)
+[node name="Minimap" type="Panel" parent="Baumodus/UI"]
+material = ExtResource("14_vi4fd")
+custom_minimum_size = Vector2(200, 200)
+anchors_preset = -1
+anchor_left = 0.80200005
+anchor_top = 0.65400004
+anchor_right = 0.80200005
+anchor_bottom = 0.65400004
+offset_left = 0.095947266
+offset_top = 0.2079773
+offset_right = 200.09595
+offset_bottom = 200.20798
+theme_override_styles/panel = SubResource("StyleBoxFlat_c3ybu")
+script = ExtResource("15_d8yt2")
 
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5
@@ -333,6 +356,7 @@ stretch_mode = 5
 [connection signal="pressed" from="Baumodus/UI/StartUndEndNode/Start" to="." method="baumodusSetStartNode"]
 [connection signal="pressed" from="Baumodus/UI/StartUndEndNode/Ende" to="." method="baumodusSetGoalNode"]
 [connection signal="pressed" from="ToggleButtonBox/ToggleButton" to="ToggleButtonBox" method="OnOpenButtonPressed"]
+[connection signal="pressed" from="SpeichernUndTipps/Tips" to="SpeichernUndTipps/Tips" method="OnTipsPressed"]
 [connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/Zum Hauptmenü" to="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/Zum Hauptmenü" method="OnBacktomenuPressed"]
 [connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/UI einblenden" to="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer" method="UiEinblenden"]
 [connection signal="pressed" from="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer/UI ausblenden" to="SlideDownMenuBaumodus/HBoxContainer/VBoxContainer/UiToggleContainer" method="UiAusblenden"]

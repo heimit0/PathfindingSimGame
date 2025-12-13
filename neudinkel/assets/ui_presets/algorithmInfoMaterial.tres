@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bdcbkaoa7gbam"]
+
+[ext_resource type="Shader" uid="uid://mya5i5ic6t17" path="res://assets/shaders/gradient.gdshader" id="1_tj1ws"]
+
+[resource]
+shader = ExtResource("1_tj1ws")
+shader_parameter/base_grey = 0.078000003705
+shader_parameter/alpha_value = 0.58000002755
+shader_parameter/gradient_strength = 0.50000002375

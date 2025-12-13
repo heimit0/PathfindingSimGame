@@ -15,6 +15,8 @@ public partial class BauGameManager : GameManager
 
 	public LadenPopup ladenPopup { get; set; }
 
+	private NodePath minimapPath = "Baumodus/UI/Minimap";
+
 	public override void _Ready()
 	{
 		if (Globals.baumodusInitLevel == null)
@@ -40,7 +42,7 @@ public partial class BauGameManager : GameManager
 		this.ladenPopup.PopupHide += toggleCameraIsUserInputEnabled;
 		this.ladenPopup.Hide();
 
-		Minimap minimap = GetNode<Minimap>("Baumodus/UI/Minimap");
+		Minimap minimap = GetNodeOrNull<Minimap>(minimapPath);
 		minimap.initMiniMap(this);
 
 		startNode.updateModel();
@@ -204,7 +206,7 @@ public partial class BauGameManager : GameManager
 		onTileSelected(new Vector2I(-10000, -10000));
 
 		// update minimap
-		Minimap minimap = GetNode<Minimap>("Baumodus/UI/Minimap");
+		Minimap minimap = GetNode<Minimap>(minimapPath);
 		minimap.initMiniMap(this);
 	}
 

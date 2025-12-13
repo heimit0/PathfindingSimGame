@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=3 format=3 uid="uid://60j043og7rvq"]
+
+[ext_resource type="Texture2D" uid="uid://b6vn0rudeh4sj" path="res://assets/tutorial_bilder/startNodeSetzen.png" id="1_gv0wm"]
+[ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="2_e4lqb"]
+
+[resource]
+script = ExtResource("2_e4lqb")
+Label = "Start- und Endknoten setzen"
+Text = "In jedem modus ist oben in der Mitte ein Pfeil zu finden. "
+Image = ExtResource("1_gv0wm")
+metadata/_custom_type_script = "uid://bx8kcap1vq5l1"

@@ -1,35 +1,87 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpjrofls0eln3"]
+[gd_scene load_steps=10 format=3 uid="uid://cpjrofls0eln3"]
 
 [ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="1_a4ddg"]
 [ext_resource type="Script" uid="uid://dvdhi6nlj2t8q" path="res://scripts/OpenQueueList.cs" id="1_kvkmi"]
 [ext_resource type="StyleBox" uid="uid://uaef6xta4jcb" path="res://assets/ui_presets/PanelBackground.tres" id="2_bimoo"]
+[ext_resource type="FontFile" uid="uid://cryqnyausjcxw" path="res://assets/ui_presets/futurawin.ttf" id="3_ort4e"]
+[ext_resource type="Material" uid="uid://bdcbkaoa7gbam" path="res://assets/ui_presets/algorithmInfoMaterial.tres" id="3_w2euo"]
+[ext_resource type="Script" uid="uid://cer30o2v8d0bf" path="res://scripts/Graph/Minimap.cs" id="5_w2euo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ort4e"]
+content_margin_top = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mo7py"]
+bg_color = Color(0, 0, 0, 0.5647059)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2euo"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Info" type="Panel"]
 material = ExtResource("1_a4ddg")
-offset_left = 912.0
-offset_top = 144.0
-offset_right = 1136.0
-offset_bottom = 355.0
+anchors_preset = -1
+anchor_left = 0.79200006
+anchor_top = 0.22200002
+anchor_right = 0.79200006
+anchor_bottom = 0.22200002
+offset_left = -0.3840332
+offset_top = 0.14398193
+offset_right = 223.61597
+offset_bottom = 450.14398
 theme_override_styles/panel = ExtResource("2_bimoo")
 
-[node name="ItemList" type="ItemList" parent="."]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 32.0
-offset_right = 208.0
-offset_bottom = 192.0
-auto_width = true
-same_column_width = true
-script = ExtResource("1_kvkmi")
+[node name="totalBlock" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 8.0
-offset_right = 208.0
-offset_bottom = 46.0
+[node name="listenBox" type="VBoxContainer" parent="totalBlock"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="totalBlock/listenBox"]
+custom_minimum_size = Vector2(200, 10)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_ort4e")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ort4e")
 bbcode_enabled = true
 text = "[fill] X  Y  Prio  [/fill]"
 fit_content = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="ItemList" type="ItemList" parent="totalBlock/listenBox"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mo7py")
+auto_width = true
+same_column_width = true
+script = ExtResource("1_kvkmi")
+
+[node name="minimapBox" type="VBoxContainer" parent="totalBlock"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Minimap" type="Panel" parent="totalBlock/minimapBox"]
+material = ExtResource("3_w2euo")
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w2euo")
+script = ExtResource("5_w2euo")

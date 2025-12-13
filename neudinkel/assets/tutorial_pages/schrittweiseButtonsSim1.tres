@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://4duqlkkpb0h2"]
+
+[ext_resource type="Texture2D" uid="uid://bfwiaox0tie1k" path="res://assets/tutorial_bilder/schrittButtonsSim.png" id="1_emomy"]
+[ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_10wh2"]
+
+[resource]
+script = ExtResource("2_10wh2")
+Label = "Ablauf"
+Text = "Der Button daneben sorgt dafür das der Algorithmus pro Klick genau einen Schritt geht."
+Image = ExtResource("1_emomy")
+metadata/_custom_type_script = "uid://tnd4qbj0ypdb"

@@ -2,7 +2,7 @@ using Godot;
 
 public partial class SlideDownMenuBauModus : Node
 {
-    [Export] public NodePath toggleButtonPath;
+    [Export] public NodePath toggleButtonPath = "./TextureButton";
     [Export] public NodePath slideDownMenuPath; // Pfad zum bereits vorhandenen Menü-Control
     [Export] public float animationTime = 0.5f;
     [Export] public float fadeWaitTime = 0.02f; // Wartezeit bevor Button erscheint
@@ -96,7 +96,7 @@ public partial class SlideDownMenuBauModus : Node
     {
         if (slideDownMenu == null)
         {
-            GD.PushError("SlideDownMenu ist nicht gesetzt.");
+            GD.PushError("SlideDownMenu ist nicht gesetzt im Editor.");
             return;
         }
 

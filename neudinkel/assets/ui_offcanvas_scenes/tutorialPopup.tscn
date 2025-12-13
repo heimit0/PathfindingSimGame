@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b6acmjxqngq3f"]
+[gd_scene load_steps=40 format=3 uid="uid://b6acmjxqngq3f"]
 
 [ext_resource type="Texture2D" uid="uid://8xhxikuw8tmw" path="res://assets/ui_icons/arrow-left.svg" id="2_323uy"]
 [ext_resource type="Texture2D" uid="uid://ctab6sjt5v1bh" path="res://assets/ui_icons/close-icon.svg" id="2_adx3j"]
@@ -10,22 +10,51 @@
 [ext_resource type="Resource" uid="uid://bpl1iu8mex13o" path="res://assets/tutorial_pages/tutorialPageStraßentyp2.tres" id="6_jm3xc"]
 [ext_resource type="Resource" uid="uid://cgu8hk1jekj2i" path="res://assets/tutorial_pages/tutorialPageTileAuswahlBeenden.tres" id="7_sbank"]
 [ext_resource type="Resource" uid="uid://cvgj3kmhqx1dc" path="res://assets/tutorial_pages/tutorialPageStartEndNode.tres" id="8_2r1ja"]
+[ext_resource type="Resource" uid="uid://60j043og7rvq" path="res://assets/tutorial_pages/tutorialPageStartEndNode2.tres" id="8_x8yum"]
+[ext_resource type="Resource" uid="uid://dmasnnq4dskao" path="res://assets/tutorial_pages/tilesBaumodus.tres" id="9_fbydf"]
 [ext_resource type="Resource" uid="uid://ovbfe4ldiwfy" path="res://assets/tutorial_pages/tutorialPageSimmodus.tres" id="9_gtsg7"]
+[ext_resource type="Resource" uid="uid://0ygjxt7vd8n5" path="res://assets/tutorial_pages/tutorialPageSlideDownMenu2.tres" id="9_jm3xc"]
 [ext_resource type="Resource" uid="uid://dslndxktj5k73" path="res://assets/tutorial_pages/tutorialPagePruefungsmodus.tres" id="10_2r1ja"]
 [ext_resource type="Resource" uid="uid://dum2y3s6rbh1g" path="res://assets/tutorial_pages/tutorialPageSlideDownMenu.tres" id="11_2r1ja"]
-[ext_resource type="Texture2D" uid="uid://beggi3ykm15cl" path="res://assets/tutorial_bilder/baumodus.png" id="11_r2dvc"]
-[ext_resource type="Resource" uid="uid://33doq80ujy6i" path="res://assets/tutorial_pages/tutorialPageButtons.tres" id="12_2r1ja"]
+[ext_resource type="Resource" uid="uid://dr8b10rqqx45r" path="res://assets/tutorial_pages/tutorial.tres" id="11_nh20b"]
+[ext_resource type="Resource" uid="uid://8o4bg7nqueer" path="res://assets/tutorial_pages/algoAuswahl.tres" id="11_sbank"]
+[ext_resource type="Resource" uid="uid://dt1ong0svnsnq" path="res://assets/tutorial_pages/schrittweiseButtonsSim.tres" id="14_x8yum"]
+[ext_resource type="Resource" uid="uid://4duqlkkpb0h2" path="res://assets/tutorial_pages/schrittweiseButtonsSim1.tres" id="15_nh20b"]
+[ext_resource type="Resource" uid="uid://d26dp64kw4o8c" path="res://assets/tutorial_pages/schrittweiseButtonsSim2.tres" id="16_uhq6m"]
+[ext_resource type="Resource" uid="uid://lyx0avq2y4lf" path="res://assets/tutorial_pages/slideDownSimModus.tres" id="17_uhq6m"]
+[ext_resource type="Resource" uid="uid://cf1otfm8kv213" path="res://assets/tutorial_pages/slideDownSimModus2.tres" id="18_4du4s"]
+[ext_resource type="Resource" uid="uid://inojk30a5iwf" path="res://assets/tutorial_pages/tilesSimmodus.tres" id="18_gnjm8"]
+[ext_resource type="Resource" uid="uid://kg4n8hliww7w" path="res://assets/tutorial_pages/tutorialSim.tres" id="19_lrjm2"]
+[ext_resource type="Resource" uid="uid://d3ne7fbntub1h" path="res://assets/tutorial_pages/pruefmodus1.tres" id="21_kpqmk"]
+[ext_resource type="Resource" uid="uid://dgc4owv1lsmvb" path="res://assets/tutorial_pages/mapSim.tres" id="21_ymlc3"]
+[ext_resource type="Resource" uid="uid://j0pe40cedvgt" path="res://assets/tutorial_pages/pruefmodus2.tres" id="22_ew0pb"]
+[ext_resource type="Resource" uid="uid://cgb5xubhdb8r2" path="res://assets/tutorial_pages/pseudoSim.tres" id="22_pp330"]
+[ext_resource type="Script" uid="uid://bddf3y5nwvebc" path="res://scripts/TutorialPseudoPageData.cs" id="23_gjlof"]
+[ext_resource type="Resource" uid="uid://v381oaaxum10" path="res://assets/tutorial_pages/prioListSim.tres" id="23_tyxsv"]
+[ext_resource type="Resource" uid="uid://cujrqxutwcf6k" path="res://assets/tutorial_pages/tilesPruefmodus.tres" id="25_kefr3"]
+[ext_resource type="Resource" uid="uid://bnc087j5745a6" path="res://assets/tutorial_pages/minimapPruefmodus.tres" id="26_kefr3"]
+[ext_resource type="Resource" uid="uid://cjfpx6rghx1e5" path="res://assets/tutorial_pages/pseudoPruefmodus.tres" id="27_av2bp"]
+[ext_resource type="Resource" uid="uid://b7i7t6tksl7jk" path="res://assets/tutorial_pages/listePruef.tres" id="32_x1n7l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbank"]
 content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color(0, 0, 0, 0.43137255)
+bg_color = Color(0, 0, 0, 0.6862745)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="Resource" id="Resource_bftqi"]
+script = ExtResource("23_gjlof")
+Label = "tes"
+Text = "test"
+metadata/_custom_type_script = "uid://bddf3y5nwvebc"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u14ly"]
+load_path = "res://.godot/imported/baumodus.png-d7811d7e1c9b20006249ee1351abf09c.ctex"
 
 [sub_resource type="LabelSettings" id="LabelSettings_u14ly"]
 font_size = 19
@@ -39,7 +68,10 @@ visible = true
 always_on_top = true
 theme_override_styles/panel = SubResource("StyleBoxFlat_sbank")
 script = ExtResource("2_u14ly")
-Seiten = Array[Object]([ExtResource("3_55hcv"), ExtResource("4_o0751"), ExtResource("5_r2dvc"), ExtResource("6_jm3xc"), ExtResource("7_sbank"), ExtResource("8_2r1ja"), ExtResource("9_gtsg7"), ExtResource("10_2r1ja"), ExtResource("11_2r1ja"), ExtResource("12_2r1ja")])
+BauSeiten = Array[Object]([ExtResource("3_55hcv"), ExtResource("4_o0751"), ExtResource("5_r2dvc"), ExtResource("6_jm3xc"), ExtResource("7_sbank"), ExtResource("8_2r1ja"), ExtResource("8_x8yum"), ExtResource("9_fbydf"), ExtResource("11_2r1ja"), ExtResource("9_jm3xc"), ExtResource("11_nh20b")])
+SimSeiten = Array[Object]([ExtResource("9_gtsg7"), ExtResource("11_sbank"), ExtResource("14_x8yum"), ExtResource("15_nh20b"), ExtResource("16_uhq6m"), ExtResource("18_gnjm8"), ExtResource("17_uhq6m"), ExtResource("18_4du4s"), ExtResource("21_ymlc3"), ExtResource("22_pp330"), ExtResource("23_tyxsv"), ExtResource("19_lrjm2")])
+PruefSeiten = Array[Object]([ExtResource("10_2r1ja"), ExtResource("21_kpqmk"), ExtResource("22_ew0pb"), ExtResource("25_kefr3"), ExtResource("26_kefr3"), ExtResource("27_av2bp"), ExtResource("32_x1n7l")])
+PseudoSeiten = Array[Object]([SubResource("Resource_bftqi")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
@@ -76,7 +108,7 @@ custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("11_r2dvc")
+texture = SubResource("CompressedTexture2D_u14ly")
 expand_mode = 2
 
 [node name="TextBox" type="VBoxContainer" parent="VBoxContainer"]

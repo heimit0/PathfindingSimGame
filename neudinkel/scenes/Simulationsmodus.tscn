@@ -6,17 +6,17 @@
 [ext_resource type="Theme" uid="uid://dp31u0pfikpnc" path="res://assets/ui_presets/menu_buttons.tres" id="3_rdpdv"]
 [ext_resource type="Texture2D" uid="uid://brl867djglgi3" path="res://assets/ui_icons/play.svg" id="4_7whdq"]
 [ext_resource type="Script" uid="uid://d1bqfncmscmb2" path="res://scripts/ui_buttons/BaumodusUndSimulationsButtons.cs" id="4_ud2kt"]
-[ext_resource type="Theme" path="res://assets/ui_presets/Popup_buttons.tres" id="5_ivnlw"]
+[ext_resource type="Theme" uid="uid://bxuenqfc1auia" path="res://assets/ui_presets/Popup_buttons.tres" id="5_ivnlw"]
 [ext_resource type="Texture2D" uid="uid://dg21qqgbbnxyt" path="res://assets/ui_icons/step.svg" id="5_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://nn71yaibgw8f" path="res://assets/ui_icons/iterate.svg" id="6_k7vyk"]
 [ext_resource type="Texture2D" uid="uid://ymvtaea43a6k" path="res://assets/ui_icons/restart.svg" id="7_lrh4w"]
 [ext_resource type="Script" uid="uid://c0v3fxqcr555a" path="res://scripts/ui_buttons/SlideDownMenu.cs" id="8_ud2kt"]
 [ext_resource type="Texture2D" uid="uid://cr8lusw3k734f" path="res://assets/ui_icons/arrow-down.svg" id="9_k7vyk"]
 [ext_resource type="PackedScene" uid="uid://cpjrofls0eln3" path="res://scenes/AlgorithmInfo.tscn" id="9_lrh4w"]
-[ext_resource type="PackedScene" uid="uid://dyyyfal4p6jcv" path="res://scenes/Minimap.tscn" id="12_woxyj"]
 [ext_resource type="Texture2D" uid="uid://bcq2cl18lg882" path="res://assets/ui_icons/question-mark-round-icon.svg" id="13_kiwpe"]
 [ext_resource type="Script" uid="uid://c3q5c1xahl7ue" path="res://scripts/ui_buttons/openTutorialPopup.cs" id="14_0b48g"]
 [ext_resource type="PackedScene" uid="uid://b6acmjxqngq3f" path="res://assets/ui_offcanvas_scenes/tutorialPopup.tscn" id="16_aeye2"]
+[ext_resource type="PackedScene" uid="uid://ubwkv3remjot" path="res://assets/ui_offcanvas_scenes/slidedownmenu.tscn" id="18_k75vn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0b48g"]
 bg_color = Color(0.29, 0.29, 0.29, 0.39215687)
@@ -277,6 +277,28 @@ theme_override_colors/default_color = Color(1, 1, 1, 1)
 scroll_active = false
 script = ExtResource("2_5p374")
 
+[node name="PseudoTips" type="TextureButton" parent="Simulationsmodus/UI/PseudocodeBlock"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -35.0
+offset_right = 10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Öffnet das Tutorial."
+texture_normal = ExtResource("13_kiwpe")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("14_0b48g")
+tutorialPopup = ExtResource("16_aeye2")
+isPseudoBlock = true
+
 [node name="ButtonsTopRight" type="VBoxContainer" parent="Simulationsmodus/UI"]
 anchors_preset = 1
 anchor_left = 1.0
@@ -354,10 +376,6 @@ icon = ExtResource("7_lrh4w")
 
 [node name="Info" parent="Simulationsmodus/UI" instance=ExtResource("9_lrh4w")]
 
-[node name="Minimap" parent="Simulationsmodus/UI" instance=ExtResource("12_woxyj")]
-offset = Vector2(920, 420)
-transform = Transform2D(1, 0, 0, 1, 920, 420)
-
 [node name="ToggleButtonBox" type="HBoxContainer" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
@@ -369,6 +387,7 @@ grow_horizontal = 2
 alignment = 1
 script = ExtResource("8_ud2kt")
 toggleButtonPath = NodePath("TextureButton")
+slideDownMenuPath = NodePath("../SlideDownMenu")
 
 [node name="TextureButton" type="TextureButton" parent="ToggleButtonBox"]
 custom_minimum_size = Vector2(30, 30)
@@ -402,9 +421,12 @@ stretch_mode = 5
 script = ExtResource("14_0b48g")
 tutorialPopup = ExtResource("16_aeye2")
 
+[node name="SlideDownMenu" parent="." instance=ExtResource("18_k75vn")]
+
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/Dijkstra" to="." method="onInitOrChangeAlgorithm" binds= [1]]
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/A*" to="." method="onInitOrChangeAlgorithm" binds= [0]]
 [connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/TextDisplayAndAlgorithmSelection/AlgortihmButtons/DFS" to="." method="onInitOrChangeAlgorithm" binds= [2]]
+[connection signal="pressed" from="Simulationsmodus/UI/PseudocodeBlock/PseudoTips" to="Simulationsmodus/UI/PseudocodeBlock/PseudoTips" method="OnTipsPressed"]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ObenRechts/SimulierenUndBauenWechseln" to="." method="onChangeToBauMode"]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/AutoStep" to="." method="onSetIsSimulationAutomatic" binds= [true]]
 [connection signal="pressed" from="Simulationsmodus/UI/ButtonsTopRight/ButtonsStep/NextSearchStepButton" to="." method="onDoSearchForward" binds= [true]]
