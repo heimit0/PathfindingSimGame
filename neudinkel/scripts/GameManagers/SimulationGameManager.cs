@@ -197,7 +197,7 @@ public partial class SimulationGameManager : GameManager
 
 		GD.Print("start visualizing algorithm");
 		this.currentAlgorithm.visualize(this.graph, this);
-		this.minimap.initMiniMap(this);
+		if(this.minimap is not null) this.minimap.initMiniMap(this);
 		onSetIsSimulationAutomatic(false);
 
 		GD.Print("Initialized Algorithm: " + this.currentAlgorithm.GetType().Name);
