@@ -196,7 +196,7 @@ public class AlgorithmAStar : NeudinkelAlgorithm
 	// um sie zu verarbeiten
 	private int getBestNodeFromQueue(Graph g)
 	{
-		GraphNode tmp = currentNode != null ? currentNode : new GraphNode();
+		GraphNode tmp = currentNode is not null ? currentNode : new GraphNode();
 		lastNode = currentNode;
 
 		currentNode = unvisitedNodes.Dequeue();
