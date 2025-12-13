@@ -4,7 +4,7 @@ using System;
 public partial class LadenPopup : Popup
 {
     public event Action<string>? Submitted;
-    
+
     private ItemList? _itemList;
     private Label? _titleLabel;
 
@@ -12,16 +12,17 @@ public partial class LadenPopup : Popup
     {
         _itemList = GetNodeOrNull<ItemList>("VBoxContainer/ItemList");
         _titleLabel = GetNodeOrNull<Label>("VBoxContainer/HBoxContainer/Titel");
-        
-        if (_itemList != null){
+
+        if (_itemList != null)
+        {
             _itemList.ItemSelected += OnItemSelected;
 
-        _itemList.AddThemeConstantOverride("h_separation", 20); // Abstand zwischen Levelname und Außenwand
-        _itemList.AddThemeConstantOverride("v_separation", 10);  // Abstand zwischen Zeilen
+            _itemList.AddThemeConstantOverride("h_separation", 20); // Abstand zwischen Levelname und Außenwand
+            _itemList.AddThemeConstantOverride("v_separation", 10);  // Abstand zwischen Zeilen
 
-		}
+        }
 
-			
+
     }
 
     public void Open()
@@ -39,7 +40,8 @@ public partial class LadenPopup : Popup
             return;
 
         foreach (string filename in files)
-            _itemList.AddItem(filename);
+            // prüfungsmodus-lvl ausschließen
+            if (!filename.ToLower().StartsWith("pruef")) _itemList.AddItem(filename);
 
         Size = new Vector2I(250, 350);
         PopupCentered();
