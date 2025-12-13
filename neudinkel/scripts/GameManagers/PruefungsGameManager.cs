@@ -35,6 +35,10 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 		GD.Print("Lade Level");
 		prepScene(levelToLoad);
+
+		this.minimap = GetNode<Minimap>(minimapPath);
+		this.minimap.initMiniMap(this);
+
 		GD.Print("Lade Algorithmus");
 		onInitOrChangeAlgorithm((int)algo);
 		GD.Print("Algo geladen");
@@ -43,9 +47,6 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 		currentAlgorithm.startNode.updateModel();
 		currentAlgorithm.goalNode.updateModel();
-
-		Minimap minimap = GetNodeOrNull<Minimap>(minimapPath);
-		minimap.initMiniMap(this);
 
 		lastNode = startNode;
 	}
@@ -64,6 +65,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 		skipTillNextCurrentNode();
 		saveCheckpoint();
 		correctStepCounterSinceLastSave = 0;
+		this.minimap.updateMinimapNodes(this.currentAlgorithm);
+		this.currentAlgorithm.visualize(this.graph, this);
 
 		GD.Print("Initial steps sind durch");
 	}
@@ -81,7 +84,6 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 
 		skipTillNextCurrentNode();
-
 
 		if(currentAlgorithm.currentNode is null)
 		{
@@ -192,6 +194,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 		}
 
 		returnToCheckpoint();
+		this.minimap.updateMinimapNodes(this.currentAlgorithm);
+		this.currentAlgorithm.visualize(this.graph, this);
 	}
 
 	//Legacy
@@ -211,6 +215,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 			saveCheckpoint();
 		}
 		currentAlgorithm.currentNode.setHighlighted(true);
+		this.minimap.updateMinimapNodes(this.currentAlgorithm);
+		this.currentAlgorithm.visualize(this.graph, this);
 	}
 
 	public void skipTillNextCurrentNode()
@@ -241,6 +247,9 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 		if(currentAlgorithm.currentNode is not null) GD.Print("New current Node: " + currentAlgorithm.currentNode);
 		GD.Print("Successfull newCurrentNode");
+
+		this.minimap.updateMinimapNodes(this.currentAlgorithm);
+		this.currentAlgorithm.visualize(this.graph, this);
     }
 
 
@@ -268,6 +277,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 		}
 		currentAlgorithm.currentNode.setHighlighted(true);
+		this.minimap.updateMinimapNodes(this.currentAlgorithm);
+		this.currentAlgorithm.visualize(this.graph, this);
 		if(checkPointNode == currentAlgorithm.currentNode)
 			return 1;
 
