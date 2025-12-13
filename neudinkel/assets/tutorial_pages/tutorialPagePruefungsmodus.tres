@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="TutorialPruefPageData" load_steps=3 format=3 uid="uid://dslndxktj5k73"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dslndxktj5k73"]
 
-[ext_resource type="Script" uid="uid://ckd2bmnlsdaxg" path="res://scripts/TutorialPruefPageData.cs" id="1_chira"]
+[ext_resource type="Script" path="res://scripts/TutorialPruefPageData.cs" id="1_chira"]
 [ext_resource type="Texture2D" uid="uid://ctxnt7t71kp43" path="res://assets/tutorial_bilder/pruefmodus.png" id="1_wlo5r"]
 
 [resource]
