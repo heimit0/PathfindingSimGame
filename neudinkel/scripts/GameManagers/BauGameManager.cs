@@ -311,6 +311,13 @@ public partial class BauGameManager : GameManager
 
 	public void actuallySpeichern(string name)
 	{
+		// hack, aber egal
+		if (name.ToLower().StartsWith("pruef"))
+		{
+			Globals.openSimpleInfoModal(this, "Level kann nicht mit 'pruef' beginnen!", 2);
+			return;
+		}
+
 		// save state
 		this.graph.toJsonFile(name);
 		Globals.openSimpleInfoModal(this, "Level gespeichert", 2);
@@ -319,7 +326,6 @@ public partial class BauGameManager : GameManager
 	public void onLevelLaden()
 	{
 		this.ladenPopup = GetNode<LadenPopup>("Baumodus/UI/LadenPopup");
-		// popup.Submitted += actuallySpeichern;
 		this.ladenPopup.Open();
 
 		toggleCameraIsUserInputEnabled();
