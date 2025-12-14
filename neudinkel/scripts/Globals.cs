@@ -100,19 +100,17 @@ public partial class Globals : Node
 
 		
 
-		if (gm is SimulationGameManager)
+		if (gm is PruefungsGameManager)
         {
-						GD.Print("Simmanager");
-            return GameModi.SimM;
+            return GameModi.PruefM;
 			
-		}else if(gm is BauGameManager){
-						GD.Print("Baumanager");
-			return GameModi.BauM;
+		}else if(gm is SimulationGameManager){
+			
+			return GameModi.SimM;
 
-		}else if(gm is PruefungsGameManager)
+		}else if(gm is BauGameManager)
 		{
-						GD.Print("Pruefmanager");
-			return GameModi.PruefM;
+			return GameModi.BauM;
 		}
 
 		return GameModi.BauM;
