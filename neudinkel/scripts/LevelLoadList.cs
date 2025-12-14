@@ -13,7 +13,7 @@ public partial class LevelLoadList : NeudinkelItemList
 
 	public void loadLevelList()
 	{
-		string path = "user://levels";
+		string path = "user:///levels";
 		string fname;
 		DirAccess dir;
 
@@ -39,7 +39,7 @@ public partial class LevelLoadList : NeudinkelItemList
 	public static string[] getFileNames()
 	{
 		List<string> filenames = new List<string>();
-		string path = "res://levels";
+		string path = "user:///levels";
 		string fname;
 		DirAccess dir;
 
