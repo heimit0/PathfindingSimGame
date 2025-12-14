@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPseudoPageData" load_steps=3 format=3 uid="uid://djm7huhhjkhdv"]
+
+[ext_resource type="AudioStream" uid="uid://cut43prihpgv5" path="res://assets/sounddesign/priorityQueue.wav" id="1_jqqkn"]
+[ext_resource type="Script" uid="uid://bddf3y5nwvebc" path="res://scripts/TutorialPseudoPageData.cs" id="2_lhk68"]
+
+[resource]
+script = ExtResource("2_lhk68")
+Label = "PriorityQueue"
+Text = "Hier werden die Knoten gelistet welche noch nicht besucht worden. Der Knoten welcher mit den geringsten Kosten erreicht werden kann wird als erstes aus der Liste entnommen."
+Audio = ExtResource("1_jqqkn")
+metadata/_custom_type_script = "uid://bddf3y5nwvebc"

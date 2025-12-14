@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPseudoPageData" load_steps=3 format=3 uid="uid://cgdot52mpkqc"]
+
+[ext_resource type="AudioStream" uid="uid://d1j65ysn3yjiw" path="res://assets/sounddesign/gscore.wav" id="1_lug1u"]
+[ext_resource type="Script" uid="uid://bddf3y5nwvebc" path="res://scripts/TutorialPseudoPageData.cs" id="2_sxw41"]
+
+[resource]
+script = ExtResource("2_sxw41")
+Label = "G-Score"
+Text = "Der Paramter G enthält die tatsächlichen Kosten vom Start bis zum jetzigen Knoten. "
+Audio = ExtResource("1_lug1u")
+metadata/_custom_type_script = "uid://bddf3y5nwvebc"

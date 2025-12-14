@@ -33,8 +33,6 @@ public partial class Globals : Node
 		PruefM
 	}
 
-	public static openTutorialPopup pseudoTipsButton;
-
 	public static GraphSearchAlgorithm pruefungsAlgorithmus; //Gibt mit welcher Algorithmus bei der Pruefung genutzt wird
 	public static NeudinkelConfig config;
 	public static JsonSerializerOptions jsonOptions = new JsonSerializerOptions { WriteIndented = true };
@@ -125,16 +123,17 @@ public partial class Globals : Node
 
 		
 
-		if (gm is SimulationGameManager)
-		{
-			return GameModi.SimM;
+		if (gm is PruefungsGameManager)
+        {
+            return GameModi.PruefM;
 			
-		}else if(gm is BauGameManager){
-			return GameModi.BauM;
+		}else if(gm is SimulationGameManager){
+			
+			return GameModi.SimM;
 
-		}else if(gm is PruefungsGameManager)
+		}else if(gm is BauGameManager)
 		{
-			return GameModi.PruefM;
+			return GameModi.BauM;
 		}
 
 		return GameModi.BauM;

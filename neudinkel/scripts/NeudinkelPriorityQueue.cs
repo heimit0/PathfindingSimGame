@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 public class NeudinkelPriorityQueue<TElement, TPriority> where TPriority : IComparable
 														 where TElement : class?
@@ -49,4 +50,21 @@ public class NeudinkelPriorityQueue<TElement, TPriority> where TPriority : IComp
 			return e;
 		}
 	}
+
+	public bool TryDequeue([MaybeNullWhen(false)] out TElement element, [MaybeNullWhen(false)] out TPriority priority)
+	{
+		if (this.Items.Count != 0)
+		{
+			(priority, element) = this.Items[0];
+			this.Items.RemoveAt(0);
+			return true;
+		}
+		else
+		{
+			element = default;
+			priority = default;
+			return false;
+		}
+	}
+
 }

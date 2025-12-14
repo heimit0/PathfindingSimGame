@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://kg4n8hliww7w"]
+[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=4 format=3 uid="uid://kg4n8hliww7w"]
 
 [ext_resource type="Texture2D" uid="uid://cv5vrd0yaxrtn" path="res://assets/tutorial_bilder/tutorial.png" id="1_gbl8p"]
+[ext_resource type="AudioStream" uid="uid://c4brxeyvum3rk" path="res://assets/sounddesign/tutorialText.wav" id="1_nu2ex"]
 [ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_nu2ex"]
 
 [resource]
 script = ExtResource("2_nu2ex")
 Label = "Tutorial"
-Text = "Wenn du am unteren Bildschirm klickst öffnet sich das Tutorial. Deshalb bist du jetzt hier."
+Text = "Am unteren Bildschirmrand findest du ein Fragezeeichen dies öffnet das Tutorial. Deshalb bist du jetzt hier."
 Image = ExtResource("1_gbl8p")
+Audio = ExtResource("1_nu2ex")
 metadata/_custom_type_script = "uid://tnd4qbj0ypdb"

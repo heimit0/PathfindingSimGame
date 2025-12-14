@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://dgc4owv1lsmvb"]
+[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=4 format=3 uid="uid://dgc4owv1lsmvb"]
 
+[ext_resource type="AudioStream" uid="uid://cl3gvedyioulf" path="res://assets/sounddesign/minimap.wav" id="1_0tdex"]
 [ext_resource type="Texture2D" uid="uid://iut7j1na0j5b" path="res://assets/tutorial_bilder/minimapSimModus.png" id="1_x5txu"]
 [ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_0tdex"]
 
 [resource]
 script = ExtResource("2_0tdex")
 Label = "Minimap"
-Text = "Unten rechts kannst du Minimap sehen. Aus dieser kannst du erkennen welche Wege am teuresten sind (rot) und welche am billigsten (grün). Es gibt auch andere Farben wie braun, diese Wege liegen von den Kosten eher dazwischen."
+Text = "Unten rechts kannst du die Minimap sehen. Die Farben repräsentieren hierbei die Kosten des Weges, Grün ist am billigsten und rot am teuresten. Andere Farben wie braun stellen dabei Kosten dazwischen dar."
 Image = ExtResource("1_x5txu")
+Audio = ExtResource("1_0tdex")
 metadata/_custom_type_script = "uid://tnd4qbj0ypdb"

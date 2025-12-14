@@ -55,8 +55,6 @@ public partial class TutorialPopup : PopupPanel
 
 		gameModi = (int)Globals.getGameMode(this);
 
-		//Events.Instance.SetTutorialIsPseudoBlock += onSetIsPseudoBlock;
-
 		switch (gameModi)
 		{
 			case 0: 
@@ -71,7 +69,6 @@ public partial class TutorialPopup : PopupPanel
 				break;
 			case 2: 
 				Seiten = PruefSeiten;
-				GD.PrintErr("Wir sind im Prüfungsmodus");
 				if (isPseudoBlockTrue)
 				{
 					Seiten = PseudoSeiten;

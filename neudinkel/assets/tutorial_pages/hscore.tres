@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPseudoPageData" load_steps=3 format=3 uid="uid://q7svoki2mdas"]
+
+[ext_resource type="AudioStream" uid="uid://cmndih76y08qj" path="res://assets/sounddesign/hscore.wav" id="1_bjtas"]
+[ext_resource type="Script" uid="uid://bddf3y5nwvebc" path="res://scripts/TutorialPseudoPageData.cs" id="2_7b6wm"]
+
+[resource]
+script = ExtResource("2_7b6wm")
+Label = "H-Score"
+Text = "Der Paramter H enthält die geschätzten Kosten vom jetzigen Knoten bis zum Ziel. "
+Audio = ExtResource("1_bjtas")
+metadata/_custom_type_script = "uid://bddf3y5nwvebc"

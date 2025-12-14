@@ -8,6 +8,7 @@ public partial class Mainmenu : Control
 	private CanvasLayer mainMenu;
 	private CanvasLayer levelMenu;
 	private CanvasLayer levelMenuZip;
+	private CanvasLayer algoOverview;
 	private Label algoName;
 	private Godot.Collections.Array<Node> stars;
 
@@ -16,6 +17,7 @@ public partial class Mainmenu : Control
 		mainMenu = GetNode<CanvasLayer>("MainMenu");
 		levelMenu = GetNode<CanvasLayer>("LevelMenu");
 		levelMenuZip = GetNode<CanvasLayer>("LevelMenu_zip");
+		algoOverview = GetNode<CanvasLayer>("AlgoOverview");
 		algoName = GetNode<Label>("LevelMenu_zip/Label");
 		stars = GetNode<HBoxContainer>("LevelMenu_zip/VBoxContainer/HBoxContainer").GetChildren();
 
@@ -27,6 +29,10 @@ public partial class Mainmenu : Control
 			
 		foreach (Node child in levelMenuZip.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
+
+		foreach (Node child in algoOverview.GetChildren())
+			if (child is CanvasItem item) item.Visible = false;
+
 			//Loads random lvl from array Backdrops
 		String[] backdrops = {"baumodus_save", "pruef_level1_astar","level3_dijkstra","level1_dfs"}; //kann noch erweitert werden
 		Random r = new();
@@ -44,20 +50,20 @@ public partial class Mainmenu : Control
 
 
 	public List<string> getLevelFiles()
-{
-	var levelFiles = new List<string>();
-	var dir = DirAccess.Open("res://levels");
-	
-	if (dir != null)
 	{
-		dir.ListDirBegin();
-		string fileName = dir.GetNext();
-		
-		while (fileName != "")
-		{
-			if (!dir.CurrentIsDir() && fileName.EndsWith(".json"))
-			{
-				levelFiles.Add(fileName.Substring(0,fileName.Length-5));
+    var levelFiles = new List<string>();
+    var dir = DirAccess.Open("res://levels");
+    
+    if (dir != null)
+    {
+        dir.ListDirBegin();
+        string fileName = dir.GetNext();
+        
+        while (fileName != "")
+        {
+            if (!dir.CurrentIsDir() && fileName.EndsWith(".json"))
+            {
+                levelFiles.Add(fileName.Substring(0,fileName.Length-5));
 				GD.Print(fileName);
 			}
 			fileName = dir.GetNext();
@@ -179,6 +185,27 @@ public partial class Mainmenu : Control
 			if (child is CanvasItem item) item.Visible = false;
 
 		foreach (Node child in levelMenu.GetChildren())
+			if (child is CanvasItem item) item.Visible = true;
+	}
+
+
+	//---------- Algo Overview --------------
+	private void _on_algo_overview_pressed()
+	{
+		foreach (Node child in mainMenu.GetChildren())
+			if (child is CanvasItem item) item.Visible = false;
+
+		foreach (Node child in algoOverview.GetChildren())
+			if (child is CanvasItem item) item.Visible = true;
+	}
+
+
+	private void _on_algo_back_button_pressed()
+	{
+		foreach (Node child in algoOverview.GetChildren())
+			if (child is CanvasItem item) item.Visible = false;
+
+		foreach (Node child in mainMenu.GetChildren())
 			if (child is CanvasItem item) item.Visible = true;
 	}
 
