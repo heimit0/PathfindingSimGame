@@ -21,7 +21,7 @@ public partial class BauGameManager : GameManager
 	{
 		if (Globals.baumodusInitLevel == null)
 		{
-			prepScene("baumodus_save");
+			prepScene("baumodus_save", true);
 			
 		}
 		else
