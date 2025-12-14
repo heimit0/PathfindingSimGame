@@ -111,7 +111,6 @@ public abstract class NeudinkelAlgorithm
         // erst alle ausschalten
         foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
 		GraphNode _currentNode;
-		GraphNode _currentNode;
 
         // Zielweg anzeigen
         if (currentStep == -1)
