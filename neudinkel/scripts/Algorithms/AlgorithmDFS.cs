@@ -37,21 +37,21 @@ public class AlgorithmDFS : NeudinkelAlgorithm
 		};
 
 		this.pseudoCodeSteps = new[] {
-			( 0, "unbesuchteKnoten = new Stack()"),
-			( 1, "besuchteKnoten = new List()"),
-			( 2, "unbesuchteKnoten.push(startNode)"),
-			( 3, "while (!unbesuchteKnoten.isEmpty()):"),
-			( 4, "    current = unbesuchteKnoten.pop()"),
-			( 5, "    if (currentNode is goal)"),
-			(-1, "        return;"),
-			( 6, "    for (neighbor in current.neighbors):"),
-			( 7, "        if (!besuchteKnoten.contains(neighbor)):"),
-			( 8, "            unbesuchteKnoten.push(neighbor)"),
-			( 8, "            cameFrom[neighbor] = current"),
-			( 9, "            besuchteKnoten.add(neighbor)"),
+			( 0, "unvisited := Stack"),
+			( 1, "visited := List"),
+			( 2, "add startnode to unvisited"),
+			( 3, "while unvisited is not empty do"),
+			( 4, "    current := pop from unvisited"),
+			( 5, "    if current is target then"),
+			(-1, "        Path found."),
+			( 6, "    for each neighbour of current do"),
+			( 7, "        if neighbour is in visited then"),
+			( 8, "            push neighbour to unvisited"),
+			( 8, "            cameFrom[neighbour] := current"),
+			( 9, "            add neighbour to visited"),
 			( 6, "    "),
 			( 3, ""),
-			(-2, "Kein Weg gefunden")
+			(-2, "No path found.")
 		};
 
 	}
