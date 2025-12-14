@@ -16,8 +16,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 	private int correctStepCounterSinceLastSave;
 	private int wrongStepCounter;
-    public override void  _Ready()
-    {
+	public override void  _Ready()
+	{
 		TileSelected += playerInteraction;
 		SetStartNode += onSetStartNode;
 		SetGoalNode += onSetGoalNode;
@@ -135,9 +135,9 @@ public partial class PruefungsGameManager : SimulationGameManager
 		}
 	}
 
-    private void lvlGeschafft()
-    {
-        var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/LevelCompletePopup");
+	private void lvlGeschafft()
+	{
+		var popup = GetNode<PopupPanel>("Pruefungsmodus/UI/LevelCompletePopup");
 
 		if (popup is not null)
 		{
@@ -156,7 +156,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		Globals.config.progress |= levelBit;
 
 		Globals.saveGame();
-    }
+	}
 
 
 	public void onNextLvlButtonPressed()
@@ -164,7 +164,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		GetTree().ChangeSceneToFile("res://scenes/mainmenu.tscn");
 	}
 
-    public void playerDidSmthWrong()
+	public void playerDidSmthWrong()
 	{
 		wrongStepCounter++;
 		if(wrongStepCounter>3)
@@ -221,11 +221,11 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 	public void skipTillNextCurrentNode()
 	{
-        switch ((currentAlgorithm))
-        {
-            case AlgorithmAStar astar:
+		switch ((currentAlgorithm))
+		{
+			case AlgorithmAStar astar:
 				currentAlgorithm.breakpoint = 5;
-                break;
+				break;
 
 			case AlgorithmDFS dfs:
 				currentAlgorithm.breakpoint = 4;
@@ -234,7 +234,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 			case AlgorithmDijkstra dijkstra:
 				currentAlgorithm.breakpoint = 6;
 				break;
-        }
+		}
 
 		GD.Print("Selected Breakpoint at:" + currentAlgorithm.breakpoint);
 		GD.Print("Current step before doSearchForward: " + currentAlgorithm.currentStep);
@@ -250,13 +250,13 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 		this.minimap.updateMinimapNodes(this.currentAlgorithm);
 		this.currentAlgorithm.visualize(this.graph, this);
-    }
+	}
 
 
 
 
-    //Speichert aktuelle Node in CheckpointNode
-    public void saveCheckpoint()
+	//Speichert aktuelle Node in CheckpointNode
+	public void saveCheckpoint()
 	{
 		checkPointNode = currentAlgorithm.currentNode;
 	}

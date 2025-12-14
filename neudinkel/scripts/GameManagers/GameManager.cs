@@ -72,7 +72,8 @@ public partial class GameManager : Node3D
 		base._Process(delta);
 	}
 
-	public void prepScene(string levelName)
+	/* Funny hack with optional arguments because we literally have to turn this in tomorrow */
+	public void prepScene(string levelName, bool user = false)
 	{
 		Camera cam;
 		DirectionalLight3D light;
@@ -88,7 +89,10 @@ public partial class GameManager : Node3D
 		light.Position = new Vector3(0.0f, 10.0f, 0.0f);
 		light.Rotation = new Vector3(Mathf.DegToRad(-45.0f), Mathf.DegToRad(45.0f), 0);
 
-		loadLevel(levelName);
+		if (!user)
+			loadLevel(levelName);
+		else
+			loadUserLevel(levelName);
 	}
 
 	/// <summary>
@@ -97,17 +101,30 @@ public partial class GameManager : Node3D
 	/// </summary>
 	public void loadLevel(string levelName)
 	{
+		loadLevelInternal("res:///levels/" + levelName + ".json");
+	}
+
+	/// <summary>
+	/// Wie loadLevel, aber laedt aus dem Ordner für Nutzer-Level.
+	/// </summary>
+	public void loadUserLevel(string levelName)
+	{
+		loadLevelInternal("user:///levels/" + levelName + ".json");
+	}
+
+	public void loadLevelInternal(string path)
+	{
 		JsonObject json;
 		FileAccess file;
 
-		if (FileAccess.FileExists("res:///levels/" + levelName + ".json"))
+		if (FileAccess.FileExists(path))
 		{
-			GD.Print("Loading level: " + levelName);
-			file = FileAccess.Open("res:///levels/" + levelName + ".json", FileAccess.ModeFlags.Read);
+			GD.Print("Loading level: " + path);
+			file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
 		}
 		else
 		{
-			GD.PrintErr("Tried to open file: " + levelName + ".json");
+			GD.PrintErr("Tried to open file: " + path);
 			file = FileAccess.Open("res:///levels/empty.json", FileAccess.ModeFlags.Read);
 		}
 

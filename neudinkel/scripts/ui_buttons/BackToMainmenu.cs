@@ -4,7 +4,7 @@ using System;
 public partial class BackToMainmenu : Node
 {
 
-    private void OnBacktomenuPressed(){
+	private void OnBacktomenuPressed(){
 		GetTree().ChangeSceneToFile("res://scenes/mainmenu.tscn");
 	}
 

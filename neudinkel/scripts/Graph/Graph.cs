@@ -191,7 +191,7 @@ public partial class Graph : Node3D
 
 	public void toJsonFile(string filename)
 	{
-		var saveFile = FileAccess.Open("res:///levels/" + filename + ".json", FileAccess.ModeFlags.Write);
+		var saveFile = FileAccess.Open("user:///levels/" + filename + ".json", FileAccess.ModeFlags.Write);
 		Camera camera = (Camera)GetViewport().GetCamera3D();
 		BauGameManager gameManager = GetNode<BauGameManager>("/root/Node3D"); // TODO fix
 		string output = "{\"name\":\"baumodus_save\",\"startPos\":[" + camera.Position.X.ToString(CultureInfo.InvariantCulture) + "," + camera.Position.Z.ToString(CultureInfo.InvariantCulture) + "],\"tiles\":[";
