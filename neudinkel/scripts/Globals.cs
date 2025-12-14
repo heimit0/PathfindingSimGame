@@ -53,12 +53,21 @@ public partial class Globals : Node
 	/* <HACK> */
 	/// <summary>
 	/// Sicherstellen dass es das Nutzer-Level-Verzeichnis WIRKLICH gibt.
+	/// Erstellt außerdem die default baumodus_save, falls nicht existent.
 	/// </summary>
 	public void initUserLevelDir()
 	{
 		string path = "user:///levels/";
 		if (!DirAccess.DirExistsAbsolute(path))
+		{
 			DirAccess.MakeDirAbsolute(path);
+		}
+
+		if (!FileAccess.FileExists("user:///levels/baumodus_save.json"))
+		{
+			DirAccess.CopyAbsolute("res:///levels/baumodus_save.json", "user:///levels/baumodus_save.json");
+		}
+
 		return;
 	}
 	/* </HACK> */
@@ -117,8 +126,8 @@ public partial class Globals : Node
 		
 
 		if (gm is SimulationGameManager)
-        {
-            return GameModi.SimM;
+		{
+			return GameModi.SimM;
 			
 		}else if(gm is BauGameManager){
 			return GameModi.BauM;
