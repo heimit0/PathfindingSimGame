@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=3 format=3 uid="uid://dr8b10rqqx45r"]
+[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=4 format=3 uid="uid://dr8b10rqqx45r"]
 
 [ext_resource type="Texture2D" uid="uid://cv5vrd0yaxrtn" path="res://assets/tutorial_bilder/tutorial.png" id="1_8b4fx"]
+[ext_resource type="AudioStream" uid="uid://c4brxeyvum3rk" path="res://assets/sounddesign/tutorialText.wav" id="1_d1v48"]
 [ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="2_d1v48"]
 
 [resource]
 script = ExtResource("2_d1v48")
 Label = "Tutorial"
-Text = "Wenn du am unteren Bildschirm klickst öffnet sich das Tutorial. Deshalb bist du jetzt hier."
+Text = "Am unteren Bildschirmrand findest du ein Fragezeeichen dies öffnet das Tutorial. Deshalb bist du jetzt hier."
 Image = ExtResource("1_8b4fx")
+Audio = ExtResource("1_d1v48")
 metadata/_custom_type_script = "uid://bpasm8ay3fqk"

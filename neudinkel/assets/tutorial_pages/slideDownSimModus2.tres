@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://cf1otfm8kv213"]
+[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=4 format=3 uid="uid://cf1otfm8kv213"]
 
 [ext_resource type="Texture2D" uid="uid://cwqeytwwkrnrq" path="res://assets/tutorial_bilder/slideDown2.png" id="1_5heaa"]
+[ext_resource type="AudioStream" uid="uid://dqdncvq4x123o" path="res://assets/sounddesign/slideDownMenu2.wav" id="1_yg2o3"]
 [ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_yg2o3"]
 
 [resource]
 script = ExtResource("2_yg2o3")
 Label = "SlideDownMenu"
-Text = "Dieser öffnet ein Menü welches die UI Aus-/Einblenden kann sowie dich zurück zum Hauptmenü bringt oder es dir ermöglicht im Baumodus Level zu speichern oder zu laden."
+Text = "Dieser öffnet ein Menü welches dir die Möglichkeit bietet die UI aus- oder einzublenden. Sowie einen  einen Button um dich zurück zum Hauptmenü zubringen. Im Baumodus kannst du hier dein Level speichern oder laden."
 Image = ExtResource("1_5heaa")
+Audio = ExtResource("1_yg2o3")
 metadata/_custom_type_script = "uid://tnd4qbj0ypdb"
