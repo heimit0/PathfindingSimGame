@@ -84,9 +84,9 @@ public partial class TutorialPopup : PopupPanel
 	}
 
 	public void setTrueValuePseudoBlock(bool pseudoBlockTrue)
-    {
-         isPseudoBlockTrue = pseudoBlockTrue;
-    }
+	{
+		 isPseudoBlockTrue = pseudoBlockTrue;
+	}
 
 	// public void onSetIsPseudoBlock(bool pseudoBlockTrue)
 	// {
@@ -126,7 +126,7 @@ public partial class TutorialPopup : PopupPanel
 
 	private void UpdatePageContent()
 	{
-        if (Seiten.Length == 0)
+		if (Seiten.Length == 0)
 			return;
 
 		var seite = Seiten[aktuelleSeite];
@@ -146,9 +146,9 @@ public partial class TutorialPopup : PopupPanel
 
 		PlayPageAudio(seite);
 
-    	ResetSize();
+		ResetSize();
 
-    	PopupCentered();
+		PopupCentered();
 	}
 
 	private void PlayPageAudio(TutorialPageData seite)

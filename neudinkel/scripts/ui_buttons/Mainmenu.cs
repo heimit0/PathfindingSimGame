@@ -45,27 +45,27 @@ public partial class Mainmenu : Control
 
 	public List<string> getLevelFiles()
 {
-    var levelFiles = new List<string>();
-    var dir = DirAccess.Open("res://levels");
-    
-    if (dir != null)
-    {
-        dir.ListDirBegin();
-        string fileName = dir.GetNext();
-        
-        while (fileName != "")
-        {
-            if (!dir.CurrentIsDir() && fileName.EndsWith(".json"))
-            {
-                levelFiles.Add(fileName.Substring(0,fileName.Length-5));
+	var levelFiles = new List<string>();
+	var dir = DirAccess.Open("res://levels");
+	
+	if (dir != null)
+	{
+		dir.ListDirBegin();
+		string fileName = dir.GetNext();
+		
+		while (fileName != "")
+		{
+			if (!dir.CurrentIsDir() && fileName.EndsWith(".json"))
+			{
+				levelFiles.Add(fileName.Substring(0,fileName.Length-5));
 				GD.Print(fileName);
-            }
-            fileName = dir.GetNext();
-        }
-        dir.ListDirEnd();
-    }
-    
-    return levelFiles;
+			}
+			fileName = dir.GetNext();
+		}
+		dir.ListDirEnd();
+	}
+	
+	return levelFiles;
 }
 	
 	
