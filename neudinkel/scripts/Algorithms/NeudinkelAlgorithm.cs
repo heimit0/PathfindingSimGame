@@ -106,16 +106,16 @@ public abstract class NeudinkelAlgorithm
 		return currentStep;
 	}
 
-    public new void visualize(Graph g, SimulationGameManager gameManager)
-    {
-        // erst alle ausschalten
-        foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
+	public new void visualize(Graph g, SimulationGameManager gameManager)
+	{
+		// erst alle ausschalten
+		foreach (GraphNode n in g.getNodes()) n.setHighlighted(false);
 		GraphNode _currentNode;
 
-        // Zielweg anzeigen
-        if (currentStep == -1)
-        {
-            GD.Print("Showing best path...");
+		// Zielweg anzeigen
+		if (currentStep == -1)
+		{
+			GD.Print("Showing best path...");
 
 			_currentNode = this.goalNode;
 			
@@ -132,12 +132,12 @@ public abstract class NeudinkelAlgorithm
 				_currentNode = cameFrom[_currentNode];
 			}
 
-            if(_currentNode.getPathToNeighbouringCity(startNode) is null) return;
+			if(_currentNode.getPathToNeighbouringCity(startNode) is null) return;
 
-            foreach (GraphNode n in _currentNode.getPathToNeighbouringCity(startNode))
-            {
-                n.setHighlighted(true);
-            }
+			foreach (GraphNode n in _currentNode.getPathToNeighbouringCity(startNode))
+			{
+				n.setHighlighted(true);
+			}
 
 			_currentNode.setHighlighted(true);
 			gameManager.minimap.updateMinimapNodes(this);
@@ -211,6 +211,6 @@ public abstract class NeudinkelAlgorithm
 			cost += (float)n.streetType;
 		}
 
-        return cost;
-    }
+		return cost;
+	}
 }
