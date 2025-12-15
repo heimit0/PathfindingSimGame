@@ -49,6 +49,9 @@ public partial class Camera : Camera3D
 	{
 		if (@event is InputEventMouseButton eventMouseButton && isUserInputEnabled)
 		{
+
+			Globals.playSfx("res://assets/sounddesign/klickv2vokal.ogg");
+
 			Vector2 diff = originMousePos - GetViewport().GetMousePosition();
 			bool allowTileSelection = false;
 			if (diff.Length() < 5)
