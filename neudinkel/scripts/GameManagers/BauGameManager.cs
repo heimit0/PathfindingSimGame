@@ -134,6 +134,10 @@ public partial class BauGameManager : GameManager
 
 	public void onChangeStreetType(int newStreetType)
 	{
+
+
+		Globals.playSfx("res://assets/sounddesign/straßebauenV2Voakl.ogg");
+
 		// if no tiles selected, => bug fix
 		if (this.selectedNodes.Count == 0) return;
 
