@@ -106,7 +106,15 @@ public partial class GraphNode : Node3D
 		{
 			// if empty tile
 			case 0:
-				this.tile = loadAsset("testtile00");
+				int random = Globals.rand.Next(0, 100); 
+				if (random < 20) 
+					this.tile = loadAsset("street0_1"); // 20%
+				else if (random < 30) 
+					this.tile = loadAsset("street0_2"); // 10%
+				else if (random < 35) 
+					this.tile = loadAsset("street0_3"); // 5%
+				else if (random < 40) 
+					this.tile = loadAsset("street0_4"); // 5%
 				break;
 			// if city
 			case int n when n != 2:
@@ -146,7 +154,7 @@ public partial class GraphNode : Node3D
 		int to = (int)getNeighbourType(this, n2);
 
 		int diff = to - from;
-		int variation = Globals.rand.Next(1, 3);
+		int variation = Globals.rand.Next(1, 7);
 
 		if (diff > 3)
 		{
@@ -154,7 +162,7 @@ public partial class GraphNode : Node3D
 			diff = 6 - diff;
 		}
 
-		Node3D street = loadAsset("street" + (int)this.streetType + "_0" + diff + "_" + "1");
+		Node3D street = loadAsset("street" + (int)this.streetType + "_0" + diff + "_" + variation);
 		street.RotateY(Mathf.DegToRad(-60 * from));
 		return street;
 	}

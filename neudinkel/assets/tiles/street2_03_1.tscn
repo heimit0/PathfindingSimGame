@@ -1,14 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://u8p0ngbg1qf3"]
 
 [ext_resource type="PackedScene" uid="uid://c25vothp85org" path="res://models/tiles/street2_03_1.fbx" id="1_cyx6b"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cyx6b"]
-resource_name = "Material"
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.30588236, 0.30588236, 0.30588236, 1)
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
+[ext_resource type="Material" uid="uid://ccym6l6p6d7ah" path="res://models/textures/street2_03_1.tres" id="2_jmrl0"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_i60qu"]
 _surfaces = [{
@@ -32,7 +25,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 60,
 "index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAIAAhACIAIgAjACAAJAAlACYAJgAnACQA"),
-"material": SubResource("StandardMaterial3D_cyx6b"),
+"material": ExtResource("2_jmrl0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
