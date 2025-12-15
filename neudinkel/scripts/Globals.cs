@@ -18,7 +18,8 @@ public class NeudinkelConfig
 public partial class Globals : Node
 {
 
-	public static readonly string configFilePath = "user://config.json";
+	private static readonly string configFilePath = "user://config.json";
+	private static AudioStreamPlayer asp;
 
 	//variablen
 	public static Random rand { get; set; }
@@ -43,6 +44,9 @@ public partial class Globals : Node
 	{
 		Globals.rand = new Random();
 		Globals.config = new NeudinkelConfig();
+
+		asp = new AudioStreamPlayer();
+		AddChild(asp);
 
 		Globals.loadGame();
 		initUserLevelDir();
@@ -124,8 +128,8 @@ public partial class Globals : Node
 		
 
 		if (gm is PruefungsGameManager)
-        {
-            return GameModi.PruefM;
+		{
+			return GameModi.PruefM;
 			
 		}else if(gm is SimulationGameManager){
 			
@@ -140,4 +144,25 @@ public partial class Globals : Node
 		
 		
 	}
+
+	/// <summary>
+	/// Spielt einen BG-Musik-Track ab. Unterbricht dabei einen etwaigen
+	/// alten Track.
+	/// Notiz: Die Audio-Ressource sollte auf "Loop Forward" gestellt sein.
+	/// </summary>
+	public static void playBackgroundMusic(string file)
+	{
+		Globals.asp.Stop();
+		Globals.asp.Stream = GD.Load<AudioStream>(file);
+		Globals.asp.Play();
+	}
+
+	/// <summary>
+	/// Hält den aktuellen BG-Musik-Track an.
+	/// </summary>
+	public static void stopBackgroundMusic()
+	{
+		Globals.asp.Stop();
+	}
+
 }

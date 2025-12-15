@@ -48,6 +48,7 @@ public partial class BauGameManager : GameManager
 		startNode.updateModel();
 		goalNode.updateModel();
 
+		Globals.playBackgroundMusic("res:///assets/sounddesign/baumodusMusik.wav");
 	}
 
 	public override void _Process(double delta)

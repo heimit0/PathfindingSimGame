@@ -37,7 +37,8 @@ public partial class Mainmenu : Control
 		String[] backdrops = {"baumodus_save", "pruef_level1_astar","level3_dijkstra","level1_dfs"}; //kann noch erweitert werden
 		Random r = new();
 		loadRandomBackdrop();
-	
+
+		Globals.stopBackgroundMusic();
 	}
 
 	public void loadRandomBackdrop()
@@ -51,19 +52,19 @@ public partial class Mainmenu : Control
 
 	public List<string> getLevelFiles()
 	{
-    var levelFiles = new List<string>();
-    var dir = DirAccess.Open("res://levels");
-    
-    if (dir != null)
-    {
-        dir.ListDirBegin();
-        string fileName = dir.GetNext();
-        
-        while (fileName != "")
-        {
-            if (!dir.CurrentIsDir() && fileName.EndsWith(".json"))
-            {
-                levelFiles.Add(fileName.Substring(0,fileName.Length-5));
+	var levelFiles = new List<string>();
+	var dir = DirAccess.Open("res://levels");
+	
+	if (dir != null)
+	{
+		dir.ListDirBegin();
+		string fileName = dir.GetNext();
+		
+		while (fileName != "")
+		{
+			if (!dir.CurrentIsDir() && fileName.EndsWith(".json"))
+			{
+				levelFiles.Add(fileName.Substring(0,fileName.Length-5));
 				GD.Print(fileName);
 			}
 			fileName = dir.GetNext();
@@ -197,6 +198,13 @@ public partial class Mainmenu : Control
 
 		foreach (Node child in algoOverview.GetChildren())
 			if (child is CanvasItem item) item.Visible = true;
+	}
+
+
+	//---------- Credits ----------
+	private void _on_credits_pressed()
+	{
+		GetTree().ChangeSceneToFile("res://scenes/Credits.tscn");
 	}
 
 

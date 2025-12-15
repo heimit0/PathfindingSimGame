@@ -16,6 +16,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 
 	private int correctStepCounterSinceLastSave;
 	private int wrongStepCounter;
+
 	public override void  _Ready()
 	{
 		TileSelected += playerInteraction;
@@ -49,6 +50,8 @@ public partial class PruefungsGameManager : SimulationGameManager
 		currentAlgorithm.goalNode.updateModel();
 
 		lastNode = startNode;
+
+		Globals.playBackgroundMusic("res:///assets/sounddesign/pruefmodusMusik.wav");
 	}
 
 	public override void _Process(double delta)

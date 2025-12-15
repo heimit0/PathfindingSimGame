@@ -1,0 +1,84 @@
+[gd_scene load_steps=4 format=3 uid="uid://bibcp3vu1m6q8"]
+
+[ext_resource type="Script" uid="uid://d8xt1m44y4wu" path="res://scripts/ui_buttons/Credits.cs" id="1_gw1d4"]
+[ext_resource type="Script" uid="uid://bl548qbyxvkw0" path="res://scripts/CreditsText.cs" id="1_hi4w3"]
+[ext_resource type="Theme" uid="uid://bxuenqfc1auia" path="res://assets/ui_presets/Popup_buttons.tres" id="2_spvsy"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gw1d4")
+
+[node name="TheVoid" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1199.0
+offset_bottom = 679.0
+color = Color(0, 0, 0, 1)
+
+[node name="TheText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 648.0
+offset_right = 960.0
+offset_bottom = 2118.0
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 30
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 30
+bbcode_enabled = true
+text = "[center][b]NEUDINKEL  - CREDITS[/b]
+
+[b]Modellierung[/b]
+Felix Westergom
+Marius Häusler
+
+[b]Programmierung[/b]
+Jessica Brause
+Michael Kolb
+Heimito Simosseg
+Georg Friedrich
+Jocelyn Otto
+
+[b]UI[/b]
+Andreas Bader
+Marius Häusler
+
+[b]Projektleitung[/b]
+Heimito Simosseg
+Georg Friedrich
+
+[b]Leveldesign[/b]
+Jessica Brause
+
+[b]Audiodesign und UI-Integration[/b]
+Andreas Bader
+
+
+
+
+Thank you for playing!
+
+
+[i]Merge me baby one more time[/i]
+
+[/center]"
+fit_content = true
+scroll_active = false
+script = ExtResource("1_hi4w3")
+speed = 20.0
+
+[node name="TheBack" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 112.0
+offset_bottom = 56.0
+theme = ExtResource("2_spvsy")
+text = "Zurück"
+
+[connection signal="pressed" from="TheBack" to="." method="onBackButtonPressed"]

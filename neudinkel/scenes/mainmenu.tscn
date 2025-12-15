@@ -41,20 +41,6 @@ Distance = 25.0
 
 [node name="MainMenu" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="MainMenu"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -286.5
-offset_right = 286.5
-offset_bottom = 91.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_85riq")
-theme_override_font_sizes/font_size = 66
-text = "Projekt Neudinkel"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -118,6 +104,32 @@ offset_bottom = -20.0
 grow_vertical = 0
 theme = ExtResource("8_85riq")
 text = "Algorithmen Infos"
+
+[node name="Credits" type="Button" parent="MainMenu"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 235.0
+offset_top = -56.0
+offset_right = 336.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme = ExtResource("8_85riq")
+text = "Credits"
+
+[node name="Label" type="Label" parent="MainMenu"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -286.5
+offset_right = 286.5
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_85riq")
+theme_override_font_sizes/font_size = 66
+text = "Projekt Neudinkel"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="LevelMenu" type="CanvasLayer" parent="."]
 
@@ -447,6 +459,7 @@ text = "zurück
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer2/baumodus" to="." method="_on_baumodus_pressed"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer2/pruefmodus" to="." method="_on_pruefmodus_pressed"]
 [connection signal="pressed" from="MainMenu/AlgoInfo" to="." method="_on_algo_overview_pressed"]
+[connection signal="pressed" from="MainMenu/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/dijkstra" to="." method="_on_algorithm_selected" binds= [1]]
 [connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/aStar" to="." method="_on_algorithm_selected" binds= [0]]
 [connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/dfs" to="." method="_on_algorithm_selected" binds= [2]]
