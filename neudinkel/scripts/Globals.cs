@@ -124,8 +124,8 @@ public partial class Globals : Node
 		
 
 		if (gm is PruefungsGameManager)
-        {
-            return GameModi.PruefM;
+		{
+			return GameModi.PruefM;
 			
 		}else if(gm is SimulationGameManager){
 			
