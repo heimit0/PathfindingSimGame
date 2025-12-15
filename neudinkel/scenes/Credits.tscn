@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bibcp3vu1m6q8"]
+[gd_scene load_steps=6 format=3 uid="uid://gcxwb1v8c5as"]
 
 [ext_resource type="Script" uid="uid://d8xt1m44y4wu" path="res://scripts/ui_buttons/Credits.cs" id="1_gw1d4"]
 [ext_resource type="Script" uid="uid://bl548qbyxvkw0" path="res://scripts/CreditsText.cs" id="1_hi4w3"]
 [ext_resource type="Theme" uid="uid://bxuenqfc1auia" path="res://assets/ui_presets/Popup_buttons.tres" id="2_spvsy"]
+[ext_resource type="Texture2D" uid="uid://df3p7p0aueorw" path="res://assets/ui_icons/neudinkelIconwhite_notext.svg" id="3_logo"]
+[ext_resource type="Script" uid="uid://dcgsagfslu75e" path="res://scripts/ScrollingNode.cs" id="4_scroll"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -22,9 +24,9 @@ color = Color(0, 0, 0, 1)
 [node name="TheText" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = 192.0
-offset_top = 648.0
+offset_top = 700.0
 offset_right = 960.0
-offset_bottom = 2118.0
+offset_bottom = 3276.0
 theme_override_font_sizes/normal_font_size = 30
 theme_override_font_sizes/bold_font_size = 30
 theme_override_font_sizes/bold_italics_font_size = 20
@@ -33,16 +35,19 @@ theme_override_font_sizes/mono_font_size = 30
 bbcode_enabled = true
 text = "[center][b]NEUDINKEL  - CREDITS[/b]
 
-[b]Modellierung[/b]
+[b]Modellierung Lead[/b]
 Felix Westergom
+
+[b]Modellierung Support & Integration[/b]
 Marius Häusler
+Heimito Simosseg
 
 [b]Programmierung[/b]
-Jessica Brause
-Michael Kolb
+Jocelyn Otto
 Heimito Simosseg
 Georg Friedrich
-Jocelyn Otto
+Michael Kolb
+Jessica Brause
 
 [b]UI[/b]
 Andreas Bader
@@ -52,8 +57,20 @@ Marius Häusler
 Heimito Simosseg
 Georg Friedrich
 
+[b]  Head of Code Architecture[/b]
+Jocelyn Otto
+
 [b]Leveldesign[/b]
 Jessica Brause
+
+[b] Level Integration [/b]
+Heimito Simosseg
+
+[b]Shader Design Lead Director[/b]
+Andreas Bader
+
+[b] Git Master[/b]
+Jocelyn Otto
 
 [b]Audiodesign und UI-Integration[/b]
 Andreas Bader
@@ -64,13 +81,48 @@ Andreas Bader
 Thank you for playing!
 
 
-[i]Merge me baby one more time[/i]
+[i]\"Merge me baby one more time\"
+- Andreas Bader[/i]
 
+[i]\"Exit Music for a Dinkel\"
+ - Andreas Bader [/i]
+
+
+
+
+
+
+
+[b]A Neudinkel Production[/b]
 [/center]"
 fit_content = true
 scroll_active = false
 script = ExtResource("1_hi4w3")
 speed = 20.0
+
+[node name="LogoContainer" type="Node2D" parent="."]
+position = Vector2(400, 2899)
+script = ExtResource("4_scroll")
+
+[node name="Logo" type="TextureRect" parent="LogoContainer"]
+offset_top = -3.0
+offset_right = 352.0
+offset_bottom = 349.0
+texture = ExtResource("3_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LogoContainer2" type="Node2D" parent="."]
+position = Vector2(400, 2899)
+script = ExtResource("4_scroll")
+
+[node name="Logo" type="TextureRect" parent="LogoContainer2"]
+offset_top = -2467.0
+offset_right = 352.0
+offset_bottom = -2115.0
+texture = ExtResource("3_logo")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="TheBack" type="Button" parent="."]
 layout_mode = 0
