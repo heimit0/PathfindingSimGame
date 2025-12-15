@@ -1,5 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://dcowt5645ptyt"]
 
-[ext_resource type="PackedScene" uid="uid://dskwikasdsoh8" path="res://models/testing/endFlag.fbx" id="1_6w68w"]
+[ext_resource type="PackedScene" uid="uid://c5y4ve7beavvj" path="res://models/goalPostV2.fbx" id="1_6w68w"]
 
-[node name="endFlag" instance=ExtResource("1_6w68w")]
+[node name="Node3D" type="Node3D"]
+
+[node name="goalPostV2" parent="." instance=ExtResource("1_6w68w")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0.1)

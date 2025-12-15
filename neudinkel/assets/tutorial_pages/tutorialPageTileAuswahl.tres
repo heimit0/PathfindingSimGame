@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=3 format=3 uid="uid://df32raygew6b1"]
+[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=4 format=3 uid="uid://df32raygew6b1"]
 
+[ext_resource type="AudioStream" uid="uid://c1kibjhppn1ij" path="res://assets/sounddesign/tileAuswaehlen.wav" id="1_ej7ei"]
 [ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="1_lcyr6"]
 [ext_resource type="Texture2D" uid="uid://c10j6kxedb2xq" path="res://assets/tutorial_bilder/tileAuswaehlenBaumodus.png" id="1_sedto"]
 
 [resource]
 script = ExtResource("1_lcyr6")
 Label = "Tiles auswählen im Baumoduss"
-Text = "Um eine Tile zu setzen musst du mit der Linken Maustaste auf die Tile klicken welche du auswählen möchtest. Diese Tiles werden hervorgehoben durch eine Umrandung und einem Hexagon was darüber aufsteigt."
+Text = "Um eine Tile auszuwählen musst du mit der Linken Maustaste auf diese klicken. Diese wird hervorgehoben durch eine Umrandung und einem Hexagon welches aufsteigt."
 Image = ExtResource("1_sedto")
+Audio = ExtResource("1_ej7ei")
 metadata/_custom_type_script = "uid://bx8kcap1vq5l1"

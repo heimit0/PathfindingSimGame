@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b6acmjxqngq3f"]
+[gd_scene load_steps=42 format=3 uid="uid://b6acmjxqngq3f"]
 
 [ext_resource type="Texture2D" uid="uid://8xhxikuw8tmw" path="res://assets/ui_icons/arrow-left.svg" id="2_323uy"]
 [ext_resource type="Texture2D" uid="uid://ctab6sjt5v1bh" path="res://assets/ui_icons/close-icon.svg" id="2_adx3j"]
@@ -29,12 +29,15 @@
 [ext_resource type="Resource" uid="uid://dgc4owv1lsmvb" path="res://assets/tutorial_pages/mapSim.tres" id="21_ymlc3"]
 [ext_resource type="Resource" uid="uid://j0pe40cedvgt" path="res://assets/tutorial_pages/pruefmodus2.tres" id="22_ew0pb"]
 [ext_resource type="Resource" uid="uid://cgb5xubhdb8r2" path="res://assets/tutorial_pages/pseudoSim.tres" id="22_pp330"]
-[ext_resource type="Script" uid="uid://bddf3y5nwvebc" path="res://scripts/TutorialPseudoPageData.cs" id="23_gjlof"]
 [ext_resource type="Resource" uid="uid://v381oaaxum10" path="res://assets/tutorial_pages/prioListSim.tres" id="23_tyxsv"]
 [ext_resource type="Resource" uid="uid://cujrqxutwcf6k" path="res://assets/tutorial_pages/tilesPruefmodus.tres" id="25_kefr3"]
 [ext_resource type="Resource" uid="uid://bnc087j5745a6" path="res://assets/tutorial_pages/minimapPruefmodus.tres" id="26_kefr3"]
 [ext_resource type="Resource" uid="uid://cjfpx6rghx1e5" path="res://assets/tutorial_pages/pseudoPruefmodus.tres" id="27_av2bp"]
+[ext_resource type="Resource" uid="uid://cgdot52mpkqc" path="res://assets/tutorial_pages/gscore.tres" id="32_75vso"]
 [ext_resource type="Resource" uid="uid://b7i7t6tksl7jk" path="res://assets/tutorial_pages/listePruef.tres" id="32_x1n7l"]
+[ext_resource type="Resource" uid="uid://q7svoki2mdas" path="res://assets/tutorial_pages/hscore.tres" id="33_sxdxu"]
+[ext_resource type="Resource" uid="uid://c3lmih4q2cibh" path="res://assets/tutorial_pages/fscore.tres" id="34_wmwov"]
+[ext_resource type="Resource" uid="uid://djm7huhhjkhdv" path="res://assets/tutorial_pages/priorityQueue.tres" id="35_qqdwv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbank"]
 content_margin_left = 10.0
@@ -46,12 +49,6 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-
-[sub_resource type="Resource" id="Resource_bftqi"]
-script = ExtResource("23_gjlof")
-Label = "tes"
-Text = "test"
-metadata/_custom_type_script = "uid://bddf3y5nwvebc"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u14ly"]
 load_path = "res://.godot/imported/baumodus.png-d7811d7e1c9b20006249ee1351abf09c.ctex"
@@ -71,7 +68,7 @@ script = ExtResource("2_u14ly")
 BauSeiten = Array[Object]([ExtResource("3_55hcv"), ExtResource("4_o0751"), ExtResource("5_r2dvc"), ExtResource("6_jm3xc"), ExtResource("7_sbank"), ExtResource("8_2r1ja"), ExtResource("8_x8yum"), ExtResource("9_fbydf"), ExtResource("11_2r1ja"), ExtResource("9_jm3xc"), ExtResource("11_nh20b")])
 SimSeiten = Array[Object]([ExtResource("9_gtsg7"), ExtResource("11_sbank"), ExtResource("14_x8yum"), ExtResource("15_nh20b"), ExtResource("16_uhq6m"), ExtResource("18_gnjm8"), ExtResource("17_uhq6m"), ExtResource("18_4du4s"), ExtResource("21_ymlc3"), ExtResource("22_pp330"), ExtResource("23_tyxsv"), ExtResource("19_lrjm2")])
 PruefSeiten = Array[Object]([ExtResource("10_2r1ja"), ExtResource("21_kpqmk"), ExtResource("22_ew0pb"), ExtResource("25_kefr3"), ExtResource("26_kefr3"), ExtResource("27_av2bp"), ExtResource("32_x1n7l")])
-PseudoSeiten = Array[Object]([SubResource("Resource_bftqi")])
+PseudoSeiten = Array[Object]([ExtResource("32_75vso"), ExtResource("33_sxdxu"), ExtResource("34_wmwov"), ExtResource("35_qqdwv")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15

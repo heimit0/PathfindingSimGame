@@ -40,7 +40,7 @@ public partial class SimulationGameManager : GameManager
 
 	public override void _Ready()
 	{
-		prepScene("baumodus_save");
+		prepScene("baumodus_save", true);
 
 		DoSearchForward += onDoSearchForward;
 		InitOrChangeAlgorithm += onInitOrChangeAlgorithm;
@@ -53,6 +53,9 @@ public partial class SimulationGameManager : GameManager
 
 		this.minimap = GetNode<Minimap>(minimapPath);
 		this.minimap.initMiniMap(this);
+
+		// HACK - THIS GETS OVERRIDEN IN PRÜFMODUS
+		Globals.playBackgroundMusic("res:///assets/sounddesign/algoAutoplayMusik.wav");
 	}
 
 	public override void _Process(double delta)

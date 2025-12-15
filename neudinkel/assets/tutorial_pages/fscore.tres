@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialPseudoPageData" load_steps=3 format=3 uid="uid://c3lmih4q2cibh"]
+
+[ext_resource type="AudioStream" uid="uid://vgv40ubfb2g2" path="res://assets/sounddesign/fscore.wav" id="1_7v78v"]
+[ext_resource type="Script" uid="uid://bddf3y5nwvebc" path="res://scripts/TutorialPseudoPageData.cs" id="2_g87yv"]
+
+[resource]
+script = ExtResource("2_g87yv")
+Label = "F-Score"
+Text = "Der Paramter F enthält die geschätzten Gesamtkosten. Diese werden berechnet aus dem Paramter G plus dem Parameter H. "
+Audio = ExtResource("1_7v78v")
+metadata/_custom_type_script = "uid://bddf3y5nwvebc"

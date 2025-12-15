@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmoc8fo8iyfqp"]
+[gd_scene load_steps=12 format=3 uid="uid://cmoc8fo8iyfqp"]
 
 [ext_resource type="Script" uid="uid://c48nvxgn3oi8v" path="res://scripts/ui_buttons/Mainmenu.cs" id="1_natt5"]
 [ext_resource type="FontFile" uid="uid://cryqnyausjcxw" path="res://assets/ui_presets/futurawin.ttf" id="2_85riq"]
@@ -8,10 +8,18 @@
 [ext_resource type="Theme" uid="uid://do0012mtba6ii" path="res://assets/ui_presets/Popup_buttons_zurueck.tres" id="8_85riq"]
 [ext_resource type="Script" uid="uid://j2i3q6mpt2fq" path="res://scripts/ui_buttons/OrbitCamera.cs" id="8_wf3n4"]
 [ext_resource type="Script" uid="uid://btwp1hq3ogfmy" path="res://scripts/NeudinkelStarIndicator.cs" id="9_gjjcl"]
+[ext_resource type="Material" uid="uid://jaqs376812le" path="res://assets/ui_presets/PseudocodePanel.tres" id="9_wf3n4"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dfy5j"]
 dof_blur_far_enabled = true
 dof_blur_far_distance = 0.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h73c4"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -32,20 +40,6 @@ script = ExtResource("8_wf3n4")
 Distance = 25.0
 
 [node name="MainMenu" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="MainMenu"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -286.5
-offset_right = 286.5
-offset_bottom = 91.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_85riq")
-theme_override_font_sizes/font_size = 66
-text = "Projekt Neudinkel"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
 anchors_preset = 8
@@ -98,6 +92,44 @@ layout_mode = 2
 theme = ExtResource("4_dfy5j")
 theme_override_font_sizes/font_size = 50
 text = "Prüfmodus"
+
+[node name="AlgoInfo" type="Button" parent="MainMenu"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -56.0
+offset_right = 211.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme = ExtResource("8_85riq")
+text = "Algorithmen Infos"
+
+[node name="Credits" type="Button" parent="MainMenu"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 235.0
+offset_top = -56.0
+offset_right = 336.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme = ExtResource("8_85riq")
+text = "Credits"
+
+[node name="Label" type="Label" parent="MainMenu"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -286.5
+offset_right = 286.5
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_85riq")
+theme_override_font_sizes/font_size = 66
+text = "Projekt Neudinkel"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="LevelMenu" type="CanvasLayer" parent="."]
 
@@ -288,8 +320,146 @@ theme = ExtResource("8_85riq")
 theme_override_font_sizes/font_size = 24
 text = "zurück"
 
+[node name="AlgoOverview" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AlgoOverview"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AlgoOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="DijsktraPanel" type="Panel" parent="AlgoOverview/VBoxContainer/HBoxContainer"]
+material = ExtResource("9_wf3n4")
+custom_minimum_size = Vector2(325, 540)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_h73c4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AlgoOverview/VBoxContainer/HBoxContainer/DijsktraPanel"]
+material = ExtResource("9_wf3n4")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_right = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="AlgoOverview/VBoxContainer/HBoxContainer/DijsktraPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_85riq")
+theme_override_font_sizes/font_size = 40
+text = "Dijkstra"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AlgoOverview/VBoxContainer/HBoxContainer/DijsktraPanel/VBoxContainer"]
+layout_mode = 2
+text = "Dijkstra findet den kürzesten Weg in einem Graphen mit nichtnegativen Kantengewichten, indem er allen Knoten eine Distanz zuweist (Startknoten 0, alle anderen ∞) und zu jedem Knoten einen Vorgänger speichert. Er wählt wiederholt den unbesuchten Knoten mit der kleinsten Distanz, prüft für dessen Nachbarn, ob der Weg über diesen Knoten kürzer ist, und aktualisiert gegebenenfalls Distanz und Vorgänger, bevor der Knoten als besucht markiert wird. Dies läuft weiter, bis der Zielknoten besucht ist oder keine erreichbaren Knoten mehr existieren; der kürzeste Weg ergibt sich durch Rückverfolgung der Vorgänger vom Ziel zum Start."
+fit_content = true
+
+[node name="ASternPanel" type="Panel" parent="AlgoOverview/VBoxContainer/HBoxContainer"]
+material = ExtResource("9_wf3n4")
+custom_minimum_size = Vector2(325, 540)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_h73c4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AlgoOverview/VBoxContainer/HBoxContainer/ASternPanel"]
+material = ExtResource("9_wf3n4")
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_right = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="AlgoOverview/VBoxContainer/HBoxContainer/ASternPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_85riq")
+theme_override_font_sizes/font_size = 40
+text = "A*"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AlgoOverview/VBoxContainer/HBoxContainer/ASternPanel/VBoxContainer"]
+layout_mode = 2
+text = "A* sucht den kürzesten Weg wie Dijkstra, verwendet aber zusätzlich eine Heuristik, die die geschätzte Restentfernung zum Ziel angibt. Für jeden Knoten werden die bisherigen Kosten g und der geschätzte Rest h zu f = g + h kombiniert, und es wird immer der Knoten mit dem kleinsten f ausgewählt. Für seine Nachbarn werden die g-Kosten und Vorgänger aktualisiert, wenn ein besserer Weg gefunden wird; die Suche konzentriert sich so auf vielversprechende Richtungen und endet, wenn das Ziel als bester Knoten ausgewählt wurde, der Weg wird dann über die Vorgänger rekonstruiert."
+fit_content = true
+
+[node name="ASternPanel2" type="Panel" parent="AlgoOverview/VBoxContainer/HBoxContainer"]
+material = ExtResource("9_wf3n4")
+custom_minimum_size = Vector2(325, 540)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_h73c4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AlgoOverview/VBoxContainer/HBoxContainer/ASternPanel2"]
+material = ExtResource("9_wf3n4")
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_right = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="AlgoOverview/VBoxContainer/HBoxContainer/ASternPanel2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_85riq")
+theme_override_font_sizes/font_size = 40
+text = "DFS"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AlgoOverview/VBoxContainer/HBoxContainer/ASternPanel2/VBoxContainer"]
+layout_mode = 2
+text = "Die Tiefensuche (DFS) durchläuft einen Graphen, indem sie von einem Startknoten aus immer einem noch unbesuchten Nachbarn möglichst weit in die Tiefe folgt. Dazu werden Knoten beim Betreten als besucht markiert, rekursiv oder mit einem Stack weiterverfolgt und bei Sackgassen wieder zurückgegangen, um andere noch unbesuchte Nachbarn zu erkunden. So werden alle erreichbaren Knoten systematisch besucht, und man kann einen Weg zu einem Zielknoten finden, allerdings ohne Garantie, dass dieser Weg der kürzeste ist."
+fit_content = true
+
+[node name="backButton" type="Button" parent="AlgoOverview"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -47.0
+offset_right = -18.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("8_85riq")
+theme_override_font_sizes/font_size = 24
+text = "zurück
+"
+
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer2/baumodus" to="." method="_on_baumodus_pressed"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer2/pruefmodus" to="." method="_on_pruefmodus_pressed"]
+[connection signal="pressed" from="MainMenu/AlgoInfo" to="." method="_on_algo_overview_pressed"]
+[connection signal="pressed" from="MainMenu/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/dijkstra" to="." method="_on_algorithm_selected" binds= [1]]
 [connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/aStar" to="." method="_on_algorithm_selected" binds= [0]]
 [connection signal="pressed" from="LevelMenu/VBoxContainer/HBoxContainer2/dfs" to="." method="_on_algorithm_selected" binds= [2]]
@@ -298,3 +468,4 @@ text = "zurück"
 [connection signal="pressed" from="LevelMenu_zip/VBoxContainer/HBoxContainer2/level2" to="." method="_on_level_selected" binds= [2]]
 [connection signal="pressed" from="LevelMenu_zip/VBoxContainer/HBoxContainer2/level3" to="." method="_on_level_selected" binds= [3]]
 [connection signal="pressed" from="LevelMenu_zip/backButton" to="." method="_on_back_button_zip_pressed"]
+[connection signal="pressed" from="AlgoOverview/backButton" to="." method="_on_algo_back_button_pressed"]

@@ -45,31 +45,31 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 		}; // TODO kann verbessert werden
 
 		this.pseudoCodeSteps = new[] {
-			( 0, "unvisited = PriorityQueue"),
-			( 1, "visited = List"),
-			( 2, "g[all nodes] = ∞"),
-			( 3, "unvisited.add(startNode, 0)"),
-			( 4, "g[startNode] = 0"),
-			( 5, "while (unvisited is not empty):"),
-			( 6, "    current = unvisited.dequeue()"),
-			( 7, "    visited.add(current)"),
-			( 8, "    if (current == targetNode):"),
-			(-1, "        <Weg zu Ziel gefunden>"),
+			( 0, "unvisited := Priority Queue"),
+			( 1, "visited := List"),
+			( 2, "g[all nodes] := Inf"),
+			( 3, "add startnode to unvisited"),
+			( 4, "g[startNode] := 0"),
+			( 5, "while unvisited is not empty do"),
+			( 6, "    current := dequeue from unvisited"),
+			( 7, "    add current to visited"),
+			( 8, "    if current is target then"),
+			(-1, "        Path found."),
 			( 8, "    "),
-			( 9, "    foreach (neighbor in current.neighbors):"),
-			( 9, "        tentativeG = g[current] + edgeCost(current, neighbor)"),
-			(10, "        if (g[neighbor] != ∞):"),
-			(11, "            if (tentativeG < g[neighbor]):"),
-			(12, "                g[neighbor] = tentativeG"),
-			(13, "                cameFrom[neighbor] = current"),
+			( 9, "    for each neighbour of current do"),
+			( 9, "        new_g := g[current] + edgeCost(current, neighbour)"),
+			(10, "        if g[neighbor] < Inf then"),
+			(11, "            if new_g < g[neighbour] then"),
+			(12, "                g[neighbour] := new_g"),
+			(13, "                came_from[neighbour] := current"),
 			(11, "        "),
-			(14, "        else:"),
-			(15, "            cameFrom[neighbor] = current"),
-			(16, "            g[neighbor] = tentativeG"),
-			(17, "            unvisited.add(neighbor, tentativeG)"),
+			(14, "        else"),
+			(15, "            came_from[neighbour] := current"),
+			(16, "            g[neighbour] := new_g"),
+			(17, "            add (neighbour, new_g) to unvisited"),
 			( 8, "    "),
 			( 4, ""),
-			(-2, "<Kein Weg gefunden>")
+			(-2, "No path found.")
 		};
 	}
 
@@ -250,28 +250,20 @@ public class AlgorithmDijkstra : NeudinkelAlgorithm
 	private int updateNeighbourCost(Graph g)
 	{
 		distanceFromStart[currentNeighbours[currentNeighbourIndex]] = currentNeighbourCost;
-		//erstellt eine temporaere priority queue
-		NeudinkelPriorityQueue<GraphNode, float> tmpQueue = new NeudinkelPriorityQueue<GraphNode, float>(); 
-		//while schleife solange unvisitednodes noch nodes hat für das umlagern in temp queue
+		NeudinkelPriorityQueue<GraphNode, float> tmpQueue = new NeudinkelPriorityQueue<GraphNode, float>();
 		while (unvisitedNodes.Count != 0)
 		{
-			//holen der node mit der niedrigsten prio 
 			GraphNode tmpNode  = unvisitedNodes.Dequeue();
-			//umlagern in die temp queue solange es nicht der zu ändernde nachbar ist
-			if(!tmpNode.Equals(currentNeighbours[currentNeighbourIndex]))
+			if(tmpNode != currentNeighbours[currentNeighbourIndex])
 			{
 				tmpQueue.Enqueue(tmpNode,distanceFromStart[tmpNode]);
 			}
 		}
-		//while schleife solange tempqueue noch nodes hat für das zurueckfuehren in unvisitednodes
 		while (tmpQueue.Count != 0)
 		{
-			//holen des elements mit hoechster prio aus der temp queue
 			GraphNode tmpNode  = tmpQueue.Dequeue();
-			//einlagern des elements in unvisitednodes
 			unvisitedNodes.Enqueue(tmpNode,distanceFromStart[tmpNode]);
 		}
-		//einlagern des zu aendernden nachbarn mit geaenderter priotitaet in priority queue
 		unvisitedNodes.Enqueue(currentNeighbours[currentNeighbourIndex],distanceFromStart[currentNeighbours[currentNeighbourIndex]]);
 		updateCost(currentNeighbours[currentNeighbourIndex]);
 		return currentStep + 1;

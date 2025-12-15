@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=3 format=3 uid="uid://cgu8hk1jekj2i"]
+[gd_resource type="Resource" script_class="TutorialBauPageData" load_steps=4 format=3 uid="uid://cgu8hk1jekj2i"]
 
 [ext_resource type="Script" uid="uid://bpasm8ay3fqk" path="res://scripts/TutorialBauPageData.cs" id="1_0n7qj"]
 [ext_resource type="Texture2D" uid="uid://b83d1rqla0mge" path="res://assets/tutorial_bilder/tileAuswahlBeenden.png" id="1_byyra"]
+[ext_resource type="AudioStream" uid="uid://cw0u4sj2qha4q" path="res://assets/sounddesign/tileauswahlBeenden.wav" id="1_ochr0"]
 
 [resource]
 script = ExtResource("1_0n7qj")
 Label = "Tileauswahl beenden"
-Text = "Um diese Tileauswahl aufzuheben kannst du einfach außerhalb der Tiles klicken und deine Auswahl wird aufgehoben."
+Text = "Um die Tileauswahl aufzuheben kannst du einfach außerhalb des Spielfeldes klicken und deine Auswahl wird aufgehoben."
 Image = ExtResource("1_byyra")
+Audio = ExtResource("1_ochr0")
 metadata/_custom_type_script = "uid://bx8kcap1vq5l1"

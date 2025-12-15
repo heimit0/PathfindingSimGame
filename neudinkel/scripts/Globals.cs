@@ -18,7 +18,8 @@ public class NeudinkelConfig
 public partial class Globals : Node
 {
 
-	public static readonly string configFilePath = "user://config.json";
+	private static readonly string configFilePath = "user://config.json";
+	private static AudioStreamPlayer asp;
 
 	//variablen
 	public static Random rand { get; set; }
@@ -33,8 +34,6 @@ public partial class Globals : Node
 		PruefM
 	}
 
-	public static openTutorialPopup pseudoTipsButton;
-
 	public static GraphSearchAlgorithm pruefungsAlgorithmus; //Gibt mit welcher Algorithmus bei der Pruefung genutzt wird
 	public static NeudinkelConfig config;
 	public static JsonSerializerOptions jsonOptions = new JsonSerializerOptions { WriteIndented = true };
@@ -46,8 +45,34 @@ public partial class Globals : Node
 		Globals.rand = new Random();
 		Globals.config = new NeudinkelConfig();
 
+		asp = new AudioStreamPlayer();
+		AddChild(asp);
+
 		Globals.loadGame();
+		initUserLevelDir();
 	}
+
+	/* <HACK> */
+	/// <summary>
+	/// Sicherstellen dass es das Nutzer-Level-Verzeichnis WIRKLICH gibt.
+	/// Erstellt außerdem die default baumodus_save, falls nicht existent.
+	/// </summary>
+	public void initUserLevelDir()
+	{
+		string path = "user:///levels/";
+		if (!DirAccess.DirExistsAbsolute(path))
+		{
+			DirAccess.MakeDirAbsolute(path);
+		}
+
+		if (!FileAccess.FileExists("user:///levels/baumodus_save.json"))
+		{
+			DirAccess.CopyAbsolute("res:///levels/baumodus_save.json", "user:///levels/baumodus_save.json");
+		}
+
+		return;
+	}
+	/* </HACK> */
 
 	public static void saveGame()
 	{
@@ -102,20 +127,42 @@ public partial class Globals : Node
 
 		
 
-		if (gm is SimulationGameManager)
-        {
-            return GameModi.SimM;
-			
-		}else if(gm is BauGameManager){
-			return GameModi.BauM;
-
-		}else if(gm is PruefungsGameManager)
+		if (gm is PruefungsGameManager)
 		{
 			return GameModi.PruefM;
+			
+		}else if(gm is SimulationGameManager){
+			
+			return GameModi.SimM;
+
+		}else if(gm is BauGameManager)
+		{
+			return GameModi.BauM;
 		}
 
 		return GameModi.BauM;
 		
 		
 	}
+
+	/// <summary>
+	/// Spielt einen BG-Musik-Track ab. Unterbricht dabei einen etwaigen
+	/// alten Track.
+	/// Notiz: Die Audio-Ressource sollte auf "Loop Forward" gestellt sein.
+	/// </summary>
+	public static void playBackgroundMusic(string file)
+	{
+		Globals.asp.Stop();
+		Globals.asp.Stream = GD.Load<AudioStream>(file);
+		Globals.asp.Play();
+	}
+
+	/// <summary>
+	/// Hält den aktuellen BG-Musik-Track an.
+	/// </summary>
+	public static void stopBackgroundMusic()
+	{
+		Globals.asp.Stop();
+	}
+
 }

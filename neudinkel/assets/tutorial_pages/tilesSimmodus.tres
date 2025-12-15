@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=3 format=3 uid="uid://inojk30a5iwf"]
+[gd_resource type="Resource" script_class="TutorialSimPageData" load_steps=4 format=3 uid="uid://inojk30a5iwf"]
 
 [ext_resource type="Texture2D" uid="uid://bu7ms228ha6ej" path="res://assets/tutorial_bilder/tiles.png" id="1_5ahic"]
+[ext_resource type="AudioStream" uid="uid://do4d4wbfury68" path="res://assets/sounddesign/tilesablesen.wav" id="1_fomhb"]
 [ext_resource type="Script" uid="uid://tnd4qbj0ypdb" path="res://scripts/TutorialSimPageData.cs" id="2_fomhb"]
 
 [resource]
 script = ExtResource("2_fomhb")
 Label = "Tiles"
-Text = "Du kannst an den Tiles wichtige Werte ablesen. Wie die Koordinaten zum Beispiel. "
+Text = "Du kannst an den Tiles wichtige Werte, wie beipielsweise die Koordinaten ablesen."
 Image = ExtResource("1_5ahic")
+Audio = ExtResource("1_fomhb")
 metadata/_custom_type_script = "uid://tnd4qbj0ypdb"

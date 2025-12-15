@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="TutorialPruefPageData" load_steps=3 format=3 uid="uid://dslndxktj5k73"]
+[gd_resource type="Resource" script_class="TutorialPruefPageData" load_steps=4 format=3 uid="uid://dslndxktj5k73"]
 
 [ext_resource type="Script" uid="uid://ckd2bmnlsdaxg" path="res://scripts/TutorialPruefPageData.cs" id="1_chira"]
+[ext_resource type="AudioStream" uid="uid://cvper3l8kwqn2" path="res://assets/sounddesign/pruefmodus1.wav" id="1_hnouy"]
 [ext_resource type="Texture2D" uid="uid://ctxnt7t71kp43" path="res://assets/tutorial_bilder/pruefmodus.png" id="1_wlo5r"]
 
 [resource]
 script = ExtResource("1_chira")
 Label = "Prüfungsmodus"
-Text = "Im Prüfungsmodus klickst du nacheinander die Knoten an welche laut dem Algorithmus der effizenteste Weg zum Endknoten wären. Wenn du dies richtig ausführst wird das Level als geschafft markiert, sonst musst du es erneut probieren"
+Text = "Im Prüfungsmodus klickst du nacheinander die Knoten an welche laut dem Algorithmus der effizenteste Weg zum Endknoten wären. Wenn du dies richtig ausführst wird das Level als geschafft markiert, sonst musst du es erneut probieren."
 Image = ExtResource("1_wlo5r")
+Audio = ExtResource("1_hnouy")
 metadata/_custom_type_script = "uid://bx8kcap1vq5l1"
