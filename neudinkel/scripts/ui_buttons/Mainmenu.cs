@@ -135,11 +135,14 @@ public partial class Mainmenu : Control
 	//-------------- main menu ---------------
 	private void _on_baumodus_pressed()
 	{
+		Globals.playSfx("res://assets/sounddesign/klickv2vokal.ogg");
 		GetTree().ChangeSceneToFile("res://scenes/baumodus.tscn");
+		
 	}
 
 	private void _on_pruefmodus_pressed()
 	{
+		Globals.playSfx("res://assets/sounddesign/klickv2vokal.ogg");
 		foreach (Node child in mainMenu.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 
@@ -150,6 +153,7 @@ public partial class Mainmenu : Control
 	//-------------- level menu --------------
 	private void _on_backButtonLevelMenu_pressed()
 	{
+		Globals.playSfx("res://assets/sounddesign/klickv2vokal.ogg");
 		foreach (Node child in levelMenu.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 
@@ -159,6 +163,7 @@ public partial class Mainmenu : Control
 	
 	private void _on_algorithm_selected(int algo)
 	{
+		Globals.playSfx("res://assets/sounddesign/klickv2vokal.ogg");
 		Globals.pruefungsAlgorithmus = (GraphSearchAlgorithm) algo;
 
 		// Überschrift setzen
@@ -182,6 +187,7 @@ public partial class Mainmenu : Control
 	//---------- level menu level selection ----------
 	private void _on_back_button_zip_pressed()
 	{
+		Globals.playSfx("res://assets/sounddesign/klickv2vokal.ogg");
 		foreach (Node child in levelMenuZip.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 
@@ -193,6 +199,7 @@ public partial class Mainmenu : Control
 	//---------- Algo Overview --------------
 	private void _on_algo_overview_pressed()
 	{
+		Globals.playSfx("res://assets/sounddesign/klickv2vokal.ogg");
 		foreach (Node child in mainMenu.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 
@@ -204,12 +211,14 @@ public partial class Mainmenu : Control
 	//---------- Credits ----------
 	private void _on_credits_pressed()
 	{
+		Globals.playSfx("res://assets/sounddesign/klickv2vokal.ogg");
 		GetTree().ChangeSceneToFile("res://scenes/Credits.tscn");
 	}
 
 
 	private void _on_algo_back_button_pressed()
 	{
+		Globals.playSfx("res://assets/sounddesign/klickv2vokal.ogg");
 		foreach (Node child in algoOverview.GetChildren())
 			if (child is CanvasItem item) item.Visible = false;
 
@@ -219,6 +228,7 @@ public partial class Mainmenu : Control
 
 	private void _on_level_selected(int level)
 	{
+		Globals.playSfx("res://assets/sounddesign/klickv2vokal.ogg");
 		String _algoName = "";
 
 		if (Globals.pruefungsAlgorithmus == GraphSearchAlgorithm.DFS)

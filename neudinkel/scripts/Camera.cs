@@ -50,7 +50,7 @@ public partial class Camera : Camera3D
 		if (@event is InputEventMouseButton eventMouseButton && isUserInputEnabled)
 		{
 
-			Globals.playSfx("res://assets/sounddesign/klick.ogg");
+			Globals.playSfx("res://assets/sounddesign/klick.wav");
 
 			Vector2 diff = originMousePos - GetViewport().GetMousePosition();
 			bool allowTileSelection = false;
