@@ -115,6 +115,8 @@ public partial class GraphNode : Node3D
 					this.tile = loadAsset("street0_3"); // 5%
 				else if (random < 40) 
 					this.tile = loadAsset("street0_4"); // 5%
+				else
+					this.tile = null;
 				break;
 			// if city
 			case int n when n != 2:
@@ -145,7 +147,8 @@ public partial class GraphNode : Node3D
 			this.AddChild(currentCrystal);
 		}
 
-		this.AddChild(tile);
+		if (this.tile is not null)
+			this.AddChild(this.tile);
 	}
 
 	private Node3D getStreetTileAsset(GraphNode n1, GraphNode n2)
