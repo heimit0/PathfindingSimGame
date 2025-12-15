@@ -5,7 +5,7 @@ public partial class CreditsText : RichTextLabel
 {
 
 	[Export]
-	public float speed = 1.0f;
+	public float speed = 1.25f;
 
 	public override void _Ready() { }
 
