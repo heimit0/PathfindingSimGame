@@ -37,7 +37,8 @@ public partial class Mainmenu : Control
 		String[] backdrops = {"baumodus_save", "pruef_level1_astar","level3_dijkstra","level1_dfs"}; //kann noch erweitert werden
 		Random r = new();
 		loadRandomBackdrop();
-	
+
+		Globals.stopBackgroundMusic();
 	}
 
 	public void loadRandomBackdrop()
