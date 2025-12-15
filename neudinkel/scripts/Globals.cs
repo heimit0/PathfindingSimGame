@@ -19,7 +19,7 @@ public partial class Globals : Node
 {
 
 	private static readonly string configFilePath = "user://config.json";
-	private static AudioStreamPlayer asp;
+	private static AudioStreamPlayer[] asp;
 
 	//variablen
 	public static Random rand { get; set; }
@@ -45,8 +45,8 @@ public partial class Globals : Node
 		Globals.rand = new Random();
 		Globals.config = new NeudinkelConfig();
 
-		asp = new AudioStreamPlayer();
-		AddChild(asp);
+		asp = new AudioStreamPlayer[] { new AudioStreamPlayer(), new AudioStreamPlayer() };
+		foreach (AudioStreamPlayer _asp in Globals.asp) AddChild(_asp);
 
 		Globals.loadGame();
 		initUserLevelDir();
@@ -152,9 +152,7 @@ public partial class Globals : Node
 	/// </summary>
 	public static void playBackgroundMusic(string file)
 	{
-		Globals.asp.Stop();
-		Globals.asp.Stream = GD.Load<AudioStream>(file);
-		Globals.asp.Play();
+		Globals.playSound(file, 0);
 	}
 
 	/// <summary>
@@ -162,7 +160,25 @@ public partial class Globals : Node
 	/// </summary>
 	public static void stopBackgroundMusic()
 	{
-		Globals.asp.Stop();
+		Globals.stopSound(0);
 	}
+
+	public static void playSfx(string file)
+	{
+		Globals.playSound(file, 1);
+	}
+
+	public static void playSound(string file, int channel)
+	{
+		Globals.asp[channel].Stop();
+		Globals.asp[channel].Stream = GD.Load<AudioStream>(file);
+		Globals.asp[channel].Play();
+	}
+
+	public static void stopSound(int channel)
+	{
+		Globals.asp[channel].Stop();
+	}
+
 
 }

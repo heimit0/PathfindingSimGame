@@ -159,6 +159,7 @@ public partial class PruefungsGameManager : SimulationGameManager
 		Globals.config.progress |= levelBit;
 
 		Globals.saveGame();
+		Globals.playSfx("assets/sounddesign/levelCompleted.wav");
 	}
 
 
@@ -194,11 +195,14 @@ public partial class PruefungsGameManager : SimulationGameManager
 			popup.Hide();
 			lvlFailed.Exclusive = false;
 			lvlFailed.PopupWindow = false;
+			Globals.playSfx("assets/sounddesign/levelFailedSound.wav");
 		}
 
 		returnToCheckpoint();
 		this.minimap.updateMinimapNodes(this.currentAlgorithm);
 		this.currentAlgorithm.visualize(this.graph, this);
+
+		Globals.playSfx("assets/sounddesign/mistake.wav");
 	}
 
 	//Legacy
