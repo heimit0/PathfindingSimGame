@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyy7eco7tcq76"]
+[gd_scene load_steps=3 format=3 uid="uid://cyy7eco7tcq76"]
 
 [ext_resource type="PackedScene" uid="uid://d1sqp4goxlq17" path="res://models/CurrentCrystal.fbx" id="1_8jat7"]
+[ext_resource type="Script" uid="uid://b771k1ebbyp7" path="res://models/CurrentCrystal.cs" id="2_pd0y2"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="CurrentCrystal" parent="." instance=ExtResource("1_8jat7")]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, -0.8, 0)
+script = ExtResource("2_pd0y2")
