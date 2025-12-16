@@ -189,14 +189,16 @@ public partial class BauGameManager : GameManager
 
 				if (n.Equals(this.startNode))
 				{
-					this.startNode = null;
 					this.startNode.isStartNode = false;
+					this.startNode = null;
+					
 					GD.Print("Baumodus: reset start node!");
 				}
 
 				if (n.Equals(this.goalNode))
 				{
 					this.goalNode.isGoalNode = false;
+					this.goalNode = null;
 					GD.Print("Baumodus: reset goal node!");
 				}
 			}
