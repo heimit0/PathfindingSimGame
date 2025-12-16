@@ -213,8 +213,9 @@ public partial class GraphNode : Node3D
 		foreach (GraphNode head in this.getNeighbours()) heads.Add(head);
 		List<GraphNode> visitedNodes = [this, .. heads, .. visited];
 		int numCitiesFound = 0;
+		int iter = 0;
 
-		while (numCitiesFound < heads.Count)
+		while (numCitiesFound < heads.Count && iter < 10_000)
 		{
 			// c# bullshit
 			List<GraphNode> newHeads = [];
