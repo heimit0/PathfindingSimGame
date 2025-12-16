@@ -215,8 +215,9 @@ public partial class GraphNode : Node3D
 		int numCitiesFound = 0;
 		int iter = 0;
 
-		while (numCitiesFound < heads.Count && iter < 10_000)
+		while (numCitiesFound < heads.Count && iter < 100_000)
 		{
+			iter++;
 			// c# bullshit
 			List<GraphNode> newHeads = [];
 			foreach (GraphNode head in heads)
