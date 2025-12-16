@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://c78lxudqk6v1w"]
+
+[ext_resource type="Script" uid="uid://e8fcir0uely1" path="res://scripts/ui_buttons/Startup.cs" id="1_5g6lu"]
+[ext_resource type="Texture2D" uid="uid://difjxlhpef5np" path="res://assets/ui_icons/neudinkelIconwhite.svg" id="2_5g6lu"]
+
+[sub_resource type="Animation" id="Animation_5g6lu"]
+resource_name = "fadetoblack"
+length = 5.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rotfront:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 5.4, 5.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7d0ct"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rotfront:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a8vkl"]
+_data = {
+&"RESET": SubResource("Animation_7d0ct"),
+&"fadetoblack": SubResource("Animation_5g6lu")
+}
+
+[node name="FALKR" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5g6lu")
+
+[node name="Nowhere" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="NeudinkelIconwhite" type="Sprite2D" parent="."]
+position = Vector2(577.7907, 291)
+scale = Vector2(0.65697676, 0.65697676)
+texture = ExtResource("2_5g6lu")
+
+[node name="ADLR" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a8vkl")
+}
+
+[node name="Rotfront" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
