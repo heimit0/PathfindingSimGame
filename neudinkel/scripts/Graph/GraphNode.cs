@@ -127,6 +127,13 @@ public partial class GraphNode : Node3D
 				break;
 			// if street
 			case 2:
+				if ((int) this.streetType == 0)
+				{
+					//koennte am lvl liegen, wenn city tiles streetType 0 haben
+					GD.PrintErr("Tried to load streettile with streetType 0! Aborting...");
+					return;
+				}
+
 				this.tile = getStreetTileAsset(_neighbours[0], _neighbours[1]);
 				break;
 		}
@@ -208,15 +215,16 @@ public partial class GraphNode : Node3D
 
 	// suche alle anliegenden Knoten mit genau 1 oder > 2 Nachbarn
 	public GraphNode[] getNeighbouringCities(GraphNode[] visited)
-	{
+		{
 		List<GraphNode> heads = [];
 		foreach (GraphNode head in this.getNeighbours()) heads.Add(head);
 		List<GraphNode> visitedNodes = [this, .. heads, .. visited];
 		int numCitiesFound = 0;
 		int iter = 0;
 
-		while (numCitiesFound < heads.Count && iter < 10_000)
+		while (numCitiesFound < heads.Count && iter < 100_000)
 		{
+			iter++;
 			// c# bullshit
 			List<GraphNode> newHeads = [];
 			foreach (GraphNode head in heads)
@@ -225,6 +233,7 @@ public partial class GraphNode : Node3D
 			}
 
 			numCitiesFound = 0;
+			List<GraphNode> headsToRemove = [];
 			foreach (GraphNode head in heads)
 			{
 				// win condition
@@ -234,24 +243,37 @@ public partial class GraphNode : Node3D
 					continue;
 				}
 
+				int addedNeighbours = 0;
+
 				foreach (GraphNode newHead in head.getNeighbours())
 				{
 					// if not alter nachbar => nur neue nachbarn angucken
 					if (!visitedNodes.Contains(newHead))
 					{
+						if (this.tilePosX == 9 && this.tilePosY == 3) GD.Print("new head debug: " + newHead.getTilePosString());
 						visitedNodes.Add(newHead);
 						newHeads.Remove(head);
 						newHeads.Add(newHead);
+						addedNeighbours++;
 					}
 					// if city aber nicht goalnode => abbrechen
-					else if (newHead.getNeighbours().Length == 1 || newHead.getNeighbours().Length > 2)
+					else if (newHead.getNeighbours().Length == 1 || newHead.getNeighbours().Length > 2 || newHead.Equals(this))
 					{
 						newHeads.Remove(head);
 					}
 				}
+
+				if (addedNeighbours == 0) headsToRemove.Add(head);
 			}
 
 			heads = newHeads;
+
+			foreach (GraphNode headToRemove in headsToRemove)
+			{
+				heads.Remove(headToRemove);
+			}
+
+			if (heads.Count == 0) break;
 		}
 
 		return heads.ToArray();
