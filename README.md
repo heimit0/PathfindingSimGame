@@ -1,7 +1,5 @@
-# Algorithmen und Datenstrukturen Gruppe D3
+# PathfindingSim
+Pathfinding Game created at HSMW for the Module Algorithms and Data structures.
 
-# Setup
-
-Dieses Repo kann einfach mit `git clone git@git.hs-mittweida.de:hsimosse/algodat_3d_graphen_und_wegfindung.git` geklont werden.
-
-Am Besten erstellt sich jede:r einen eigenen Branch mit eurem Kürzel, zum Beispiel dev/jotto5, damit wir getrennt arbeiten können. Wenn ein Feature fertig ist werden die Änderungen dann per Pull-Request in Gitlab auf dem main-Branch übertragen.
+## Goals
+Simplification and Gamification of learning Pathfinding algorithms like a* and Dijkstra
